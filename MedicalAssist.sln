@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{E8D61428-2A15-484A-A4FE-A50E391E48E2}"
-	ProjectSection(SolutionItems) = preProject
-		MedicalAssist.API\Images\background.jpg = MedicalAssist.API\Images\background.jpg
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CEF49FF7-383B-4875-873A-9FC923D6A8F1}"
 EndProject
