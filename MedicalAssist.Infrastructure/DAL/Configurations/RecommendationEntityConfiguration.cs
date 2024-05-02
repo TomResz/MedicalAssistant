@@ -11,6 +11,18 @@ internal sealed class RecommendationEntityConfiguration : IEntityTypeConfigurati
     {
         builder.HasKey(x=> x.Id);
 
+        builder.Property(x => x.VisitId)
+            .HasConversion(
+                x => x.Value,
+                x => new(x))
+            .IsRequired();
+
+        builder.HasOne<Visit>()
+            .WithMany(x=>x.Recommendations)
+            .HasForeignKey(x => x.VisitId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+
         builder.Property(x=> x.Id)
             .HasConversion(x=> x.Value, x=> new RecommendationId(x))
             .IsRequired();

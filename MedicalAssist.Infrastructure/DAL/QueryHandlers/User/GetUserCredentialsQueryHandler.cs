@@ -26,7 +26,7 @@ internal sealed class GetUserCredentialsQueryHandler
 		var response = await _context
 			.Users
 			.AsNoTracking()
-			.Where(x=> x.Id.Value == userId.Value)
+			.Where(x=> x.Id == userId)
 			.Select(x => x.ToUserCredentialsDto())
 			.FirstOrDefaultAsync();
 		return response ?? throw new UserNotFoundException();

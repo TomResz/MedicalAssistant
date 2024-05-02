@@ -15,7 +15,7 @@ internal sealed class EmailSender : IEmailSender
 		_settings = settings;
 	}
 
-	public async Task SendEmailAsync(string receiver,string subject, string bodyHtml)
+	public async Task SendEmailAsync(string receiver, string subject, string bodyHtml)
 	{
 		var mailMessage = new MailMessage
 		{
@@ -30,7 +30,7 @@ internal sealed class EmailSender : IEmailSender
 
 		await _client.SendMailAsync(mailMessage);
 	}
-	private AlternateView AddBackgroundView(string imagePath,string body)
+	private static AlternateView AddBackgroundView(string imagePath, string body)
 	{
 		LinkedResource imageResource = new LinkedResource(imagePath);
 		imageResource.ContentId = Guid.NewGuid().ToString();
@@ -52,7 +52,7 @@ internal sealed class EmailSender : IEmailSender
 		        </style>
 		    </head>
 		    <body>
-		        <table class='container' style='background-image: url(""cid:{imageResource.ContentId}""); background-size: cover; background-position: center; width: 100%;'>
+		        <table class='container' style='background-image: url(""cid:{imageResource.ContentId}""); background-size: cover; background-position: center; width: 100%;heigth: 100%'>
 		            <tr>
 		                <td class='content'>
 		                    {body}

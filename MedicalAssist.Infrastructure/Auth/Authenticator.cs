@@ -35,7 +35,7 @@ internal sealed class Authenticator : IAuthenticator
 
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
+            new Claim(ClaimTypes.NameIdentifier,user.Id.Value.ToString()),
             new Claim(ClaimTypes.Name,user.FullName.Value),
             new Claim(ClaimTypes.Email,user.Email.Value),
             new Claim(ClaimTypes.Role,user.Role.Value),

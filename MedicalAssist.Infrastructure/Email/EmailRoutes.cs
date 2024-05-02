@@ -2,4 +2,5 @@
 internal sealed class EmailRoutes
 {
 	public string VerificationCodeRoute { get; set; }
+	public string RegeneratedVerificationCodeRoute { get; set; }
 }

@@ -15,6 +15,9 @@ public class Visit : AggregateRoot<VisitId>
     public VisitDescription VisitDescription { get; private set; }
     public VisitType VisitType { get; private set; }
     public bool WasVisited { get; private set; } = false;
+
+	private readonly HashSet<Recommendation> _recommendations = new();
+    public IEnumerable<Recommendation> Recommendations => _recommendations;
     private Visit() { }
 
     private Visit(VisitId id,UserId userId,Address address,Date date, DoctorName doctorName,VisitDescription visitDescription,VisitType visitType)
@@ -43,13 +46,30 @@ public class Visit : AggregateRoot<VisitId>
         return visit;
     }
 
-    public void ChangeDate(Date date)
+    public void AddRecommendation(Recommendation recommendation)
+    {
+        _recommendations.Add(recommendation);
+        AddEvent(new RecommendationAddedEvent(Id,recommendation.Id));
+    }
+
+	public void DeleteRecommendation(RecommendationId recommendationId)
+	{
+        bool wasRemoved = _recommendations.RemoveWhere(x=>x.Id == recommendationId) > 0;
+        if (!wasRemoved)
+        {
+            throw new UnknownRecommendationException(recommendationId);
+        }
+        AddEvent(new RecommendationDeletedEvent(Id, recommendationId));
+	}
+
+	public void ChangeDate(Date date)
     {
         if(Date == date)
         {
             throw new SameDateException();
         }
         Date = date;
+        AddEvent(new VisitDateChangedEvent(Id,date));
     }
 
 }
