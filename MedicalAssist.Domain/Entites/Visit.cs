@@ -46,7 +46,7 @@ public class Visit : AggregateRoot<VisitId>
         return visit;
     }
 
-    public void AddRecommendation(Recommendation recommendation)
+    internal void AddRecommendation(Recommendation recommendation)
     {
         _recommendations.Add(recommendation);
         AddEvent(new RecommendationAddedEvent(Id,recommendation.Id));

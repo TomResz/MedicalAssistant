@@ -38,6 +38,10 @@ internal sealed class RecommendationEntityConfiguration : IEntityTypeConfigurati
 
         builder.ComplexProperty(x => x.Medicine, conf =>
         {
+            conf.Property(x => x.TimeOfDay)
+                .HasConversion(x => x.Value, x => new TimeOfDay(x))
+                .IsRequired();
+
             conf.Property(x => x.Name)
                 .HasConversion(x => x.Value, x => new MedicineName(x))
                 .IsRequired();

@@ -2,6 +2,7 @@ using MedicalAssist.Infrastructure;
 using MedicalAssist.Application;
 using MedicalAssist.Infrastructure.Middleware;
 using Serilog;
+using MedicalAssist.Domain;
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -11,7 +12,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddApplication()
-    .AddInfrastructure(builder.Configuration);
+    .AddInfrastructure(builder.Configuration)
+    .AddDomain();
 
 builder.Host.UseSerilog((context, configuration) =>
         configuration
