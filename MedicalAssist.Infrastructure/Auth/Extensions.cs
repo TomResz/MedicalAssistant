@@ -1,11 +1,12 @@
 ﻿using MedicalAssist.Application.Contracts;
 using MedicalAssist.Application.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+
 
 namespace MedicalAssist.Infrastructure.Auth;
 internal static class Extensions
@@ -15,6 +16,10 @@ internal static class Extensions
     {
         AuthOptions options = configuration.GetOptions<AuthOptions>(OptionsSectionName);
 		services.Configure<AuthOptions>(configuration.GetSection(OptionsSectionName));
+        services.AddAuthorizationBuilder()
+            .AddPolicy(CustomClaim.IsVerified, b => b.AddRequirements(new UserVerification(true)))
+            .AddPolicy(CustomClaim.IsNotVerified, b => b.AddRequirements(new UserVerification(false)));
+        services.AddScoped<IAuthorizationHandler,UserVerificationHandler>();
 
 		services
 			.AddSingleton<IAuthenticator, Authenticator>()

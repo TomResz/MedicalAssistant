@@ -3,6 +3,7 @@ using MedicalAssist.API.QueryPolicy;
 using MedicalAssist.Application.Dto;
 using MedicalAssist.Application.Pagination;
 using MedicalAssist.Application.Visits.Commands.AddVisit;
+using MedicalAssist.Application.Visits.Commands.ConfirmVisit;
 using MedicalAssist.Application.Visits.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -30,5 +31,12 @@ public class VisitController : ControllerBase
 		var order = SortingParameters.FromString(direction);
 		var query = new GetPageOfCurrentVisitsQuery(pageParameters.Page, pageParameters.PageSize,order);
 		return await _mediator.Send(query);
+	}
+
+	[HttpPut("confirm")]
+	public async Task<IActionResult> ConfirmVisit([FromBody]ConfirmVisitCommand command)
+	{
+		await _mediator.Send(command);
+		return NoContent();
 	}
 }

@@ -45,6 +45,7 @@ internal sealed class SignInCommandHandler
 
 		return new(user.Role.Value,
 			user.FullName,
-			jwt.AccessToken);
+			jwt.AccessToken,
+			jwt.Expiration);
 	}
 }

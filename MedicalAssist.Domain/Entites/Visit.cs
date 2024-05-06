@@ -71,5 +71,9 @@ public class Visit : AggregateRoot<VisitId>
         Date = date;
         AddEvent(new VisitDateChangedEvent(Id,date));
     }
-
+    public void ConfirmVisit() 
+    {
+        WasVisited = true;
+        AddEvent(new VisitConfirmedEvent(Id));
+    } 
 }

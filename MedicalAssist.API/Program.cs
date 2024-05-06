@@ -21,6 +21,18 @@ builder.Host.UseSerilog((context, configuration) =>
                 .Configuration(context.Configuration)
     );
 
+builder.Services.AddCors(options=>
+{
+    options.AddPolicy("Frontend", builder =>
+    {
+        builder
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowAnyOrigin();
+    });
+});
+
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -29,6 +41,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("Frontend");
 app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();

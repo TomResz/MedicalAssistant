@@ -1,6 +1,4 @@
-﻿using MedicalAssist.Domain.ValueObjects;
-
-namespace MedicalAssist.Application.Dto;
+﻿namespace MedicalAssist.Application.Dto;
 public class Location
 {
 	public string City { get; set; }

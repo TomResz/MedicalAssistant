@@ -1,11 +1,16 @@
 ﻿using MediatR;
 using MedicalAssist.API.Models;
-using MedicalAssist.Application.Recommendations.Commands;
+using MedicalAssist.Application.Dto;
+using MedicalAssist.Application.Recommendations.Commands.AddRecommendation;
+using MedicalAssist.Application.Recommendations.Commands.DeleteRecommendation;
+using MedicalAssist.Application.Recommendations.Queries;
+using MedicalAssist.Infrastructure.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedicalAssist.API.Controllers;
-[Authorize]
+
+[Authorize($"{CustomClaim.IsVerified}")]
 [Route("api/{visitId:guid}/[controller]")]
 [ApiController]
 public class RecommendationController : ControllerBase
@@ -24,6 +29,17 @@ public class RecommendationController : ControllerBase
 				  model.Quantity,
 					model.TimeOfDay);
 		await _mediator.Send(command);
+		return NoContent();
+	}
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<RecommendationDto>>> Get([FromRoute] Guid visitId) 
+		=> Ok(await _mediator.Send(new GetRecommendationsForVisitQuery(visitId)));
+
+	[HttpDelete("{recommendationId:guid}")]
+	public async Task<IActionResult> Delete([FromRoute]Guid visitId, [FromRoute]Guid recommendationId)
+	{
+		await _mediator.Send(new DeleteRecommendationCommand(visitId, recommendationId));
 		return NoContent();
 	}
 }

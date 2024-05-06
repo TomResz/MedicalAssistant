@@ -39,6 +39,7 @@ internal sealed class Authenticator : IAuthenticator
             new Claim(ClaimTypes.Name,user.FullName.Value),
             new Claim(ClaimTypes.Email,user.Email.Value),
             new Claim(ClaimTypes.Role,user.Role.Value),
+            new Claim(CustomClaim.IsVerified,user.IsVerified.ToString()),
         };
 
         var expires = now.Add(_expiry);
@@ -47,7 +48,8 @@ internal sealed class Authenticator : IAuthenticator
 
         return new JwtDto()
         {
-            AccessToken = token
+            AccessToken = token,
+            Expiration = expires,
         };
     }
 }
