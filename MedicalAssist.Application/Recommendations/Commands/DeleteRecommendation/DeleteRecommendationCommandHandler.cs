@@ -21,7 +21,7 @@ internal sealed class DeleteRecommendationCommandHandler : IRequestHandler<Delet
 
         if (visit is null)
         {
-            throw new UnknownVisitException();
+            throw new UnknownVisitException(request.RecommendationId);
         }
 
         visit.DeleteRecommendation(request.RecommendationId);

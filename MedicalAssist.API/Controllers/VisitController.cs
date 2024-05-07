@@ -7,6 +7,7 @@ using MedicalAssist.Application.Visits.Commands.ConfirmVisit;
 using MedicalAssist.Application.Visits.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace MedicalAssist.API.Controllers;
 [Route("api/[controller]")]
@@ -39,4 +40,16 @@ public class VisitController : ControllerBase
 		await _mediator.Send(command);
 		return NoContent();
 	}
+
+	[HttpGet("{id:guid}")]
+	public async Task<ActionResult<VisitDto>> Get(Guid id)
+		=> Ok(await _mediator.Send(new GetDetailsOfVisitQuery(id)));
+
+    [HttpGet("calendar")]
+    public async Task<ActionResult<IEnumerable<VisitDateAvailableCountDto>>> GetCount()
+		=> Ok(await _mediator.Send(new GetCountOfVisitsQuery()));
+
+    [HttpGet("month={month:int}")]
+    public async Task<ActionResult<IEnumerable<VisitDateAvailableCountDto>>> GetCountByMount([FromRoute][Range(1,12)]int month)
+		=> Ok(await _mediator.Send(new GetCountOfVisitsByMonthQuery(month)));
 }

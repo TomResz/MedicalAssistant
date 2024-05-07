@@ -16,4 +16,8 @@ public sealed class UnknownVisitException : BadRequestException
 	{
 
 	}
+    public UnknownVisitException(Guid visitId) : base($"Visit with given id='{visitId}' was not found.")
+    {
+
+    }
 }

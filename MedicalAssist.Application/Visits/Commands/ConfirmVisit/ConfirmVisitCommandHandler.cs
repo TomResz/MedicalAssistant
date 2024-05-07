@@ -21,7 +21,7 @@ internal sealed class ConfirmVisitCommandHandler : IRequestHandler<ConfirmVisitC
 
         if(visit is null)
         {
-            throw new UnknownVisitException();
+            throw new UnknownVisitException(request.VisistId);
         }
 
         if (visit.WasVisited)
