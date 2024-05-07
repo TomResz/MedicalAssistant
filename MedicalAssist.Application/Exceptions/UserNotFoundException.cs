@@ -7,4 +7,8 @@ public sealed class UserNotFoundException : BadRequestException
     {
         
     }
+    public UserNotFoundException(string email) : base($"User with given email='{email}' not found.")
+    {
+
+    }
 }

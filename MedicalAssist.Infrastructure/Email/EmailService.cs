@@ -11,7 +11,10 @@ internal sealed class EmailService : IEmailService
 		_routes = routes;
 	}
 
-	public async Task SendMailWithRegenerateVerificationCode(string email, string newVerificationCode)
+    public async Task SendMailWithChangePasswordCode(string email, string code)
+		=> await _emailSender.SendEmailAsync("tomaszres@interia.pl", "Medical Assist - Verification Code", EmailHtmlBodies.PasswordChange(_routes.PasswordChange, code));
+
+    public async Task SendMailWithRegenerateVerificationCode(string email, string newVerificationCode)
 		=> await _emailSender.SendEmailAsync("tomaszres@interia.pl", "Medical Assist - Verification Code", EmailHtmlBodies.GetRegeneratedVerificationCodeHtml(_routes.RegeneratedVerificationCodeRoute, newVerificationCode));
 
 

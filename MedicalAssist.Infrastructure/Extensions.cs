@@ -19,10 +19,8 @@ public static class Extensions
             .AddMiddleware()
             .AddPersistance(configuration)
             .AddAuth(configuration)
-            .AddSingleton<IPasswordManager, PasswordManager>()
             .AddSingleton<IClock, Clock>()
-            .AddSingleton(typeof(IPasswordHasher<>), typeof(PasswordHasher<>))
-            .AddTransient<ICodeVerification,CodeVerification>()
+            .AddSecurity()
             .AddMediatR(conf =>
 		    {
 			    conf.RegisterServicesFromAssemblies(typeof(Extensions).Assembly);

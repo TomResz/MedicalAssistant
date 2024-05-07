@@ -1,5 +1,7 @@
 ﻿using MediatR;
 using MedicalAssist.Application.Dto;
+using MedicalAssist.Application.User.Commands.PasswordChangeByCode;
+using MedicalAssist.Application.User.Commands.PasswordChangeByEmail;
 using MedicalAssist.Application.User.Commands.RegenerateVerificationCode;
 using MedicalAssist.Application.User.Commands.SignIn;
 using MedicalAssist.Application.User.Commands.SignUp;
@@ -45,4 +47,18 @@ public class UserController : ControllerBase
 		await _mediator.Send(command);
 		return NoContent();
 	}
+
+    [HttpPost("password-change")]
+    public async Task<IActionResult> PasswordChange(PasswordChangeByEmailCommand command)
+    {
+        await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpPut("password-change-by-code")]
+    public async Task<IActionResult> PasswordChangeByCode(PasswordChangeByCodeCommand command )
+    {
+        await _mediator.Send(command);
+        return NoContent();
+    }
 }

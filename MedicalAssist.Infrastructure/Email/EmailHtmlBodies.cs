@@ -1,6 +1,4 @@
-﻿using System.Net.Mail;
-
-namespace MedicalAssist.Infrastructure.Email;
+﻿namespace MedicalAssist.Infrastructure.Email;
 internal sealed class EmailHtmlBodies
 {
 	public static string GetVerificationCodeHtml(string route,string verificationCode)
@@ -22,4 +20,14 @@ internal sealed class EmailHtmlBodies
         ";
 		return htmlBody;
 	}
+
+	public static string PasswordChange(string route,string code)
+	{
+        var htmlBody = $@"    
+			<p style='font-family: Arial, sans-serif; color: #333; font-size: 20px;'><b>{code}</b>.</p>
+			<p style='font-family: Arial, sans-serif; color: #333; font-size: 20px;'>Press the button below to change your password.</p>
+			<a href='{route}={code}' style='text-decoration: none; background-color: #007bff; color: #fff; padding: 15px 30px; font-family: Arial, sans-serif; font-size: 20px; border-radius: 5px; cursor: pointer; display: inline-block;'>Change Password</a>
+        ";
+        return htmlBody;
+    }
 }

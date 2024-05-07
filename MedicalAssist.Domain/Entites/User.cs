@@ -102,5 +102,8 @@ public class User : AggregateRoot<UserId>
 		AddEvent(new VerificationCodeRegeneratedEvent(Id));
 	}
 
-
+	public void SendEmailForPasswordChange(string code)
+	{
+		AddEvent(new SendEmailForPasswordChangeEvent(Id, code));
+	}
 }
