@@ -3,6 +3,7 @@ using MedicalAssist.Application;
 using MedicalAssist.Infrastructure.Middleware;
 using Serilog;
 using MedicalAssist.Domain;
+using MedicalAssist.Infrastructure.DAL;
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -37,6 +38,7 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    app.ApplyMigrations();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
@@ -45,7 +47,7 @@ app.UseCors("Frontend");
 app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

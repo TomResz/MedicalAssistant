@@ -2,7 +2,6 @@
 using MedicalAssist.Application.Contracts;
 using MedicalAssist.Application.Dto;
 using MedicalAssist.Application.Visits.Queries;
-using MedicalAssist.Domain.ValueObjects;
 using MedicalAssist.Domain.ValueObjects.IDs;
 using Microsoft.EntityFrameworkCore;
 

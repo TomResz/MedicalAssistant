@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MedicalAssist.API.Controllers;
 
-[Authorize($"{CustomClaim.IsVerified}")]
+[Authorize(Roles ="user",Policy =CustomClaim.IsVerified)]
 [Route("api/{visitId:guid}/[controller]")]
 [ApiController]
 public class RecommendationController : ControllerBase
@@ -27,7 +27,9 @@ public class RecommendationController : ControllerBase
 			 model.ExtraNote,
 			   model.MedicineName,
 				  model.Quantity,
-					model.TimeOfDay);
+					model.TimeOfDay,
+					model.StartDate,
+					 model.EndDate);
 		await _mediator.Send(command);
 		return NoContent();
 	}
@@ -42,4 +44,8 @@ public class RecommendationController : ControllerBase
 		await _mediator.Send(new DeleteRecommendationCommand(visitId, recommendationId));
 		return NoContent();
 	}
+
+	[HttpGet("period")]
+	public async Task<ActionResult<IEnumerable<RecommendationDto>>> GetRecommendationForTimePeriod([FromRoute]Guid visitId, [FromQuery]DateTime begin, [FromQuery]DateTime end)
+		=> Ok(await _mediator.Send(new GetRecommendationsForGivenTimePeriodQuery(visitId, begin, end)));
 }

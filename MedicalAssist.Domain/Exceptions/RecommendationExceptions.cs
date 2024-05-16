@@ -9,3 +9,11 @@ public class UnknownRecommendationException : BadRequestException
         
     }
 }
+
+public sealed class InvalidEndDateException : BadRequestException
+{
+    public InvalidEndDateException() : base($"Start date is greater than end date.")
+    {
+        
+    }
+}

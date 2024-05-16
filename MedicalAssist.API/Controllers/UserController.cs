@@ -7,6 +7,10 @@ using MedicalAssist.Application.User.Commands.SignIn;
 using MedicalAssist.Application.User.Commands.SignUp;
 using MedicalAssist.Application.User.Commands.VerifyAccount;
 using MedicalAssist.Application.User.Queries;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedicalAssist.API.Controllers;
@@ -60,5 +64,19 @@ public class UserController : ControllerBase
     {
         await _mediator.Send(command);
         return NoContent();
+    }
+
+    [HttpGet("login-google")]
+    public IActionResult LoginGoogle()
+    {
+        var properties = new AuthenticationProperties() { RedirectUri = "api/user/signin-google" };
+        return Challenge(properties, "Google");
+    }
+
+    [HttpGet("signin-google")]
+    public async Task<IActionResult> SigninGoogle()
+    {
+        AuthenticateResult response = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+        return Ok();
     }
 }

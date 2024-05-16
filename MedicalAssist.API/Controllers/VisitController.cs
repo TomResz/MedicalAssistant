@@ -52,4 +52,8 @@ public class VisitController : ControllerBase
     [HttpGet("month={month:int}")]
     public async Task<ActionResult<IEnumerable<VisitDateAvailableCountDto>>> GetCountByMount([FromRoute][Range(1,12)]int month)
 		=> Ok(await _mediator.Send(new GetCountOfVisitsByMonthQuery(month)));
+
+	[HttpGet("day={day}")]
+	public async Task<ActionResult<IEnumerable<VisitDto>>> GetVisitsByDay(DateTime day)
+		=> Ok(await _mediator.Send(new GetVisitsByDayQuery(day)));
 }

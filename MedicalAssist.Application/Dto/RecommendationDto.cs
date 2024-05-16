@@ -7,4 +7,6 @@ public class RecommendationDto
     public string MedicineName { get; set; }
     public int MedicineQuantity { get; set; }
     public string MedicineTimeOfDay { get; set; }
+    public DateTime BeginDate { get; set; }
+    public DateTime EndDate { get; set; }
 }

@@ -12,5 +12,7 @@ internal static class RecommendationsToDto
             MedicineName = recommendation.Medicine.Name,
             MedicineQuantity = recommendation.Medicine.Quantity,
             MedicineTimeOfDay = recommendation.Medicine.TimeOfDay,
+            BeginDate = recommendation.StartDate,
+            EndDate = recommendation.EndDate,
         };
 }

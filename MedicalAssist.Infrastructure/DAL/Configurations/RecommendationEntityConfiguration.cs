@@ -36,6 +36,14 @@ internal sealed class RecommendationEntityConfiguration : IEntityTypeConfigurati
             .HasConversion(x=> x.Value, x => new Date(x))
             .IsRequired();
 
+        builder.Property(x => x.StartDate)
+            .HasConversion(x => x.Value, x => new Date(x))
+            .IsRequired();
+
+        builder.Property(x => x.EndDate)
+            .HasConversion(x => x.Value, x => new Date(x))
+            .IsRequired();
+
         builder.ComplexProperty(x => x.Medicine, conf =>
         {
             conf.Property(x => x.TimeOfDay)

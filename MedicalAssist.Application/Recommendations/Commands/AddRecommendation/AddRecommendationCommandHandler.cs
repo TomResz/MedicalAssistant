@@ -30,7 +30,9 @@ internal sealed class AddRecommendationCommandHandler : IRequestHandler<AddRecom
             request.VisitId,
              request.ExtraNote,
              _clock.GetCurrentUtc(),
-             new(request.MedicineName, request.Quantity, request.TimeOfDay));
+             new(request.MedicineName, request.Quantity, request.TimeOfDay),
+             request.StartDate,
+             request.EndDate);
 
         var userId = _userContext.GetUserId;
         var visit = await _visitRepository.GetByIdAsync(request.VisitId, cancellationToken);

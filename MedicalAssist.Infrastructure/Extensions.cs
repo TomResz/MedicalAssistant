@@ -1,5 +1,4 @@
-﻿using MedicalAssist.Application.Security;
-using MedicalAssist.Domain.Abstraction;
+﻿using MedicalAssist.Domain.Abstraction;
 using MedicalAssist.Infrastructure.Auth;
 using MedicalAssist.Infrastructure.BackgrounJobs;
 using MedicalAssist.Infrastructure.DAL;
@@ -7,7 +6,6 @@ using MedicalAssist.Infrastructure.Email;
 using MedicalAssist.Infrastructure.Middleware;
 using MedicalAssist.Infrastructure.Security;
 using MedicalAssist.Infrastructure.Time;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
