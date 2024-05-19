@@ -22,30 +22,40 @@ internal sealed class SignInCommandHandler
 		_authenticator = authenticator;
 	}
 	public async Task<SignInResponse> Handle(SignInCommand request, CancellationToken cancellationToken)
-	{
-		var (email, password) = request;
+    {
+        var (email, password) = request;
 
-		_ = new Email(email);
-		_ = new Password(password);
+        _ = new Email(email);
+        _ = new Password(password);
 
-		var user = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
+        var user = await _userRepository.GetByEmailAsync(request.Email, cancellationToken)
+            ?? throw new InvalidSignInCredentialsException();
 
-		if (user is null ||
-			!_passwordManager.IsValid(request.Password, user.Password))
-		{
-			throw new InvalidSignInCredentialsException();
-		}
+        ValidateUser(request, user);
 
-		if (!user.IsVerified)
-		{
-			throw new UnverifiedUserException();
-		}
+        var jwt = _authenticator.GenerateToken(user);
 
-		var jwt = _authenticator.GenerateToken(user);
+        return new(user.Role.Value,
+            user.FullName,
+            jwt.AccessToken,
+            jwt.Expiration);
+    }
 
-		return new(user.Role.Value,
-			user.FullName,
-			jwt.AccessToken,
-			jwt.Expiration);
-	}
+    private void ValidateUser(SignInCommand request, Domain.Entites.User user)
+    {
+        if (user.HasExternalLoginProvider)
+        {
+            throw new InvalidLoginProviderException();
+        }
+
+        if (!_passwordManager.IsValid(request.Password, user.Password!))
+        {
+            throw new InvalidSignInCredentialsException();
+        }
+
+        if (!user.IsVerified)
+        {
+            throw new UnverifiedUserException();
+        }
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using MedicalAssist.Application.Dto;
+using MedicalAssist.Application.User.Commands.ExternalLogIn;
 using MedicalAssist.Application.User.Commands.PasswordChangeByCode;
 using MedicalAssist.Application.User.Commands.PasswordChangeByEmail;
 using MedicalAssist.Application.User.Commands.RegenerateVerificationCode;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace MedicalAssist.API.Controllers;
 [Route("api/[controller]")]
@@ -67,16 +69,24 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("login-google")]
-    public IActionResult LoginGoogle()
+    public IActionResult LoginGoogle(string callbackPath = "/")
     {
-        var properties = new AuthenticationProperties() { RedirectUri = "api/user/signin-google" };
+        var properties = new AuthenticationProperties() { RedirectUri = callbackPath};
         return Challenge(properties, "Google");
     }
 
-    [HttpGet("signin-google")]
-    public async Task<IActionResult> SigninGoogle()
+    [HttpPost("signin-google")]
+    public async Task<IActionResult> SignInGoogle()
     {
         AuthenticateResult response = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
-        return Ok();
+
+        if(response is null || response.Principal is null)
+        {
+            return BadRequest();
+        }
+
+        var command = new ExternalLogInCommand(response.Principal, response.Ticket?.AuthenticationScheme);
+        var result = await _mediator.Send(command);
+        return Ok(result);
     }
 }

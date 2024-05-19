@@ -8,18 +8,21 @@ namespace MedicalAssist.Domain.Entites;
 public class User : AggregateRoot<UserId>
 {
 	public Email Email { get; private set; }
-	public Password Password { get; private set; }
+	public Password? Password { get; private set; }
 	public FullName FullName { get; private set; }
 	public Role Role { get; private set; }
 	public Date CreatedAtUtc { get; private set; }
 
-	public UserVerification UserVerification { get; private set; }
+	public ExternalUserLogin? ExternalUserProvider { get; private set; }
+	public UserVerification? UserVerification { get; private set; }
 	public bool IsVerified { get; private set; } = false;
+	public bool HasExternalLoginProvider { get; private set; } = false;
 
     private readonly HashSet<Visit> _visits = new();
 	public IEnumerable<Visit> Visits => _visits;
 	protected User() { }
-	private User(UserId id, Email email, Password password, FullName fullName, Role role, Date createdAtUtc)
+	
+	private User(UserId id, Email email, Password password, FullName fullName, Role role, Date createdAtUtc,bool hasExternalLoginProvider,bool isVerified)
 	{
 		Id = id;
 		Email = email;
@@ -27,9 +30,25 @@ public class User : AggregateRoot<UserId>
 		FullName = fullName;
 		Role = role;
 		CreatedAtUtc = createdAtUtc;
+		HasExternalLoginProvider = hasExternalLoginProvider;
+		IsVerified = isVerified;
 	}
 
-	public static User Create(Email email, Password password, FullName fullName, Role role, Date createdAtUtc,CodeHash codeHash)
+	// For external login provider
+    private User(UserId id, Email email, FullName fullName, Role role, Date createdAtUtc, bool hasExternalLoginProvider, bool isVerified)
+    {
+        Id = id;
+        Email = email;
+        FullName = fullName;
+        Role = role;
+        CreatedAtUtc = createdAtUtc;
+        HasExternalLoginProvider = hasExternalLoginProvider;
+        IsVerified = isVerified;
+    }
+
+
+
+    public static User Create(Email email, Password password, FullName fullName, Role role, Date createdAtUtc,CodeHash codeHash)
 	{
 		User user = new User(
 			 Guid.NewGuid(),
@@ -37,13 +56,33 @@ public class User : AggregateRoot<UserId>
 			 password,
 			 fullName,
 			 role,
-			 createdAtUtc);
-		user.UserVerification = new UserVerification(Guid.NewGuid(),user.Id,createdAtUtc.AddHours(2),codeHash);
+			 createdAtUtc,
+			 false,
+			 false);
+		user.UserVerification = new UserVerification(user.Id,createdAtUtc.AddHours(2),codeHash);
 	
 		user.AddEvent(new UserCreatedEvent(user.Id));
 		return user;
 	}
-	public void ChangeFullName(FullName fullName)
+
+    public static User CreateByExternalProvider(Email email,FullName fullName, Role role, Date createdAtUtc,ProvidedKey key,Provider provider)
+    {
+		Guid id = Guid.NewGuid();	
+        User user = new User(
+             Guid.NewGuid(),
+             email,
+             fullName,
+             role,
+             createdAtUtc,
+             true,
+             true);
+
+		user.ExternalUserProvider = new ExternalUserLogin(id, key, provider);
+		user.AddEvent(new UserCreatedByExternalLoginProviderEvent(user.Id,provider));
+        return user;
+    }
+
+    public void ChangeFullName(FullName fullName)
 	{
 		if (FullName == fullName)
 		{
@@ -85,7 +124,7 @@ public class User : AggregateRoot<UserId>
 
 	public void VerifyAccount(DateTime currentTime)
 	{
-		if(UserVerification.ExpirationDate.Value < currentTime)
+		if(UserVerification?.ExpirationDate.Value < currentTime)
 		{
 			throw new InactiveVerificationCodeException(); 
 		}
@@ -98,7 +137,7 @@ public class User : AggregateRoot<UserId>
 		{
 			throw new AccountIsAlreadyVerifiedException();
 		}
-		UserVerification.Regenerate(dateTime.AddHours(2), code);
+		UserVerification?.Regenerate(dateTime.AddHours(2), code);
 		AddEvent(new VerificationCodeRegeneratedEvent(Id));
 	}
 

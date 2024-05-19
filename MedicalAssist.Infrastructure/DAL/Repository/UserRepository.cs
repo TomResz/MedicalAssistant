@@ -18,7 +18,7 @@ internal sealed class UserRepository : IUserRepository
         => await _context
         .Users
         .Include(x => x.UserVerification)
-        .FirstOrDefaultAsync(x => x.UserVerification.CodeHash == codeHash,cancellationToken);
+        .FirstOrDefaultAsync(x => x.UserVerification!.CodeHash == codeHash,cancellationToken);
 
 	public async Task<User?> GetByEmailAsync(Domain.ValueObjects.Email email, CancellationToken cancellationToken = default)
         => await _context
@@ -58,4 +58,9 @@ internal sealed class UserRepository : IUserRepository
         .Include(x=>x.UserVerification)
 		.FirstOrDefaultAsync(x => x.Id == userId, cancellationToken);
 
+    public async Task<User?> GetByEmailWithExternalProviderAsync(Domain.ValueObjects.Email email, CancellationToken cancellationToken = default)
+        => await _context
+        .Users
+        .Include(x=>x.ExternalUserProvider)
+        .FirstOrDefaultAsync(x=>x.Email == email, cancellationToken);   
 }

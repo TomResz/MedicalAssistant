@@ -22,4 +22,8 @@
     <ProjectReference Include="..\MedicalAssist.Infrastructure\MedicalAssist.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="SwaggerDocs\" />
+  </ItemGroup>
+
 </Project>

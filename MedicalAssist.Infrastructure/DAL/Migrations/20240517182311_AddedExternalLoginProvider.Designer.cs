@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using MedicalAssist.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MedicalAssist.Infrastructure.Migrations
 {
     [DbContext(typeof(MedicalAssistDbContext))]
-    partial class MedicalAssistDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240517182311_AddedExternalLoginProvider")]
+    partial class AddedExternalLoginProvider
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,7 +129,7 @@ namespace MedicalAssist.Infrastructure.Migrations
 
             modelBuilder.Entity("MedicalAssist.Domain.Entites.UserVerification", b =>
                 {
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid>("Id")
                         .HasColumnType("uuid");
 
                     b.Property<string>("CodeHash")
@@ -136,7 +139,13 @@ namespace MedicalAssist.Infrastructure.Migrations
                     b.Property<DateTime>("ExpirationDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.HasKey("UserId");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("UserVerifications");
                 });

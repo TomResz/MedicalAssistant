@@ -10,13 +10,7 @@ internal sealed class UserVerificationEntityConfiguration
 {
 	public void Configure(EntityTypeBuilder<UserVerification> builder)
 	{
-		builder.HasKey(x=> x.Id);
-
-
-
-		builder.Property(x => x.Id)
-			.HasConversion(x => x.Value, x => new UserVerificationId(x))
-			.IsRequired();
+		builder.HasKey(x=> x.UserId);
 
 		builder.Property(x => x.UserId)
 			.HasConversion(x => x.Value, value => new UserId(value))

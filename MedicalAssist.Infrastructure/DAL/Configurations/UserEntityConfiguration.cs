@@ -25,6 +25,10 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
         builder.Navigation(x => x.UserVerification)
             .IsRequired(false);
 
+
+        builder.Navigation(x => x.ExternalUserProvider)
+            .IsRequired(false);
+
         builder.HasIndex(x => x.Email)
             .IsUnique();
 
@@ -35,7 +39,7 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
         builder.Property(x => x.Password)
             .HasConversion(x => x.Value, x => new Password(x))
             .HasMaxLength(200)
-            .IsRequired();
+            .IsRequired(false);
 
         builder.Property(x=> x.FullName)
             .HasConversion(x=> x.Value,x=> new FullName(x))

@@ -6,6 +6,7 @@ namespace MedicalAssist.Domain.Repositories;
 public interface IUserRepository
 {
     Task<User?> GetByEmailAsync(Email email,CancellationToken cancellationToken = default);
+    Task<User?> GetByEmailWithExternalProviderAsync(Email email, CancellationToken cancellationToken = default);
     Task<User?> GetByEmailWithUserVerificationAsync(Email email,CancellationToken cancellationToken = default);
     Task AddAsync(User user, CancellationToken cancellationToken = default);
     Task<bool> IsEmailUniqueAsync(Email email, CancellationToken cancellationToken = default);

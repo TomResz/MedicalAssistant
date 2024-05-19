@@ -32,7 +32,6 @@ internal static class Extensions
             {
                 o.DefaultScheme = CustomAuthenticationSchema;
                 o.DefaultChallengeScheme = CustomAuthenticationSchema;
-
             })
             .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, o =>
             {
