@@ -4,12 +4,16 @@ using MedicalAssist.Infrastructure.Middleware;
 using Serilog;
 using MedicalAssist.Domain;
 using MedicalAssist.Infrastructure.DAL;
+using MedicalAssist.API.SwaggerDocs;
+using MedicalAssist.API.SwaggerDocs.Security;
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerDoc();
+builder.Services.AddSwaggerAuthMiddleware();
 
 builder.Services
     .AddApplication()
@@ -38,6 +42,7 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseSwaggerAuthMiddleware();
     app.ApplyMigrations();
     app.UseSwagger();
     app.UseSwaggerUI();
