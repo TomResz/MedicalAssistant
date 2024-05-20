@@ -15,12 +15,21 @@ internal class VisitService : IVisitService
 
 	public void AddRecommendation(Visit visit, UserId userId, Recommendation recommendation)
 	{
-
-		if(!_policy.CanAddRecommendation(visit,userId,out string reason)) 
-		{
-			throw new CannotAddRecommendationException(reason);
-		}
-
+        ValidatePolicy(visit, userId);
 		visit.AddRecommendation(recommendation);
 	}
+
+    public void RemoveRecommendation(Visit visit, UserId userId, RecommendationId recommendationId)
+    {
+        ValidatePolicy(visit, userId);
+        visit.DeleteRecommendation(recommendationId);
+    }
+
+    private void ValidatePolicy(Visit visit, UserId userId)
+    {
+        if (!_policy.UserMatchWithVisit(visit, userId))
+        {
+            throw new UserIdDoesntMatchException();
+        }
+    }
 }

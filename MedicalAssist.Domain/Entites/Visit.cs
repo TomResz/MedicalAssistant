@@ -14,7 +14,6 @@ public class Visit : AggregateRoot<VisitId>
     public DoctorName DoctorName { get; private set; }
     public VisitDescription VisitDescription { get; private set; }
     public VisitType VisitType { get; private set; }
-    public bool WasVisited { get; private set; } = false;
 
 	private readonly HashSet<Recommendation> _recommendations = new();
     public IEnumerable<Recommendation> Recommendations => _recommendations;
@@ -33,7 +32,7 @@ public class Visit : AggregateRoot<VisitId>
 
     public static Visit Create(UserId userId, Address address, Date date, DoctorName doctorName, VisitDescription visitDescription, VisitType visitType)
     {
-        Visit visit = new Visit(Guid.NewGuid(),
+        Visit visit = new(Guid.NewGuid(),
 			userId,
             address,
             date,
@@ -70,10 +69,5 @@ public class Visit : AggregateRoot<VisitId>
         }
         Date = date;
         AddEvent(new VisitDateChangedEvent(Id,date));
-    }
-    public void ConfirmVisit() 
-    {
-        WasVisited = true;
-        AddEvent(new VisitConfirmedEvent(Id));
     } 
 }
