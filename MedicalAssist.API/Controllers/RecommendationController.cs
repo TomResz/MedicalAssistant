@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MedicalAssist.API.Controllers;
 
-[Authorize(Roles ="user",Policy =CustomClaim.IsVerified)]
+[Authorize(Roles ="user",Policy = CustomClaim.IsVerified)]
 [Route("api/{visitId:guid}/[controller]")]
 [ApiController]
 public class RecommendationController : ControllerBase

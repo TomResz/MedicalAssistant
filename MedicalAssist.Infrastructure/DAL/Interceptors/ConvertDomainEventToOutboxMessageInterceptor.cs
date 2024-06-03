@@ -1,4 +1,5 @@
-﻿using MedicalAssist.Domain.Primitives;
+﻿using MedicalAssist.Domain.Abstraction;
+using MedicalAssist.Domain.Primitives;
 using MedicalAssist.Infrastructure.Outbox;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Newtonsoft.Json;
@@ -7,7 +8,14 @@ namespace MedicalAssist.Infrastructure.DAL.Interceptors;
 internal sealed class ConvertDomainEventToOutboxMessageInterceptor
 	: SaveChangesInterceptor
 {
-	public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
+	private readonly IClock _clock;
+
+    public ConvertDomainEventToOutboxMessageInterceptor(IClock clock)
+    {
+        _clock = clock;
+    }
+
+    public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
 	{
 		var dbContext = eventData.Context;
 
@@ -30,9 +38,9 @@ internal sealed class ConvertDomainEventToOutboxMessageInterceptor
 			.Select(domainEvent => new OutboxMessage
 			{
 				Id = Guid.NewGuid(),
-				OccurredOnUtc = DateTime.UtcNow,
+				OccurredOnUtc = _clock.GetCurrentUtc(),
 				Type = domainEvent.GetType().Name,
-				Content = JsonConvert.SerializeObject(
+				ContentJson = JsonConvert.SerializeObject(
 					domainEvent,
 					new JsonSerializerSettings
 					{

@@ -3,6 +3,7 @@ using MedicalAssist.Domain.Abstraction;
 using MedicalAssist.Domain.Primitives;
 using MedicalAssist.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Quartz;
 
@@ -14,19 +15,21 @@ internal sealed class ProcessOutboxMessagesJob : IJob
 	private readonly IPublisher _publisher;
 	private readonly MedicalAssistDbContext _context;
 	private readonly IClock _clock;
-	public ProcessOutboxMessagesJob(IPublisher publisher, MedicalAssistDbContext context, IClock clock)
-	{
-		_publisher = publisher;
-		_context = context;
-		_clock = clock;
-	}
+	private readonly ILogger<ProcessOutboxMessagesJob> _logger;
+    public ProcessOutboxMessagesJob(IPublisher publisher, MedicalAssistDbContext context, IClock clock, ILogger<ProcessOutboxMessagesJob> logger)
+    {
+        _publisher = publisher;
+        _context = context;
+        _clock = clock;
+        _logger = logger;
+    }
 
-	public async Task Execute(IJobExecutionContext context)
+    public async Task Execute(IJobExecutionContext context)
 	{
 		List<OutboxMessage> messages = await _context
 			.OutboxMessages
 			.Where(x => x.ProcessedOnUtc == null)
-			.Take(100)
+			.Take(30)
 			.ToListAsync();
 
 		foreach (OutboxMessage message in messages)
@@ -34,7 +37,7 @@ internal sealed class ProcessOutboxMessagesJob : IJob
 			try
 			{
 				IDomainEvent? domainEvent = JsonConvert.DeserializeObject<IDomainEvent>(
-						message.Content,
+						message.ContentJson,
 						new JsonSerializerSettings
 						{
 							TypeNameHandling = TypeNameHandling.All
@@ -42,6 +45,7 @@ internal sealed class ProcessOutboxMessagesJob : IJob
 
 				if (domainEvent is null)
 				{
+					_logger.LogError($"Null domain event processed on {_clock.GetCurrentUtc()}");
 					continue;
 				}
 
@@ -49,9 +53,10 @@ internal sealed class ProcessOutboxMessagesJob : IJob
 			}
 			catch (Exception ex)
 			{
-				message.ErrorMessage = JsonConvert.SerializeObject(new { Message = ex.Message, StackTrace = ex.StackTrace });
-			}
-			finally
+				message.ErrorMessageJson = JsonConvert.SerializeObject(new { Message = ex.Message, StackTrace = ex.StackTrace });
+                _logger.LogError($"There was an error with processing an event with id='{message.Id}' at the following time='{_clock.GetCurrentUtc()}'.");
+            }
+            finally
 			{
 				message.ProcessedOnUtc = _clock.GetCurrentUtc();
 				await _context.SaveChangesAsync(context.CancellationToken);

@@ -6,7 +6,7 @@ using MedicalAssist.Domain.ValueObjects.IDs;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedicalAssist.Infrastructure.DAL.QueryHandlers.Visits;
-internal class GetCountOfVisitsQueryHandler
+internal sealed class GetCountOfVisitsQueryHandler
     : IRequestHandler<GetCountOfVisitsQuery, IEnumerable<VisitDateAvailableCountDto>>
 {
     private readonly IUserContext _userContext;

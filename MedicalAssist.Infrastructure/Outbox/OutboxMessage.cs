@@ -5,11 +5,11 @@ public sealed class OutboxMessage
 
     public string Type { get; set; }
 
-    public string Content { get; set; }
+    public string ContentJson { get; set; }
 
     public DateTime OccurredOnUtc { get; set; }
 
     public DateTime? ProcessedOnUtc { get; set; }
 
-    public string? ErrorMessage { get; set; }
+    public string? ErrorMessageJson { get; set; }
 }
