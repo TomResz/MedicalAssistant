@@ -3,4 +3,5 @@ public sealed record SignInResponse(
     string Role,
     string FullName,
     string Token,
+    string RefreshToken,
     DateTime ExpirationUtc);

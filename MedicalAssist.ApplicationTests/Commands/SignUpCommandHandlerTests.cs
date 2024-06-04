@@ -4,6 +4,7 @@ using MedicalAssist.Application.Exceptions;
 using MedicalAssist.Application.Security;
 using MedicalAssist.Application.User.Commands.SignUp;
 using MedicalAssist.Domain.Abstraction;
+using MedicalAssist.Domain.ComplexTypes;
 using MedicalAssist.Domain.Repositories;
 using MedicalAssist.Domain.ValueObjects;
 using Moq;
@@ -19,6 +20,8 @@ public class SignUpCommandHandlerTests
 
     private readonly SignUpCommand _command = new("Tom Tom", "tom@tom.com", "12345678", Role.User());
 
+    private readonly static DateTime _time = DateTime.UtcNow;
+
     public SignUpCommandHandlerTests()
     {
         _passwordManager = new Mock<IPasswordManager>();
@@ -27,55 +30,54 @@ public class SignUpCommandHandlerTests
         _unitOfWork = new Mock<IUnitOfWork>();
         _codeVerification = new Mock<ICodeVerification>();
         
-        _codeVerification.Setup(x=>x.Generate(It.IsAny<Date>()))
+        _clock.Setup(x => x.GetCurrentUtc())
+            .Returns(() => _time);
+        
+        _codeVerification.Setup(x => x.Generate(_clock.Object.GetCurrentUtc()))
             .Returns("ExampleCODEhash");
     }
-
 
     [Fact]
     public async Task Handle_ValidCredentials_CreatesNewAccount()
     {
         // arrange
-        _userRepository.Setup(x => x.IsEmailUniqueAsync(_command.Email,default))
+        _userRepository.Setup(x => x.IsEmailUniqueAsync(_command.Email, default))
             .ReturnsAsync(true);
         _passwordManager.Setup(x => x.Secure(_command.Password))
             .Returns("hashed-password");
 
-        _clock.Setup(x=> x.GetCurrentUtc())
-            .Returns(() => DateTime.Now);
-
         var handler = new SignUpCommandHandler(_passwordManager.Object,
-            _userRepository.Object,_clock.Object,_unitOfWork.Object,_codeVerification.Object);
+            _userRepository.Object, _clock.Object, _unitOfWork.Object, _codeVerification.Object);
 
         // act
         await handler.Handle(_command, default);
 
         // assert
-        _userRepository.Verify(x => x.AddAsync(It.IsAny<Domain.Entites.User>(),CancellationToken.None), Times.Once);
-        _unitOfWork.Verify(x=> x.SaveChangesAsync(default), Times.Once);
+        _userRepository.Verify(x => x.AddAsync(It.IsAny<Domain.Entites.User>(), CancellationToken.None), Times.Once);
+        _unitOfWork.Verify(x => x.SaveChangesAsync(default), Times.Once);
     }
 
     [Fact]
     public async Task Handle_NotUniqueEmail_ThrowsEmailInUseException()
     {
         // arrange
-        _userRepository.Setup(x => x.IsEmailUniqueAsync(_command.Email,default))
+        _userRepository.Setup(x => x.IsEmailUniqueAsync(_command.Email, default))
             .ReturnsAsync(false);
         _passwordManager.Setup(x => x.Secure(_command.Password))
             .Returns("hashed-password");
 
         _clock.Setup(x => x.GetCurrentUtc())
-            .Returns(() => DateTime.Now);
+            .Returns(() => DateTime.UtcNow);
 
         var handler = new SignUpCommandHandler(_passwordManager.Object,
-            _userRepository.Object, _clock.Object, _unitOfWork.Object,_codeVerification.Object);
+            _userRepository.Object, _clock.Object, _unitOfWork.Object, _codeVerification.Object);
 
         // act
         Func<Task> act = () => handler.Handle(_command, default);
 
         // assert
         await act.Should().ThrowAsync<EmailInUseException>();
-        _userRepository.Verify(x => x.AddAsync(It.IsAny<Domain.Entites.User>(),default), Times.Never);
+        _userRepository.Verify(x => x.AddAsync(It.IsAny<Domain.Entites.User>(), default), Times.Never);
         _unitOfWork.Verify(x => x.SaveChangesAsync(default), Times.Never);
     }
 }

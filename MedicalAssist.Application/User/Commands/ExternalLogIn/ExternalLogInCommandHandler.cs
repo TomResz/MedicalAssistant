@@ -14,13 +14,17 @@ internal sealed class ExternalLogInCommandHandler : IRequestHandler<ExternalLogI
     private readonly IUserRepository _userRepository;
     private readonly IAuthenticator _authenticator;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IRefreshTokenService _refreshTokenService;
     private readonly IClock _clock;
-    public ExternalLogInCommandHandler(IUserRepository userRepository, IAuthenticator authenticator, IUnitOfWork unitOfWork, IClock clock)
+    
+  
+    public ExternalLogInCommandHandler(IUserRepository userRepository, IAuthenticator authenticator, IUnitOfWork unitOfWork, IClock clock, IRefreshTokenService refreshTokenService)
     {
         _userRepository = userRepository;
         _authenticator = authenticator;
         _unitOfWork = unitOfWork;
         _clock = clock;
+        _refreshTokenService = refreshTokenService;
     }
 
     public async Task<SignInResponse> Handle(ExternalLogInCommand request, CancellationToken cancellationToken)
@@ -33,19 +37,23 @@ internal sealed class ExternalLogInCommandHandler : IRequestHandler<ExternalLogI
 
         if(user is null)
         {
-            user = Domain.Entites.User.CreateByExternalProvider(email, fullName, Role.User().ToString(), _clock.GetCurrentUtc(), providedKey, provider);
+            var refreshToken = _refreshTokenService.Generate(_clock.GetCurrentUtc());
+            user = Domain.Entites.User.CreateByExternalProvider(email, fullName, Role.User().ToString(), _clock.GetCurrentUtc(), providedKey, provider,refreshToken);
             await _userRepository.AddAsync(user,cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
         else
         {
             ValidateUser(user,  provider, providedKey);
+            user.ChangeRefreshTokenHolder(_refreshTokenService.Generate(_clock.GetCurrentUtc()));
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
         var jwt = _authenticator.GenerateToken(user);
         
         return new(user.Role.Value,
             user.FullName,
             jwt.AccessToken,
+            user.RefreshTokenHolder.RefreshToken!,
             jwt.Expiration);
     }
 

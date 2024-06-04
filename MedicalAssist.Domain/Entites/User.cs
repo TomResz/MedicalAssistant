@@ -1,4 +1,5 @@
-﻿using MedicalAssist.Domain.Events;
+﻿using MedicalAssist.Domain.ComplexTypes;
+using MedicalAssist.Domain.Events;
 using MedicalAssist.Domain.Exceptions;
 using MedicalAssist.Domain.Primitives;
 using MedicalAssist.Domain.ValueObjects;
@@ -15,6 +16,7 @@ public class User : AggregateRoot<UserId>
 
 	public ExternalUserLogin? ExternalUserProvider { get; private set; }
 	public UserVerification? UserVerification { get; private set; }
+	public RefreshTokenHolder RefreshTokenHolder { get; private set; } = null;
 	public bool IsVerified { get; private set; } = false;
 	public bool HasExternalLoginProvider { get; private set; } = false;
 
@@ -59,13 +61,15 @@ public class User : AggregateRoot<UserId>
 			 createdAtUtc,
 			 false,
 			 false);
+
+		user.RefreshTokenHolder = RefreshTokenHolder.CreateEmpty();
 		user.UserVerification = new UserVerification(user.Id,createdAtUtc.AddHours(2),codeHash);
 	
 		user.AddEvent(new UserCreatedEvent(user.Id));
 		return user;
 	}
 
-    public static User CreateByExternalProvider(Email email,FullName fullName, Role role, Date createdAtUtc,ProvidedKey key,Provider provider)
+    public static User CreateByExternalProvider(Email email,FullName fullName, Role role, Date createdAtUtc,ProvidedKey key,Provider provider,RefreshTokenHolder tokenHolder)
     {
 		Guid id = Guid.NewGuid();	
         User user = new User(
@@ -77,10 +81,19 @@ public class User : AggregateRoot<UserId>
              true,
              true);
 
+		user.RefreshTokenHolder = tokenHolder;
 		user.ExternalUserProvider = new ExternalUserLogin(id, key, provider);
 		user.AddEvent(new UserCreatedByExternalLoginProviderEvent(user.Id,provider));
         return user;
     }
+
+    public void RevokeRefreshToken() => RefreshTokenHolder.Revoke();
+
+    public void ChangeRefreshTokenHolder(RefreshTokenHolder refreshToken)
+	{
+		RefreshTokenHolder = refreshToken;
+	}
+
 
     public void ChangeFullName(FullName fullName)
 	{

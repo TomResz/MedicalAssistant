@@ -9,7 +9,9 @@ public class UserTests
 {
     private static readonly Domain.Entites.User _user = Domain.Entites.User.Create("test@test.com","12345678","Test test",
         Role.User(),DateTime.UtcNow,"Code hashed");
-	[Fact]
+
+
+    [Fact]
     public void Create_ValidCredentials_ReturnsNewInstanceOfUser()
     {
         // arrange
@@ -63,7 +65,9 @@ public class UserTests
 
 
 		// act 
-		Action act = () => Domain.Entites.User.Create(email, password, fullName, role, createdAt, codeHash);
+		Action act = () => Domain.Entites.User
+        .Create(email, password, fullName, 
+        role, createdAt, codeHash );
 
 		// assert
 		act.Should().Throw<EmptyEmailException>();

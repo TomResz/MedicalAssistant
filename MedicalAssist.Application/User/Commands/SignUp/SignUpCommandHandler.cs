@@ -15,22 +15,21 @@ internal sealed class SignUpCommandHandler : IRequestHandler<SignUpCommand>
     private readonly IClock _clock;
     private readonly IUnitOfWork _unitOfWork;
     private readonly ICodeVerification _codeVerification;
+    public SignUpCommandHandler(
+        IPasswordManager passwordManager,
+        IUserRepository userRepository,
+        IClock clock,
+        IUnitOfWork unitOfWork,
+        ICodeVerification codeVerification)
+    {
+        _passwordManager = passwordManager;
+        _userRepository = userRepository;
+        _clock = clock;
+        _unitOfWork = unitOfWork;
+        _codeVerification = codeVerification;
+    }
 
-	public SignUpCommandHandler(
-		IPasswordManager passwordManager,
-		IUserRepository userRepository,
-		IClock clock,
-		IUnitOfWork unitOfWork,
-		ICodeVerification codeVerification)
-	{
-		_passwordManager = passwordManager;
-		_userRepository = userRepository;
-		_clock = clock;
-		_unitOfWork = unitOfWork;
-		_codeVerification = codeVerification;
-	}
-
-	public async Task Handle(SignUpCommand request, CancellationToken cancellationToken)
+    public async Task Handle(SignUpCommand request, CancellationToken cancellationToken)
     {
         var fullName = new FullName(request.FullName);
         var email = new Email(request.Email);
