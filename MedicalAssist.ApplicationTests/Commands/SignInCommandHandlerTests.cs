@@ -1,8 +1,10 @@
 ﻿using FluentAssertions;
+using MedicalAssist.Application.Contracts;
 using MedicalAssist.Application.Exceptions;
 using MedicalAssist.Application.Security;
 using MedicalAssist.Application.User.Commands.SignIn;
-using MedicalAssist.Domain.Entites;
+using MedicalAssist.Domain.Abstraction;
+using MedicalAssist.Domain.ComplexTypes;
 using MedicalAssist.Domain.Exceptions;
 using MedicalAssist.Domain.Repositories;
 using MedicalAssist.Domain.ValueObjects;
@@ -15,12 +17,29 @@ public class SignInCommandHandlerTests
     private readonly Mock<IUserRepository> _userRepositoryMock;
     private readonly Mock<IAuthenticator> _authenticatorMock;
     private readonly Mock<IPasswordManager> _passwordManagerMock;
+    private readonly Mock<IClock> _clockMock;
+    private readonly Mock<IUnitOfWork> _unitOfWorkMock;
+    private readonly Mock<IRefreshTokenService> _refreshTokenServiceMock;
+
+    private readonly RefreshTokenHolder _refreshTokenHolder = new("hash", DateTime.UtcNow);
+
+    private readonly static DateTime _time = DateTime.UtcNow;   
+
 
     public SignInCommandHandlerTests()
     {
         _userRepositoryMock = new Mock<IUserRepository>();
         _authenticatorMock = new Mock<IAuthenticator>();
         _passwordManagerMock = new Mock<IPasswordManager>();
+        _clockMock = new Mock<IClock>();    
+        _unitOfWorkMock = new Mock<IUnitOfWork>();  
+        _refreshTokenServiceMock = new Mock<IRefreshTokenService>();
+
+        _clockMock.Setup(x => x.GetCurrentUtc())
+            .Returns(_time);
+
+        _refreshTokenServiceMock.Setup(x => x.Generate(_clockMock.Object.GetCurrentUtc()))
+            .Returns(() => new("Hash", DateTime.UtcNow));
     }
 
     [Fact]
@@ -49,18 +68,23 @@ public class SignInCommandHandlerTests
 
         var commandHandler = new SignInCommandHandler(_passwordManagerMock.Object,
             _userRepositoryMock.Object,
-            _authenticatorMock.Object);
+            _authenticatorMock.Object,
+            _unitOfWorkMock.Object,
+            _refreshTokenServiceMock.Object,
+            _clockMock.Object);
         _passwordManagerMock.Setup(x => x.IsValid(It.IsAny<string>(), It.IsAny<string>()))
             .Returns(true);
         // act
         var response = await commandHandler.Handle(command, default);
         
         // assert
+        
         response.Should().NotBeNull();
         response.GetType().Should().Be(typeof(SignInResponse));
         response.Token.Should().Be(accessToken);
         response.Role.Should().Be(role);
         response.FullName.Should().Be(fullName);
+        _unitOfWorkMock.Verify(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -74,10 +98,13 @@ public class SignInCommandHandlerTests
             .ReturnsAsync(() => null);
 
 
+
         var commandHandler = new SignInCommandHandler(_passwordManagerMock.Object,
             _userRepositoryMock.Object,
-            _authenticatorMock.Object);
-
+            _authenticatorMock.Object,
+            _unitOfWorkMock.Object,
+            _refreshTokenServiceMock.Object,
+            _clockMock.Object);
         // act
         Func<Task> act = () =>  commandHandler.Handle(command, default);
 
@@ -102,9 +129,13 @@ public class SignInCommandHandlerTests
         _passwordManagerMock.Setup(x => x.IsValid(It.IsAny<string>(), It.IsAny<string>()))
             .Returns(false);
 
+
         var commandHandler = new SignInCommandHandler(_passwordManagerMock.Object,
             _userRepositoryMock.Object,
-            _authenticatorMock.Object);
+            _authenticatorMock.Object,
+            _unitOfWorkMock.Object,
+            _refreshTokenServiceMock.Object,
+            _clockMock.Object);
 
         // act
         Func<Task> act = () => commandHandler.Handle(command, default);
@@ -125,9 +156,13 @@ public class SignInCommandHandlerTests
         // arrange
         var command = new SignInCommand(email, "12345678");
 
+
         var commandHandler = new SignInCommandHandler(_passwordManagerMock.Object,
             _userRepositoryMock.Object,
-            _authenticatorMock.Object);
+            _authenticatorMock.Object,
+            _unitOfWorkMock.Object,
+            _refreshTokenServiceMock.Object,
+            _clockMock.Object);
         // act
         Func<Task> act = () =>  commandHandler.Handle(command, default);
 
@@ -142,9 +177,13 @@ public class SignInCommandHandlerTests
         // arrange
         var command = new SignInCommand(string.Empty, "12345678");
 
+
         var commandHandler = new SignInCommandHandler(_passwordManagerMock.Object,
             _userRepositoryMock.Object,
-            _authenticatorMock.Object);
+            _authenticatorMock.Object,
+            _unitOfWorkMock.Object,
+            _refreshTokenServiceMock.Object,
+            _clockMock.Object);
         // act
         Func<Task> act = () => commandHandler.Handle(command, default);
 
@@ -161,9 +200,13 @@ public class SignInCommandHandlerTests
         // arrange
         var command = new SignInCommand("tomt@gmail.com", password);
 
+
         var commandHandler = new SignInCommandHandler(_passwordManagerMock.Object,
             _userRepositoryMock.Object,
-            _authenticatorMock.Object);
+            _authenticatorMock.Object,
+            _unitOfWorkMock.Object,
+            _refreshTokenServiceMock.Object,
+            _clockMock.Object);
         // act
         Func<Task> act = () => commandHandler.Handle(command, default);
 
@@ -178,9 +221,13 @@ public class SignInCommandHandlerTests
         // arrange
         var command = new SignInCommand("tomt@gmail.com", string.Empty);
 
+
         var commandHandler = new SignInCommandHandler(_passwordManagerMock.Object,
             _userRepositoryMock.Object,
-            _authenticatorMock.Object);
+            _authenticatorMock.Object,
+            _unitOfWorkMock.Object,
+            _refreshTokenServiceMock.Object,
+            _clockMock.Object);
         // act
         Func<Task> act = () => commandHandler.Handle(command, default);
 

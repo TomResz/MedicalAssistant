@@ -1,7 +1,6 @@
 ﻿using MedicalAssist.Application.Contracts;
 using MedicalAssist.Application.Security;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
@@ -19,10 +18,9 @@ internal static class Extensions
     internal static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
     {
         AuthOptions options = configuration.GetOptions<AuthOptions>(OptionsSectionName);
-		services.Configure<AuthOptions>(configuration.GetSection(OptionsSectionName));
-
-        
-        services.AddScoped<IAuthorizationHandler,UserVerificationHandler>();
+        services.Configure<AuthOptions>(configuration.GetSection(OptionsSectionName));
+        services.AddScoped<IAuthorizationHandler, UserVerificationHandler>()
+            .AddTransient<IRefreshTokenService, RefreshTokenService>();
 
         services
             .AddSingleton<IAuthenticator, Authenticator>()
@@ -56,7 +54,7 @@ internal static class Extensions
                 options.ForwardDefaultSelector = context =>
                 {
                     string? authorization = context.Request.Headers[HeaderNames.Authorization];
-                    if (!string.IsNullOrEmpty(authorization) && authorization.StartsWith("Bearer ")) 
+                    if (!string.IsNullOrEmpty(authorization) && authorization.StartsWith("Bearer "))
                     {
                         return JwtBearerDefaults.AuthenticationScheme;
                     }
@@ -64,11 +62,11 @@ internal static class Extensions
                 };
             });
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy(CustomClaim.IsVerified, b => b.AddRequirements(new UserVerification(true)));
-                options.AddPolicy(CustomClaim.IsNotVerified, b => b.AddRequirements(new UserVerification(false)));
-            });
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy(CustomClaim.IsVerified, b => b.AddRequirements(new UserVerification(true)));
+            options.AddPolicy(CustomClaim.IsNotVerified, b => b.AddRequirements(new UserVerification(false)));
+        });
         return services;
     }
 }

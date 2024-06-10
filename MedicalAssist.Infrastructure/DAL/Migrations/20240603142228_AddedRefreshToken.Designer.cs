@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using MedicalAssist.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MedicalAssist.Infrastructure.Migrations
 {
     [DbContext(typeof(MedicalAssistDbContext))]
-    partial class MedicalAssistDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240603142228_AddedRefreshToken")]
+    partial class AddedRefreshToken
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -121,10 +124,11 @@ namespace MedicalAssist.Infrastructure.Migrations
                             b1.IsRequired();
 
                             b1.Property<string>("RefreshToken")
+                                .IsRequired()
                                 .HasColumnType("text")
                                 .HasColumnName("RefreshToken");
 
-                            b1.Property<DateTime?>("RefreshTokenExpirationUtc")
+                            b1.Property<DateTime>("RefreshTokenExpirationUtc")
                                 .HasColumnType("timestamp without time zone")
                                 .HasColumnName("RefreshTokenExpirationUtc");
                         });

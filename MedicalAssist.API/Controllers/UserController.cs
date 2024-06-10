@@ -3,17 +3,17 @@ using MedicalAssist.Application.Dto;
 using MedicalAssist.Application.User.Commands.ExternalLogIn;
 using MedicalAssist.Application.User.Commands.PasswordChangeByCode;
 using MedicalAssist.Application.User.Commands.PasswordChangeByEmail;
+using MedicalAssist.Application.User.Commands.RefreshToken;
 using MedicalAssist.Application.User.Commands.RegenerateVerificationCode;
+using MedicalAssist.Application.User.Commands.RevokeRefreshToken;
 using MedicalAssist.Application.User.Commands.SignIn;
 using MedicalAssist.Application.User.Commands.SignUp;
 using MedicalAssist.Application.User.Commands.VerifyAccount;
 using MedicalAssist.Application.User.Queries;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace MedicalAssist.API.Controllers;
 [Route("api/[controller]")]
@@ -88,5 +88,21 @@ public class UserController : ControllerBase
         var command = new ExternalLogInCommand(response.Principal, response.Ticket?.AuthenticationScheme);
         var result = await _mediator.Send(command);
         return Ok(result);
+    }
+
+
+    [HttpPost("refresh-token")]
+    public async Task<IActionResult> RefreshToken(RefreshTokenCommand command)
+    {
+        var response = await _mediator.Send(command);
+        return Ok(response);
+    }
+
+    [Authorize]
+    [HttpPut("revoke")]
+    public async Task<IActionResult> RevokeToken()
+    {
+        await _mediator.Send(new RevokeRefreshTokenCommand());
+        return NoContent();
     }
 }

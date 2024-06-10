@@ -3,6 +3,7 @@ using MedicalAssist.Application.Contracts;
 using MedicalAssist.Application.Exceptions;
 using MedicalAssist.Application.Security;
 using MedicalAssist.Application.User.Commands.PasswordChange;
+using MedicalAssist.Domain.ComplexTypes;
 using MedicalAssist.Domain.Repositories;
 using MedicalAssist.Domain.ValueObjects;
 using MedicalAssist.Domain.ValueObjects.IDs;
@@ -17,7 +18,6 @@ public class ChangePasswordCommandHandlerTests
 	private readonly Mock<IUnitOfWork> _unitOfWork;
 
 	private readonly ChangePasswordCommand _command = new("12345678", "12345678");
-
 	public ChangePasswordCommandHandlerTests()
 	{
 		_passwordManager = new Mock<IPasswordManager>();
