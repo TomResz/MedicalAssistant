@@ -6,6 +6,7 @@ using MedicalAssist.Infrastructure.Email;
 using MedicalAssist.Infrastructure.Middleware;
 using MedicalAssist.Infrastructure.Security;
 using MedicalAssist.Infrastructure.Time;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,9 +24,8 @@ public static class Extensions
 		    {
 			    conf.RegisterServicesFromAssemblies(typeof(Extensions).Assembly);
 		    })
-            .AddBackgroundJobs()
+            .AddBackgroundJobs(configuration)
             .AddEmailServices(configuration);
-
 
     internal static T GetOptions<T>(this IConfiguration configuration, string sectionName) where T : class, new()
     {

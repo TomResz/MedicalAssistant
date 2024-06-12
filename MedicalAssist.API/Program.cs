@@ -1,11 +1,13 @@
-using MedicalAssist.Infrastructure;
-using MedicalAssist.Application;
-using MedicalAssist.Infrastructure.Middleware;
-using Serilog;
-using MedicalAssist.Domain;
-using MedicalAssist.Infrastructure.DAL;
 using MedicalAssist.API.SwaggerDocs;
 using MedicalAssist.API.SwaggerDocs.Security;
+using MedicalAssist.Application;
+using MedicalAssist.Domain;
+using MedicalAssist.Infrastructure;
+using MedicalAssist.Infrastructure.BackgroundJobs;
+using MedicalAssist.Infrastructure.BackgrounJobs;
+using MedicalAssist.Infrastructure.DAL;
+using MedicalAssist.Infrastructure.Middleware;
+using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -46,11 +48,12 @@ if (app.Environment.IsDevelopment())
     app.ApplyMigrations();
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseHangfireDashboard(app.Configuration);
 }
 
 app.UseCors("Frontend");
 app.UseSerilogRequestLogging();
-
+app.UseOutboxMessageProcessing();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -59,3 +62,4 @@ app.MapControllers();
 app.UseInfrastructure();
 
 app.Run();
+        
