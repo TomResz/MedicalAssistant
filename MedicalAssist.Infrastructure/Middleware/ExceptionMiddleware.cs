@@ -1,12 +1,19 @@
 ﻿using MedicalAssist.Domain.Exceptions.Shared;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using System.Security.Authentication;
-using System.Text.Json;
 
 namespace MedicalAssist.Infrastructure.Middleware;
 internal sealed class ExceptionMiddleware : IMiddleware
 {
-	public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+	private readonly ILogger<ExceptionMiddleware> _logger;
+
+    public ExceptionMiddleware(ILogger<ExceptionMiddleware> logger)
+    {
+        _logger = logger;
+    }
+
+    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
 	{
 		try
 		{
@@ -33,15 +40,14 @@ internal sealed class ExceptionMiddleware : IMiddleware
 			.ToString()
 			.Split('.')
 			.Last();
+		var details = new ErrorDetails(statusCode, type, ex.Message);
 
-		string content = "";
-		if(statusCode == 500)
+        string content = details.ToString();
+        
+		if (statusCode == 500)
 		{
-			content = new CriticalErrorDetails(statusCode, type,ex.Message,ex.StackTrace ?? "").ToString();
-		}
-		else
-		{
-			content = new ErrorDetails(statusCode, type, ex.Message).ToString();
+			var criticalErrorDetails = new CriticalErrorDetails(details, ex.StackTrace ?? "");
+			_logger.LogError(criticalErrorDetails.ToString());
 		}
 
 		context.Response.ContentType = "application/json";

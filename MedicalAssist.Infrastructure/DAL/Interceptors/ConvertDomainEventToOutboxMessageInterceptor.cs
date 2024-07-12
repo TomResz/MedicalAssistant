@@ -2,6 +2,7 @@
 using MedicalAssist.Domain.Primitives;
 using MedicalAssist.Infrastructure.Outbox;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace MedicalAssist.Infrastructure.DAL.Interceptors;
@@ -9,10 +10,11 @@ internal sealed class ConvertDomainEventToOutboxMessageInterceptor
 	: SaveChangesInterceptor
 {
 	private readonly IClock _clock;
-
-    public ConvertDomainEventToOutboxMessageInterceptor(IClock clock)
+	private readonly ILogger<ConvertDomainEventToOutboxMessageInterceptor> _logger;
+    public ConvertDomainEventToOutboxMessageInterceptor(IClock clock, ILogger<ConvertDomainEventToOutboxMessageInterceptor> logger)
     {
         _clock = clock;
+        _logger = logger;
     }
 
     public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
@@ -21,6 +23,7 @@ internal sealed class ConvertDomainEventToOutboxMessageInterceptor
 
 		if (dbContext is null)
 		{
+			_logger.LogError($"Unknown dbContext.");
 			return base.SavingChangesAsync(eventData, result, cancellationToken);
 		}
 

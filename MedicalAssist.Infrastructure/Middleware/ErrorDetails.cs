@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.DataProtection;
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace MedicalAssist.Infrastructure.Middleware;
 

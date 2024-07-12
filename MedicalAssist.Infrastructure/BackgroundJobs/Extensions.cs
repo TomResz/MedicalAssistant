@@ -39,7 +39,7 @@ public static class Extensions
                     User = configuration[hangfireUserSection] ?? throw new ArgumentNullException(hangfireUserSection),
                     Pass = configuration[hangfirePasswordSection] ?? throw new ArgumentNullException(hangfirePasswordSection)
                 }
-            },
+            }
         });
         return app;
     }
