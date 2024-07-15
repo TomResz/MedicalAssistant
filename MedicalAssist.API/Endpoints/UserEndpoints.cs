@@ -1,4 +1,6 @@
 ﻿using MediatR;
+using MedicalAssist.Application.User.Commands.FacebookAuthentication;
+using MedicalAssist.Application.User.Commands.GoogleAuthentication;
 using MedicalAssist.Application.User.Commands.PasswordChangeByCode;
 using MedicalAssist.Application.User.Commands.PasswordChangeByEmail;
 using MedicalAssist.Application.User.Commands.RefreshToken;
@@ -21,7 +23,7 @@ public sealed class UserEndpoints : IEndpoint
 		group.MapGet("get", async (IMediator _mediator) =>
 		{
 			return Results.Ok(await _mediator.Send(new GetUserCredentialsQuery()));
-		});
+		}).RequireAuthorization();
 
 		group.MapPost("sign-up", async (IMediator _mediator, SignUpCommand command) =>
 		{
@@ -70,5 +72,17 @@ public sealed class UserEndpoints : IEndpoint
 			await _mediator.Send(new RevokeRefreshTokenCommand());
 			return Results.NoContent();	
 		}).RequireAuthorization();
+
+		group.MapPost("login-google", async (IMediator _mediator, GoogleAuthenticationCommand command) =>
+		{
+			var respone = await _mediator.Send(command);	
+			return Results.Ok(respone);
+		});
+
+		group.MapPost("login-facebook", async (IMediator _mediator, FacebookAuthenticationCommand command) =>
+		{
+			var respone = await _mediator.Send(command);
+			return Results.Ok(respone);
+		});
 	}
 }

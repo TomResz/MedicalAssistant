@@ -3,8 +3,8 @@
 namespace MedicalAssist.Application.Exceptions;
 public sealed class InvalidExternalProviderException : BadRequestException
 {
-    public InvalidExternalProviderException() : base("Provider doesn't match.")
-    {
-        
-    }
+	public InvalidExternalProviderException(string message) : base(message)
+	{
+
+	}
 }

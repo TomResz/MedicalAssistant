@@ -3,6 +3,7 @@ using MedicalAssist.Infrastructure.Auth;
 using MedicalAssist.Infrastructure.BackgrounJobs;
 using MedicalAssist.Infrastructure.DAL;
 using MedicalAssist.Infrastructure.Email;
+using MedicalAssist.Infrastructure.ExternalProviders;
 using MedicalAssist.Infrastructure.Middleware;
 using MedicalAssist.Infrastructure.Security;
 using MedicalAssist.Infrastructure.Time;
@@ -25,7 +26,8 @@ public static class Extensions
 			    conf.RegisterServicesFromAssemblies(typeof(Extensions).Assembly);
 		    })
             .AddBackgroundJobs(configuration)
-            .AddEmailServices(configuration);
+            .AddEmailServices(configuration)
+            .AddGoogleService(configuration);
 
     internal static T GetOptions<T>(this IConfiguration configuration, string sectionName) where T : class, new()
     {

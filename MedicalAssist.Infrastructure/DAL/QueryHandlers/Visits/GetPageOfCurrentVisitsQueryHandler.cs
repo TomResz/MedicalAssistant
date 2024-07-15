@@ -29,13 +29,13 @@ internal sealed class GetPageOfCurrentVisitsQueryHandler
 	{
 		UserId userId = _userContext.GetUserId;
 
-		Date sevenDaysAhead = _clock.GetCurrentUtc().AddDays(7);
-		Date twoDaysAgo = _clock.GetCurrentUtc().AddDays(-2);
+		Date sevenDaysAhead = _clock.GetCurrentUtc().AddDays(request.DaysAhead);
+		Date daysBack = _clock.GetCurrentUtc().AddDays(-request.DaysBack);
 
 		IQueryable<VisitDto> query = _context
 			.Visits
 			.Where(x => x.UserId == userId &&
-			   x.Date >= twoDaysAgo &&
+			   x.Date >= daysBack &&
 			   x.Date <= sevenDaysAhead)
 			.Select(x => x.ToDto())
 			.AsNoTracking()

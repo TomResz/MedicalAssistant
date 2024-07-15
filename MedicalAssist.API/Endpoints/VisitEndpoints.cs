@@ -3,6 +3,8 @@ using MediatR;
 using MedicalAssist.API.QueryPolicy;
 using MedicalAssist.Application.Visits.Commands.AddVisit;
 using MedicalAssist.Application.Visits.Queries;
+using MedicalAssist.Infrastructure.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,7 +15,7 @@ public sealed class VisitEndpoints : IEndpoint
 	public void MapEndpoint(IEndpointRouteBuilder app)
 	{
 		var group = app.MapGroup("visit")
-			.RequireAuthorization()
+			.RequireAuthorization(new AuthorizeAttribute { Policy = CustomClaim.IsVerified, Roles = "user" })
 			.WithTags("Visits");
 
 		group.MapPost("add", async (IMediator _mediator, AddVisitCommand command) =>
@@ -25,10 +27,12 @@ public sealed class VisitEndpoints : IEndpoint
 		group.MapGet("current", async (
 			IMediator _mediator,
 			[AsParameters] PageParameters pageParameters,
-			[FromQuery] string direction = "asc") =>
+			[FromQuery] string direction = "asc",
+			[FromQuery][Range(1, int.MaxValue)] int daysBack = 1,
+			[FromQuery][Range(1, int.MaxValue)] int daysAhead = 7) =>
 		{
 			var order = SortingParameters.FromString(direction);
-			var query = new GetPageOfCurrentVisitsQuery(pageParameters.Page, pageParameters.PageSize, order);
+			var query = new GetPageOfCurrentVisitsQuery(pageParameters.Page, pageParameters.PageSize, order, daysAhead, daysBack);
 			return Results.Ok(await _mediator.Send(query));
 		});
 
@@ -41,7 +45,7 @@ public sealed class VisitEndpoints : IEndpoint
 		group.MapGet("month={month:int}", async (IMediator _mediator, [FromRoute][Range(1, 12)] int month) =>
 			Results.Ok(await _mediator.Send(new GetCountOfVisitsByMonthQuery(month))));
 
-		group.MapGet("day={day}", async (IMediator _mediator, DateTime day) 
+		group.MapGet("day={day}", async (IMediator _mediator, DateTime day)
 			=> Results.Ok(await _mediator.Send(new GetVisitsByDayQuery(day))));
 
 	}

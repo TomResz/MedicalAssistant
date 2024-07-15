@@ -6,4 +6,6 @@ namespace MedicalAssist.Application.Visits.Queries;
 public sealed record GetPageOfCurrentVisitsQuery(
     int Page,
     int PageSize,
-    OrderDirection Direction) : IRequest<PagedList<VisitDto>>;
+    OrderDirection Direction,
+    int DaysAhead,
+    int DaysBack) : IRequest<PagedList<VisitDto>>;
