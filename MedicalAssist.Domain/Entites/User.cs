@@ -106,6 +106,10 @@ public class User : AggregateRoot<UserId>
 
 	public void ChangePassword(Password password)
 	{
+		if(HasExternalLoginProvider)
+		{
+			throw new UserWithExternalProviderCannotChangePasswordException();
+		}
 		Password = password;
 	}
 	public void AddVisit(Visit visit, int? hourBound = null)

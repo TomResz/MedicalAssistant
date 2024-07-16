@@ -34,8 +34,7 @@ internal sealed class SignUpCommandHandler : IRequestHandler<SignUpCommand>
         var fullName = new FullName(request.FullName);
         var email = new Email(request.Email);
         var password = new Password(request.Password);
-        var role = new Role(request.Role);
-
+        var role = Role.User();
         bool isEmailUnique = await _userRepository.IsEmailUniqueAsync(email, cancellationToken);
 
         if (!isEmailUnique)

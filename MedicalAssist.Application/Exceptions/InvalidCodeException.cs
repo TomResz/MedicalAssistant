@@ -1,4 +1,4 @@
-﻿using MedicalAssist.Domain.Exceptions.Shared;
+﻿using MedicalAssist.Domain.Exceptions;
 
 namespace MedicalAssist.Application.Exceptions;
 public sealed class InvalidCodeException : BadRequestException

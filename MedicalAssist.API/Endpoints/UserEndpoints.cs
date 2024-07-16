@@ -10,6 +10,7 @@ using MedicalAssist.Application.User.Commands.SignIn;
 using MedicalAssist.Application.User.Commands.SignUp;
 using MedicalAssist.Application.User.Commands.VerifyAccount;
 using MedicalAssist.Application.User.Queries;
+using MedicalAssist.Infrastructure.Middleware;
 
 namespace MedicalAssist.API.Endpoints;
 
@@ -77,12 +78,14 @@ public sealed class UserEndpoints : IEndpoint
 		{
 			var respone = await _mediator.Send(command);	
 			return Results.Ok(respone);
-		});
+		}).Produces<SignInResponse>(StatusCodes.Status200OK)
+		.Produces<ErrorDetails>(StatusCodes.Status400BadRequest);
 
 		group.MapPost("login-facebook", async (IMediator _mediator, FacebookAuthenticationCommand command) =>
 		{
 			var respone = await _mediator.Send(command);
 			return Results.Ok(respone);
-		});
+		}).Produces<SignInResponse>(StatusCodes.Status200OK)
+		.Produces<ErrorDetails>(StatusCodes.Status400BadRequest);
 	}
 }

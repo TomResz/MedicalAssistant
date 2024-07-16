@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicalAssist.Core.Tests", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{EC16C102-D533-4BFB-92CB-A68C1D3F8D7F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalAssist.Shared", "MedicalAssist.Shared\MedicalAssist.Shared.csproj", "{FD8C5421-05A8-45FF-971F-8A6B8F872321}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{CE5B205D-4031-4E2C-A07E-8BDB91560FD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE5B205D-4031-4E2C-A07E-8BDB91560FD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE5B205D-4031-4E2C-A07E-8BDB91560FD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD8C5421-05A8-45FF-971F-8A6B8F872321}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD8C5421-05A8-45FF-971F-8A6B8F872321}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD8C5421-05A8-45FF-971F-8A6B8F872321}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD8C5421-05A8-45FF-971F-8A6B8F872321}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 		{ED48931C-C404-458C-BE7A-7FFC2DED157B} = {CEF49FF7-383B-4875-873A-9FC923D6A8F1}
 		{CE5B205D-4031-4E2C-A07E-8BDB91560FD5} = {CEF49FF7-383B-4875-873A-9FC923D6A8F1}
 		{EC16C102-D533-4BFB-92CB-A68C1D3F8D7F} = {E8D61428-2A15-484A-A4FE-A50E391E48E2}
+		{FD8C5421-05A8-45FF-971F-8A6B8F872321} = {EC16C102-D533-4BFB-92CB-A68C1D3F8D7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A23A1DDA-FF26-47F1-8AAE-30C73977E112}

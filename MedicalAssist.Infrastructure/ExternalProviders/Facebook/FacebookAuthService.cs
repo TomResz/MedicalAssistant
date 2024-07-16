@@ -29,7 +29,7 @@ internal sealed class FacebookAuthService : IFacebookAuthService
 		var responseBody = await response.Content.ReadAsStringAsync(ct);
 		var obj =  JsonSerializer.Deserialize<FacebookDataResponse?>(responseBody);
 
-		return obj is not null ? obj.ToDto() : null;
+		return obj?.ToDto();
 	}
 
 	private async Task<FacebookAccessToken?> GenerateAccessToken(string code,CancellationToken ct)
@@ -45,6 +45,11 @@ internal sealed class FacebookAuthService : IFacebookAuthService
 				 $"code={code}";
 
 		var response = await _httpClient.GetAsync(requestUri,ct);
+
+		if (!response.IsSuccessStatusCode)
+		{
+			return null;
+		}
 
 		var responseBody = await response.Content.ReadAsStringAsync(ct);
 			

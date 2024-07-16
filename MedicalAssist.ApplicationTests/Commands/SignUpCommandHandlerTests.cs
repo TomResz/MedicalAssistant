@@ -4,9 +4,7 @@ using MedicalAssist.Application.Exceptions;
 using MedicalAssist.Application.Security;
 using MedicalAssist.Application.User.Commands.SignUp;
 using MedicalAssist.Domain.Abstraction;
-using MedicalAssist.Domain.ComplexTypes;
 using MedicalAssist.Domain.Repositories;
-using MedicalAssist.Domain.ValueObjects;
 using Moq;
 
 namespace MedicalAssist.Application.Tests.Commands;
@@ -18,7 +16,7 @@ public class SignUpCommandHandlerTests
     private readonly Mock<IUnitOfWork> _unitOfWork;
     private readonly Mock<ICodeVerification> _codeVerification;
 
-    private readonly SignUpCommand _command = new("Tom Tom", "tom@tom.com", "12345678", Role.User());
+    private readonly SignUpCommand _command = new("Tom Tom", "tom@tom.com", "12345678");
 
     private readonly static DateTime _time = DateTime.UtcNow;
 

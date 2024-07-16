@@ -1,4 +1,4 @@
-﻿using MedicalAssist.Domain.Exceptions.Shared;
+﻿using MedicalAssist.Domain.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Security.Authentication;
@@ -22,6 +22,10 @@ internal sealed class ExceptionMiddleware : IMiddleware
 		catch(BadRequestException ex)
 		{
 			await HandleError(StatusCodes.Status400BadRequest,ex,context);
+		}
+		catch(ConflictException ex)
+		{
+			await HandleError(StatusCodes.Status409Conflict,ex,context);
 		}
 		catch(AuthenticationException ex)
 		{

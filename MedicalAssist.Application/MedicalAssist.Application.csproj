@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MedicalAssist.Domain\MedicalAssist.Domain.csproj" />
+    <ProjectReference Include="..\MedicalAssist.Shared\MedicalAssist.Shared.csproj" />
   </ItemGroup>
 
 	<ItemGroup>

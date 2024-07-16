@@ -1,4 +1,4 @@
-﻿using MedicalAssist.Domain.Exceptions.Shared;
+﻿using MedicalAssist.Domain.Exceptions;
 using System.Drawing;
 
 namespace MedicalAssist.Application.Exceptions;

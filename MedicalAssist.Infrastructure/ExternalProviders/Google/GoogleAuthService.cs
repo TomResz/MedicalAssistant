@@ -36,7 +36,7 @@ internal sealed class GoogleAuthService : IGoogleAuthService
         var userInfo = JsonSerializer.Deserialize<GoogleDataResponse?>(responseContent);
 
 
-        return userInfo is not null ? userInfo.ToDto() : null;
+        return userInfo?.ToDto();
 
     }
 
@@ -64,8 +64,12 @@ internal sealed class GoogleAuthService : IGoogleAuthService
 
         var content = new FormUrlEncodedContent(requestBody);
 
-        var response = await _googleHttpClient.PostAsync("token", content,ct
-            );
+        var response = await _googleHttpClient.PostAsync("token", content,ct);
+
+        if(!response.IsSuccessStatusCode)
+        {
+            return null;
+        }
 
         var responseContent = await response.Content.ReadAsStringAsync(ct);
 

@@ -30,6 +30,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MedicalAssist.Application\MedicalAssist.Application.csproj" />
     <ProjectReference Include="..\MedicalAssist.Infrastructure\MedicalAssist.Infrastructure.csproj" />
+    <ProjectReference Include="..\MedicalAssist.Shared\MedicalAssist.Shared.csproj" />
   </ItemGroup>
 
 </Project>

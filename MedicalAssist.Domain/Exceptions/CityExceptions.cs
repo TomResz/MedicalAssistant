@@ -1,5 +1,5 @@
 ﻿
-using MedicalAssist.Domain.Exceptions.Shared;
+using MedicalAssist.Domain.Exceptions;
 
 namespace MedicalAssist.Domain.Exceptions;
 public sealed class EmptyCityException : BadRequestException

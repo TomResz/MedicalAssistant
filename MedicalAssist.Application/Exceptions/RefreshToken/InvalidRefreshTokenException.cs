@@ -1,4 +1,4 @@
-﻿using MedicalAssist.Domain.Exceptions.Shared;
+﻿using MedicalAssist.Domain.Exceptions;
 
 namespace MedicalAssist.Application.Exceptions.RefreshToken;
 public sealed class InvalidRefreshTokenException : BadRequestException

@@ -1,4 +1,4 @@
-﻿using MedicalAssist.Domain.Exceptions.Shared;
+﻿using MedicalAssist.Domain.Exceptions;
 
 namespace MedicalAssist.Domain.Exceptions.IDs;
 public sealed class InvalidRecommendationIdException : BadRequestException
