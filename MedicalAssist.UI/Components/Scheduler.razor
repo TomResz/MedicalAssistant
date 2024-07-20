@@ -1,0 +1,30 @@
+﻿@using MedicalAssist.UI.Models.Visits
+@using MedicalAssist.UI.Shared.Services.Visits
+@inject VisitService VisitService
+@if(visits is null)
+{
+	<h1>Ładowanie...</h1>
+}
+else
+{
+	<RadzenScheduler style="height: 800px;"
+					 TItem="VisitModel" Data=@visits StartProperty="Date" EndProperty="End"
+					 TextProperty="VisitType" SelectedIndex="2" TodayText="Dzisiaj" NextText="Jutro" PrevText="Wczoraj">
+		<RadzenDayView Text="Dzień" StartTime="TimeSpan.FromHours(6.0)" EndTime="TimeSpan.FromHours(24.0)" TimeFormat="HH:mm"/>
+		<RadzenWeekView Text="Tydzień" StartTime="TimeSpan.FromHours(0.0)" EndTime="TimeSpan.FromHours(24.0)" TimeFormat="HH:mm" />
+		<RadzenMonthView Text="Miesiąc" />
+		<RadzenYearView Text="Rok" />
+	</RadzenScheduler>
+
+}
+
+@code {
+	List<VisitModel>? visits = null;
+
+	protected override async Task OnInitializedAsync()
+	{
+		visits = await VisitService.GetAllVisits();
+		StateHasChanged();
+	}
+
+}

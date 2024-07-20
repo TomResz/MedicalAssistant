@@ -1,0 +1,76 @@
+﻿@using MedicalAssist.UI.Components
+@using MedicalAssist.UI.Pages.Dashboard
+@inherits LayoutComponentBase
+
+@inject MedicalAssist.UI.Shared.Services.Auth.LocalStorageService LocalStorage
+@inject IJSRuntime JSRuntime
+
+
+<MudThemeProvider @ref="@_mudThemeProvider" @bind-IsDarkMode="@_isDarkMode" Theme="_currentTheme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+<MudPopoverProvider />
+
+<CascadingValue Value="this">
+	@Body
+</CascadingValue>
+
+@code {
+	private bool _isDarkMode;
+	private MudThemeProvider _mudThemeProvider;
+	public bool IsDarkMode => _isDarkMode;
+	private readonly MudTheme _currentTheme = new()
+		{
+			PaletteLight = new PaletteLight
+			{
+				Primary = "#0A7BCF",
+				Secondary = "#4CAF50",
+				Info = "#64a7e2",
+				Success = "#2ECC40",
+				Warning = "#FFC107",
+				Error = "#FF0000",
+				AppbarBackground = "#2A72D5",
+				TextPrimary = "#0A7BCF",
+				TextSecondary = "#4CAF50",
+			},
+			PaletteDark = new PaletteDark
+			{
+				Primary = "#6585e0",
+				Secondary = "#607D8B",
+				Info = "#a4c2dd",
+				Success = "#2ECC40",
+				Warning = "#dc2d7e",
+				Error = "#de2000",
+				AppbarBackground = "#121212",
+				TextPrimary = "#E0E0E0",
+				TextSecondary = "#BDBDBD",
+			}
+		};
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			var darkMode = await LocalStorage.GetValueAsync<bool>("isDarkMode");
+			if (darkMode)
+			{
+				_isDarkMode = true;
+			}
+			else
+			{
+				_isDarkMode = await _mudThemeProvider.GetSystemPreference();
+
+			}
+			await JSRuntime.InvokeVoidAsync("setRadzenComponentsTheme", _isDarkMode);
+			StateHasChanged();
+		}
+	}
+
+	public async Task ThemeToggle()
+	{
+		_isDarkMode = !_isDarkMode;
+		await LocalStorage.SetValueAsync("isDarkMode", _isDarkMode);
+		await JSRuntime.InvokeVoidAsync("setRadzenComponentsTheme", _isDarkMode);
+		StateHasChanged();
+	}
+}

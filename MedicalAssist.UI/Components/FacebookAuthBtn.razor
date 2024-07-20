@@ -1,0 +1,38 @@
+﻿@using System.Security.Cryptography
+@using System.Web
+<MudButton StartIcon="@Icons.Custom.Brands.Facebook"
+		   Variant="MudBlazor.Variant.Outlined" Color="Color.Primary"
+		   OnClick="() =>AuthWithFacebook()"
+		   IconSize="Size.Large"
+		   Class="mb-2 mx-2"
+		   FullWidth="true">
+	Facebook
+</MudButton>
+
+@code {
+	[Inject]
+	private NavigationManager _navigation { get; set; }
+
+	[Inject]
+	private IConfiguration _configuration { get; set; }
+	public void AuthWithFacebook()
+	{
+		string redirectUri = HttpUtility.UrlEncode("https://localhost:7076/authentication/facebook-callback");
+		string clientId = _configuration["Auth:Facebook:ClientId"]!;
+
+		string state = GenerateState();
+
+		string authorizationUrl = $"https://www.facebook.com/v20.0/dialog/oauth?client_id={clientId}&redirect_uri={redirectUri}&state={Uri.EscapeDataString(state)}&scope=email";
+
+		_navigation.NavigateTo(authorizationUrl);
+	}
+	public static string GenerateState()
+	{
+		byte[] data = new byte[32];
+		using (var rng = RandomNumberGenerator.Create())
+		{
+			rng.GetBytes(data);
+		}
+		return Convert.ToBase64String(data);
+	}
+}

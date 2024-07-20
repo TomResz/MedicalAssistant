@@ -1,0 +1,39 @@
+﻿@page "/authentication/google-callback"
+@using MedicalAssist.UI.Layout
+@using MedicalAssist.UI.Shared.Response
+@using MedicalAssist.UI.Shared.Services.Abstraction
+@using MedicalAssist.UI.Shared.Services.Auth
+
+@inject IUserAuthService AuthService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+
+@code {
+	[Parameter]
+	[SupplyParameterFromQuery(Name = "code")]
+	public string? Code { get; set; }
+
+	[Parameter]
+	[SupplyParameterFromQuery(Name = "error")]
+	public string? Error { get; set; }
+
+	protected override async Task OnParametersSetAsync()
+	{
+		SignInResponse? response = null;
+		if (Code is not null)
+		{
+			response = await AuthService.SignInByGoogle(Code);
+			if (response is not null)
+			{
+				await (AuthenticationStateProvider as MedicalAssistAuthenticationStateProvider)!.AuthenticateAsync(response);
+				NavigationManager.NavigateTo("/");
+			}
+		}
+
+		if (Error is not null || response is null)
+		{
+			NavigationManager.NavigateTo("/login");
+		}
+
+	}
+}

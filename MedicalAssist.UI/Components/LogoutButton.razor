@@ -1,0 +1,31 @@
+﻿@using MedicalAssist.UI.Shared.Services.Auth
+@using MedicalAssist.UI.Shared.Services.RefreshToken
+@inject AuthenticationStateProvider AuthenticationProvider
+@inject IRefreshTokenService RefreshTokenService
+@inject IDialogService Dialog
+
+<MudMenuItem OnClick="async ()=> await Logout()">Wyloguj się</MudMenuItem>
+
+<MudMessageBox @ref="_mudMessageBox" Title="Wylogwywanie się" CancelText="Anuluj">
+	<MessageContent>
+		Czy na pewno chcesz się wylogować ?
+	</MessageContent>
+	<YesButton>
+		<MudButton Class="ml-3" Variant="MudBlazor.Variant.Filled" Color="Color.Info" StartIcon="@Icons.Material.Filled.Logout">Wyloguj się!</MudButton>
+	</YesButton>
+</MudMessageBox>
+@code {
+
+    private readonly MudBlazor.DialogOptions _topCenter = new() { Position = MudBlazor.DialogPosition.TopCenter };
+    private MudMessageBox _mudMessageBox;
+
+	public async Task Logout()
+	{
+		bool? resultOfDialog = await _mudMessageBox.ShowAsync(_topCenter);
+		if(resultOfDialog is not null && resultOfDialog is true)
+		{
+			await RefreshTokenService.Revoke();
+			await (AuthenticationProvider as MedicalAssistAuthenticationStateProvider)!.LogOutAsync();
+		}
+}
+}
