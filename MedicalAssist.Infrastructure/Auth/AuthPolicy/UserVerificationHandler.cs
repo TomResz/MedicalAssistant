@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
-namespace MedicalAssist.Infrastructure.Auth;
+namespace MedicalAssist.Infrastructure.Auth.AuthPolicy;
 internal sealed class UserVerificationHandler : AuthorizationHandler<UserVerification>
 {
     protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, UserVerification requirement)

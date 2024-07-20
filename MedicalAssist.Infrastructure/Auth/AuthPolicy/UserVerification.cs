@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
-namespace MedicalAssist.Infrastructure.Auth;
+namespace MedicalAssist.Infrastructure.Auth.AuthPolicy;
 internal sealed class UserVerification : IAuthorizationRequirement
 {
     public UserVerification(bool isVerified)
@@ -8,5 +8,5 @@ internal sealed class UserVerification : IAuthorizationRequirement
         IsVerified = isVerified;
     }
 
-    public bool IsVerified { get; set; } 
+    public bool IsVerified { get; set; }
 }

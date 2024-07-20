@@ -40,6 +40,7 @@ internal sealed class Authenticator : IAuthenticator
             new Claim(ClaimTypes.Email,user.Email.Value),
             new Claim(ClaimTypes.Role,user.Role.Value),
             new Claim(CustomClaim.IsVerified,user.IsVerified.ToString()),
+            new Claim(CustomClaim.HasExternalProvider,user.HasExternalLoginProvider.ToString()),
         };
 
         var expires = now.Add(_expiry);

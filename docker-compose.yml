@@ -1,0 +1,50 @@
+version: '3.4'
+
+services:
+  medicalassist.api:
+    image: ${DOCKER_REGISTRY-}medicalassistapi
+    container_name: medicalassist.api
+    build:
+      context: .
+      dockerfile: MedicalAssist.API/Dockerfile
+    networks:
+      - medical-assist-network
+    ports:
+    - "5000:5100"
+    - "5001:5101"
+    environment:
+     - RUNNING_IN_DOCKER=true
+    depends_on:
+    - medicalassist.database
+
+  medicalassist.database:
+    image: postgres:latest
+    container_name: medicalassist.database
+    networks:
+      - medical-assist-network
+    environment:
+    - POSTGES_DB=medicalassist
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
+    volumes:
+    - ./.cointainers/medicalassist-db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  
+  medicallassist.ui:
+    container_name: medicalassist.ui
+    build:
+      context: .
+      dockerfile: MedicalAssist.UI/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - medical-assist-network
+    depends_on:
+      - medicalassist.api
+   
+networks:
+  medical-assist-network:
+    driver: bridge

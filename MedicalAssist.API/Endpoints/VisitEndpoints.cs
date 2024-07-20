@@ -18,6 +18,9 @@ public sealed class VisitEndpoints : IEndpoint
 			.RequireAuthorization(new AuthorizeAttribute { Policy = CustomClaim.IsVerified, Roles = "user" })
 			.WithTags("Visits");
 
+		group.MapGet("/", async (IMediator _mediator) 
+			=> await _mediator.Send(new GetAllVisitsQuery()));
+
 		group.MapPost("add", async (IMediator _mediator, AddVisitCommand command) =>
 		{
 			await _mediator.Send(command);

@@ -1,5 +1,6 @@
 ﻿using MedicalAssist.Application.Contracts;
 using MedicalAssist.Application.Security;
+using MedicalAssist.Infrastructure.Auth.AuthPolicy;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -66,7 +67,10 @@ internal static class Extensions
         {
             options.AddPolicy(CustomClaim.IsVerified, b => b.AddRequirements(new UserVerification(true)));
             options.AddPolicy(CustomClaim.IsNotVerified, b => b.AddRequirements(new UserVerification(false)));
-        });
+            options.AddPolicy(CustomClaim.HasExternalProvider, b => b.AddRequirements(new UserExternalProvider(true)));
+            options.AddPolicy(CustomClaim.HasInternalProvider, b => b.AddRequirements(new UserExternalProvider(false)));
+
+		});
         return services;
     }
 }

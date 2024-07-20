@@ -2,24 +2,30 @@
 using Hangfire.PostgreSql;
 using HangfireBasicAuthenticationFilter;
 using MedicalAssist.Infrastructure.BackgroundJobs;
+using MedicalAssist.Infrastructure.DAL.Options;
 using MedicalAssist.Infrastructure.Outbox;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace MedicalAssist.Infrastructure.BackgrounJobs;
 public static class Extensions
 {
-    private const string databaseConnectionSection = "postgres:connectionString";
     private const string hangfireUserSection = "Hangfire:User";
     private const string hangfirePasswordSection = "Hangfire:Password";
-
-    internal static IServiceCollection AddBackgroundJobs(this IServiceCollection services, IConfiguration configuration)
+	internal static IServiceCollection AddBackgroundJobs(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddHangfire(cfg =>
-        {
-            cfg.UsePostgreSqlStorage(opt =>
-                opt.UseNpgsqlConnection(configuration[databaseConnectionSection] ?? throw new ArgumentNullException()));
+
+		services.AddHangfire((sp,cfg) =>
+		{
+            var options = sp.GetRequiredService<IOptions<PostgresOptions>>().Value;
+
+			var isRunningInDocker = Environment.GetEnvironmentVariable("RUNNING_IN_DOCKER") == "true";
+			var connectionString = isRunningInDocker ? options.DockerConnectionString : options.ConnectionString;
+
+			cfg.UsePostgreSqlStorage(opt =>
+                opt.UseNpgsqlConnection(connectionString ?? throw new ArgumentNullException()));
         });
 
         services.AddHangfireServer(opt => opt.SchedulePollingInterval = TimeSpan.FromSeconds(5));
