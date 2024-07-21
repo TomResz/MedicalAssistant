@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MedicalAssist.UI.Shared.Resources;
 
 namespace MedicalAssist.UI.Models.Login;
 
@@ -8,10 +9,10 @@ public class LoginModelValidator : AbstractValidator<LoginModel>
     {
 		RuleFor(x => x.Email)
 			 .NotEmpty()
-			 .WithMessage("Email nie może być pusty!");
+			 .WithMessage(Translations.Empty_Email);
 		RuleFor(x => x.Password)
 			.NotEmpty()
-			 .WithMessage("Hasło nie może być puste!");
+			 .WithMessage(Translations.Empty_Password);
 	}
 
 

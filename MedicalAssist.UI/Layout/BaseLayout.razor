@@ -1,10 +1,13 @@
 ﻿@using MedicalAssist.UI.Components
 @using MedicalAssist.UI.Pages.Dashboard
+@using System.Globalization
+@using MedicalAssist.UI.Shared.Services.Auth
 @inherits LayoutComponentBase
+
 
 @inject MedicalAssist.UI.Shared.Services.Auth.LocalStorageService LocalStorage
 @inject IJSRuntime JSRuntime
-
+@inject NavigationManager Navigation
 
 <MudThemeProvider @ref="@_mudThemeProvider" @bind-IsDarkMode="@_isDarkMode" Theme="_currentTheme" />
 <MudDialogProvider />
@@ -72,5 +75,16 @@
 		await LocalStorage.SetValueAsync("isDarkMode", _isDarkMode);
 		await JSRuntime.InvokeVoidAsync("setRadzenComponentsTheme", _isDarkMode);
 		StateHasChanged();
+	}
+
+	public CultureInfo[] Cultures = new[]
+	{
+		new CultureInfo("en-US"),
+		new CultureInfo("pl-PL")
+	};
+
+	public CultureInfo Culture
+	{
+		get => CultureInfo.CurrentCulture;
 	}
 }

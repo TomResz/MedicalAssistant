@@ -1,0 +1,32 @@
+﻿@using MedicalAssist.UI.Shared.Services.Auth
+@using Microsoft.AspNetCore.Components
+@using Microsoft.Extensions.Localization
+@using System.Globalization
+@inject NavigationManager Navigation
+@inject LocalStorageService LocalStorage
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css">
+
+<MudIconButton Icon="@(_isPolish ? _polishIcon : _usaIcon)" Class="@(Class)" OnClick="async()=> await ChangeCulture()" />
+
+@code {
+	[Parameter] public string? Class { get; set; } = null;
+	private const string _polishIcon = "fi fi-pl";
+	private const string _usaIcon = "fi fi-us";
+
+	private bool _isPolish = true;
+
+	protected override async Task OnInitializedAsync()
+	{
+		var currentCulter = await LocalStorage.GetValueAsync("Culture");
+		_isPolish = currentCulter is "pl-PL";
+	}
+
+	private async Task ChangeCulture()
+	{
+		_isPolish = !_isPolish;
+		var newCulture = _isPolish ? new CultureInfo("pl-PL") : new CultureInfo("en-US");
+		await LocalStorage.SetValueAsync("Culture", newCulture.Name);
+		Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
+	}
+}

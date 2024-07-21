@@ -1,21 +1,21 @@
 ﻿@using MedicalAssist.UI.Models.Visits
 @using MedicalAssist.UI.Shared.Services.Visits
 @inject VisitService VisitService
-@if(visits is null)
+@if (visits is null)
 {
-	<h1>Ładowanie...</h1>
+	<h1>@Translations.Loading...</h1>
 }
 else
 {
-	<RadzenScheduler style="height: 800px;"
+	<RadzenScheduler Style="height: calc(100vh - 98px); max-height:100vh; overflow: hidden; margin: 0;"
 					 TItem="VisitModel" Data=@visits StartProperty="Date" EndProperty="End"
-					 TextProperty="VisitType" SelectedIndex="2" TodayText="Dzisiaj" NextText="Jutro" PrevText="Wczoraj">
-		<RadzenDayView Text="Dzień" StartTime="TimeSpan.FromHours(6.0)" EndTime="TimeSpan.FromHours(24.0)" TimeFormat="HH:mm"/>
-		<RadzenWeekView Text="Tydzień" StartTime="TimeSpan.FromHours(0.0)" EndTime="TimeSpan.FromHours(24.0)" TimeFormat="HH:mm" />
-		<RadzenMonthView Text="Miesiąc" />
-		<RadzenYearView Text="Rok" />
+					 TextProperty="VisitType" SelectedIndex="2" TodayText="@Translations.Today" NextText="@Translations.Tomorrow" PrevText="@Translations.Yesterday"
+					 SlotRender=@SelectTodayDate>
+		<RadzenDayView Text="@Translations.Day" StartTime="TimeSpan.FromHours(6.0)" EndTime="TimeSpan.FromHours(24.0)" TimeFormat="HH:mm" />
+		<RadzenWeekView Text="@Translations.Week" StartTime="TimeSpan.FromHours(0.0)" EndTime="TimeSpan.FromHours(24.0)" TimeFormat="HH:mm" />
+		<RadzenMonthView Text="@Translations.Month" />
+		<RadzenYearView Text="@Translations.Year" />
 	</RadzenScheduler>
-
 }
 
 @code {
@@ -25,6 +25,15 @@ else
 	{
 		visits = await VisitService.GetAllVisits();
 		StateHasChanged();
+	}
+
+	private void SelectTodayDate(SchedulerSlotRenderEventArgs args)
+	{
+		string[] validViews = { "Miesiąc", "Month", "Year", "Rok" };
+		if (validViews.Contains(args.View.Text) && args.Start.Date == DateTime.Today)
+		{
+			args.Attributes["style"] = "background: var(--rz-scheduler-highlight-background-color, rgba(255,220,40,.2));";
+		}
 	}
 
 }

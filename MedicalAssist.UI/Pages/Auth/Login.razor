@@ -23,7 +23,7 @@
 					  For="@(()=> user.Email)"
 					  AdornmentColor="Color.Primary"/>
 		<MudTextField @bind-Value="user.Password"
-					  Label="Hasło" InputType="@passwordInputType"
+					  Label="@Translations.Password" InputType="@passwordInputType"
 					  Adornment="Adornment.End" AdornmentIcon="@passwordIcon"
 					  OnAdornmentClick="TogglePasswordVisibility"
 					  Variant="MudBlazor.Variant.Filled"
@@ -38,7 +38,7 @@
 					   StartIcon="@Icons.Material.Filled.Login"
 					   IconSize="Size.Large"
 					   FullWidth="true">
-				Zaloguj
+				@Translations.Sign_in
 			</MudButton>
 			<FacebookAuthBtn />
 			<GoogleAuthBtn />

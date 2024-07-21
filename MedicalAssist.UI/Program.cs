@@ -32,7 +32,7 @@ builder.Services.AddScoped(
 builder.Services.AddScoped<LocalStorageService>();
 builder.Services.AddScoped<MedicalAssistAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(
-	sp=> sp.GetRequiredService<MedicalAssistAuthenticationStateProvider>());
+	sp => sp.GetRequiredService<MedicalAssistAuthenticationStateProvider>());
 
 builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
 builder.Services.AddScoped<IUserAuthService, UserAuthService>();
@@ -47,18 +47,20 @@ builder.Services.AddLocalization();
 
 var host = builder.Build();
 
-const string defaultCulture = "pl-PL";
 
-var js = host.Services.GetRequiredService<IJSRuntime>();
-var result = await js.InvokeAsync<string>("blazorCulture.get");
-var culture = CultureInfo.GetCultureInfo(result ?? defaultCulture);
-
-if (result is null)
+using (var sp = host.Services.CreateScope())
 {
-	await js.InvokeVoidAsync("blazorCulture.set", defaultCulture);
-}
+	const string defaultCulture = "pl-PL";
+	var localStorage = sp.ServiceProvider.GetRequiredService<LocalStorageService>();
 
-CultureInfo.DefaultThreadCurrentCulture = culture;
-CultureInfo.DefaultThreadCurrentUICulture = culture;
+	var stored = await localStorage.GetValueAsync("Culture");
+	CultureInfo culture = new(stored ?? defaultCulture);
+	if(stored is null)
+	{
+		await localStorage.SetValueAsync("Culture", culture.Name);
+	}
+	CultureInfo.DefaultThreadCurrentCulture = culture;
+	CultureInfo.DefaultThreadCurrentUICulture = culture;
+}
 
 await host.RunAsync();

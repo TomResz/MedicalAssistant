@@ -4,14 +4,14 @@
 @inject IRefreshTokenService RefreshTokenService
 @inject IDialogService Dialog
 
-<MudMenuItem OnClick="async ()=> await Logout()">Wyloguj się</MudMenuItem>
+<MudMenuItem OnClick="async ()=> await Logout()">@Translations.Log_out</MudMenuItem>
 
-<MudMessageBox @ref="_mudMessageBox" Title="Wylogwywanie się" CancelText="Anuluj">
+<MudMessageBox @ref="_mudMessageBox" Title="@Translations.Log_out" CancelText="@Translations.Cancel">
 	<MessageContent>
-		Czy na pewno chcesz się wylogować ?
+		@Translations.LogOut_Dialog
 	</MessageContent>
 	<YesButton>
-		<MudButton Class="ml-3" Variant="MudBlazor.Variant.Filled" Color="Color.Info" StartIcon="@Icons.Material.Filled.Logout">Wyloguj się!</MudButton>
+		<MudButton Class="ml-3" Variant="MudBlazor.Variant.Filled" Color="Color.Info" StartIcon="@Icons.Material.Filled.Logout">@Translations.Log_out!</MudButton>
 	</YesButton>
 </MudMessageBox>
 @code {
