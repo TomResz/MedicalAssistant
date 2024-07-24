@@ -1,18 +1,15 @@
 ﻿using FluentValidation;
-using MedicalAssist.UI.Shared.Resources;
+using MedicalAssist.UI.Models.Validator;
 
 namespace MedicalAssist.UI.Models.Login;
 
 public class LoginModelValidator : AbstractValidator<LoginModel>
 {
-    public LoginModelValidator()
-    {
-		RuleFor(x => x.Email)
-			 .NotEmpty()
-			 .WithMessage(Translations.Empty_Email);
-		RuleFor(x => x.Password)
-			.NotEmpty()
-			 .WithMessage(Translations.Empty_Password);
+	public LoginModelValidator()
+	{
+		RuleLevelCascadeMode = CascadeMode.Stop;
+		RuleFor(x => x.Email).EmailMustBeValid();
+		RuleFor(x => x.Password).PasswordMustBeValid();
 	}
 
 

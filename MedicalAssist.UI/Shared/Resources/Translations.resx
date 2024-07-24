@@ -174,4 +174,40 @@
   <data name="Currents" xml:space="preserve">
     <value>Currents</value>
   </data>
+  <data name="SignInPageTitle" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
+  <data name="PasswordTooShort" xml:space="preserve">
+    <value>Password is too short. Minimal length is {0}.</value>
+  </data>
+  <data name="PasswordTooLong" xml:space="preserve">
+    <value>Password is too long. Maximum length is {0}.</value>
+  </data>
+  <data name="EmailInvalidPattern" xml:space="preserve">
+    <value>Invalid email pattern.</value>
+  </data>
+  <data name="RegisterPageTitle" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Fullname" xml:space="preserve">
+    <value>Fullname</value>
+  </data>
+  <data name="ConfirmedPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="EmptyFullname" xml:space="preserve">
+    <value>Full name cannot be empty.</value>
+  </data>
+  <data name="PasswordMatch" xml:space="preserve">
+    <value>Password must matches.</value>
+  </data>
+  <data name="FullNameTooShort" xml:space="preserve">
+    <value>Full name is too short.</value>
+  </data>
+  <data name="FullNameTooLong" xml:space="preserve">
+    <value>Full name is too long.</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
 </root>

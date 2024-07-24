@@ -3,11 +3,13 @@ using MedicalAssist.UI.Shared.Services.Abstraction;
 using MedicalAssist.UI.Shared.Services.Auth;
 using MedicalAssist.UI.Shared.Services.RefreshToken;
 using MedicalAssist.UI.Shared.Services.User;
+using MedicalAssist.UI.Shared.Services.Verification;
 using MedicalAssist.UI.Shared.Services.Visits;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.JSInterop;
+using MudBlazor;
 using MudBlazor.Services;
 using Radzen;
 using System.Globalization;
@@ -37,10 +39,23 @@ builder.Services.AddScoped<AuthenticationStateProvider>(
 builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
 builder.Services.AddScoped<IUserAuthService, UserAuthService>();
 builder.Services.AddScoped<VisitService>();
+builder.Services.AddScoped<IUserVerificationService, UserVerificationService>();
+
 builder.Services.AddTransient<HttpClientRequestHandler>();
 
 builder.Services.AddRadzenComponents();
-builder.Services.AddMudServices();
+builder.Services.AddMudServices(config =>
+{
+	config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomLeft;
+
+	config.SnackbarConfiguration.PreventDuplicates = false;
+	config.SnackbarConfiguration.NewestOnTop = false;
+	config.SnackbarConfiguration.ShowCloseIcon = true;
+	config.SnackbarConfiguration.VisibleStateDuration = 10000;
+	config.SnackbarConfiguration.HideTransitionDuration = 500;
+	config.SnackbarConfiguration.ShowTransitionDuration = 500;
+	config.SnackbarConfiguration.SnackbarVariant = MudBlazor.Variant.Filled;
+});
 
 
 builder.Services.AddLocalization();

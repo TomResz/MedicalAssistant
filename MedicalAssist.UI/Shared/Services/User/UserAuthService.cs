@@ -36,25 +36,45 @@ internal sealed class UserAuthService : IUserAuthService
 		return null;
 	}
 
-	public async Task<SignInResponse> SignIn(LoginModel model)
+	public async Task<Response<SignInResponse>> SignIn(LoginModel model)
 	{
 		var response = await _httpClient.PostAsJsonAsync("user/sign-in", model);
 		if (response.IsSuccessStatusCode)
 		{
-			return await DeserializeOkResponse(response);
+			return new(await DeserializeOkResponse(response), true, Error.None);
 		}
-
-		return null;
+		var errorDetails = JsonSerializer.Deserialize<BaseErrorDetails>(await response.Content.ReadAsStringAsync())!;
+		var error = MatchErrors(errorDetails);
+		return new(null,false, error);
 	}
-
 	private async Task<SignInResponse> DeserializeOkResponse(HttpResponseMessage response)
 	{
 		var json = await response.Content.ReadAsStringAsync();
 		var content = JsonSerializer.Deserialize<SignInResponse>(json)!;
 		return content;
 	}
+	public async Task<Response.Response> SignUp(SignUpRequest request)
+	{
+		var response = await _httpClient.PostAsJsonAsync("user/sign-up", request);
+		if (response.IsSuccessStatusCode)
+		{
+			return new(true, Error.None);
+		}
+		var errorDetails = JsonSerializer.Deserialize<BaseErrorDetails>(await response.Content.ReadAsStringAsync())!;
+		return new(false,MatchErrors(errorDetails));
+	}
 
-
-
+	private static Error MatchErrors(BaseErrorDetails baseError)
+	{
+		return baseError.Type switch
+		{
+			"InvalidLoginProviderException" => AuthErrors.InvalidLoginProvider,
+			"InvalidSignInCredentialsException" => AuthErrors.InvalidSignInCredentials,
+			"UnverifiedUserException" => AuthErrors.UnverifiedUser,
+			"InvalidExternalProviderException" => AuthErrors.InvalidExternalProvider,
+			"EmailInUseException" => AuthErrors.EmailInUse,
+			_ => Error.InternalServerError
+		};
+	}
 
 }

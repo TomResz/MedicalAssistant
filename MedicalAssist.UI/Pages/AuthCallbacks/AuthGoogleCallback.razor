@@ -1,4 +1,5 @@
 ﻿@page "/authentication/google-callback"
+@using MedicalAssist.UI.Components
 @using MedicalAssist.UI.Layout
 @using MedicalAssist.UI.Shared.Response
 @using MedicalAssist.UI.Shared.Services.Abstraction
@@ -7,6 +8,8 @@
 @inject IUserAuthService AuthService
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager NavigationManager
+
+<LoadingComponent/>
 
 @code {
 	[Parameter]

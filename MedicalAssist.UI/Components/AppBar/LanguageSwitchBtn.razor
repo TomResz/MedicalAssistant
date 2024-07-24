@@ -11,6 +11,7 @@
 
 @code {
 	[Parameter] public string? Class { get; set; } = null;
+	[Parameter] public string? RedirectUri { get; set; } = null;
 	private const string _polishIcon = "fi fi-pl";
 	private const string _usaIcon = "fi fi-us";
 
@@ -27,6 +28,6 @@
 		_isPolish = !_isPolish;
 		var newCulture = _isPolish ? new CultureInfo("pl-PL") : new CultureInfo("en-US");
 		await LocalStorage.SetValueAsync("Culture", newCulture.Name);
-		Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
+		Navigation.NavigateTo(RedirectUri ?? Navigation.Uri, forceLoad: true);
 	}
 }

@@ -2,47 +2,60 @@
 @inject IUserAuthService userService
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager Navigation
+@inject ISnackbar Snackbar
 @layout LoginRegisterLayout
+
 @using MedicalAssist.UI.Components
 @using MedicalAssist.UI.Models.Login
-
 @using MedicalAssist.UI.Shared.Services.Abstraction
 @using MedicalAssist.UI.Shared.Services.Auth
+@using MedicalAssist.UI.Shared.Services.User
 
+<PageTitle>@Translations.SignInPageTitle</PageTitle>
+	<MudForm @ref="form" Model="user" Validation="@(_validator.ValidateValue)" ValidationDelay="60" Class="mx-0 px-0">
+		<MudCardContent>
+			<MudText Align="@Align.Center" Typo="Typo.h3" Color="Color.Primary">@Translations.SignInPageTitle</MudText>
 
-<MudForm @ref="form" Model="user" Validation="@(_validator.ValidateValue)" ValidationDelay="0" Class="mx-0 px-0">
-	<MudCardContent>
-		<MudText Align="@Align.Center" Typo="Typo.h3" Color="Color.Primary">Logowanie</MudText>
-
-		<MudTextField @bind-Value="user.Email"
-					  Label="Email"
-					  Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Email"
-					  Variant="MudBlazor.Variant.Filled"
-					  Class="mb-4"
-					  Immediate="true"
-					  For="@(()=> user.Email)"
-					  AdornmentColor="Color.Primary"/>
-		<MudTextField @bind-Value="user.Password"
-					  Label="@Translations.Password" InputType="@passwordInputType"
-					  Adornment="Adornment.End" AdornmentIcon="@passwordIcon"
-					  OnAdornmentClick="TogglePasswordVisibility"
-					  Variant="MudBlazor.Variant.Filled"
-					  Class="mb-4"
-					  Immediate="true"
-					  For="@(()=> user.Password)" 
-					  AdornmentColor="Color.Primary" />
-		<MudCardActions Class="d-flex justify-center flex-wrap">
-			<MudButton Variant="MudBlazor.Variant.Outlined"
-					   Color="Color.Primary" OnClick="@(async () => await LoginAsync())"
-					   Class="mb-2 mx-2"
-					   StartIcon="@Icons.Material.Filled.Login"
-					   IconSize="Size.Large"
-					   FullWidth="true">
-				@Translations.Sign_in
-			</MudButton>
-			<FacebookAuthBtn />
-			<GoogleAuthBtn />
+			<MudTextField @bind-Value="user.Email"
+						  Label="Email"
+						  Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Email"
+						  Variant="MudBlazor.Variant.Filled"
+						  Class="mb-2 py-2"
+						  Immediate="true"
+						  For="@(()=> user.Email)"
+						  AdornmentColor="Color.Primary" />
+			<MudTextField @bind-Value="user.Password"
+						  Label="@Translations.Password" InputType="@passwordInputType"
+						  Adornment="Adornment.End" AdornmentIcon="@passwordIcon"
+						  OnAdornmentClick="TogglePasswordVisibility"
+						  Variant="MudBlazor.Variant.Filled"
+						  Class="mb-2 py-2"
+						  Immediate="true"
+						  For="@(()=> user.Password)"
+						  AdornmentColor="Color.Primary" />
+			<MudCardActions Class="px-0">
+				<MudGrid>
+					<MudItem xs="12">
+						<MudButton Variant="MudBlazor.Variant.Filled"
+								   Color="Color.Primary" OnClick="@(async () => await LoginAsync())"
+								   StartIcon="@Icons.Material.Filled.Login"
+								   IconSize="Size.Large"
+								   FullWidth="true"
+								   Disabled="_btnPressed">
+							@Translations.Sign_in
+					</MudButton>
+				</MudItem>
+				<MudItem xs="12" sm="6">
+					<FacebookAuthBtn />
+				</MudItem>
+				<MudItem xs="12" sm="6">
+					<GoogleAuthBtn />
+				</MudItem>
+			</MudGrid>
 		</MudCardActions>
+		<MudText Align="Align.Center" Typo="Typo.subtitle1" Class="mt-1">
+			Nie posiadasz konta?<br /> <MudLink Href="/register" Color="Color.Primary">Zarejestruj się</MudLink>
+		</MudText>
 	</MudCardContent>
 </MudForm>
 
@@ -52,19 +65,49 @@
 	private InputType passwordInputType = InputType.Password;
 	private string passwordIcon = Icons.Material.Filled.VisibilityOff;
 
+	private bool _btnPressed = false;
 	private LoginModelValidator _validator = new();
+
 	private async Task LoginAsync()
 	{
 		await form.Validate();
 		if (form.IsValid)
 		{
+			_btnPressed = true;
 			var response = await userService.SignIn(user);
 
-			if (response is not null)
+			if (response.IsSuccess)
 			{
-				await (AuthenticationStateProvider as MedicalAssistAuthenticationStateProvider)!.AuthenticateAsync(response);
+				await (AuthenticationStateProvider as MedicalAssistAuthenticationStateProvider)!.AuthenticateAsync(response.Value!);
 				Navigation.NavigateTo("/");
 			}
+			else
+			{
+				string error;
+				if (response.Error == AuthErrors.InvalidLoginProvider)
+				{
+					error = "InvalidLoginProviderException";
+				}
+				else if (response.Error == AuthErrors.InvalidSignInCredentials)
+				{
+					error = "InvalidSignInCredentialsException";
+				}
+				else if (response.Error == AuthErrors.UnverifiedUser)
+				{
+					error = "UnverifiedUserException";
+				}
+				else if (response.Error == AuthErrors.InvalidExternalProvider)
+				{
+					error = "InvalidExternalProvider";
+				}
+				else
+				{
+					error = "Other";
+				}
+				Snackbar.Add(error, MudBlazor.Severity.Error);
+				Console.WriteLine(error);
+			}
+			_btnPressed = false;
 		}
 	}
 

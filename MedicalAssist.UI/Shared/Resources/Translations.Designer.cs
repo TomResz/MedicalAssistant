@@ -70,6 +70,15 @@ namespace MedicalAssist.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm Password.
+        /// </summary>
+        internal static string ConfirmedPassword {
+            get {
+                return ResourceManager.GetString("ConfirmedPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Currents.
         /// </summary>
         internal static string Currents {
@@ -88,6 +97,15 @@ namespace MedicalAssist.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid email pattern..
+        /// </summary>
+        internal static string EmailInvalidPattern {
+            get {
+                return ResourceManager.GetString("EmailInvalidPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email cannot be empty!.
         /// </summary>
         internal static string Empty_Email {
@@ -102,6 +120,42 @@ namespace MedicalAssist.UI.Shared.Resources {
         internal static string Empty_Password {
             get {
                 return ResourceManager.GetString("Empty_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full name cannot be empty..
+        /// </summary>
+        internal static string EmptyFullname {
+            get {
+                return ResourceManager.GetString("EmptyFullname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fullname.
+        /// </summary>
+        internal static string Fullname {
+            get {
+                return ResourceManager.GetString("Fullname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full name is too long..
+        /// </summary>
+        internal static string FullNameTooLong {
+            get {
+                return ResourceManager.GetString("FullNameTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full name is too short..
+        /// </summary>
+        internal static string FullNameTooShort {
+            get {
+                return ResourceManager.GetString("FullNameTooShort", resourceCulture);
             }
         }
         
@@ -169,11 +223,65 @@ namespace MedicalAssist.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password must matches..
+        /// </summary>
+        internal static string PasswordMatch {
+            get {
+                return ResourceManager.GetString("PasswordMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password is too long. Maximum length is {0}..
+        /// </summary>
+        internal static string PasswordTooLong {
+            get {
+                return ResourceManager.GetString("PasswordTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password is too short. Minimal length is {0}..
+        /// </summary>
+        internal static string PasswordTooShort {
+            get {
+                return ResourceManager.GetString("PasswordTooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        internal static string Register {
+            get {
+                return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        internal static string RegisterPageTitle {
+            get {
+                return ResourceManager.GetString("RegisterPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign in.
         /// </summary>
         internal static string Sign_in {
             get {
                 return ResourceManager.GetString("Sign_in", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign In.
+        /// </summary>
+        internal static string SignInPageTitle {
+            get {
+                return ResourceManager.GetString("SignInPageTitle", resourceCulture);
             }
         }
         

@@ -1,0 +1,152 @@
+﻿@page "/register"
+@inject IUserAuthService UserService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager Navigation
+@inject ISnackbar Snackbar
+@layout LoginRegisterLayout
+
+@using MedicalAssist.UI.Components
+@using MedicalAssist.UI.Models.Login
+@using MedicalAssist.UI.Models.Register
+@using MedicalAssist.UI.Shared.Services.Abstraction
+@using MedicalAssist.UI.Shared.Services.Auth
+@using MedicalAssist.UI.Shared.Services.User
+
+<PageTitle>@Translations.RegisterPageTitle</PageTitle>
+	<MudForm @ref="form" Model="user" Validation="@(_validator.ValidateValue)" ValidationDelay="60" Class="mx-0 px-0">
+		<MudCardContent>
+			<MudText Align="@Align.Center" Typo="Typo.h3" Color="Color.Primary">@Translations.RegisterPageTitle</MudText>
+
+			<MudTextField @bind-Value="user.FullName"
+						  Label="@Translations.Fullname"
+						  Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.TagFaces"
+						  Variant="MudBlazor.Variant.Filled"
+						  Class="mb-2 py-2"
+						  Immediate="true"
+						  For="@(()=> user.FullName)"
+						  AdornmentColor="Color.Primary" />
+			<MudTextField @bind-Value="user.Email"
+						  Label="Email"
+						  Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Email"
+						  Variant="MudBlazor.Variant.Filled"
+						  Class="mb-2 py-2"
+						  Immediate="true"
+						  For="@(()=> user.Email)"
+						  AdornmentColor="Color.Primary" />
+			<MudTextField @bind-Value="user.Password"
+						  Label="@Translations.Password" InputType="@passwordInputType"
+						  Adornment="Adornment.End" AdornmentIcon="@passwordIcon"
+						  OnAdornmentClick="TogglePasswordVisibility"
+						  Variant="MudBlazor.Variant.Filled"
+						  Class="mb-2 py-2"
+						  Immediate="true"
+						  For="@(()=> user.Password)"
+						  AdornmentColor="Color.Primary" />
+			<MudTextField @bind-Value="user.ConfirmedPassword"
+						  Label="@Translations.ConfirmedPassword" InputType="@confirmedPasswordInputType"
+						  Adornment="Adornment.End" AdornmentIcon="@confirmedPasswordIcon"
+						  OnAdornmentClick="ToggleConfirmedPasswordVisibility"
+						  Variant="MudBlazor.Variant.Filled"
+						  Class="mb-2 py-2"
+						  Immediate="true"
+						  For="@(()=> user.ConfirmedPassword)"
+						  AdornmentColor="Color.Primary" />
+			<MudCardActions Class="px-0">
+				<MudGrid>
+					<MudItem xs="12">
+						<MudButton Variant="MudBlazor.Variant.Filled"
+								   Color="Color.Primary" OnClick="@(async () => await RegisterAsync())"
+								   StartIcon="@Icons.Material.Filled.AppRegistration"
+								   IconSize="Size.Large"
+								   FullWidth="true"
+								   Disabled="_btnPressed">
+							@Translations.Register
+						</MudButton>
+					</MudItem>
+					<MudItem xs="12" sm="6">
+						<FacebookAuthBtn />
+					</MudItem>
+					<MudItem xs="12" sm="6">
+						<GoogleAuthBtn />
+					</MudItem>
+				</MudGrid>
+			</MudCardActions>
+		<MudText Align="Align.Center" Typo="Typo.subtitle1" Class="mt-1">
+			Posiadasz już konto?<br /> <MudLink Href="/login" Color="Color.Primary">Zaloguj się</MudLink>
+		</MudText>
+	</MudCardContent>
+</MudForm>
+
+@code {
+	private MudForm form;
+	private RegisterUserModel user = new();
+	private RegisterUserModelValidator _validator = new();
+
+	private InputType passwordInputType = InputType.Password;
+	private string passwordIcon = Icons.Material.Filled.VisibilityOff;
+
+	private InputType confirmedPasswordInputType = InputType.Password;
+	private string confirmedPasswordIcon = Icons.Material.Filled.VisibilityOff;
+
+	private bool _btnPressed = false;
+
+
+	private async Task RegisterAsync()
+	{
+		await form.Validate();
+		if(form.IsValid)
+		{
+			var response = await UserService.SignUp(new() 
+				{ 
+					Email = user.Email, 
+					FullName = user.FullName, 
+					Password = user.Password 
+				});
+
+			if (response.IsSuccess)
+			{
+				user.FullName = string.Empty;
+				user.Email = string.Empty;
+				user.ConfirmedPassword = string.Empty;
+				user.Password = string.Empty;
+
+				Snackbar.Add("Udało się utworzyć konto!", MudBlazor.Severity.Success);
+			}
+			else
+			{
+				if(response.Error == AuthErrors.EmailInUse)
+					Snackbar.Add("Email jest aktualnie używany!", MudBlazor.Severity.Error);
+				else
+					Snackbar.Add("Coś poszło nie tak!", MudBlazor.Severity.Error);
+			}
+		}
+	}
+
+	private void TogglePasswordVisibility()
+	{
+		if (passwordInputType == InputType.Password)
+		{
+			passwordInputType = InputType.Text;
+			passwordIcon = Icons.Material.Filled.Visibility;
+		}
+		else
+		{
+			passwordInputType = InputType.Password;
+			passwordIcon = Icons.Material.Filled.VisibilityOff;
+		}
+	}
+
+	private void ToggleConfirmedPasswordVisibility()
+	{
+		if (confirmedPasswordInputType == InputType.Password)
+		{
+			confirmedPasswordInputType = InputType.Text;
+			confirmedPasswordIcon = Icons.Material.Filled.Visibility;
+		}
+		else
+		{
+			confirmedPasswordInputType = InputType.Password;
+			confirmedPasswordIcon = Icons.Material.Filled.VisibilityOff;
+		}
+	}
+}
