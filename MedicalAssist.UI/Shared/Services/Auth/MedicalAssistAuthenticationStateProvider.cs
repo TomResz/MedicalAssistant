@@ -50,7 +50,7 @@ public class MedicalAssistAuthenticationStateProvider : AuthenticationStateProvi
 			}, "Api");
 	}
 
-
+	public async Task<string?> GetJwtToken() => await _localStorage.GetValueAsync("access_token");
 
 
 	public async Task AuthenticateAsync(SignInResponse response)

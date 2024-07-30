@@ -54,7 +54,10 @@
 			</MudGrid>
 		</MudCardActions>
 		<MudText Align="Align.Center" Typo="Typo.subtitle1" Class="mt-1">
-			Nie posiadasz konta?<br /> <MudLink Href="/register" Color="Color.Primary">Zarejestruj się</MudLink>
+			@Translations.LoginPageDontHaveAccountQuestion<br />
+			<MudLink Href="/register" Color="Color.Primary">
+				@Translations.LoginPageRegisterLink
+			</MudLink>
 		</MudText>
 	</MudCardContent>
 </MudForm>

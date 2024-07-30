@@ -22,9 +22,9 @@ public static class Extensions
             .AddSingleton<IClock, Clock>()
             .AddSecurity()
             .AddMediatR(conf =>
-		    {
-			    conf.RegisterServicesFromAssemblies(typeof(Extensions).Assembly);
-		    })
+            {
+                conf.RegisterServicesFromAssemblies(typeof(Extensions).Assembly);
+            })
             .AddBackgroundJobs(configuration)
             .AddEmailServices(configuration)
             .AddGoogleService(configuration);

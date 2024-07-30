@@ -210,4 +210,37 @@
   <data name="Register" xml:space="preserve">
     <value>Register</value>
   </data>
+  <data name="LoginPageDontHaveAccountQuestion" xml:space="preserve">
+    <value>Do you not have an account ?</value>
+  </data>
+  <data name="LoginPageRegisterLink" xml:space="preserve">
+    <value>Create an account</value>
+  </data>
+  <data name="RegisterPageQuestion" xml:space="preserve">
+    <value>Do you have an account ?</value>
+  </data>
+  <data name="RegisterPageLoginLink" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
+  <data name="CreateAccountEmailInUsePrompt" xml:space="preserve">
+    <value>The email address provided is already taken. </value>
+  </data>
+  <data name="SomethingWentWrong" xml:space="preserve">
+    <value>Something went wrong...</value>
+  </data>
+  <data name="RegisterPageAccountCreated" xml:space="preserve">
+    <value>The account was successfully set up.</value>
+  </data>
+  <data name="RegenerateCodeSendAgain" xml:space="preserve">
+    <value>Send again verification link</value>
+  </data>
+  <data name="RegenerateCodePageTitle" xml:space="preserve">
+    <value>Verification Code Regeneration</value>
+  </data>
+  <data name="RegenerateCodeEmailSent" xml:space="preserve">
+    <value>The email with the verification code has been sent.</value>
+  </data>
+  <data name="GoToMainPage" xml:space="preserve">
+    <value>Go to main page</value>
+  </data>
 </root>

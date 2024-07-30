@@ -79,6 +79,15 @@ namespace MedicalAssist.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The email address provided is already taken. .
+        /// </summary>
+        internal static string CreateAccountEmailInUsePrompt {
+            get {
+                return ResourceManager.GetString("CreateAccountEmailInUsePrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Currents.
         /// </summary>
         internal static string Currents {
@@ -160,6 +169,15 @@ namespace MedicalAssist.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Go to main page.
+        /// </summary>
+        internal static string GoToMainPage {
+            get {
+                return ResourceManager.GetString("GoToMainPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading.
         /// </summary>
         internal static string Loading {
@@ -183,6 +201,24 @@ namespace MedicalAssist.UI.Shared.Resources {
         internal static string Log_out {
             get {
                 return ResourceManager.GetString("Log_out", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you not have an account ?.
+        /// </summary>
+        internal static string LoginPageDontHaveAccountQuestion {
+            get {
+                return ResourceManager.GetString("LoginPageDontHaveAccountQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create an account.
+        /// </summary>
+        internal static string LoginPageRegisterLink {
+            get {
+                return ResourceManager.GetString("LoginPageRegisterLink", resourceCulture);
             }
         }
         
@@ -250,11 +286,65 @@ namespace MedicalAssist.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The email with the verification code has been sent..
+        /// </summary>
+        internal static string RegenerateCodeEmailSent {
+            get {
+                return ResourceManager.GetString("RegenerateCodeEmailSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verification Code Regeneration.
+        /// </summary>
+        internal static string RegenerateCodePageTitle {
+            get {
+                return ResourceManager.GetString("RegenerateCodePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send again verification link.
+        /// </summary>
+        internal static string RegenerateCodeSendAgain {
+            get {
+                return ResourceManager.GetString("RegenerateCodeSendAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register.
         /// </summary>
         internal static string Register {
             get {
                 return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The account was successfully set up..
+        /// </summary>
+        internal static string RegisterPageAccountCreated {
+            get {
+                return ResourceManager.GetString("RegisterPageAccountCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign In.
+        /// </summary>
+        internal static string RegisterPageLoginLink {
+            get {
+                return ResourceManager.GetString("RegisterPageLoginLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you have an account ?.
+        /// </summary>
+        internal static string RegisterPageQuestion {
+            get {
+                return ResourceManager.GetString("RegisterPageQuestion", resourceCulture);
             }
         }
         
@@ -282,6 +372,15 @@ namespace MedicalAssist.UI.Shared.Resources {
         internal static string SignInPageTitle {
             get {
                 return ResourceManager.GetString("SignInPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong....
+        /// </summary>
+        internal static string SomethingWentWrong {
+            get {
+                return ResourceManager.GetString("SomethingWentWrong", resourceCulture);
             }
         }
         

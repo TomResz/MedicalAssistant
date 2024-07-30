@@ -1,7 +1,9 @@
-﻿@using MedicalAssist.UI.Shared.Response
+﻿@using MedicalAssist.UI.Shared.Options
+@using MedicalAssist.UI.Shared.Response
 @using MedicalAssist.UI.Shared.Services.Abstraction
 @using MedicalAssist.UI.Shared.Services.Auth
 @using System.Web
+@using Microsoft.Extensions.Options
 @inject IUserAuthService UserAuthService
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
@@ -19,12 +21,12 @@
 	private NavigationManager _navigation { get; set; }
 
 	[Inject]
-	private IConfiguration _configuration { get; set; }
+	private IOptions<GoogleOptions> _options { get; set; }
 
 	void LoginWithGoogle()
 	{
-		string redirectUri = HttpUtility.UrlEncode("https://localhost:7076/authentication/google-callback");
-		string clientId = _configuration["Auth:Google:ClientId"]!;
+		string redirectUri = HttpUtility.UrlEncode(_options.Value.CallbackPath);
+		string clientId = _options.Value.ClientId;
 
 		string fullUri = $"https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&client_id={clientId}&redirect_uri={redirectUri}&response_type=code&scope=email%20profile&prompt=consent";
 

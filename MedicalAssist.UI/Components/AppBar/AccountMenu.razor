@@ -1,13 +1,22 @@
-﻿@using MedicalAssist.UI.Shared.Services.RefreshToken 
+﻿@using MedicalAssist.UI.Shared.Services.Auth
+@using MedicalAssist.UI.Shared.Services.User
+@inject IUserDataService Service
 
 <MudMenu AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
 	<ActivatorContent>
-		<MudAvatar Color="Color.Primary">
-			U
-		</MudAvatar>
+		<MudIconButton Icon="@Icons.Material.Filled.Person" Color="Color.Inherit"></MudIconButton>
 	</ActivatorContent>
 	<ChildContent>
-		<LogoutButton/> 
+		<LogoutButton />
 	</ChildContent>
 </MudMenu>
 
+@code {
+
+	private string? _fullName = "Account";
+
+	protected override async Task OnInitializedAsync()
+	{
+		_fullName = await Service.GetUsername() ?? "Account";
+	}
+}

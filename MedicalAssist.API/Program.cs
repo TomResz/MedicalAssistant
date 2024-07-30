@@ -8,6 +8,7 @@ using MedicalAssist.Infrastructure.BackgroundJobs;
 using MedicalAssist.Infrastructure.BackgrounJobs;
 using MedicalAssist.Infrastructure.DAL;
 using MedicalAssist.Infrastructure.Middleware;
+using MedicalAssist.Infrastructure.Notifications;
 using Serilog;
 using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerDoc();
 builder.Services.AddSwaggerAuthMiddleware();
+builder.Services.AddSignalR();
 
 builder.Services
     .AddApplication()
@@ -64,6 +66,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseInfrastructure();
+
+app.MapHub<NotificationHub>("notifications");
 
 app.Run();
         

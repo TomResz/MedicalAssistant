@@ -1,5 +1,7 @@
 ﻿@using System.Security.Cryptography
 @using System.Web
+@using MedicalAssist.UI.Shared.Options
+@using Microsoft.Extensions.Options
 <MudButton StartIcon="@Icons.Custom.Brands.Facebook"
 		   Variant="MudBlazor.Variant.Filled" Color="Color.Primary"
 		   OnClick="() =>AuthWithFacebook()"
@@ -13,11 +15,12 @@
 	private NavigationManager _navigation { get; set; }
 
 	[Inject]
-	private IConfiguration _configuration { get; set; }
+	private IOptions<FacebookOptions> _options { get; set; }
+
 	public void AuthWithFacebook()
 	{
-		string redirectUri = HttpUtility.UrlEncode("https://localhost:7076/authentication/facebook-callback");
-		string clientId = _configuration["Auth:Facebook:ClientId"]!;
+		string redirectUri = HttpUtility.UrlEncode(_options.Value.CallbackPath);
+		string clientId = _options.Value.ClientId;
 
 		string state = GenerateState();
 

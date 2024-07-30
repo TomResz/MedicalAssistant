@@ -157,7 +157,7 @@
     <value>Anuluj</value>
   </data>
   <data name="Log_out" xml:space="preserve">
-    <value>Wyloguj sie</value>
+    <value>Wyloguj się</value>
   </data>
   <data name="LogOut_Dialog" xml:space="preserve">
     <value>Czy na pewno chcesz się wylogować ?</value>
@@ -209,5 +209,38 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>Zarejestruj się</value>
+  </data>
+  <data name="LoginPageDontHaveAccountQuestion" xml:space="preserve">
+    <value>Nie posiadasz konta ?</value>
+  </data>
+  <data name="LoginPageRegisterLink" xml:space="preserve">
+    <value>Załóż konto</value>
+  </data>
+  <data name="RegisterPageQuestion" xml:space="preserve">
+    <value>Posiadasz już konto ?</value>
+  </data>
+  <data name="RegisterPageLoginLink" xml:space="preserve">
+    <value>Zaloguj się</value>
+  </data>
+  <data name="CreateAccountEmailInUsePrompt" xml:space="preserve">
+    <value>Podany adres email jest już zajęty. </value>
+  </data>
+  <data name="SomethingWentWrong" xml:space="preserve">
+    <value>Coś poszło nie tak...</value>
+  </data>
+  <data name="RegisterPageAccountCreated" xml:space="preserve">
+    <value>Udało się założyć konto.</value>
+  </data>
+  <data name="RegenerateCodeSendAgain" xml:space="preserve">
+    <value>Wyślij ponownie link do weryfikacji konta</value>
+  </data>
+  <data name="RegenerateCodePageTitle" xml:space="preserve">
+    <value>Regeneracja Kodu Weryfikacyjnego</value>
+  </data>
+  <data name="RegenerateCodeEmailSent" xml:space="preserve">
+    <value>Email z kodem weryfikacyjnym został wysłany.</value>
+  </data>
+  <data name="GoToMainPage" xml:space="preserve">
+    <value>Przejdź do strony głównej</value>
   </data>
 </root>
