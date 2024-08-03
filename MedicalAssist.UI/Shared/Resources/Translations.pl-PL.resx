@@ -243,4 +243,13 @@
   <data name="GoToMainPage" xml:space="preserve">
     <value>Przejdź do strony głównej</value>
   </data>
+  <data name="UnverifiedUserError" xml:space="preserve">
+    <value>Konto nie zostało jeszcze aktywowane.</value>
+  </data>
+  <data name="InvalidSignInCredentialsError" xml:space="preserve">
+    <value>Nieprawidłowy email lub hasło.</value>
+  </data>
+  <data name="InvalidLoginProviderError" xml:space="preserve">
+    <value>Konto używa zewnętrznego systemu uwierzytelniania ( Google lub Facebook).</value>
+  </data>
 </root>

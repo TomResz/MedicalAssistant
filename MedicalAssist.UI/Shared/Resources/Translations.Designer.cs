@@ -178,6 +178,24 @@ namespace MedicalAssist.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The account uses an external authentication system ( Google or Facebook)..
+        /// </summary>
+        internal static string InvalidLoginProviderError {
+            get {
+                return ResourceManager.GetString("InvalidLoginProviderError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect email or password..
+        /// </summary>
+        internal static string InvalidSignInCredentialsError {
+            get {
+                return ResourceManager.GetString("InvalidSignInCredentialsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading.
         /// </summary>
         internal static string Loading {
@@ -399,6 +417,15 @@ namespace MedicalAssist.UI.Shared.Resources {
         internal static string Tomorrow {
             get {
                 return ResourceManager.GetString("Tomorrow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The account has not yet been activated..
+        /// </summary>
+        internal static string UnverifiedUserError {
+            get {
+                return ResourceManager.GetString("UnverifiedUserError", resourceCulture);
             }
         }
         

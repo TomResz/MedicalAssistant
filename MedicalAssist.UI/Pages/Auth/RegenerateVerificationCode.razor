@@ -45,8 +45,8 @@ else
 @code {
 	private MudForm _form;
 	private bool _btnPressed = false;
-	private RegenerateCodeModel _model = new();
-	private RegenerateCodeModelValidator _validator = new();
+	private readonly RegenerateCodeModel _model = new();
+	private readonly RegenerateCodeModelValidator _validator = new();
 
 	private bool _emailSent = false;
 
@@ -55,7 +55,7 @@ else
 		await _form.Validate();
 		if (_form.IsValid)
 		{
-			
+
 		}
 	}
 

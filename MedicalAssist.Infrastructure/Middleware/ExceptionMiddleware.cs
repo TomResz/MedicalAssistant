@@ -43,7 +43,9 @@ internal sealed class ExceptionMiddleware : IMiddleware
 			.GetType()
 			.ToString()
 			.Split('.')
-			.Last();
+			.Last()
+			.Replace(nameof(Exception),"");
+
 		var details = new ErrorDetails(statusCode, type, ex.Message);
 
         string content = details.ToString();

@@ -1,37 +1,30 @@
 ﻿@page "/login"
-@inject IUserAuthService UserService
-@inject AuthenticationStateProvider AuthenticationStateProvider
-@inject NavigationManager Navigation
-@inject ISnackbar Snackbar
+
 @layout LoginRegisterLayout
 
 @using MedicalAssist.UI.Components
-@using MedicalAssist.UI.Models.Login
-@using MedicalAssist.UI.Shared.Services.Abstraction
-@using MedicalAssist.UI.Shared.Services.Auth
-@using MedicalAssist.UI.Shared.Services.User
 
 <PageTitle>@Translations.SignInPageTitle</PageTitle>
-	<MudForm @ref="form" Model="user" Validation="@(_validator.ValidateValue)" ValidationDelay="60" Class="mx-0 px-0">
+	<MudForm @ref="_form" Model="_user" Validation="@(_validator.ValidateValue)" ValidationDelay="60" Class="mx-0 px-0">
 		<MudCardContent>
 			<MudText Align="@Align.Center" Typo="Typo.h3" Color="Color.Primary">@Translations.SignInPageTitle</MudText>
 
-			<MudTextField @bind-Value="user.Email"
+			<MudTextField @bind-Value="_user.Email"
 						  Label="Email"
 						  Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Email"
 						  Variant="MudBlazor.Variant.Filled"
 						  Class="mb-2 py-2"
 						  Immediate="true"
-						  For="@(()=> user.Email)"
+						  For="@(()=> _user.Email)"
 						  AdornmentColor="Color.Primary" />
-			<MudTextField @bind-Value="user.Password"
+			<MudTextField @bind-Value="_user.Password"
 						  Label="@Translations.Password" InputType="@passwordInputType"
 						  Adornment="Adornment.End" AdornmentIcon="@passwordIcon"
 						  OnAdornmentClick="TogglePasswordVisibility"
 						  Variant="MudBlazor.Variant.Filled"
 						  Class="mb-2 py-2"
 						  Immediate="true"
-						  For="@(()=> user.Password)"
+						  For="@(()=> _user.Password)"
 						  AdornmentColor="Color.Primary" />
 			<MudCardActions Class="px-0">
 				<MudGrid>
@@ -61,70 +54,3 @@
 		</MudText>
 	</MudCardContent>
 </MudForm>
-
-@code {
-	private MudForm form;
-	private LoginModel user = new();
-	private InputType passwordInputType = InputType.Password;
-	private string passwordIcon = Icons.Material.Filled.VisibilityOff;
-
-	private bool _btnPressed = false;
-	private LoginModelValidator _validator = new();
-
-	private async Task LoginAsync()
-	{
-		await form.Validate();
-		if (form.IsValid)
-		{
-			_btnPressed = true;
-			var response = await UserService.SignIn(user);
-
-			if (response.IsSuccess)
-			{
-				await (AuthenticationStateProvider as MedicalAssistAuthenticationStateProvider)!.AuthenticateAsync(response.Value!);
-				Navigation.NavigateTo("/");
-			}
-			else
-			{
-				string error;
-				if (response.Error == AuthErrors.InvalidLoginProvider)
-				{
-					error = "InvalidLoginProviderException";
-				}
-				else if (response.Error == AuthErrors.InvalidSignInCredentials)
-				{
-					error = "InvalidSignInCredentialsException";
-				}
-				else if (response.Error == AuthErrors.UnverifiedUser)
-				{
-					error = "UnverifiedUserException";
-				}
-				else if (response.Error == AuthErrors.InvalidExternalProvider)
-				{
-					error = "InvalidExternalProvider";
-				}
-				else
-				{
-					error = "Other";
-				}
-				Snackbar.Add(error, MudBlazor.Severity.Error);
-				Console.WriteLine(error);
-			}
-			_btnPressed = false;
-		}
-	}
-
-	private void TogglePasswordVisibility()
-	{
-		if (passwordInputType == InputType.Password)
-		{
-			passwordInputType = InputType.Text;
-			passwordIcon = Icons.Material.Filled.Visibility;
-		}
-		else
-		{
-			passwordInputType = InputType.Password;
-			passwordIcon = Icons.Material.Filled.VisibilityOff;
-		}
-	}
-}

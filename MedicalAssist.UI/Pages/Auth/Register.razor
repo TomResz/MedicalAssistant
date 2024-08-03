@@ -1,21 +1,11 @@
 ﻿@page "/register"
-@inject IUserAuthService UserService
-@inject AuthenticationStateProvider AuthenticationStateProvider
-@inject NavigationManager Navigation
-@inject ISnackbar Snackbar
 @layout LoginRegisterLayout
-
 @using MedicalAssist.UI.Components
-@using MedicalAssist.UI.Models.Login
-@using MedicalAssist.UI.Models.Register
-@using MedicalAssist.UI.Shared.Services.Abstraction
-@using MedicalAssist.UI.Shared.Services.Auth
-@using MedicalAssist.UI.Shared.Services.User
 
 <PageTitle>@Translations.RegisterPageTitle</PageTitle>
 
 
-<MudForm @ref="form" Model="user" Validation="@(_validator.ValidateValue)" ValidationDelay="60" Class="mx-0 px-0">
+<MudForm @ref="_form" Model="user" Validation="@(_validator.ValidateValue)" ValidationDelay="60" Class="mx-0 px-0">
 	<MudCardContent>
 		<MudText Align="@Align.Center" Typo="Typo.h3" Color="Color.Primary">@Translations.RegisterPageTitle</MudText>
 
@@ -78,79 +68,3 @@
 		</MudText>
 	</MudCardContent>
 </MudForm>
-
-	@code {
-	private MudForm form;
-	private RegisterUserModel user = new();
-	private RegisterUserModelValidator _validator = new();
-
-	private InputType passwordInputType = InputType.Password;
-	private string passwordIcon = Icons.Material.Filled.VisibilityOff;
-
-	private InputType confirmedPasswordInputType = InputType.Password;
-	private string confirmedPasswordIcon = Icons.Material.Filled.VisibilityOff;
-
-	private bool _btnPressed = false;
-
-
-	private async Task RegisterAsync()
-	{
-		await form.Validate();
-		if (form.IsValid)
-		{
-			_btnPressed = true;
-			var response = await UserService.SignUp(new()
-				{
-					Email = user.Email,
-					FullName = user.FullName,
-					Password = user.Password
-				});
-
-			if (response.IsSuccess)
-			{
-				user.FullName = string.Empty;
-				user.Email = string.Empty;
-				user.ConfirmedPassword = string.Empty;
-				user.Password = string.Empty;
-
-				Snackbar.Add(Translations.RegisterPageAccountCreated, MudBlazor.Severity.Success);
-			}
-			else
-			{
-				if (response.Error == AuthErrors.EmailInUse)
-					Snackbar.Add(Translations.CreateAccountEmailInUsePrompt, MudBlazor.Severity.Error);
-				else
-					Snackbar.Add(Translations.SomethingWentWrong, MudBlazor.Severity.Error);
-			}
-			_btnPressed = false;
-		}
-	}
-
-	private void TogglePasswordVisibility()
-	{
-		if (passwordInputType == InputType.Password)
-		{
-			passwordInputType = InputType.Text;
-			passwordIcon = Icons.Material.Filled.Visibility;
-		}
-		else
-		{
-			passwordInputType = InputType.Password;
-			passwordIcon = Icons.Material.Filled.VisibilityOff;
-		}
-	}
-
-	private void ToggleConfirmedPasswordVisibility()
-	{
-		if (confirmedPasswordInputType == InputType.Password)
-		{
-			confirmedPasswordInputType = InputType.Text;
-			confirmedPasswordIcon = Icons.Material.Filled.Visibility;
-		}
-		else
-		{
-			confirmedPasswordInputType = InputType.Password;
-			confirmedPasswordIcon = Icons.Material.Filled.VisibilityOff;
-		}
-	}
-}

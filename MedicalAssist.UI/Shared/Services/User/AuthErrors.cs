@@ -1,12 +1,10 @@
-﻿using MedicalAssist.UI.Shared.Response;
+﻿namespace MedicalAssist.UI.Shared.Services.User;
 
-namespace MedicalAssist.UI.Shared.Services.User;
-
-public sealed class AuthErrors : Error
+public sealed class AuthErrors 
 {
-	public static readonly  AuthErrors UnverifiedUser = new();
-	public static readonly AuthErrors InvalidLoginProvider = new();
-	public static readonly AuthErrors InvalidSignInCredentials = new();
-	public static readonly AuthErrors InvalidExternalProvider = new();
-	public static readonly AuthErrors EmailInUse = new();
+	public const string UnverifiedUser = nameof(UnverifiedUser);
+	public const string InvalidLoginProvider = nameof(InvalidLoginProvider);
+	public const string InvalidSignInCredentials = nameof(InvalidSignInCredentials);
+	public const string InvalidExternalProvider = nameof(InvalidExternalProvider);
+	public const string EmailInUse = nameof(EmailInUse);
 }

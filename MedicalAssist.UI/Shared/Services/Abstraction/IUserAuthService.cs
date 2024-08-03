@@ -7,8 +7,8 @@ namespace MedicalAssist.UI.Shared.Services.Abstraction;
 public interface IUserAuthService
 {
     Task<Response<SignInResponse>> SignIn(LoginModel model);
-    Task<SignInResponse> SignInByFacebook(string code);
-    Task<SignInResponse> SignInByGoogle(string code);
+    Task<Response<SignInResponse>> SignInByFacebook(string code);
+    Task<Response<SignInResponse>> SignInByGoogle(string code);
 
     Task<Response.Response> SignUp(SignUpRequest request);
 }

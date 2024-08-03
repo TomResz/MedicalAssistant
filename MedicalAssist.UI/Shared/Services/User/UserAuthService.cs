@@ -15,66 +15,46 @@ internal sealed class UserAuthService : IUserAuthService
 		_httpClient = httpClient;
 	}
 
-	public async Task<SignInResponse> SignInByFacebook(string code)
+	public async Task<Response<SignInResponse>> SignInByFacebook(string code)
 	{
 		var response = await _httpClient.PostAsJsonAsync("user/login-facebook", new { code = code });
-		if (response.IsSuccessStatusCode)
-		{
-			return await DeserializeOkResponse(response);
-		}
-
-		return null;
+		return await DeserializeResponse(response);
 	}
-	public async Task<SignInResponse> SignInByGoogle(string code)
+	public async Task<Response<SignInResponse>> SignInByGoogle(string code)
 	{
 		var response = await _httpClient.PostAsJsonAsync("user/login-google", new { code = code });
-		if (response.IsSuccessStatusCode)
-		{
-			return await DeserializeOkResponse(response);
-		}
-
-		return null;
+		return await DeserializeResponse(response);
 	}
 
 	public async Task<Response<SignInResponse>> SignIn(LoginModel model)
 	{
 		var response = await _httpClient.PostAsJsonAsync("user/sign-in", model);
-		if (response.IsSuccessStatusCode)
-		{
-			return new(await DeserializeOkResponse(response), true, Error.None);
-		}
-		var errorDetails = JsonSerializer.Deserialize<BaseErrorDetails>(await response.Content.ReadAsStringAsync())!;
-		var error = MatchErrors(errorDetails);
-		return new(null,false, error);
+		return await DeserializeResponse(response);
 	}
-	private async Task<SignInResponse> DeserializeOkResponse(HttpResponseMessage response)
-	{
-		var json = await response.Content.ReadAsStringAsync();
-		var content = JsonSerializer.Deserialize<SignInResponse>(json)!;
-		return content;
-	}
+
 	public async Task<Response.Response> SignUp(SignUpRequest request)
 	{
 		var response = await _httpClient.PostAsJsonAsync("user/sign-up", request);
 		if (response.IsSuccessStatusCode)
 		{
-			return new(true, Error.None);
+			return new(true);
 		}
 		var errorDetails = JsonSerializer.Deserialize<BaseErrorDetails>(await response.Content.ReadAsStringAsync())!;
-		return new(false,MatchErrors(errorDetails));
+		return new(false, errorDetails);
 	}
 
-	private static Error MatchErrors(BaseErrorDetails baseError)
+
+
+	private async static Task<Response<SignInResponse>> DeserializeResponse(HttpResponseMessage httpResponse)
 	{
-		return baseError.Type switch
+		if (httpResponse.IsSuccessStatusCode)
 		{
-			"InvalidLoginProviderException" => AuthErrors.InvalidLoginProvider,
-			"InvalidSignInCredentialsException" => AuthErrors.InvalidSignInCredentials,
-			"UnverifiedUserException" => AuthErrors.UnverifiedUser,
-			"InvalidExternalProviderException" => AuthErrors.InvalidExternalProvider,
-			"EmailInUseException" => AuthErrors.EmailInUse,
-			_ => Error.InternalServerError
-		};
+			var json = await httpResponse.Content.ReadAsStringAsync();
+			var response = JsonSerializer.Deserialize<SignInResponse>(json)!;
+			return new(response, true);
+		}
+		var errorDetails = JsonSerializer.Deserialize<BaseErrorDetails>(await httpResponse.Content.ReadAsStringAsync())!;
+		return new(null, false, errorDetails);
 	}
 
 }
