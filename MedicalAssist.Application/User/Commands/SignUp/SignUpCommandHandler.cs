@@ -15,22 +15,26 @@ internal sealed class SignUpCommandHandler : IRequestHandler<SignUpCommand>
     private readonly IClock _clock;
     private readonly IUnitOfWork _unitOfWork;
     private readonly ICodeVerification _codeVerification;
-    public SignUpCommandHandler(
-        IPasswordManager passwordManager,
-        IUserRepository userRepository,
-        IClock clock,
-        IUnitOfWork unitOfWork,
-        ICodeVerification codeVerification)
-    {
-        _passwordManager = passwordManager;
-        _userRepository = userRepository;
-        _clock = clock;
-        _unitOfWork = unitOfWork;
-        _codeVerification = codeVerification;
-    }
+    private readonly IUserLanguageContext _userLanguageContext;
+	public SignUpCommandHandler(
+		IPasswordManager passwordManager,
+		IUserRepository userRepository,
+		IClock clock,
+		IUnitOfWork unitOfWork,
+		ICodeVerification codeVerification,
+		IUserLanguageContext userLanguageContext)
+	{
+		_passwordManager = passwordManager;
+		_userRepository = userRepository;
+		_clock = clock;
+		_unitOfWork = unitOfWork;
+		_codeVerification = codeVerification;
+		_userLanguageContext = userLanguageContext;
+	}
 
-    public async Task Handle(SignUpCommand request, CancellationToken cancellationToken)
+	public async Task Handle(SignUpCommand request, CancellationToken cancellationToken)
     {
+        var language = _userLanguageContext.GetLanguage();
         var fullName = new FullName(request.FullName);
         var email = new Email(request.Email);
         var password = new Password(request.Password);
@@ -51,7 +55,8 @@ internal sealed class SignUpCommandHandler : IRequestHandler<SignUpCommand>
             fullName,
             role,
          _clock.GetCurrentUtc(),
-         verificationCode);
+         verificationCode,
+         language);
 
         await _userRepository.AddAsync(user, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);

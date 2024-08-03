@@ -4,6 +4,7 @@ using MedicalAssist.Application.Exceptions;
 using MedicalAssist.Application.Security;
 using MedicalAssist.Application.User.Commands.SignUp;
 using MedicalAssist.Domain.Abstraction;
+using MedicalAssist.Domain.Enums;
 using MedicalAssist.Domain.Repositories;
 using Moq;
 
@@ -15,7 +16,7 @@ public class SignUpCommandHandlerTests
     private readonly Mock<IClock> _clock;
     private readonly Mock<IUnitOfWork> _unitOfWork;
     private readonly Mock<ICodeVerification> _codeVerification;
-
+    private readonly Mock<IUserLanguageContext> _languageContext;
     private readonly SignUpCommand _command = new("Tom Tom", "tom@tom.com", "12345678");
 
     private readonly static DateTime _time = DateTime.UtcNow;
@@ -27,8 +28,12 @@ public class SignUpCommandHandlerTests
         _clock = new Mock<IClock>();
         _unitOfWork = new Mock<IUnitOfWork>();
         _codeVerification = new Mock<ICodeVerification>();
-        
-        _clock.Setup(x => x.GetCurrentUtc())
+        _languageContext = new();
+
+        _languageContext.Setup(x => x.GetLanguage()).
+            Returns(Languages.Polish);
+
+		_clock.Setup(x => x.GetCurrentUtc())
             .Returns(() => _time);
         
         _codeVerification.Setup(x => x.Generate(_clock.Object.GetCurrentUtc()))
@@ -45,7 +50,7 @@ public class SignUpCommandHandlerTests
             .Returns("hashed-password");
 
         var handler = new SignUpCommandHandler(_passwordManager.Object,
-            _userRepository.Object, _clock.Object, _unitOfWork.Object, _codeVerification.Object);
+            _userRepository.Object, _clock.Object, _unitOfWork.Object, _codeVerification.Object,_languageContext.Object);
 
         // act
         await handler.Handle(_command, default);
@@ -68,7 +73,7 @@ public class SignUpCommandHandlerTests
             .Returns(() => DateTime.UtcNow);
 
         var handler = new SignUpCommandHandler(_passwordManager.Object,
-            _userRepository.Object, _clock.Object, _unitOfWork.Object, _codeVerification.Object);
+            _userRepository.Object, _clock.Object, _unitOfWork.Object, _codeVerification.Object,_languageContext.Object);
 
         // act
         Func<Task> act = () => handler.Handle(_command, default);

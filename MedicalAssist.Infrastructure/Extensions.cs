@@ -4,10 +4,10 @@ using MedicalAssist.Infrastructure.BackgrounJobs;
 using MedicalAssist.Infrastructure.DAL;
 using MedicalAssist.Infrastructure.Email;
 using MedicalAssist.Infrastructure.ExternalProviders;
+using MedicalAssist.Infrastructure.Language;
 using MedicalAssist.Infrastructure.Middleware;
 using MedicalAssist.Infrastructure.Security;
 using MedicalAssist.Infrastructure.Time;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,7 +27,8 @@ public static class Extensions
             })
             .AddBackgroundJobs(configuration)
             .AddEmailServices(configuration)
-            .AddGoogleService(configuration);
+            .AddGoogleService(configuration)
+            .AddLanguageService();
 
     internal static T GetOptions<T>(this IConfiguration configuration, string sectionName) where T : class, new()
     {

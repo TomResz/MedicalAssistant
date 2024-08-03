@@ -1,5 +1,5 @@
 ﻿@page "/login"
-@inject IUserAuthService userService
+@inject IUserAuthService UserService
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager Navigation
 @inject ISnackbar Snackbar
@@ -77,7 +77,7 @@
 		if (form.IsValid)
 		{
 			_btnPressed = true;
-			var response = await userService.SignIn(user);
+			var response = await UserService.SignIn(user);
 
 			if (response.IsSuccess)
 			{

@@ -25,6 +25,6 @@ internal sealed class VerificationCodeRegeneratedEventHandler : INotificationHan
 			throw new UserNotFoundException();
 		}
 
-		await _emailService.SendMailWithRegenerateVerificationCode(user.Email, user.UserVerification.CodeHash);
+		await _emailService.SendMailWithRegenerateVerificationCode(user.Email, user.UserVerification.CodeHash,notification.Language);
 	}
 }

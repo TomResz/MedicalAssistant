@@ -24,6 +24,6 @@ internal sealed class SendEmailForPasswordChangeEventHandler : INotificationHand
             throw new UserNotFoundException();
         }
 
-        await _emailService.SendMailWithChangePasswordCode(user.Email, notification.Code);
+        await _emailService.SendMailWithChangePasswordCode(user.Email, notification.Code,notification.Language);
     }
 }

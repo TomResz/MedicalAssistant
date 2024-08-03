@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using MedicalAssist.Domain.ComplexTypes;
 using MedicalAssist.Domain.Entites;
+using MedicalAssist.Domain.Enums;
 using MedicalAssist.Domain.Exceptions;
 using MedicalAssist.Domain.ValueObjects;
 
@@ -8,9 +9,9 @@ namespace MedicalAssist.Core.Tests.User;
 public class UserTests
 {
     private static readonly Domain.Entites.User _user = Domain.Entites.User.Create("test@test.com","12345678","Test test",
-        Role.User(),DateTime.UtcNow,"Code hashed");
+        Role.User(),DateTime.UtcNow,"Code hashed", Languages.English);
 
-
+    private readonly Languages _language = Languages.English;
     [Fact]
     public void Create_ValidCredentials_ReturnsNewInstanceOfUser()
     {
@@ -22,7 +23,7 @@ public class UserTests
         var createdAt = DateTime.UtcNow;
         var codeHash = "Example hash Code";
         // act 
-        var user = Domain.Entites.User.Create(email, password,fullName, role, createdAt, codeHash);  
+        var user = Domain.Entites.User.Create(email, password,fullName, role, createdAt, codeHash,_language);  
         
         // assert
         user.Id.Should().NotBe(Guid.Empty);
@@ -45,7 +46,7 @@ public class UserTests
 		var codeHash = "Example hash Code";
 
 		// act 
-		Action act = () =>  Domain.Entites.User.Create(email, password, fullName, role, createdAt, codeHash);
+		Action act = () =>  Domain.Entites.User.Create(email, password, fullName, role, createdAt, codeHash, _language);
 
         // assert
         act.Should().Throw<IncorrectEmailPatternException>();
@@ -67,7 +68,7 @@ public class UserTests
 		// act 
 		Action act = () => Domain.Entites.User
         .Create(email, password, fullName, 
-        role, createdAt, codeHash );
+        role, createdAt, codeHash,_language );
 
 		// assert
 		act.Should().Throw<EmptyEmailException>();
@@ -87,7 +88,7 @@ public class UserTests
 		var codeHash = "Example hash Code";
 
 		// act 
-		Action act = () => Domain.Entites.User.Create(email, password, fullName, role, createdAt, codeHash);
+		Action act = () => Domain.Entites.User.Create(email, password, fullName, role, createdAt, codeHash, _language);
 
         // assert
         act.Should().Throw<InvalidRoleException>();
@@ -183,7 +184,7 @@ public class UserTests
 	{
 		// Arrange
 		var user = Domain.Entites.User.Create("test@test.com", "12345678", "Test test",
-				Role.User(), DateTime.UtcNow, "Code hashed");
+				Role.User(), DateTime.UtcNow, "Code hashed",_language);
 
 		var date = DateTime.Now.AddMinutes(6000);
 		var visit = Visit.Create(user.Id, new Address("Kosciuszki 5", "Warsaw", "22-110"), date, "T", "T", "T");

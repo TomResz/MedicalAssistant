@@ -1,4 +1,5 @@
 ﻿using MedicalAssist.Domain.ComplexTypes;
+using MedicalAssist.Domain.Enums;
 using MedicalAssist.Domain.Events;
 using MedicalAssist.Domain.Exceptions;
 using MedicalAssist.Domain.Primitives;
@@ -50,7 +51,7 @@ public class User : AggregateRoot<UserId>
 
 
 
-    public static User Create(Email email, Password password, FullName fullName, Role role, Date createdAtUtc,CodeHash codeHash)
+    public static User Create(Email email, Password password, FullName fullName, Role role, Date createdAtUtc,CodeHash codeHash,Languages language)
 	{
 		User user = new User(
 			 Guid.NewGuid(),
@@ -65,11 +66,12 @@ public class User : AggregateRoot<UserId>
 		user.RefreshTokenHolder = RefreshTokenHolder.CreateEmpty();
 		user.UserVerification = new UserVerification(user.Id,createdAtUtc.AddHours(2),codeHash);
 	
-		user.AddEvent(new UserCreatedEvent(user.Id));
+		user.AddEvent(new UserCreatedEvent(user.Id,language));
 		return user;
 	}
 
-    public static User CreateByExternalProvider(Email email,FullName fullName, Role role, Date createdAtUtc,ProvidedKey key,Provider provider,RefreshTokenHolder tokenHolder)
+    public static User CreateByExternalProvider(Email email,FullName fullName, Role role, Date createdAtUtc,ProvidedKey key,Provider provider,RefreshTokenHolder tokenHolder,
+		Languages language)
     {
 		Guid id = Guid.NewGuid();	
         User user = new User(
@@ -83,7 +85,7 @@ public class User : AggregateRoot<UserId>
 
 		user.RefreshTokenHolder = tokenHolder;
 		user.ExternalUserProvider = new ExternalUserLogin(id, key, provider);
-		user.AddEvent(new UserCreatedByExternalLoginProviderEvent(user.Id,provider));
+		user.AddEvent(new UserCreatedByExternalLoginProviderEvent(user.Id,provider,language));
         return user;
     }
 
@@ -148,18 +150,18 @@ public class User : AggregateRoot<UserId>
 		IsVerified = true;
 	}
 
-	public void RegenerateVerificationCode(string code, DateTime dateTime)
+	public void RegenerateVerificationCode(string code, DateTime dateTime, Languages language)
 	{
 		if (IsVerified)
 		{
 			throw new AccountIsAlreadyVerifiedException();
 		}
 		UserVerification?.Regenerate(dateTime.AddHours(2), code);
-		AddEvent(new VerificationCodeRegeneratedEvent(Id));
+		AddEvent(new VerificationCodeRegeneratedEvent(Id,language));
 	}
 
-	public void SendEmailForPasswordChange(string code)
+	public void SendEmailForPasswordChange(string code,Languages language)
 	{
-		AddEvent(new SendEmailForPasswordChangeEvent(Id, code));
+		AddEvent(new SendEmailForPasswordChangeEvent(Id, code,language));
 	}
 }

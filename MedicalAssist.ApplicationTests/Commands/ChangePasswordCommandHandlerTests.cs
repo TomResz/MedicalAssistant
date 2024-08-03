@@ -3,7 +3,7 @@ using MedicalAssist.Application.Contracts;
 using MedicalAssist.Application.Exceptions;
 using MedicalAssist.Application.Security;
 using MedicalAssist.Application.User.Commands.PasswordChange;
-using MedicalAssist.Domain.ComplexTypes;
+using MedicalAssist.Domain.Enums;
 using MedicalAssist.Domain.Repositories;
 using MedicalAssist.Domain.ValueObjects;
 using MedicalAssist.Domain.ValueObjects.IDs;
@@ -16,6 +16,8 @@ public class ChangePasswordCommandHandlerTests
 	private readonly Mock<IUserRepository> _userRepository;
 	private readonly Mock<IUserContext> _userSessionService;
 	private readonly Mock<IUnitOfWork> _unitOfWork;
+
+	private readonly Languages _language = Languages.English;
 
 	private readonly ChangePasswordCommand _command = new("12345678", "12345678");
 	public ChangePasswordCommandHandlerTests()
@@ -31,7 +33,7 @@ public class ChangePasswordCommandHandlerTests
 	{
 		// arrange
 
-		var user = Domain.Entites.User.Create("tom@tom.com", "12345678", "Tom tom", Role.Admin(), Date.Now, "1234567");
+		var user = Domain.Entites.User.Create("tom@tom.com", "12345678", "Tom tom", Role.Admin(), Date.Now, "1234567", _language);
 
 		_passwordManager.Setup(x => x.IsValid(It.IsAny<string>(), It.IsAny<string>()))
 			.Returns(false);
@@ -76,7 +78,7 @@ public class ChangePasswordCommandHandlerTests
 	{
 		// arrange
 
-		var user = Domain.Entites.User.Create("tom@tom.com", "12345678", "Tom tom", Role.Admin(), Date.Now,"1234567");
+		var user = Domain.Entites.User.Create("tom@tom.com", "12345678", "Tom tom", Role.Admin(), Date.Now,"1234567", _language);
 
 		_passwordManager.Setup(x => x.IsValid(It.IsAny<string>(), It.IsAny<string>()))
 			.Returns(true);

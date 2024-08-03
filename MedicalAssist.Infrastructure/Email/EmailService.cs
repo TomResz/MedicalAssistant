@@ -1,4 +1,6 @@
 ﻿using MedicalAssist.Application.Contracts;
+using MedicalAssist.Domain.Enums;
+using MedicalAssist.Infrastructure.Email.Factory;
 
 namespace MedicalAssist.Infrastructure.Email;
 internal sealed class EmailService : IEmailService
@@ -11,13 +13,26 @@ internal sealed class EmailService : IEmailService
 		_routes = routes;
 	}
 
-    public async Task SendMailWithChangePasswordCode(string email, string code)
-		=> await _emailSender.SendEmailAsync(email, "Medical Assist - Verification Code", EmailHtmlBodies.PasswordChange(_routes.PasswordChange, code));
+	public async Task SendMailWithChangePasswordCode(string email, string code, Languages language)
+	{
+		var body = EmailBodyFactory.Create(language).PasswordChange(_routes.PasswordChange, code);
+		var subject = EmailSubjectFactory.Create(language).PasswordChange;	
 
-    public async Task SendMailWithRegenerateVerificationCode(string email, string newVerificationCode)
-		=> await _emailSender.SendEmailAsync(email, "Medical Assist - Verification Code", EmailHtmlBodies.GetRegeneratedVerificationCodeHtml(_routes.RegeneratedVerificationCodeRoute, newVerificationCode));
+		await _emailSender.SendEmailAsync(email, subject, body);
+	}
+	public async Task SendMailWithRegenerateVerificationCode(string email, string newVerificationCode, Languages language)
+	{
+		var body = EmailBodyFactory.Create(language).GetRegeneratedVerificationCodeHtml(_routes.RegeneratedVerificationCodeRoute, newVerificationCode);
+		var subject = EmailSubjectFactory.Create(language).CodeRegeneration;
 
+		await _emailSender.SendEmailAsync(email, subject, body);
+	}
 
-	public async Task SendMailWithVerificationCode(string email, string verificationCode) 
-		=> await _emailSender.SendEmailAsync(email, "Medical Assist - Verification Code", EmailHtmlBodies.GetVerificationCodeHtml(_routes.VerificationCodeRoute,verificationCode));
+	public async Task SendMailWithVerificationCode(string email, string verificationCode, Languages language)
+	{
+		var body = EmailBodyFactory.Create(language).GetVerificationCodeHtml(_routes.VerificationCodeRoute, verificationCode);
+		var subject = EmailSubjectFactory.Create(language).Verification;
+
+		await _emailSender.SendEmailAsync(email, subject, body);
+	}
 }

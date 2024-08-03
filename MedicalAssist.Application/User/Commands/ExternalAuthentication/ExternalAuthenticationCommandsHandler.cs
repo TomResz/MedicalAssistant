@@ -16,24 +16,27 @@ internal sealed class ExternalAuthenticationCommandHandler
 	private readonly IRefreshTokenService _refreshTokenService;
 	private readonly IUnitOfWork _unitOfWork;
 	private readonly IAuthenticator _authenticator;
-
+	private readonly IUserLanguageContext _userLanguageContext;
 
 	public ExternalAuthenticationCommandHandler(
 		IUserRepository userRepository,
 		IClock clock,
 		IRefreshTokenService refreshTokenService,
 		IUnitOfWork unitOfWork,
-		IAuthenticator authenticator)
+		IAuthenticator authenticator,
+		IUserLanguageContext userLanguageContext)
 	{
 		_userRepository = userRepository;
 		_clock = clock;
 		_refreshTokenService = refreshTokenService;
 		_unitOfWork = unitOfWork;
 		_authenticator = authenticator;
+		_userLanguageContext = userLanguageContext;
 	}
 
 	public async Task<SignInResponse> Handle(ExternalAuthenticationCommand request, CancellationToken cancellationToken)
 	{
+		var language =  _userLanguageContext.GetLanguage();
 		var response = request.response;
 		if (response is null)
 		{
@@ -46,7 +49,7 @@ internal sealed class ExternalAuthenticationCommandHandler
 		if (user is null)
 		{
 			var refreshToken = _refreshTokenService.Generate(_clock.GetCurrentUtc());
-			user = Domain.Entites.User.CreateByExternalProvider(email, fullName, Role.User().ToString(), _clock.GetCurrentUtc(), id, request.Provider, refreshToken);
+			user = Domain.Entites.User.CreateByExternalProvider(email, fullName, Role.User().ToString(), _clock.GetCurrentUtc(), id, request.Provider, refreshToken,language);
 			await _userRepository.AddAsync(user, cancellationToken);
 			await _unitOfWork.SaveChangesAsync(cancellationToken);
 		}

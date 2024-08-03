@@ -2,4 +2,4 @@
 
 namespace MedicalAssist.Domain.Events;
 public sealed record SendEmailForPasswordChangeEvent(
-    Guid UserId,string Code) : IDomainEvent;
+    Guid UserId,string Code, Enums.Languages Language) : IDomainEvent;

@@ -5,6 +5,7 @@ using MedicalAssist.Application.Security;
 using MedicalAssist.Application.User.Commands.SignIn;
 using MedicalAssist.Domain.Abstraction;
 using MedicalAssist.Domain.ComplexTypes;
+using MedicalAssist.Domain.Enums;
 using MedicalAssist.Domain.Exceptions;
 using MedicalAssist.Domain.Repositories;
 using MedicalAssist.Domain.ValueObjects;
@@ -23,9 +24,9 @@ public class SignInCommandHandlerTests
 
     private readonly RefreshTokenHolder _refreshTokenHolder = new("hash", DateTime.UtcNow);
 
-    private readonly static DateTime _time = DateTime.UtcNow;   
+    private readonly static DateTime _time = DateTime.UtcNow;
 
-
+    private readonly Languages _language = Languages.English;
     public SignInCommandHandlerTests()
     {
         _userRepositoryMock = new Mock<IUserRepository>();
@@ -53,7 +54,7 @@ public class SignInCommandHandlerTests
         var role = Role.Admin();
         string? accessToken = "ExampleToken";
         var user = Domain.Entites.User.Create(
-            command.Email, command.Password, fullName, role, DateTime.UtcNow, "1234s");
+            command.Email, command.Password, fullName, role, DateTime.UtcNow, "1234s", _language);
 		var isVerifiedField = user.GetType().GetField("<IsVerified>k__BackingField", BindingFlags.Instance | BindingFlags.NonPublic);
 		isVerifiedField?.SetValue(user, true); 
 
@@ -81,7 +82,7 @@ public class SignInCommandHandlerTests
         
         response.Should().NotBeNull();
         response.GetType().Should().Be(typeof(SignInResponse));
-        response.Token.Should().Be(accessToken);
+        response.AccessToken.Should().Be(accessToken);
         response.Role.Should().Be(role);
         response.FullName.Should().Be(fullName);
         _unitOfWorkMock.Verify(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
@@ -124,7 +125,7 @@ public class SignInCommandHandlerTests
 
         _userRepositoryMock.Setup(x => x.GetByEmailAsync(command.Email, default))
             .ReturnsAsync(() =>
-            Domain.Entites.User.Create(command.Email, command.Password, fullName, role, DateTime.UtcNow,"123345"));
+            Domain.Entites.User.Create(command.Email, command.Password, fullName, role, DateTime.UtcNow,"123345", _language));
 
         _passwordManagerMock.Setup(x => x.IsValid(It.IsAny<string>(), It.IsAny<string>()))
             .Returns(false);

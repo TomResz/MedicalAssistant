@@ -1,30 +1,29 @@
-﻿namespace MedicalAssist.Infrastructure.Email;
-internal sealed class EmailHtmlBodies
+﻿using MedicalAssist.Infrastructure.Email.Factory;
+
+namespace MedicalAssist.Infrastructure.Email.Bodies;
+internal sealed class EnglishEmailHtmlBodies : IEmailBody
 {
-	public static string GetVerificationCodeHtml(string route,string verificationCode)
-	{
-		var htmlBody = $@"    
-			<p style='font-family: Arial, sans-serif; color: #333; font-size: 20px;'>This is your verification code: <b>{verificationCode}</b>.</p>
+    public string GetVerificationCodeHtml(string route, string verificationCode)
+    {
+        var htmlBody = $@"    
 			<p style='font-family: Arial, sans-serif; color: #333; font-size: 20px;'>Press the button below to verify your account.</p>
 			<a href='{route}={verificationCode}' style='text-decoration: none; background-color: #007bff; color: #fff; padding: 15px 30px; font-family: Arial, sans-serif; font-size: 20px; border-radius: 5px; cursor: pointer; display: inline-block;'>Verify Your Account</a>
         ";
-		return htmlBody;
-	}
+        return htmlBody;
+    }
 
-	public static string GetRegeneratedVerificationCodeHtml(string route, string newVerificationCode)
-	{
-		var htmlBody = $@"    
-			<p style='font-family: Arial, sans-serif; color: #333; font-size: 20px;'>This is your verification code: <b>{newVerificationCode}</b>.</p>
+    public string GetRegeneratedVerificationCodeHtml(string route, string newVerificationCode)
+    {
+        var htmlBody = $@"    
 			<p style='font-family: Arial, sans-serif; color: #333; font-size: 20px;'>Press the button below to verify your account.</p>
 			<a href='{route}={newVerificationCode}' style='text-decoration: none; background-color: #007bff; color: #fff; padding: 15px 30px; font-family: Arial, sans-serif; font-size: 20px; border-radius: 5px; cursor: pointer; display: inline-block;'>Verify Your Account</a>
         ";
-		return htmlBody;
-	}
+        return htmlBody;
+    }
 
-	public static string PasswordChange(string route,string code)
-	{
+    public string PasswordChange(string route, string code)
+    {
         var htmlBody = $@"    
-			<p style='font-family: Arial, sans-serif; color: #333; font-size: 20px;'><b>{code}</b>.</p>
 			<p style='font-family: Arial, sans-serif; color: #333; font-size: 20px;'>Press the button below to change your password.</p>
 			<a href='{route}={code}' style='text-decoration: none; background-color: #007bff; color: #fff; padding: 15px 30px; font-family: Arial, sans-serif; font-size: 20px; border-radius: 5px; cursor: pointer; display: inline-block;'>Change Password</a>
         ";
