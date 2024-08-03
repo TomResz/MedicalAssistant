@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using MedicalAssist.API.SwaggerDocs.CustomHeaders;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -33,6 +34,7 @@ public static class SwaggerExtensions
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             c.IncludeXmlComments(xmlPath);
+            c.OperationFilter<LanguageHeader>();
         });
         return services;
     }

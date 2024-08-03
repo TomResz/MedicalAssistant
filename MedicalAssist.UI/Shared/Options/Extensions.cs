@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using MedicalAssist.UI.Shared.Services.HttpRequestHandler;
+using Microsoft.Extensions.Options;
 
 namespace MedicalAssist.UI.Shared.Options;
 
@@ -31,11 +32,15 @@ public static class Extensions
 		services.AddHttpClient("api", conf =>
 		{
 			conf.BaseAddress = new Uri(options.Url);
-		}).AddHttpMessageHandler<HttpClientRequestHandler>();
+		})
+		.AddHttpMessageHandler<AuthorizationDelegatingHandler>()
+		.AddHttpMessageHandler<LanguageHeaderDelegatingHandler>();
+
 		services.AddScoped(
 	sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("api"));
 
-		services.AddTransient<HttpClientRequestHandler>();
+		services.AddTransient<AuthorizationDelegatingHandler>();
+		services.AddTransient<LanguageHeaderDelegatingHandler>();
 
 		return services;
 	}
