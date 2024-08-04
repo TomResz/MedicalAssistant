@@ -20,7 +20,7 @@ public static class Extensions
             .AddPersistance(configuration)
             .AddAuth(configuration)
             .AddSingleton<IClock, Clock>()
-            .AddSecurity()
+            .AddSecurity(configuration)
             .AddMediatR(conf =>
             {
                 conf.RegisterServicesFromAssemblies(typeof(Extensions).Assembly);

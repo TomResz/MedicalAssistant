@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MedicalAssist.Application.Security;
 using MedicalAssist.Application.User.Commands.FacebookAuthentication;
 using MedicalAssist.Application.User.Commands.GoogleAuthentication;
 using MedicalAssist.Application.User.Commands.PasswordChangeByCode;
@@ -10,9 +11,8 @@ using MedicalAssist.Application.User.Commands.SignIn;
 using MedicalAssist.Application.User.Commands.SignUp;
 using MedicalAssist.Application.User.Commands.VerifyAccount;
 using MedicalAssist.Application.User.Queries;
-using MedicalAssist.Infrastructure.Auth;
 using MedicalAssist.Infrastructure.Middleware;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MedicalAssist.API.Endpoints;
 
@@ -57,6 +57,9 @@ public sealed class UserEndpoints : IEndpoint
 			await _mediator.Send(command);
 			return Results.NoContent();
 		});
+
+		group.MapPost("check-password-code/{code}", (IEmailCodeManager manager,string code) => 
+			manager.Decode(code,out var email) ? Results.Ok() : Results.BadRequest());
 
 		group.MapPut("password-change-by-code", async (IMediator _mediator, PasswordChangeByCodeCommand command) =>
 		{

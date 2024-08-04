@@ -2,6 +2,7 @@
 using MedicalAssist.Application.Contracts;
 using MedicalAssist.Application.Exceptions;
 using MedicalAssist.Application.Security;
+using MedicalAssist.Domain.Exceptions;
 using MedicalAssist.Domain.Repositories;
 
 namespace MedicalAssist.Application.User.Commands.PasswordChangeByEmail;
@@ -32,6 +33,11 @@ internal sealed class PasswordChangeByEmailCommandHandler : IRequestHandler<Pass
         {
             throw new UserNotFoundException(request.Email);
         }
+
+        if (user.HasExternalLoginProvider)
+        {
+            throw new UserWithExternalProviderCannotChangePasswordException();
+		}
 
         var code = _emailCodeManager.Encode(user.Email);
         user.SendEmailForPasswordChange(code,language);

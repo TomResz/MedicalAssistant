@@ -270,4 +270,19 @@
   <data name="RegisterPageEmailSent" xml:space="preserve">
     <value>The activation link was sent to your email address.</value>
   </data>
+  <data name="ForgetPasswordQuestion" xml:space="preserve">
+    <value>Forgot your password ?</value>
+  </data>
+  <data name="PasswordChangeLabel" xml:space="preserve">
+    <value>Password Change</value>
+  </data>
+  <data name="PasswordChangeBtnLabel" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="PasswordChangedPageEmailSent" xml:space="preserve">
+    <value>An email has just been sent with a link to change your password.</value>
+  </data>
+  <data name="PasswordChanged" xml:space="preserve">
+    <value>The password has been successfully changed.</value>
+  </data>
 </root>

@@ -15,8 +15,7 @@
 						  Variant="MudBlazor.Variant.Filled"
 						  Class="mb-2 py-2"
 						  Immediate="true"
-						  For="@(()=> _user.Email)"
-						  AdornmentColor="Color.Primary" />
+						  For="@(()=> _user.Email)" />
 			<MudTextField @bind-Value="_user.Password"
 						  Label="@Translations.Password" InputType="@passwordInputType"
 						  Adornment="Adornment.End" AdornmentIcon="@passwordIcon"
@@ -24,8 +23,7 @@
 						  Variant="MudBlazor.Variant.Filled"
 						  Class="mb-2 py-2"
 						  Immediate="true"
-						  For="@(()=> _user.Password)"
-						  AdornmentColor="Color.Primary" />
+						  For="@(()=> _user.Password)"/>
 			<MudCardActions Class="px-0">
 				<MudGrid>
 					<MudItem xs="12">
@@ -50,6 +48,10 @@
 			@Translations.LoginPageDontHaveAccountQuestion<br />
 			<MudLink Href="/register" Color="Color.Primary">
 				@Translations.LoginPageRegisterLink
+			</MudLink>
+			<br/>
+			<MudLink Href="/forgot-password" Color="Color.Primary">
+				@Translations.ForgetPasswordQuestion
 			</MudLink>
 		</MudText>
 	</MudCardContent>

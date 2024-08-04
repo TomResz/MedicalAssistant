@@ -160,6 +160,15 @@ namespace MedicalAssist.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Forgot your password ?.
+        /// </summary>
+        internal static string ForgetPasswordQuestion {
+            get {
+                return ResourceManager.GetString("ForgetPasswordQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fullname.
         /// </summary>
         internal static string Fullname {
@@ -291,6 +300,42 @@ namespace MedicalAssist.UI.Shared.Resources {
         internal static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change password.
+        /// </summary>
+        internal static string PasswordChangeBtnLabel {
+            get {
+                return ResourceManager.GetString("PasswordChangeBtnLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password has been successfully changed..
+        /// </summary>
+        internal static string PasswordChanged {
+            get {
+                return ResourceManager.GetString("PasswordChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An email has just been sent with a link to change your password..
+        /// </summary>
+        internal static string PasswordChangedPageEmailSent {
+            get {
+                return ResourceManager.GetString("PasswordChangedPageEmailSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password Change.
+        /// </summary>
+        internal static string PasswordChangeLabel {
+            get {
+                return ResourceManager.GetString("PasswordChangeLabel", resourceCulture);
             }
         }
         

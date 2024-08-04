@@ -15,16 +15,14 @@
 					  Variant="MudBlazor.Variant.Filled"
 					  Class="mb-2 py-2"
 					  Immediate="true"
-					  For="@(()=> user.FullName)"
-					  AdornmentColor="Color.Primary" />
+					  For="@(()=> user.FullName)"/>
 		<MudTextField @bind-Value="user.Email"
 					  Label="Email"
 					  Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Email"
 					  Variant="MudBlazor.Variant.Filled"
 					  Class="mb-2 py-2"
 					  Immediate="true"
-					  For="@(()=> user.Email)"
-					  AdornmentColor="Color.Primary" />
+					  For="@(()=> user.Email)" />
 		<MudTextField @bind-Value="user.Password"
 					  Label="@Translations.Password" InputType="@passwordInputType"
 					  Adornment="Adornment.End" AdornmentIcon="@passwordIcon"
@@ -32,8 +30,7 @@
 					  Variant="MudBlazor.Variant.Filled"
 					  Class="mb-2 py-2"
 					  Immediate="true"
-					  For="@(()=> user.Password)"
-					  AdornmentColor="Color.Primary" />
+					  For="@(()=> user.Password)" />
 		<MudTextField @bind-Value="user.ConfirmedPassword"
 					  Label="@Translations.ConfirmedPassword" InputType="@confirmedPasswordInputType"
 					  Adornment="Adornment.End" AdornmentIcon="@confirmedPasswordIcon"
@@ -41,8 +38,7 @@
 					  Variant="MudBlazor.Variant.Filled"
 					  Class="mb-2 py-2"
 					  Immediate="true"
-					  For="@(()=> user.ConfirmedPassword)"
-					  AdornmentColor="Color.Primary" />
+					  For="@(()=> user.ConfirmedPassword)" />
 		<MudCardActions Class="px-0">
 			<MudGrid>
 				<MudItem xs="12">

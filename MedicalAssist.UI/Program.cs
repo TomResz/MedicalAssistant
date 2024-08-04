@@ -37,7 +37,8 @@ builder.Services.AddScoped<IUserAuthService, UserAuthService>();
 builder.Services.AddScoped<IVisitService,VisitService>();
 builder.Services.AddScoped<IHubTokenService, HubTokenService>();
 builder.Services.AddScoped<IUserVerificationService, UserVerificationService>();
-builder.Services.AddScoped<IUserDataService, UserDataService>();	
+builder.Services.AddScoped<IUserDataService, UserDataService>();
+builder.Services.AddScoped<IUserPasswordChangeService, UserPasswordChangeService>();
 
 builder.Services.AddRadzenComponents();
 builder.Services.AddMudServices(config =>
