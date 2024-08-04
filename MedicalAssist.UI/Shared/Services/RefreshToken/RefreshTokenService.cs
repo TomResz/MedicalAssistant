@@ -1,4 +1,5 @@
 ﻿
+using MedicalAssist.UI.Shared.Requests;
 using MedicalAssist.UI.Shared.Response;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -17,7 +18,8 @@ public class RefreshTokenService : IRefreshTokenService
 	public async Task<SignInResponse?> RefreshToken(string accessToken, string refreshToken)
 	{
 		var httpClient = _httpClientFactory.CreateClient("api");
-		var response = await httpClient.PostAsJsonAsync("user/refresh-token", new { refreshToken = refreshToken, oldAccessToken = accessToken });
+		var response = await httpClient.PostAsJsonAsync("user/refresh-token", 
+			   new RefreshTokenRequest { RefreshToken = refreshToken, OldAccessToken = accessToken });
 		return response.IsSuccessStatusCode 
 			? JsonSerializer.Deserialize<SignInResponse?>(await response.Content.ReadAsStringAsync()) 
 			: null;

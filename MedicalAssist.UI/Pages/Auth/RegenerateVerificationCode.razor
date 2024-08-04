@@ -35,28 +35,12 @@
 }
 else
 {
-	<MudText Align="Align.Center" Typo="Typo.subtitle1" Class="mt-1">
-		@Translations.RegenerateCodeEmailSent<br />
-		<MudLink Href="/login" Color="Color.Primary">
-			@Translations.GoToMainPage
-		</MudLink>
-	</MudText>
-}
-@code {
-	private MudForm _form;
-	private bool _btnPressed = false;
-	private readonly RegenerateCodeModel _model = new();
-	private readonly RegenerateCodeModelValidator _validator = new();
-
-	private bool _emailSent = false;
-
-	private async Task Regenerate()
-	{
-		await _form.Validate();
-		if (_form.IsValid)
-		{
-
-		}
-	}
-
+	<div class="ma-4 pa-4">
+		<MudText Align="Align.Center" Typo="Typo.subtitle1" Class="mt-1">
+			@Translations.RegenerateCodeEmailSent<br />
+			<MudLink Href="/login" Color="Color.Primary">
+				@Translations.GoToMainPage
+			</MudLink>
+		</MudText>
+	</div>
 }

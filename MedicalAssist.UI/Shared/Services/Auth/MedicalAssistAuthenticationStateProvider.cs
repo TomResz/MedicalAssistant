@@ -45,14 +45,11 @@ public class MedicalAssistAuthenticationStateProvider : AuthenticationStateProvi
 				new(ClaimTypes.Email, email),
 				new(ClaimTypes.NameIdentifier, id),
 				new(ClaimTypes.Name, fullName),
+				new (ClaimTypes.Role, role),
 				new ("IsVerified",isVerified),
 				new("HasExternalProvider",hasExternalProvider),
 			}, "Api");
 	}
-
-	public async Task<string?> GetJwtToken() => await _localStorage.GetValueAsync("access_token");
-
-
 	public async Task AuthenticateAsync(SignInResponse response)
 	{
 		await _localStorage.SetValueAsync("access_token", response.AccessToken);

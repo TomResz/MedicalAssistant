@@ -13,7 +13,9 @@ public class AuthorizationDelegatingHandler : DelegatingHandler
     private readonly IRefreshTokenService _refreshTokenService;
     private bool _refreshing;
     public AuthorizationDelegatingHandler(
-        LocalStorageService storageService, IRefreshTokenService refreshTokenService, AuthenticationStateProvider authenticationStateProvider)
+		LocalStorageService storageService,
+		IRefreshTokenService refreshTokenService,
+		AuthenticationStateProvider authenticationStateProvider)
     {
         _storageService = storageService;
         _refreshTokenService = refreshTokenService;

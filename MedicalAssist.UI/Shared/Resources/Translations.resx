@@ -252,4 +252,22 @@
   <data name="InvalidLoginProviderError" xml:space="preserve">
     <value>The account uses an external authentication system ( Google or Facebook).</value>
   </data>
+  <data name="AccountVerifiedSuccess" xml:space="preserve">
+    <value>Your account has been successfully verified.</value>
+  </data>
+  <data name="VerificationCodeExpiredLabel" xml:space="preserve">
+    <value>The verification code has expired.</value>
+  </data>
+  <data name="VerificationCodeNewCode" xml:space="preserve">
+    <value>Generate new code</value>
+  </data>
+  <data name="AccountIsVerified" xml:space="preserve">
+    <value>The account is already verified.</value>
+  </data>
+  <data name="UserNotFoundByGivenEmail" xml:space="preserve">
+    <value>User with given email was not found.</value>
+  </data>
+  <data name="RegisterPageEmailSent" xml:space="preserve">
+    <value>The activation link was sent to your email address.</value>
+  </data>
 </root>

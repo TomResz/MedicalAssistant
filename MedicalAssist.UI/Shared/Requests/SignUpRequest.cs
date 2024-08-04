@@ -1,4 +1,4 @@
-﻿namespace MedicalAssist.UI.Shared.Services.User;
+﻿namespace MedicalAssist.UI.Shared.Requests;
 
 public class SignUpRequest
 {

@@ -252,4 +252,22 @@
   <data name="InvalidLoginProviderError" xml:space="preserve">
     <value>Konto używa zewnętrznego systemu uwierzytelniania ( Google lub Facebook).</value>
   </data>
+  <data name="AccountVerifiedSuccess" xml:space="preserve">
+    <value>Twoje konto zostało pomyślnie zweryfikowane.</value>
+  </data>
+  <data name="VerificationCodeExpiredLabel" xml:space="preserve">
+    <value>Wygasł kod weryfikacyjny.</value>
+  </data>
+  <data name="VerificationCodeNewCode" xml:space="preserve">
+    <value>Wygeneruj nowy kod</value>
+  </data>
+  <data name="AccountIsVerified" xml:space="preserve">
+    <value>Konto jest już zweryfikowane.</value>
+  </data>
+  <data name="UserNotFoundByGivenEmail" xml:space="preserve">
+    <value>Użytkownik z podanym emailem nie istnieje.</value>
+  </data>
+  <data name="RegisterPageEmailSent" xml:space="preserve">
+    <value>Link aktywacyjny został wysłany na twój adres e-mail.</value>
+  </data>
 </root>

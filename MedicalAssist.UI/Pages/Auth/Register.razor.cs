@@ -17,7 +17,7 @@ public partial class Register
 	public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
 	[Inject]
-	public NavigationManager Navigation {  get; set; }
+	public NavigationManager Navigation { get; set; }
 
 	[Inject]
 	public ISnackbar Snackbar { get; set; }
@@ -54,16 +54,17 @@ public partial class Register
 				user.Email = string.Empty;
 				user.ConfirmedPassword = string.Empty;
 				user.Password = string.Empty;
-				Snackbar.Add(Translations.RegisterPageAccountCreated, MudBlazor.Severity.Success);
+				Snackbar.Add(Translations.RegisterPageAccountCreated, Severity.Success);
+				Snackbar.Add(Translations.RegisterPageEmailSent, Severity.Success);
 			}
 			else
 			{
-				string error = response.ErrorDetails!.Type switch 
+				string error = response.ErrorDetails!.Type switch
 				{
 					AuthErrors.EmailInUse => Translations.CreateAccountEmailInUsePrompt,
 					_ => Translations.SomethingWentWrong
 				};
-				Snackbar.Add(error, MudBlazor.Severity.Error);
+				Snackbar.Add(error, Severity.Error);
 			}
 			_btnPressed = false;
 		}

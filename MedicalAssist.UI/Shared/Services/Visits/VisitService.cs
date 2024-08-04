@@ -1,9 +1,11 @@
 ﻿using MedicalAssist.UI.Models.Visits;
-using System.Text.Json;
+using MedicalAssist.UI.Shared.Response;
+using MedicalAssist.UI.Shared.Response.Base;
+using MedicalAssist.UI.Shared.Services.Abstraction;
 
 namespace MedicalAssist.UI.Shared.Services.Visits;
 
-public class VisitService
+public class VisitService : IVisitService
 {
 	private readonly HttpClient _httpClient;
 
@@ -12,16 +14,9 @@ public class VisitService
 		_httpClient = httpClient;
 	}
 
-	public async Task<List<VisitModel>?> GetAllVisits()
+	public async Task<Response<List<VisitModel>>> GetAllVisits()
 	{
-		List<VisitModel> visits = new();
 		var response = await _httpClient.GetAsync("visit/");
-
-		if(response.IsSuccessStatusCode)
-		{
-			var json = await response.Content.ReadAsStringAsync();
-			visits = JsonSerializer.Deserialize<List<VisitModel>>(json)!;
-		}
-		return visits;
+		return await response.DeserializeResponse<List<VisitModel>>();
 	}
 }

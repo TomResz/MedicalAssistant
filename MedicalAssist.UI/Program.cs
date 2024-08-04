@@ -34,7 +34,7 @@ builder.Services.AddScoped<AuthenticationStateProvider>(
 
 builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
 builder.Services.AddScoped<IUserAuthService, UserAuthService>();
-builder.Services.AddScoped<VisitService>();
+builder.Services.AddScoped<IVisitService,VisitService>();
 builder.Services.AddScoped<IHubTokenService, HubTokenService>();
 builder.Services.AddScoped<IUserVerificationService, UserVerificationService>();
 builder.Services.AddScoped<IUserDataService, UserDataService>();	

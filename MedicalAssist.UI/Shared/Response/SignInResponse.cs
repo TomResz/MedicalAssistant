@@ -6,7 +6,7 @@ public class SignInResponse
 {
 	[JsonPropertyName("accessToken")]
     public string AccessToken { get; set; }
-	[JsonPropertyName("refreshToken")]
 
+	[JsonPropertyName("refreshToken")]
 	public string RefreshToken { get; set; }
 }

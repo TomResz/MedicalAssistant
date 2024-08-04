@@ -12,7 +12,11 @@ internal sealed class PasswordChangeByCodeHandler : IRequestHandler<PasswordChan
     private readonly IEmailCodeManager _emailCodeManager;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IPasswordManager _passwordManager;
-    public PasswordChangeByCodeHandler(IEmailCodeManager emailCodeManager, IUserRepository userRepository, IUnitOfWork unitOfWork, IPasswordManager passwordManager)
+    public PasswordChangeByCodeHandler(
+		IEmailCodeManager emailCodeManager,
+		IUserRepository userRepository,
+		IUnitOfWork unitOfWork,
+		IPasswordManager passwordManager)
     {
         _emailCodeManager = emailCodeManager;
         _userRepository = userRepository;

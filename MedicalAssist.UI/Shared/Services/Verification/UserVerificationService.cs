@@ -1,4 +1,7 @@
-﻿using System.Net.Http.Json;
+﻿using MedicalAssist.UI.Shared.Requests;
+using MedicalAssist.UI.Shared.Response;
+using MedicalAssist.UI.Shared.Services.Abstraction;
+using System.Net.Http.Json;
 
 namespace MedicalAssist.UI.Shared.Services.Verification;
 
@@ -11,9 +14,17 @@ public sealed class UserVerificationService : IUserVerificationService
 		_httpClient = httpClient;
 	}
 
-	public async Task<bool> VerifyAccount(string code)
+	public async Task<Response.Base.Response> VerifyAccount(string code)
 	{
-		var response = await _httpClient.PutAsJsonAsync("user/verify", new { codeHash = code });
-		return response.IsSuccessStatusCode;
+		var response = await _httpClient.PutAsJsonAsync("user/verify", new AccountVerificationRequest { CodeHash = code });
+		return await response.DeserializeResponse();
+	}
+
+
+
+	public async Task<Response.Base.Response> RegenerateCode(string email)
+	{
+		var response = await _httpClient.PutAsJsonAsync("user/regenerate-code", new CodeRegenerationRequest { Email = email });
+		return await response.DeserializeResponse();
 	}
 }

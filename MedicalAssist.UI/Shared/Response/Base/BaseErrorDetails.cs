@@ -1,4 +1,4 @@
-﻿namespace MedicalAssist.UI.Shared.Response;
+﻿namespace MedicalAssist.UI.Shared.Response.Base;
 
 public class BaseErrorDetails
 {

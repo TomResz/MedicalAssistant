@@ -61,6 +61,24 @@ namespace MedicalAssist.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The account is already verified..
+        /// </summary>
+        internal static string AccountIsVerified {
+            get {
+                return ResourceManager.GetString("AccountIsVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your account has been successfully verified..
+        /// </summary>
+        internal static string AccountVerifiedSuccess {
+            get {
+                return ResourceManager.GetString("AccountVerifiedSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Cancel {
@@ -349,6 +367,15 @@ namespace MedicalAssist.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The activation link was sent to your email address..
+        /// </summary>
+        internal static string RegisterPageEmailSent {
+            get {
+                return ResourceManager.GetString("RegisterPageEmailSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign In.
         /// </summary>
         internal static string RegisterPageLoginLink {
@@ -426,6 +453,33 @@ namespace MedicalAssist.UI.Shared.Resources {
         internal static string UnverifiedUserError {
             get {
                 return ResourceManager.GetString("UnverifiedUserError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User with given email was not found..
+        /// </summary>
+        internal static string UserNotFoundByGivenEmail {
+            get {
+                return ResourceManager.GetString("UserNotFoundByGivenEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The verification code has expired..
+        /// </summary>
+        internal static string VerificationCodeExpiredLabel {
+            get {
+                return ResourceManager.GetString("VerificationCodeExpiredLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate new code.
+        /// </summary>
+        internal static string VerificationCodeNewCode {
+            get {
+                return ResourceManager.GetString("VerificationCodeNewCode", resourceCulture);
             }
         }
         

@@ -1,13 +1,15 @@
 ﻿using MedicalAssist.UI.Shared.Resources;
 using MedicalAssist.UI.Shared.Services.Abstraction;
 using MedicalAssist.UI.Shared.Services.Auth;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using MedicalAssist.UI.Shared.Response;
+using MedicalAssist.UI.Shared.Response.Base;
 
 namespace MedicalAssist.UI.Pages.AuthCallbacks;
 
-public partial class LoginFacebookCallback
+public partial class ExternalAuthenticationCallback
 {
 	[Inject]
 	public IUserAuthService AuthService { get; set; }
@@ -25,16 +27,15 @@ public partial class LoginFacebookCallback
 	[SupplyParameterFromQuery(Name = "code")]
 	public string? Code { get; set; }
 
-	[Parameter]
-	[SupplyParameterFromQuery(Name = "error")]
-	public string? Error { get; set; }
+    [Parameter]
+    public string Provider { get; set; }
 
-	protected override async Task OnParametersSetAsync()
+    protected override async Task OnParametersSetAsync()
 	{
 		if (Code is not null)
 		{
-			var response = await AuthService.SignInByFacebook(Code);
-			if (response is not null)
+			var response = await GetResponse();
+			if (response.IsSuccess)
 			{
 				await (AuthenticationStateProvider as MedicalAssistAuthenticationStateProvider)!.AuthenticateAsync(response.Value!);
 				NavigationManager.NavigateTo("/");
@@ -42,9 +43,20 @@ public partial class LoginFacebookCallback
 			else
 			{
 				Snackbar.Add(Translations.SomethingWentWrong, Severity.Error);
-				NavigationManager.NavigateTo("/login");
 			}
 		}
 		NavigationManager.NavigateTo("/login");
+	}
+
+	private async Task<Response<SignInResponse>> GetResponse()
+	{
+		if(Provider is "google-callback")
+		{
+			return await AuthService.SignInByGoogle(Code!);
+		}
+		else
+		{
+			return await AuthService.SignInByFacebook(Code!);
+		}
 	}
 }

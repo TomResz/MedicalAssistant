@@ -1,14 +1,15 @@
 ﻿@using MedicalAssist.UI.Models.Visits
+@using MedicalAssist.UI.Shared.Services.Abstraction
 @using MedicalAssist.UI.Shared.Services.Visits
-@inject VisitService VisitService
-@if (visits is null)
+@inject IVisitService VisitService
+@if (_loading)
 {
 	<h1>@Translations.Loading...</h1>
 }
 else
 {
 	<RadzenScheduler Style="height: calc(100vh - 98px); max-height:100vh; overflow: hidden; margin: 0;"
-					 TItem="VisitModel" Data=@visits StartProperty="Date" EndProperty="End"
+					 TItem="VisitModel" Data=@_visits StartProperty="Date" EndProperty="End"
 					 TextProperty="VisitType" SelectedIndex="2" TodayText="@Translations.Today" NextText="@Translations.Tomorrow" PrevText="@Translations.Yesterday"
 					 SlotRender=@SelectTodayDate>
 		<RadzenDayView Text="@Translations.Day" StartTime="TimeSpan.FromHours(6.0)" EndTime="TimeSpan.FromHours(24.0)" TimeFormat="HH:mm" />
@@ -19,12 +20,18 @@ else
 }
 
 @code {
-	List<VisitModel>? visits = null;
+	private List<VisitModel> _visits = new();
+	private bool _loading = true;
 
 	protected override async Task OnInitializedAsync()
 	{
-		visits = await VisitService.GetAllVisits();
-		StateHasChanged();
+		var response = await VisitService.GetAllVisits();
+		if (response.IsSuccess)
+		{
+			_visits = response.Value!;
+			await InvokeAsync(StateHasChanged);
+		}
+		_loading = false;
 	}
 
 	private void SelectTodayDate(SchedulerSlotRenderEventArgs args)
@@ -35,5 +42,4 @@ else
 			args.Attributes["style"] = "background: var(--rz-scheduler-highlight-background-color, rgba(255,220,40,.2));";
 		}
 	}
-
 }
