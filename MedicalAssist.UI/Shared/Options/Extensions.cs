@@ -36,7 +36,7 @@ public static class Extensions
 		.AddHttpMessageHandler<AuthorizationDelegatingHandler>()
 		.AddHttpMessageHandler<LanguageHeaderDelegatingHandler>();
 
-		services.AddScoped(
+		services.AddScoped<HttpClient>(
 	sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("api"));
 
 		services.AddTransient<AuthorizationDelegatingHandler>();

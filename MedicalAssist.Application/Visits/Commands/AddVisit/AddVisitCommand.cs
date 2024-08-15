@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MedicalAssist.Application.Dto;
 
 namespace MedicalAssist.Application.Visits.Commands.AddVisit;
 public sealed record AddVisitCommand(
@@ -8,4 +9,5 @@ public sealed record AddVisitCommand(
     string Date,
     string DoctorName,
     string VisitType,
-    string VisitDescription) : IRequest;
+    string VisitDescription,
+    string PredictedEndDate) : IRequest<VisitDto>;

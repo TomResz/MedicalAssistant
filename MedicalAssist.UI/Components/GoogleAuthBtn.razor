@@ -28,7 +28,9 @@
 		string redirectUri = HttpUtility.UrlEncode(_options.Value.CallbackPath);
 		string clientId = _options.Value.ClientId;
 
-		string fullUri = $"https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&client_id={clientId}&redirect_uri={redirectUri}&response_type=code&scope=email%20profile&prompt=consent";
+		string fullUri = $"https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&client_id={clientId}"+
+		$"&redirect_uri={redirectUri}"+
+		"&response_type=code&scope=email%20profile&prompt=consent";
 
 		_navigation.NavigateTo(fullUri);
 	}

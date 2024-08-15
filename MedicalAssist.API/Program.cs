@@ -18,7 +18,7 @@ builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerDoc();
-builder.Services.AddSwaggerAuthMiddleware();
+builder.Services.AddSwaggerAuthMiddleware(builder.Configuration);
 builder.Services.AddSignalR();
 
 builder.Services

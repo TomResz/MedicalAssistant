@@ -1,6 +1,5 @@
 ﻿using MedicalAssist.Application.Contracts;
 using MedicalAssist.Application.Dto;
-using MedicalAssist.Application.User.Commands.GoogleAuthentication;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
 using System.Text.Json;

@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using MedicalAssist.Application.Contracts;
+using MedicalAssist.Application.Dto;
 using MedicalAssist.Application.Exceptions;
 using MedicalAssist.Domain.ComplexTypes;
 using MedicalAssist.Domain.Repositories;
@@ -8,7 +9,7 @@ using MedicalAssist.Domain.ValueObjects.IDs;
 
 namespace MedicalAssist.Application.Visits.Commands.AddVisit;
 internal sealed class AddVisitCommandHandler
-    : IRequestHandler<AddVisitCommand>
+    : IRequestHandler<AddVisitCommand,VisitDto>
 {
     private readonly IUserContext _userContext;
     private readonly IUserRepository _userRepository;
@@ -22,7 +23,7 @@ internal sealed class AddVisitCommandHandler
         _unitOfWork = unitOfWork;
     }
 
-    public async Task Handle(AddVisitCommand request, CancellationToken cancellationToken)
+    public async Task<VisitDto> Handle(AddVisitCommand request, CancellationToken cancellationToken)
     {
         UserId userId = _userContext.GetUserId;
 
@@ -31,6 +32,7 @@ internal sealed class AddVisitCommandHandler
         VisitDescription description = request.VisitDescription;
         VisitType visitType = request.VisitType;
         Date date = request.Date;
+        Date endDate = request.PredictedEndDate;
 
         Domain.Entites.Visit visit = Domain.Entites.Visit.Create(
             userId,
@@ -38,18 +40,21 @@ internal sealed class AddVisitCommandHandler
                date,
                doctorName,
                description,
-               visitType);
+               visitType,
+               endDate);
 
         Domain.Entites.User? user = await _userRepository.GetUserWithVisitsAsync(userId, cancellationToken);
 
         if (user is null)
         {
-            throw new UserNotFoundException();
+             throw new UserNotFoundException();
         }
 
         user.AddVisit(visit);
 
         _visitRepository.Add(visit);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return visit.ToDto();
     }
 }

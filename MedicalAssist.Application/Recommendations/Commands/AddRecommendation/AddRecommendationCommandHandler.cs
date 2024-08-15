@@ -35,7 +35,7 @@ internal sealed class AddRecommendationCommandHandler : IRequestHandler<AddRecom
              request.EndDate);
 
         var userId = _userContext.GetUserId;
-        var visit = await _visitRepository.GetByIdAsync(request.VisitId, cancellationToken);
+        var visit = await _visitRepository.GetByIdWithRecommendationsAsync(request.VisitId, cancellationToken);
 
         if (visit is null)
         {

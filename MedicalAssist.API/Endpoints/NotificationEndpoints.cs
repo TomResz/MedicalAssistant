@@ -11,8 +11,10 @@ public class NotificationEndpoints : IEndpoint
 		var group = app.MapGroup("notifacation")
 			.WithTags("Notifications");
 
-		group.MapPost("/", async (IHubContext<NotificationHub, INotificationsClient> _context,
-			string message,Guid userId) =>
+		group.MapPost("/", async (
+			IHubContext<NotificationHub, INotificationsClient> _context,
+			string message,
+			Guid userId) =>
 		{
 			await _context.Clients.User(userId.ToString()).ReceiveNotification(message);
 		});

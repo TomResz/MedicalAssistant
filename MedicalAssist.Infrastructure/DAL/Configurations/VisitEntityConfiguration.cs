@@ -29,9 +29,12 @@ internal sealed class VisitEntityConfiguration : IEntityTypeConfiguration<Visit>
             .IsRequired();
 
 		builder.Property(x => x.Date)
-            .HasConversion(x => x.Value, x => new Domain.ValueObjects.Date(x));
+            .HasConversion(x => x.Value, x => new Date(x));
 
-        builder.ComplexProperty(x => x.Address, conf =>
+		builder.Property(x => x.PredictedEndDate)
+	        .HasConversion(x => x.Value, x => new Date(x));
+
+		builder.ComplexProperty(x => x.Address, conf =>
         {
             conf.Property(x => x.PostalCode)
                 .HasConversion(postalCode => postalCode.Value, value => new PostalCode(value))

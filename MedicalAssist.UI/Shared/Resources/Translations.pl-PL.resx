@@ -285,4 +285,58 @@
   <data name="PasswordChanged" xml:space="preserve">
     <value>Hasło zostało pomyślnie zmienione.</value>
   </data>
+  <data name="DialogYes" xml:space="preserve">
+    <value>Tak</value>
+  </data>
+  <data name="DialogNo" xml:space="preserve">
+    <value>Nie</value>
+  </data>
+  <data name="DoctorName" xml:space="preserve">
+    <value>Imię i Nazwisko Lekarza</value>
+  </data>
+  <data name="VisitType" xml:space="preserve">
+    <value>Typ Wizyty</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="Street" xml:space="preserve">
+    <value>Ulica</value>
+  </data>
+  <data name="PostalCode" xml:space="preserve">
+    <value>Kod Pocztowy</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Miasto</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Godzina</value>
+  </data>
+  <data name="VisitPredictedTime" xml:space="preserve">
+    <value>Przewidywany Czas</value>
+  </data>
+  <data name="AddVisitBtn" xml:space="preserve">
+    <value>Stwórz Wizytę</value>
+  </data>
+  <data name="GoToEditMode" xml:space="preserve">
+    <value>Przejdź Do Trybu Edycji</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edytuj</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="DialogVisitRemoving" xml:space="preserve">
+    <value>Usuwanie Wizyty</value>
+  </data>
+  <data name="DialogVisitRemovingPrompt" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć tą wizytę ?</value>
+  </data>
+  <data name="Visit" xml:space="preserve">
+    <value>Wizyta</value>
+  </data>
 </root>

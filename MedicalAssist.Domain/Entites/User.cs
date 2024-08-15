@@ -114,31 +114,17 @@ public class User : AggregateRoot<UserId>
 		}
 		Password = password;
 	}
-	public void AddVisit(Visit visit, int? hourBound = null)
+	public void AddVisit(Visit visit)
 	{
-		int hour = (hourBound == null || hourBound < 0)
-			? 1
-			: (int)hourBound;
+		var isOverlapping = _visits.Any(v =>
+			visit.Date < v.PredictedEndDate && 
+			visit.PredictedEndDate > v.Date);
 
-		Date lowerBound = visit.Date.Value.AddHours(-hour);
-		Date upperBound = visit.Date.Value.AddHours(hour);
-
-		if (_visits.Any(x => x.Date == visit.Date ||
-			(x.Date >= lowerBound && x.Date <= upperBound))
-			)
+		if (isOverlapping)
 		{
-			throw new VisitAlreadyExistsForGivenPeriodOfTimeException(lowerBound, upperBound);
+			throw new VisitAlreadyExistsForGivenPeriodOfTimeException(visit.Date, visit.PredictedEndDate);
 		}
 		_visits.Add(visit);
-	}
-
-	public void RemoveVisit(VisitId visitId)
-	{
-		bool wasRemoved = _visits.RemoveWhere(x => x.Id.Value == visitId.Value) > 0;
-		if (!wasRemoved)
-		{
-			throw new UnknownVisitException();
-		}
 	}
 
 	public void VerifyAccount(DateTime currentTime)

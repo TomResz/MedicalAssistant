@@ -5,6 +5,7 @@ using MedicalAssist.Domain.Exceptions;
 using MedicalAssist.Domain.ValueObjects.IDs;
 using MedicalAssist.Infrastructure.DAL.QueryHandlers.Extensions;
 using Microsoft.EntityFrameworkCore;
+using MedicalAssist.Application.Visits;
 
 namespace MedicalAssist.Infrastructure.DAL.QueryHandlers.Visits;
 internal sealed class GetDetailsOfVisitQueryHandler : IRequestHandler<GetDetailsOfVisitQuery, VisitDto>

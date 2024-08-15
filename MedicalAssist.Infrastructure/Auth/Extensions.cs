@@ -1,26 +1,25 @@
 ﻿using MedicalAssist.Application.Contracts;
 using MedicalAssist.Application.Security;
 using MedicalAssist.Infrastructure.Auth.AuthPolicy;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.Net.Http.Headers;
 using System.Text;
 
 
 namespace MedicalAssist.Infrastructure.Auth;
 internal static class Extensions
 {
-    private const string CustomAuthenticationSchema = "JwtOrCookie";
     private const string OptionsSectionName = "auth";
     internal static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
     {
         AuthOptions options = configuration.GetOptions<AuthOptions>(OptionsSectionName);
         services.Configure<AuthOptions>(configuration.GetSection(OptionsSectionName));
-        services.AddScoped<IAuthorizationHandler, UserVerificationHandler>()
+        
+        services
+            .AddScoped<IAuthorizationHandler, UserVerificationHandler>()
             .AddTransient<IRefreshTokenService, RefreshTokenService>();
 
         services
@@ -29,8 +28,8 @@ internal static class Extensions
             .AddHttpContextAccessor()
             .AddAuthentication(o =>
             {
-                o.DefaultScheme = CustomAuthenticationSchema;
-                o.DefaultChallengeScheme = CustomAuthenticationSchema;
+                o.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
             .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, o =>
             {
@@ -43,23 +42,6 @@ internal static class Extensions
                     ValidIssuer = options.Issuer,
                     ClockSkew = TimeSpan.Zero,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.SignInKey))
-                };
-            })
-            .AddCookie()
-            .AddGoogle(options =>
-            {
-                options.ClientId = configuration["Authentication:Google:ClientId"] ?? throw new ArgumentNullException("ClientId");
-                options.ClientSecret = configuration["Authentication:Google:ClientSecret"] ?? throw new ArgumentNullException("ClientSecret");
-            }).AddPolicyScheme(CustomAuthenticationSchema, CustomAuthenticationSchema, options =>
-            {
-                options.ForwardDefaultSelector = context =>
-                {
-                    string? authorization = context.Request.Headers[HeaderNames.Authorization];
-                    if (!string.IsNullOrEmpty(authorization) && authorization.StartsWith("Bearer "))
-                    {
-                        return JwtBearerDefaults.AuthenticationScheme;
-                    }
-                    return CookieAuthenticationDefaults.AuthenticationScheme;
                 };
             });
 

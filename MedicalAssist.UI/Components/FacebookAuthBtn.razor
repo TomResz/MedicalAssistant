@@ -24,7 +24,9 @@
 
 		string state = GenerateState();
 
-		string authorizationUrl = $"https://www.facebook.com/v20.0/dialog/oauth?client_id={clientId}&redirect_uri={redirectUri}&state={Uri.EscapeDataString(state)}&scope=email";
+		string authorizationUrl = $"https://www.facebook.com/v20.0/dialog/oauth?client_id={clientId}"+
+		$"&redirect_uri={redirectUri}"+
+		$"&state={Uri.EscapeDataString(state)}&scope=email";
 
 		_navigation.NavigateTo(authorizationUrl);
 	}

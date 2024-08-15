@@ -42,9 +42,10 @@ internal sealed class UserRepository : IUserRepository
         .Users
         .AnyAsync(x => x.Email == email,cancellationToken);
 
-	public void Update(User user)
-        => _context
-           .Update(user);
+    public void Update(User user)
+    {
+		_context.Users.Update(user);
+	} 
 
 	public async Task<User?> GetByEmailWithUserVerificationAsync(Domain.ValueObjects.Email email, CancellationToken cancellationToken = default)
 		=> await _context
@@ -62,5 +63,16 @@ internal sealed class UserRepository : IUserRepository
         => await _context
         .Users
         .Include(x=>x.ExternalUserProvider)
-        .FirstOrDefaultAsync(x=>x.Email == email, cancellationToken);   
+        .FirstOrDefaultAsync(x=>x.Email == email, cancellationToken);
+
+	public void RemoveVisits(User user)
+	{
+		foreach (var visit in user.Visits)
+		{
+			if (_context.Entry(visit).State is EntityState.Deleted)
+			{
+				_context.Visits.Remove(visit);
+			}
+		}
+	}
 }

@@ -3,8 +3,6 @@ using MedicalAssist.API.Models;
 using MedicalAssist.Application.Recommendations.Commands.AddRecommendation;
 using MedicalAssist.Application.Recommendations.Commands.DeleteRecommendation;
 using MedicalAssist.Application.Recommendations.Queries;
-using MedicalAssist.Infrastructure.Auth;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedicalAssist.API.Endpoints;
@@ -14,7 +12,7 @@ public sealed class RecommendationEndpoints : IEndpoint
 	public void MapEndpoint(IEndpointRouteBuilder app)
 	{
 		var group = app.MapGroup("{visitId:guid}/recommendation")
-			.RequireAuthorization(new AuthorizeAttribute { Policy = CustomClaim.IsVerified, Roles = "user" })
+			.RequireAuthorization(Permissions.Permissions.VerifiedUser)
 			.WithTags("Recommendations");
 
 		group.MapPost("add", async (IMediator _mediator,
@@ -33,7 +31,10 @@ public sealed class RecommendationEndpoints : IEndpoint
 			return Results.NoContent();
 		});
 
-		group.MapGet("/", async (IMediator _mediator,Guid visitId) => Results.Ok(await _mediator.Send(new GetRecommendationsForVisitQuery(visitId))));
+		group.MapGet("/", async (
+			IMediator _mediator,
+			Guid visitId) 
+				=> Results.Ok(await _mediator.Send(new GetRecommendationsForVisitQuery(visitId))));
 
 		group.MapDelete("{recommendationId:guid}", async (IMediator _mediator,
 			[FromRoute]Guid visitId,
@@ -44,7 +45,9 @@ public sealed class RecommendationEndpoints : IEndpoint
 		});
 
 		group.MapGet("period", async (IMediator _mediator,
-			[FromRoute]Guid visitId, [FromQuery] DateTime begin, [FromQuery] DateTime end) =>
+			[FromRoute]Guid visitId, 
+			[FromQuery] DateTime begin, 
+			[FromQuery] DateTime end) =>
 		{
 			var query = new GetRecommendationsForGivenTimePeriodQuery(visitId, begin, end);
 			var response = await _mediator.Send(query);

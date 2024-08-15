@@ -12,7 +12,6 @@ using MedicalAssist.Application.User.Commands.SignUp;
 using MedicalAssist.Application.User.Commands.VerifyAccount;
 using MedicalAssist.Application.User.Queries;
 using MedicalAssist.Infrastructure.Middleware;
-using Microsoft.AspNetCore.Mvc;
 
 namespace MedicalAssist.API.Endpoints;
 

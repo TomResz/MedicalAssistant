@@ -22,7 +22,7 @@ internal sealed class DeleteRecommendationCommandHandler : IRequestHandler<Delet
 
     public async Task Handle(DeleteRecommendationCommand request, CancellationToken cancellationToken)
     {
-        Visit? visit = await _visitRepository.GetByIdAsync(request.VisitId,cancellationToken);
+        Visit? visit = await _visitRepository.GetByIdWithRecommendationsAsync(request.VisitId,cancellationToken);
 
         if (visit is null)
         {

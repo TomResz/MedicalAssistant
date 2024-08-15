@@ -170,7 +170,8 @@ public class UserTests
         // arrange
         var user = _user;
         var date = DateTime.Now.AddMinutes(6000);
-        var visit = Visit.Create(_user.Id, new Address("Kosciuszki 5", "Warsaw", "22-110"), date,"T","T","T");
+        var end = date.Add(TimeSpan.FromHours(1));
+        var visit = Visit.Create(_user.Id, new Address("Kosciuszki 5", "Warsaw", "22-110"), date,"T","T","T",end);
 
         //act
         user.AddVisit(visit);
@@ -187,13 +188,14 @@ public class UserTests
 				Role.User(), DateTime.UtcNow, "Code hashed",_language);
 
 		var date = DateTime.Now.AddMinutes(6000);
-		var visit = Visit.Create(user.Id, new Address("Kosciuszki 5", "Warsaw", "22-110"), date, "T", "T", "T");
-		var visitTwo = Visit.Create(user.Id, new Address("Kosciuszki 5", "Warsaw", "22-110"), date.AddMinutes(-10), "T", "T", "T");
+		var end = date.Add(TimeSpan.FromHours(1));
+		var visit = Visit.Create(user.Id, new Address("Kosciuszki 5", "Warsaw", "22-110"), date, "T", "T", "T", end);
+		var visitTwo = Visit.Create(user.Id, new Address("Kosciuszki 5", "Warsaw", "22-110"), date.AddMinutes(-10), "T", "T", "T", end);
 
 		user.AddVisit(visit);
 
 		// Act
-		Action act = () => user.AddVisit(visitTwo, 1);
+		Action act = () => user.AddVisit(visitTwo);
 
 		// Assert
 		Assert.Throws<VisitAlreadyExistsForGivenPeriodOfTimeException>(() => act());

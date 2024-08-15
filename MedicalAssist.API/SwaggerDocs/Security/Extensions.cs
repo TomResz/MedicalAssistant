@@ -2,9 +2,14 @@
 
 public static class Extensions
 {
-    public static IServiceCollection AddSwaggerAuthMiddleware(this IServiceCollection services)
-        => services.AddScoped<SwaggerAuthMiddleware>();
-    public static IApplicationBuilder UseSwaggerAuthMiddleware(this IApplicationBuilder app)
-        => app.UseMiddleware<SwaggerAuthMiddleware>();
+	private const string _swaggerSection = "Swagger";
+	public static IServiceCollection AddSwaggerAuthMiddleware(this IServiceCollection services,	IConfiguration configuration)
+	{
+		services.Configure<SwaggerOptions>(configuration.GetSection(_swaggerSection));
+		services.AddScoped<SwaggerAuthMiddleware>();
+		return services;
+	}
+	public static IApplicationBuilder UseSwaggerAuthMiddleware(this IApplicationBuilder app)
+		=> app.UseMiddleware<SwaggerAuthMiddleware>();
 }
 

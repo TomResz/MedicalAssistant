@@ -2,17 +2,19 @@
 
 namespace MedicalAssist.UI.Models.Visits;
 
-public class VisitModel
+public class VisitDto
 {
 	[JsonPropertyName("visitId")]
 	public Guid Id { get; set; }
 	
 	[JsonPropertyName("address")]
-	public LocationModel Address { get; set; }
+	public LocationDto Address { get; set; }
 	
 	[JsonPropertyName("date")]
 	public DateTime Date { get; set; }
-	public DateTime End => Date.AddHours(2);
+
+	[JsonPropertyName("endDate")]
+	public DateTime End {  get; set; }
 
 	[JsonPropertyName("doctorName")]
 	public string DoctorName { get; set; }
@@ -24,7 +26,7 @@ public class VisitModel
 	public string VisitType { get; set; }
 }
 
-public class LocationModel
+public class LocationDto
 {
 	[JsonPropertyName("city")]
 	public string City { get; set; }

@@ -11,6 +11,8 @@ public class Visit : AggregateRoot<VisitId>
     public UserId UserId { get; private set; }
     public Address Address { get; private set; }
     public Date Date { get; private set; }
+    public Date PredictedEndDate { get; private set; } 
+
     public DoctorName DoctorName { get; private set; }
     public VisitDescription VisitDescription { get; private set; }
     public VisitType VisitType { get; private set; }
@@ -19,7 +21,7 @@ public class Visit : AggregateRoot<VisitId>
     public IEnumerable<Recommendation> Recommendations => _recommendations;
     private Visit() { }
 
-    private Visit(VisitId id,UserId userId,Address address,Date date, DoctorName doctorName,VisitDescription visitDescription,VisitType visitType)
+    private Visit(VisitId id,UserId userId,Address address,Date date, DoctorName doctorName,VisitDescription visitDescription,VisitType visitType,Date predictedEndDate)
     {
         Id = id;
         UserId = userId;
@@ -28,9 +30,10 @@ public class Visit : AggregateRoot<VisitId>
         DoctorName = doctorName;
         VisitDescription = visitDescription;    
         VisitType = visitType;
+        PredictedEndDate = predictedEndDate;
     }
 
-    public static Visit Create(UserId userId, Address address, Date date, DoctorName doctorName, VisitDescription visitDescription, VisitType visitType)
+    public static Visit Create(UserId userId, Address address, Date date, DoctorName doctorName, VisitDescription visitDescription, VisitType visitType,Date predictedEndDate)
     {
         Visit visit = new(Guid.NewGuid(),
 			userId,
@@ -38,7 +41,8 @@ public class Visit : AggregateRoot<VisitId>
             date,
             doctorName,
             visitDescription,
-            visitType);
+            visitType,
+            predictedEndDate);
 
         visit.AddEvent(new VisitCreatedEvent(userId, visit.Id));
 
@@ -69,5 +73,15 @@ public class Visit : AggregateRoot<VisitId>
         }
         Date = date;
         AddEvent(new VisitDateChangedEvent(Id,date));
-    } 
+    }
+
+	public void Update(Address address, Date date, DoctorName doctorName, VisitDescription description, VisitType visitType, Date endDate)
+	{
+        Address = address;
+        Date = date;
+        DoctorName  = doctorName;
+        VisitDescription = description;
+        VisitType = visitType;
+        PredictedEndDate = endDate; 
+	}
 }
