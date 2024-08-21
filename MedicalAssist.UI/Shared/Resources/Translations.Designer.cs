@@ -88,6 +88,15 @@ namespace MedicalAssist.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Visit.
+        /// </summary>
+        internal static string AddVisitTitle {
+            get {
+                return ResourceManager.GetString("AddVisitTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Cancel {
@@ -102,6 +111,15 @@ namespace MedicalAssist.UI.Shared.Resources {
         internal static string City {
             get {
                 return ResourceManager.GetString("City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The city name cannot be empty..
+        /// </summary>
+        internal static string CityCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("CityCannotBeEmpty", resourceCulture);
             }
         }
         
@@ -250,11 +268,74 @@ namespace MedicalAssist.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The date of the visit was not selected..
+        /// </summary>
+        internal static string EmptyDate {
+            get {
+                return ResourceManager.GetString("EmptyDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The doctor&apos;s data must not be blank..
+        /// </summary>
+        internal static string EmptyDoctorName {
+            get {
+                return ResourceManager.GetString("EmptyDoctorName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Full name cannot be empty..
         /// </summary>
         internal static string EmptyFullname {
             get {
                 return ResourceManager.GetString("EmptyFullname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The predicted time of the visit must not be empty..
+        /// </summary>
+        internal static string EmptyPredictedTime {
+            get {
+                return ResourceManager.GetString("EmptyPredictedTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The street name cannot be blank..
+        /// </summary>
+        internal static string EmptyStreet {
+            get {
+                return ResourceManager.GetString("EmptyStreet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The visit description must not be empty..
+        /// </summary>
+        internal static string EmptyVisitDescription {
+            get {
+                return ResourceManager.GetString("EmptyVisitDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time cannot be empty..
+        /// </summary>
+        internal static string EmptyVisitTime {
+            get {
+                return ResourceManager.GetString("EmptyVisitTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The visit type must not be empty..
+        /// </summary>
+        internal static string EmptyVisitType {
+            get {
+                return ResourceManager.GetString("EmptyVisitType", resourceCulture);
             }
         }
         
@@ -309,6 +390,15 @@ namespace MedicalAssist.UI.Shared.Resources {
         internal static string GoToMainPage {
             get {
                 return ResourceManager.GetString("GoToMainPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An invalid postal code has been entered..
+        /// </summary>
+        internal static string IncorrectPostalCode {
+            get {
+                return ResourceManager.GetString("IncorrectPostalCode", resourceCulture);
             }
         }
         
@@ -561,6 +651,15 @@ namespace MedicalAssist.UI.Shared.Resources {
         internal static string RegisterPageTitle {
             get {
                 return ResourceManager.GetString("RegisterPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scheduler.
+        /// </summary>
+        internal static string Scheduler {
+            get {
+                return ResourceManager.GetString("Scheduler", resourceCulture);
             }
         }
         

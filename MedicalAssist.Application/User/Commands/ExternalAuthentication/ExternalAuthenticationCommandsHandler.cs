@@ -65,8 +65,7 @@ internal sealed class ExternalAuthenticationCommandHandler
 		}
 
 		var jwt = _authenticator.GenerateToken(user);
-		return new(user.Role.Value,
-	user.FullName,
+		return new(
 	jwt.AccessToken,
 	user.RefreshTokenHolder.RefreshToken!);
 	}

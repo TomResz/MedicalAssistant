@@ -49,8 +49,7 @@ internal sealed class SignInCommandHandler
         var jwt = _authenticator.GenerateToken(user);
         await RegenerateRefreshToken(user, cancellationToken);
 
-        return new(user.Role.Value,
-            user.FullName,
+        return new(
             jwt.AccessToken,
             user.RefreshTokenHolder.RefreshToken!);
     }

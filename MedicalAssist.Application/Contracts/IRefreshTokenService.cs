@@ -6,4 +6,5 @@ public interface IRefreshTokenService
 {
     RefreshTokenHolder Generate(DateTime date);
     ClaimsPrincipal? PrincipalsFromExpiredToken(string oldAccessToken);
+	string? GetEmailFromExpiredToken(string oldAccessToken);
 }

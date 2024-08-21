@@ -64,15 +64,4 @@ internal sealed class UserRepository : IUserRepository
         .Users
         .Include(x=>x.ExternalUserProvider)
         .FirstOrDefaultAsync(x=>x.Email == email, cancellationToken);
-
-	public void RemoveVisits(User user)
-	{
-		foreach (var visit in user.Visits)
-		{
-			if (_context.Entry(visit).State is EntityState.Deleted)
-			{
-				_context.Visits.Remove(visit);
-			}
-		}
-	}
 }

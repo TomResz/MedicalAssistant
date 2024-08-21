@@ -10,6 +10,10 @@ namespace MedicalAssist.UI.Components.Visits;
 
 public partial class VisitScheduler
 {
+    [Parameter]
+    public IReadOnlyList<VisitDto> Visits { get; set; }
+
+
 	[Inject]
 	public IVisitService VisitService { get; set; }
 
@@ -17,24 +21,20 @@ public partial class VisitScheduler
 	public IDialogService DialogService { get; set; }
 
 
-	private List<VisitDto> _visits = new();
-	private bool _loading = true;
 	RadzenScheduler<VisitDto> _scheduler;
+
+    private List<VisitDto> _visits = [];
+
+
 	protected override async Task OnInitializedAsync()
 	{
-		var response = await VisitService.GetAllVisits();
-		if (response.IsSuccess)
-		{
-			_visits = response.Value!;
-			await InvokeAsync(StateHasChanged);
-
-		}
-		_loading = false;
+		_visits = [.. Visits];
+		await InvokeAsync(StateHasChanged);
 	}
 
 	private void SelectTodayDate(SchedulerSlotRenderEventArgs args)
 	{
-		string[] validViews = { Translations.Month, Translations.Year };
+		string[] validViews = [Translations.Month, Translations.Year];
 		if (validViews.Contains(args.View.Text) && args.Start.Date == DateTime.Today)
 		{
 			args.Attributes["style"] = "background: var(--rz-scheduler-highlight-background-color, rgba(255,220,40,.2));";
@@ -43,19 +43,26 @@ public partial class VisitScheduler
 
 	private async Task AddVist(SchedulerSlotSelectEventArgs args)
 	{
-		var parameters = new MudBlazor.DialogParameters
+		string[] validViews = [Translations.Month , Translations.Day, Translations.Week];
+
+		if (!validViews.Contains(args.View.Text))
+		{
+			return;
+		}
+
+		var parameters = new DialogParameters
 		{
 			{ "SelectedDate", args.Start },
 			{ nameof(CreateVisitDialog.OnVisitCreated), EventCallback.Factory.Create<VisitDto>(this, OnVisitCreated) }
 		};
 		var options = new MudBlazor.DialogOptions() { CloseOnEscapeKey = true, FullWidth = true };
-		var dialog = DialogService.Show<CreateVisitDialog>("Add Visit", parameters);
+		var dialog = DialogService.Show<CreateVisitDialog>(Translations.AddVisitTitle, parameters);
 		var result = await dialog.Result;
 	}
 
 	private async Task EditRemoveVisit(SchedulerAppointmentSelectEventArgs<VisitDto> args)
 	{
-		var parameters = new MudBlazor.DialogParameters
+		var parameters = new DialogParameters
 		{
 			{ nameof(VisitDto), args.Data },
 			{ nameof(EditRemoveVisitDialog.OnVisitDeleted), EventCallback.Factory.Create<Guid>(this, OnVisitDeleted) },

@@ -18,6 +18,6 @@ internal sealed class GoogleAuthenticationCommandHandler
 	public async Task<SignInResponse> Handle(GoogleAuthenticationCommand request, CancellationToken cancellationToken)
 	{
 		var response = await _googleAuthService.AuthenticateUser(request.Code, cancellationToken);
-		return await _mediator.Send(new ExternalAuthenticationCommand(response, "google")); 
+		return await _mediator.Send(new ExternalAuthenticationCommand(response, "google"), cancellationToken); 
 	}
 }

@@ -48,9 +48,9 @@ internal sealed class ChangePasswordCommandHandler
             throw new UserNotFoundException();
         }
 
-        bool isNewPasswordValid = !_passwordManager.IsValid(request.NewPassword, user.Password);
+        bool isNewPasswordInvalid = _passwordManager.IsValid(request.NewPassword, user.Password);
 
-		if (!isNewPasswordValid)
+		if (isNewPasswordInvalid)
         {
             throw new InvalidNewPasswordException();
         }

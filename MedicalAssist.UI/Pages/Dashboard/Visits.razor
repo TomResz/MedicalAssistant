@@ -1,4 +1,14 @@
 ﻿@page "/visits"
 @using MedicalAssist.UI.Components.Visits
+@using MedicalAssist.UI.Models.Visits
+@using MedicalAssist.UI.Shared.Services.Abstraction
 
-<VisitScheduler/>
+@if (_loading)
+{
+	<h1>@Translations.Loading...</h1>
+
+}
+else
+{
+	<VisitScheduler Visits="@_visits" />
+}

@@ -32,6 +32,9 @@ public partial class EditRemoveVisitDialog
 
 	private MudForm form;
 	private VisitViewModel _visitModel = new();
+	private readonly VisitViewModelValidator _validator = new();
+
+	private bool _btnPressed = false;	
 
 	protected override void OnInitialized()
 	{
@@ -40,18 +43,18 @@ public partial class EditRemoveVisitDialog
 
 	private async Task BtnPressed()
 	{
-        if (!_isEditMode)
-        {
+		if (!_isEditMode)
+		{
 			_isEditMode = true;
 			return;
 		}
 
 		await form.Validate();
-		if(!form.IsValid)
-		{ 
+		if (!form.IsValid)
+		{
 			return;
 		}
-
+		_btnPressed = true;
 		var editVisitModel = _visitModel.ToEditModel(VisitDto.Id);
 		var response = await VisitService.Edit(editVisitModel);
 
@@ -61,7 +64,7 @@ public partial class EditRemoveVisitDialog
 			await OnVisitEdited.InvokeAsync(dto);
 			MudDialog.Close();
 		}
-
+		_btnPressed = false;
 	}
 
 
@@ -80,8 +83,8 @@ public partial class EditRemoveVisitDialog
 			Translations.DialogVisitRemoving,
 			(MarkupString)Translations.DialogVisitRemovingPrompt,
 			yesText: Translations.DialogYes, cancelText: Translations.DialogNo);
-		
-		if(result is null || result is false)
+
+		if (result is null || result is false)
 		{
 			return;
 		}

@@ -3,42 +3,50 @@
 
 <MudDialog>
 	<DialogContent>
-		<MudForm @ref="form" Model="@visitForm">
+		<MudForm @ref="form" Model="@_visit" Validation="@(_validator.ValidateValue)" ValidationDelay="60">
 			<MudGrid>
 				<MudItem xs="12" sm="6">
-					<MudTextField Label="@Translations.DoctorName" @bind-Value="visitForm.DoctorName" Required="true" />
+					<MudTextField Label="@Translations.DoctorName" @bind-Value="_visit.DoctorName" 
+						For="@( () => _visit.DoctorName )"/>
 				</MudItem>
 				<MudItem xs="12" sm="6">
-					<MudTextField Label="@Translations.VisitType" @bind-Value="visitForm.VisitType" Required="true" />
+					<MudTextField Label="@Translations.VisitType" @bind-Value="_visit.VisitType" 
+						For="@( () => _visit.VisitType)"/>
 				</MudItem>
 				<MudItem xs="12">
-					<MudTextField Label="@Translations.Description" @bind-Value="visitForm.VisitDescription" AutoGrow MaxLines="3" Required="true" />
+					<MudTextField Label="@Translations.Description" @bind-Value="_visit.VisitDescription" AutoGrow MaxLines="3" 
+						For="@( () => _visit.VisitDescription)"/>
 					</MudItem>
 					<MudItem xs="12">
-						<MudTextField Label="@Translations.Street" @bind-Value="visitForm.Street" Required="true" />
+						<MudTextField Label="@Translations.Street" @bind-Value="_visit.Street"
+							For="@( () => _visit.Street)"/>
 					</MudItem>
 					<MudItem xs="12" sm="6">
-						<MudTextField Label="@Translations.PostalCode" @bind-Value="visitForm.PostalCode" Mask="@postalCodeMask" Clearable Required="true" />
+						<MudTextField Label="@Translations.PostalCode" @bind-Value="_visit.PostalCode" Mask="@postalCodeMask" 
+							For="@(() => _visit.PostalCode)"/>
 					</MudItem>
 					<MudItem xs="12" sm="6">
-						<MudTextField Label="@Translations.City" @bind-Value="visitForm.City" Required="true" />
+						<MudTextField Label="@Translations.City" @bind-Value="_visit.City"
+									  For="@(() => _visit.City)" />
 					</MudItem>
 					<MudItem xs="12" sm="4">
-						<MudDatePicker PickerVariant="PickerVariant.Dialog" Label="@Translations.Date" Editable="true" @bind-Date="visitForm.Date"
+						<MudDatePicker PickerVariant="PickerVariant.Dialog" Label="@Translations.Date" Editable="true" @bind-Date="_visit.Date"
 									   Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Placeholder="dd/MM/yyyy"
-									   Required="true" />
+									   For="@(() => _visit.Date)" />
 					</MudItem>
 					<MudItem xs="12" sm="4">
-						<MudTimePicker PickerVariant="PickerVariant.Dialog" Label="@Translations.Time" @bind-Time="visitForm.Time" />
+						<MudTimePicker PickerVariant="PickerVariant.Dialog" Label="@Translations.Time" @bind-Time="_visit.Time"
+									   For="@(() => _visit.Time)" />
 					</MudItem>
 					<MudItem xs="12" sm="4">
-						<MudTextField T="TimeSpan?" Label="@Translations.VisitPredictedTime" InputType="InputType.Time" @bind-Value="visitForm.PredictedEndDate" />
+						<MudTextField T="TimeSpan?" Label="@Translations.VisitPredictedTime" InputType="InputType.Time" @bind-Value="_visit.PredictedEndDate"
+									  For="@(() => _visit.PredictedEndDate)" />
 					</MudItem>
 				</MudGrid>
 			</MudForm>
 		</DialogContent>
 		<DialogActions>
-			<MudButton OnClick="@( async () =>  await SubmitForm())" Color="Color.Primary">@Translations.AddVisitBtn</MudButton>
+			<MudButton OnClick="@( async () =>  await SubmitForm())" Color="Color.Primary" Disabled="@_btnPressed">@Translations.AddVisitBtn</MudButton>
 			<MudButton OnClick="Cancel">@Translations.Cancel</MudButton>
 		</DialogActions>
 	</MudDialog>

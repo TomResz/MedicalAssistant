@@ -339,4 +339,37 @@
   <data name="Visit" xml:space="preserve">
     <value>Visit</value>
   </data>
+  <data name="AddVisitTitle" xml:space="preserve">
+    <value>Create Visit</value>
+  </data>
+  <data name="CityCannotBeEmpty" xml:space="preserve">
+    <value>The city name cannot be empty.</value>
+  </data>
+  <data name="IncorrectPostalCode" xml:space="preserve">
+    <value>An invalid postal code has been entered.</value>
+  </data>
+  <data name="EmptyVisitType" xml:space="preserve">
+    <value>The visit type must not be empty.</value>
+  </data>
+  <data name="EmptyStreet" xml:space="preserve">
+    <value>The street name cannot be blank.</value>
+  </data>
+  <data name="EmptyDate" xml:space="preserve">
+    <value>The date of the visit was not selected.</value>
+  </data>
+  <data name="EmptyVisitTime" xml:space="preserve">
+    <value>Time cannot be empty.</value>
+  </data>
+  <data name="EmptyDoctorName" xml:space="preserve">
+    <value>The doctor's data must not be blank.</value>
+  </data>
+  <data name="EmptyVisitDescription" xml:space="preserve">
+    <value>The visit description must not be empty.</value>
+  </data>
+  <data name="EmptyPredictedTime" xml:space="preserve">
+    <value>The predicted time of the visit must not be empty.</value>
+  </data>
+  <data name="Scheduler" xml:space="preserve">
+    <value>Scheduler</value>
+  </data>
 </root>

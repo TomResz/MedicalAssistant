@@ -8,52 +8,56 @@ internal sealed class ExceptionMiddleware : IMiddleware
 {
 	private readonly ILogger<ExceptionMiddleware> _logger;
 
-    public ExceptionMiddleware(ILogger<ExceptionMiddleware> logger)
-    {
-        _logger = logger;
-    }
+	public ExceptionMiddleware(ILogger<ExceptionMiddleware> logger)
+	{
+		_logger = logger;
+	}
 
-    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+	public async Task InvokeAsync(HttpContext context, RequestDelegate next)
 	{
 		try
 		{
 			await next.Invoke(context);
 		}
-		catch(BadRequestException ex)
+		catch (BadRequestException ex)
 		{
-			await HandleError(StatusCodes.Status400BadRequest,ex,context);
+			await HandleError(StatusCodes.Status400BadRequest, ex, context);
 		}
-		catch(ConflictException ex)
+		catch (ConflictException ex)
 		{
-			await HandleError(StatusCodes.Status409Conflict,ex,context);
+			await HandleError(StatusCodes.Status409Conflict, ex, context);
 		}
-		catch(AuthenticationException ex)
+		catch (AuthenticationException ex)
 		{
-			await HandleError(StatusCodes.Status401Unauthorized,ex,context);
+			await HandleError(StatusCodes.Status401Unauthorized, ex, context);
 		}
-		catch (Exception ex) 
+		catch (Exception ex)
 		{
 			await HandleError(StatusCodes.Status500InternalServerError, ex, context);
 		}
 	}
 
-	private async Task HandleError(int statusCode,Exception ex, HttpContext context)
+	private async Task HandleError(int statusCode, Exception ex, HttpContext context)
 	{
 		var type = ex
 			.GetType()
 			.ToString()
 			.Split('.')
 			.Last()
-			.Replace(nameof(Exception),"");
+			.Replace(nameof(Exception), "");
 
 		var details = new ErrorDetails(statusCode, type, ex.Message);
 
-        string content = details.ToString();
-        
+		string content = details.ToString();
+
 		if (statusCode == 500)
 		{
 			var criticalErrorDetails = new CriticalErrorDetails(details, ex.StackTrace ?? "");
 			_logger.LogError(criticalErrorDetails.ToString());
+		}
+		else if (statusCode == 400)
+		{
+			_logger.LogError(details.ToString());
 		}
 
 		context.Response.ContentType = "application/json";

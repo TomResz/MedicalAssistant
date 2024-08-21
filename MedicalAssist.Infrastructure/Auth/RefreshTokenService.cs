@@ -30,7 +30,15 @@ internal sealed class RefreshTokenService : IRefreshTokenService
         return new(hashString, expirationTime);
     }
 
-    public ClaimsPrincipal? PrincipalsFromExpiredToken(string oldAccessToken)
+	public string? GetEmailFromExpiredToken(string oldAccessToken)
+	{
+        var claims = PrincipalsFromExpiredToken(oldAccessToken);
+        var email = claims?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+
+        return email;
+	}
+
+	public ClaimsPrincipal? PrincipalsFromExpiredToken(string oldAccessToken)
     {
         var tokenParameters = new TokenValidationParameters
         {

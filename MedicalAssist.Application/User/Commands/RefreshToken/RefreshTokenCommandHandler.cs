@@ -6,7 +6,6 @@ using MedicalAssist.Application.Security;
 using MedicalAssist.Domain.Abstraction;
 using MedicalAssist.Domain.Exceptions;
 using MedicalAssist.Domain.Repositories;
-using System.Security.Claims;
 
 namespace MedicalAssist.Application.User.Commands.RefreshToken;
 internal sealed class RefreshTokenCommandHandler
@@ -34,9 +33,7 @@ internal sealed class RefreshTokenCommandHandler
 
     public async Task<RefreshTokenResponse> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
     {
-        var claims = _refreshTokenService.PrincipalsFromExpiredToken(request.OldAccessToken);
-
-        var email = claims?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value
+        var email = _refreshTokenService.GetEmailFromExpiredToken(request.OldAccessToken)
             ?? throw new EmptyEmailException();
 
         var user = await _userRepository.GetByEmailAsync(email, cancellationToken);

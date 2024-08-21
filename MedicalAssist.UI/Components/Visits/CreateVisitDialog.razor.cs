@@ -22,29 +22,33 @@ public partial class CreateVisitDialog
 	[Parameter]
 	public EventCallback<VisitDto> OnVisitCreated { get; set; }
 
-	private MudForm form;
-	private VisitViewModel visitForm = new();
+	private readonly VisitViewModelValidator _validator = new();
+	private readonly VisitViewModel _visit = new();
 
+	private MudForm form;
+	private bool _btnPressed = false;
 	protected override void OnInitialized()
 	{
-		visitForm.Date = SelectedDate;
+		_visit.Date = SelectedDate;
 	}
 
 	private async Task SubmitForm()
 	{
+		await form.Validate();
 		if (!form.IsValid)
 		{
 			return;
 		}
-		var model = visitForm.ToModel();
-
+		var model = _visit.ToModel();
+		_btnPressed = true;
 		var response = await VisitService.Add(model);
 
-		if(response.IsSuccess)
+		if (response.IsSuccess)
 		{
 			await OnVisitCreated.InvokeAsync(response.Value!);
 			MudDialog.Close();
 		}
+		_btnPressed = false;
 
 	}
 	public IMask postalCodeMask = new PatternMask("00-000");

@@ -11,19 +11,40 @@
 @if (_messages.Count > 0)
 {
 	<div class="mt-3">
-		<MudBadge Content="@_messages.Count()" Color="Color.Primary" Overlap="true" Class="mr-5 my-1" Max="9">
-			<MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Style="padding-right:0px; padding-top:0px;" />
+		<MudBadge Content="@_messages.Count()" Color="Color.Primary" Overlap="true" Class="mr-4 my-1" Max="9">
+			<MudIconButton Icon="@Icons.Material.Filled.Notifications"
+				Color="@(isPopoverOpen ? Color.Primary : Color.Inherit)"
+				Style="padding-right:0px; padding-top:0px;"
+				OnClick="@ToggleCollapse" />
 		</MudBadge>
+		<MudPopover AnchorOrigin="Origin.TopCenter" TransformOrigin="Origin.BottomCenter" Open="@isPopoverOpen">
+			<MudPaper Class="p-2">
+				<MudList T="string">
+					@foreach (var message in _messages)
+					{
+						<MudListItem>
+							<MudText Typo="Typo.body2">@message</MudText>
+							</MudListItem>
+					}
+				</MudList>
+				<MudButton Variant="@MudBlazor.Variant.Outlined" Color="Color.Error" OnClick="@ClearNotifications">
+					Clear Notifications
+				</MudButton>
+			</MudPaper>
+		</MudPopover>
 	</div>
 }
 else
 {
 	<MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Class="mr-2" />
+
 }
 
 @code {
 	private readonly List<string> _messages = new();
 	private HubConnection? _hubConnection;
+	private bool isExpanded = false;
+	private bool isPopoverOpen = false;
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -47,9 +68,21 @@ else
 
 	public async ValueTask DisposeAsync()
 	{
-		if(_hubConnection is not null)
+		if (_hubConnection is not null)
 		{
 			await _hubConnection.DisposeAsync();
 		}
+	}
+
+	private void ToggleCollapse()
+	{
+		isExpanded = !isExpanded;
+		isPopoverOpen = !isPopoverOpen;
+	}
+
+	private void ClearNotifications()
+	{
+		_messages.Clear();
+		StateHasChanged();
 	}
 }

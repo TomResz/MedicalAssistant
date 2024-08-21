@@ -3,19 +3,13 @@
 @using MedicalAssist.UI.Shared.Services.Abstraction
 @using MedicalAssist.UI.Shared.Services.Visits
 
-@if (_loading)
-{
-	<h1>@Translations.Loading...</h1>
-}
-else
-{
-	<RadzenScheduler @ref="_scheduler" Style="height: calc(100vh - 98px); max-height:100vh; overflow: hidden; margin: 0;"
-					 TItem="VisitDto" Data=@_visits StartProperty="Date" EndProperty="End"
-					 TextProperty="VisitType" SelectedIndex="2" TodayText="@Translations.Today" NextText="@Translations.Tomorrow" PrevText="@Translations.Yesterday"
-					 SlotRender=@SelectTodayDate SlotSelect="@AddVist" AppointmentSelect="EditRemoveVisit">
-		<RadzenDayView Text="@Translations.Day" StartTime="TimeSpan.FromHours(6.0)" EndTime="TimeSpan.FromHours(24.0)" TimeFormat="HH:mm" />
-		<RadzenWeekView Text="@Translations.Week" StartTime="TimeSpan.FromHours(6.0)" EndTime="TimeSpan.FromHours(24.0)" TimeFormat="HH:mm" />
-		<RadzenMonthView Text="@Translations.Month" />
-		<RadzenYearView Text="@Translations.Year" />
-	</RadzenScheduler>
-}
+
+<RadzenScheduler @ref="_scheduler" Style="height:calc(100vh - 98px); max-height:100vh; overflow: hidden; margin: 0;"
+				 TItem="VisitDto" Data=@_visits StartProperty="Date" EndProperty="End"
+				 TextProperty="VisitType" SelectedIndex="2" TodayText="@Translations.Today" NextText="@Translations.Tomorrow" PrevText="@Translations.Yesterday"
+				 SlotRender=@SelectTodayDate SlotSelect="@AddVist" AppointmentSelect="EditRemoveVisit">
+	<RadzenDayView Text="@Translations.Day" StartTime="TimeSpan.FromHours(6.0)" EndTime="TimeSpan.FromHours(24.0)" TimeFormat="HH:mm" />
+	<RadzenWeekView Text="@Translations.Week" StartTime="TimeSpan.FromHours(6.0)" EndTime="TimeSpan.FromHours(24.0)" TimeFormat="HH:mm" />
+	<RadzenMonthView Text="@Translations.Month" />
+	<RadzenYearView Text="@Translations.Year" />
+</RadzenScheduler>

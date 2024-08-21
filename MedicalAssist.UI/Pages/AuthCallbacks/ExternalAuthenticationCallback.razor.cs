@@ -48,15 +48,10 @@ public partial class ExternalAuthenticationCallback
 		NavigationManager.NavigateTo("/login");
 	}
 
-	private async Task<Response<SignInResponse>> GetResponse()
-	{
-		if(Provider is "google-callback")
+	private async Task<Response<SignInResponse>> GetResponse() 
+	=> Provider switch
 		{
-			return await AuthService.SignInByGoogle(Code!);
-		}
-		else
-		{
-			return await AuthService.SignInByFacebook(Code!);
-		}
-	}
+			"google-callback" => await AuthService.SignInByGoogle(Code!),
+			_ => await AuthService.SignInByFacebook(Code!),
+		};
 }
