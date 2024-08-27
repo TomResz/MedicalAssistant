@@ -655,6 +655,15 @@ namespace MedicalAssist.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save settings.
+        /// </summary>
+        internal static string SaveSettings {
+            get {
+                return ResourceManager.GetString("SaveSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scheduler.
         /// </summary>
         internal static string Scheduler {
@@ -768,6 +777,24 @@ namespace MedicalAssist.UI.Shared.Resources {
         internal static string Visit {
             get {
                 return ResourceManager.GetString("Visit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully removed the visit..
+        /// </summary>
+        internal static string VisitDeletedText {
+            get {
+                return ResourceManager.GetString("VisitDeletedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is already a visit for the hours given..
+        /// </summary>
+        internal static string VisitHoursConflict {
+            get {
+                return ResourceManager.GetString("VisitHoursConflict", resourceCulture);
             }
         }
         

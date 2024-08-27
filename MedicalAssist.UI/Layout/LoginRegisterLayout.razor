@@ -3,10 +3,6 @@
 @inherits LayoutComponentBase
 @layout BaseLayout
 
-@inject NavigationManager Navigation
-@inject AuthenticationStateProvider AuthenticationStateProvider
-
-
 <MudLayout>
 	<MudMainContent Class="d-flex flex-column align-center" Style="min-height: 100dvh; margin: 0; padding: 0; overflow: auto;">
 		<MudGrid Justify="Justify.Center" Class="d-flex align-items-center" Style="width: 100%; margin: auto; padding: 0;">
@@ -19,27 +15,6 @@
 	</MudMainContent>
 	<div class="position-fixed bottom-0 right-0 d-flex m-1">
 		<MudIconButton Icon="@(BaseLayout.IsDarkMode ? DarkModeIcon : LightModeIcon)" OnClick="async ()=> await BaseLayout.ThemeToggle()" Size="Size.Large" />
-		<LanguageSwitchBtn Class="ms-2"/>
+		<LanguageSwitchBtn Class="ms-2" />
 	</div>
 </MudLayout>
-
-@code {
-	[CascadingParameter] BaseLayout BaseLayout { get; set; }
-	private bool isAuthenticated;
-
-	private string DarkModeIcon = Icons.Material.Filled.Nightlight;
-	private string LightModeIcon = Icons.Material.Filled.Brightness4;
-
-
-
-	protected override async Task OnInitializedAsync()
-	{
-		var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-		isAuthenticated = authState.User.Identity!.IsAuthenticated;
-
-		if (isAuthenticated)
-		{
-			Navigation.NavigateTo("/");
-		}
-	}
-}

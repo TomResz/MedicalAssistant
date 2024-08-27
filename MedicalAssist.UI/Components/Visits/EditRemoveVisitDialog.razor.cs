@@ -1,5 +1,6 @@
 ﻿using MedicalAssist.UI.Models.Visits;
 using MedicalAssist.UI.Shared.Resources;
+using MedicalAssist.UI.Shared.Response.Messages;
 using MedicalAssist.UI.Shared.Services.Abstraction;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -27,6 +28,9 @@ public partial class EditRemoveVisitDialog
 	[Parameter]
 	public EventCallback<VisitDto> OnVisitEdited { get; set; }
 
+	[Inject]
+	public ISnackbar Snackbar { get; set; }
+
 	private bool _isEditMode = false;
 	private bool _readOnlyMode => !_isEditMode;
 
@@ -34,7 +38,7 @@ public partial class EditRemoveVisitDialog
 	private VisitViewModel _visitModel = new();
 	private readonly VisitViewModelValidator _validator = new();
 
-	private bool _btnPressed = false;	
+	private bool _btnPressed = false;
 
 	protected override void OnInitialized()
 	{
@@ -48,7 +52,6 @@ public partial class EditRemoveVisitDialog
 			_isEditMode = true;
 			return;
 		}
-
 		await form.Validate();
 		if (!form.IsValid)
 		{
@@ -64,6 +67,15 @@ public partial class EditRemoveVisitDialog
 			await OnVisitEdited.InvokeAsync(dto);
 			MudDialog.Close();
 		}
+		else
+		{
+			var message = response.ErrorDetails!.Type switch
+			{
+				VisitErrorMessages.ConflictOfHours => Translations.VisitHoursConflict,
+				_ => Translations.SomethingWentWrong
+			};
+			Snackbar.Add(message, Severity.Error);
+		}
 		_btnPressed = false;
 	}
 
@@ -73,9 +85,8 @@ public partial class EditRemoveVisitDialog
 
 	private void Cancel() => MudDialog.Cancel();
 
-	#region Delete Visit => Confirmation Dialog
 
-
+	#region Delete Visit
 
 	private async Task DeleteVisit()
 	{
@@ -88,15 +99,21 @@ public partial class EditRemoveVisitDialog
 		{
 			return;
 		}
-
+		_btnPressed = true;
 		var visitId = VisitDto.Id;
 		var response = await VisitService.Delete(visitId);
 
 		if (response.IsSuccess)
 		{
+			Snackbar.Add(message: Translations.VisitDeletedText, Severity.Info);
 			await OnVisitDeleted.InvokeAsync(visitId);
 			MudDialog.Close();
 		}
+		else
+		{
+			Snackbar.Add(Translations.SomethingWentWrong, Severity.Error);	
+		}
+		_btnPressed = false;
 	}
 	#endregion
 }

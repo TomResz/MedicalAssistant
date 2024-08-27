@@ -1,16 +1,13 @@
-﻿@using System.Security.Cryptography
-@using System.Web
-@using MedicalAssist.UI.Shared.Options
-@using Microsoft.Extensions.Options
-<MudButton StartIcon="@Icons.Custom.Brands.Facebook"
-		   Variant="MudBlazor.Variant.Filled" Color="Color.Primary"
-		   OnClick="() =>AuthWithFacebook()"
-		   IconSize="Size.Large"
-		   FullWidth="true">
-	Facebook
-</MudButton>
+﻿using MedicalAssist.UI.Shared.Options;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Options;
+using System.Security.Cryptography;
+using System.Web;
 
-@code {
+namespace MedicalAssist.UI.Components.Auth;
+
+public partial class FacebookAuthBtn
+{
 	[Inject]
 	private NavigationManager _navigation { get; set; }
 
@@ -24,8 +21,8 @@
 
 		string state = GenerateState();
 
-		string authorizationUrl = $"https://www.facebook.com/v20.0/dialog/oauth?client_id={clientId}"+
-		$"&redirect_uri={redirectUri}"+
+		string authorizationUrl = $"https://www.facebook.com/v20.0/dialog/oauth?client_id={clientId}" +
+		$"&redirect_uri={redirectUri}" +
 		$"&state={Uri.EscapeDataString(state)}&scope=email";
 
 		_navigation.NavigateTo(authorizationUrl);

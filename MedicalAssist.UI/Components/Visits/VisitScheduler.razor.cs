@@ -1,6 +1,5 @@
 ﻿using MedicalAssist.UI.Models.Visits;
 using MedicalAssist.UI.Shared.Resources;
-using MedicalAssist.UI.Shared.Services.Abstraction;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Radzen;
@@ -10,12 +9,8 @@ namespace MedicalAssist.UI.Components.Visits;
 
 public partial class VisitScheduler
 {
-    [Parameter]
-    public IReadOnlyList<VisitDto> Visits { get; set; }
-
-
-	[Inject]
-	public IVisitService VisitService { get; set; }
+	[Parameter]
+	public IReadOnlyList<VisitDto> Visits { get; set; }
 
 	[Inject]
 	public IDialogService DialogService { get; set; }
@@ -23,7 +18,7 @@ public partial class VisitScheduler
 
 	RadzenScheduler<VisitDto> _scheduler;
 
-    private List<VisitDto> _visits = [];
+	private List<VisitDto> _visits = [];
 
 
 	protected override async Task OnInitializedAsync()
@@ -43,7 +38,7 @@ public partial class VisitScheduler
 
 	private async Task AddVist(SchedulerSlotSelectEventArgs args)
 	{
-		string[] validViews = [Translations.Month , Translations.Day, Translations.Week];
+		string[] validViews = [Translations.Month, Translations.Day, Translations.Week];
 
 		if (!validViews.Contains(args.View.Text))
 		{
@@ -68,7 +63,7 @@ public partial class VisitScheduler
 			{ nameof(EditRemoveVisitDialog.OnVisitDeleted), EventCallback.Factory.Create<Guid>(this, OnVisitDeleted) },
 			{ nameof(EditRemoveVisitDialog.OnVisitEdited), EventCallback.Factory.Create<VisitDto>(this, OnVisitEdited) }
 		};
-		var options = new MudBlazor.DialogOptions() { CloseOnEscapeKey = true, FullWidth = true};
+		var options = new MudBlazor.DialogOptions() { CloseOnEscapeKey = true, FullWidth = true };
 		var dialog = DialogService.Show<EditRemoveVisitDialog>(Translations.Visit, parameters);
 		var result = await dialog.Result;
 	}
@@ -76,9 +71,12 @@ public partial class VisitScheduler
 
 	private async Task OnVisitDeleted(Guid visitId)
 	{
-		var visit = _visits.Where(x => x.Id == visitId).First();
-		_visits.Remove(visit);
-		await _scheduler.Reload();
+		var visit = _visits.Where(x => x.Id == visitId).FirstOrDefault();
+		if (visit is not null)
+		{
+			_visits.Remove(visit);
+			await _scheduler.Reload();
+		}
 	}
 
 	private async Task OnVisitEdited(VisitDto visitDto)

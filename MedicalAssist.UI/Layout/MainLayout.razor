@@ -1,16 +1,15 @@
 ﻿@using MedicalAssist.UI.Components
 @using MedicalAssist.UI.Components.AppBar
+@using MedicalAssist.UI.Components.Settings
 @using MedicalAssist.UI.Pages.Dashboard
 @inherits LayoutComponentBase
 @layout BaseLayout
-@inject MedicalAssist.UI.Shared.Services.Auth.LocalStorageService LocalStorage
-@inject IJSRuntime JSRuntime
 
 <MudLayout>
 	<MudAppBar Elevation="0">
 		<MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@(e => DrawerToggle())" />
 		<MudSpacer />
-		<LanguageSwitchBtn Class="mx-1"/>
+		<SettingBtn />
 		<Notification/>
 		<AccountMenu />
 		<MudIconButton Icon="@(BaseLayout.IsDarkMode ?  Icons.Material.Filled.Nightlight : Icons.Material.Filled.Brightness4)"
@@ -20,13 +19,13 @@
 	</MudAppBar>
 	<MudDrawer @bind-Open="_drawerOpen" Elevation="1">
 		<MudDrawerHeader>
-			<img src="/Logo.svg" style="transform: scale(1.8); margin-right:10px">
+			<img src="/Logo.svg" class="page-icon">
 			<MudText Typo="Typo.h6">@Translations.MedicalAssist</MudText>
 		</MudDrawerHeader>
 		<NavMenu />
 	</MudDrawer>
 	<MudMainContent>
-		<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="pa-4">
+		<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="pa-4 ma-0">
 			@Body
 		</MudContainer>
 	</MudMainContent>

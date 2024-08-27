@@ -1,4 +1,6 @@
 ﻿using MedicalAssist.UI.Models.Visits;
+using MedicalAssist.UI.Shared.Resources;
+using MedicalAssist.UI.Shared.Response.Messages;
 using MedicalAssist.UI.Shared.Services.Abstraction;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -21,6 +23,9 @@ public partial class CreateVisitDialog
 
 	[Parameter]
 	public EventCallback<VisitDto> OnVisitCreated { get; set; }
+
+	[Inject]
+	public ISnackbar Snackbar {  get; set; }
 
 	private readonly VisitViewModelValidator _validator = new();
 	private readonly VisitViewModel _visit = new();
@@ -47,6 +52,15 @@ public partial class CreateVisitDialog
 		{
 			await OnVisitCreated.InvokeAsync(response.Value!);
 			MudDialog.Close();
+		}
+		else
+		{
+			var message = response.ErrorDetails!.Type switch
+			{
+				VisitErrorMessages.ConflictOfHours => Translations.VisitHoursConflict,
+				_ => Translations.SomethingWentWrong
+			};
+			Snackbar.Add(message, Severity.Error);
 		}
 		_btnPressed = false;
 

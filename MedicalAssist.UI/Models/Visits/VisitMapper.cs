@@ -4,9 +4,10 @@ public static class VisitMapper
 {
 	public static CreateVisitVisitModel ToModel(this VisitViewModel viewModel)
 	{
+		var dateValue = viewModel.Date!.Value.Date;
 		var defaultTime = TimeSpan.FromHours(12);
 		var defaultVisitTime = TimeSpan.FromMinutes(30);
-		var date = viewModel.Date!.Value.Add(viewModel.Time ?? defaultTime);
+		var date = dateValue.Add(viewModel.Time ?? defaultTime);
 		return new CreateVisitVisitModel()
 		{
 			City = viewModel.City,

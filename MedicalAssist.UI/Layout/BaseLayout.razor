@@ -1,13 +1,8 @@
 ﻿@using MedicalAssist.UI.Components
-@using MedicalAssist.UI.Pages.Dashboard
 @using System.Globalization
+@using MedicalAssist.UI.Pages.Dashboard
 @using MedicalAssist.UI.Shared.Services.Auth
 @inherits LayoutComponentBase
-
-
-@inject MedicalAssist.UI.Shared.Services.Auth.LocalStorageService LocalStorage
-@inject IJSRuntime JSRuntime
-@inject NavigationManager Navigation
 
 <MudThemeProvider @ref="@_mudThemeProvider" @bind-IsDarkMode="@_isDarkMode" Theme="_currentTheme" />
 <MudDialogProvider />
@@ -17,70 +12,3 @@
 <CascadingValue Value="this">
 	@Body
 </CascadingValue>
-
-@code {
-	private bool _isDarkMode;
-	private MudThemeProvider _mudThemeProvider;
-	public bool IsDarkMode => _isDarkMode;
-	private readonly MudTheme _currentTheme = new()
-		{
-			PaletteLight = new PaletteLight
-			{
-				Primary = "#0A7BCF",
-				Secondary = "#4CAF50",
-				Info = "#64a7e2",
-				Success = "#2ECC40",
-				Warning = "#FFC107",
-				Error = "#FF0000",
-				AppbarBackground = "#2A72D5",
-			},
-			PaletteDark = new PaletteDark
-			{
-				Primary = "#6585e0",
-				Secondary = "#607D8B",
-				Info = "#a4c2dd",
-				Success = "#2ECC40",
-				Warning = "#dc2d7e",
-				Error = "#de2000",
-				AppbarBackground = "#121212",
-			}
-		};
-
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		if (firstRender)
-		{
-			var darkMode = await LocalStorage.GetValueAsync<bool>("isDarkMode");
-			if (darkMode)
-			{
-				_isDarkMode = true;
-			}
-			else
-			{
-				_isDarkMode = await _mudThemeProvider.GetSystemPreference();
-
-			}
-			await JSRuntime.InvokeVoidAsync("setRadzenComponentsTheme", _isDarkMode);
-			StateHasChanged();
-		}
-	}
-
-	public async Task ThemeToggle()
-	{
-		_isDarkMode = !_isDarkMode;
-		await LocalStorage.SetValueAsync("isDarkMode", _isDarkMode);
-		await JSRuntime.InvokeVoidAsync("setRadzenComponentsTheme", _isDarkMode);
-		StateHasChanged();
-	}
-
-	public CultureInfo[] Cultures = new[]
-	{
-		new CultureInfo("en-US"),
-		new CultureInfo("pl-PL")
-	};
-
-	public CultureInfo Culture
-	{
-		get => CultureInfo.CurrentCulture;
-	}
-}

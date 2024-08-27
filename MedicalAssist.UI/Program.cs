@@ -3,6 +3,7 @@ using MedicalAssist.UI.Shared.Options;
 using MedicalAssist.UI.Shared.Services.Abstraction;
 using MedicalAssist.UI.Shared.Services.Auth;
 using MedicalAssist.UI.Shared.Services.HubToken;
+using MedicalAssist.UI.Shared.Services.Language;
 using MedicalAssist.UI.Shared.Services.RefreshToken;
 using MedicalAssist.UI.Shared.Services.User;
 using MedicalAssist.UI.Shared.Services.Verification;
@@ -32,6 +33,7 @@ builder.Services.AddScoped<MedicalAssistAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(
 	sp => sp.GetRequiredService<MedicalAssistAuthenticationStateProvider>());
 
+builder.Services.AddScoped<ILanguageManager,LanguageManager>();
 builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
 builder.Services.AddScoped<IUserAuthService, UserAuthService>();
 builder.Services.AddScoped<IVisitService,VisitService>();

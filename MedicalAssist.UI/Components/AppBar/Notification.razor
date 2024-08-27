@@ -49,7 +49,6 @@ else
 	protected override async Task OnInitializedAsync()
 	{
 		var uri = APIOptions.Value.NotificationHubUrl;
-		Console.WriteLine(uri);
 		_hubConnection = new HubConnectionBuilder()
 				.WithUrl(uri,
 					options => options.AccessTokenProvider = async () => await HubTokenService.GetJwt())

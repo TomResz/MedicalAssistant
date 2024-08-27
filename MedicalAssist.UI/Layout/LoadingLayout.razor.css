@@ -1,0 +1,11 @@
+﻿.custom-loading-screen {
+    height: 100vh !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.custom-loading-container {
+    padding: 20px !important;
+    text-align: center !important;
+}

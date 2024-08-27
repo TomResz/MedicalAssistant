@@ -3,6 +3,7 @@
 @layout LoginRegisterLayout
 
 @using MedicalAssist.UI.Components
+@using MedicalAssist.UI.Components.Auth
 
 <PageTitle>@Translations.SignInPageTitle</PageTitle>
 	<MudForm @ref="_form" Model="_user" Validation="@(_validator.ValidateValue)" ValidationDelay="60" Class="mx-0 px-0">

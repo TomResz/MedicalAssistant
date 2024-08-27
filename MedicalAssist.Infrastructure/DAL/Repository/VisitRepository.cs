@@ -29,7 +29,7 @@ internal sealed class VisitRepository : IVisitRepository
 		=> await _context
 		.Visits
 		.AnyAsync(x => x.Id != new VisitId(id) &&
-			x.UserId != new UserId(userId) &&
+			x.UserId == new UserId(userId) &&
 			date < x.PredictedEndDate &&
 			endDate > x.Date,
 			cancellationToken);

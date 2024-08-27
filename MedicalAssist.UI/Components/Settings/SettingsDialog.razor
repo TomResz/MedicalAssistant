@@ -1,0 +1,15 @@
+﻿@using MedicalAssist.UI.Components.AppBar
+
+<MudDialog TitleClass="text-center">
+	<DialogContent>
+		<LanguageSwitchBtn Class="@LanguageSwitchClass" OnLanguageChanged="@LanguageChanged" />
+	</DialogContent>
+	<DialogActions>
+		<MudButton OnClick="@(async () => await SaveChanges() )">
+			@Translations.SaveSettings
+		</MudButton>
+		<MudButton OnClick="@Cancel">
+			@Translations.Cancel
+		</MudButton>
+	</DialogActions>
+</MudDialog>

@@ -1,7 +1,7 @@
 ﻿@using MedicalAssist.UI.Models.Visits
 
 
-<MudDialog>
+<MudDialog TitleClass="text-center">
 	<DialogContent>
 		<MudForm @ref="form" Model="@_visitModel" Validation="@(_validator.ValidateValue)" ValidationDelay="80">
 			<MudGrid>

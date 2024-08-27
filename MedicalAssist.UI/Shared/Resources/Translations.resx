@@ -372,4 +372,13 @@
   <data name="Scheduler" xml:space="preserve">
     <value>Scheduler</value>
   </data>
+  <data name="VisitHoursConflict" xml:space="preserve">
+    <value>There is already a visit for the hours given.</value>
+  </data>
+  <data name="VisitDeletedText" xml:space="preserve">
+    <value>Successfully removed the visit.</value>
+  </data>
+  <data name="SaveSettings" xml:space="preserve">
+    <value>Save settings</value>
+  </data>
 </root>
