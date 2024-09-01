@@ -33,8 +33,20 @@ public class Visit : AggregateRoot<VisitId>
         PredictedEndDate = predictedEndDate;
     }
 
-    public static Visit Create(UserId userId, Address address, Date date, DoctorName doctorName, VisitDescription visitDescription, VisitType visitType,Date predictedEndDate)
+    public static Visit Create(
+		UserId userId,
+		Address address,
+		Date date,
+		DoctorName doctorName,
+		VisitDescription visitDescription,
+		VisitType visitType,
+		Date predictedEndDate)
     {
+        if(date >= predictedEndDate)
+        {
+            throw new InvalidPredictedDateException();
+        }
+
         Visit visit = new(Guid.NewGuid(),
 			userId,
             address,
@@ -49,7 +61,7 @@ public class Visit : AggregateRoot<VisitId>
         return visit;
     }
 
-    internal void AddRecommendation(Recommendation recommendation)
+    public void AddRecommendation(Recommendation recommendation)
     {
         _recommendations.Add(recommendation);
         AddEvent(new RecommendationAddedEvent(Id,recommendation.Id));
@@ -75,7 +87,13 @@ public class Visit : AggregateRoot<VisitId>
         AddEvent(new VisitDateChangedEvent(Id,date));
     }
 
-	public void Update(Address address, Date date, DoctorName doctorName, VisitDescription description, VisitType visitType, Date endDate)
+	public void Update(
+		Address address,
+		Date date,
+		DoctorName doctorName,
+		VisitDescription description,
+		VisitType visitType,
+		Date endDate)
 	{
         Address = address;
         Date = date;

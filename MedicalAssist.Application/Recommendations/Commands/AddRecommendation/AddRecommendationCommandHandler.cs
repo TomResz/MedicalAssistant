@@ -15,7 +15,12 @@ internal sealed class AddRecommendationCommandHandler : IRequestHandler<AddRecom
     private readonly IUserContext _userContext;
     private readonly IUnitOfWork _unitOfWork;
 
-    public AddRecommendationCommandHandler(IVisitRepository visitRepository, IClock clock, IUserContext userContext, IVisitService visitService, IUnitOfWork unitOfWork)
+    public AddRecommendationCommandHandler(
+		IVisitRepository visitRepository,
+		IClock clock,
+		IUserContext userContext,
+		IVisitService visitService,
+		IUnitOfWork unitOfWork)
     {
         _visitRepository = visitRepository;
         _clock = clock;

@@ -13,8 +13,8 @@ internal static class Extensions
 	private const string OptionsSectionName = "postgres";
 	internal static IServiceCollection AddPersistance(this IServiceCollection services, IConfiguration configuration)
 	{
-		var postgresOptions = configuration.GetOptions<PostgresOptions>(OptionsSectionName);
-		services.Configure<PostgresOptions>(configuration.GetSection(OptionsSectionName));
+		var postgresOptions = configuration.GetOptions<DatabaseOptions>(OptionsSectionName);
+		services.Configure<DatabaseOptions>(configuration.GetSection(OptionsSectionName));
 
 		var isRunningInDocker = Environment.GetEnvironmentVariable("RUNNING_IN_DOCKER") == "true";
 

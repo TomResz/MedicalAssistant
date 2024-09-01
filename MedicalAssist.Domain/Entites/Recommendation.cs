@@ -25,7 +25,13 @@ public class Recommendation
         EndDate = endDate;
     }
 
-    public static Recommendation Create(VisitId visitId,Note extraNote, Date createdAt, Medicine medicine, Date startDate, Date endDate)
+    public static Recommendation Create(
+		VisitId visitId,
+		Note extraNote,
+		Date createdAt,
+		Medicine medicine,
+		Date startDate,
+		Date endDate)
     {
         if (startDate > endDate)
         {

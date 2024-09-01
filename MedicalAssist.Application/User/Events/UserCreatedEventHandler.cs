@@ -25,6 +25,6 @@ internal sealed class UserCreatedEventHandler
 			throw new UserNotFoundException();
 		}
 
-		await _emailService.SendMailWithVerificationCode(user.Email, user.UserVerification.CodeHash,notification.Language);
+		await _emailService.SendMailWithVerificationCode(user.Email, user.UserVerification!.CodeHash,notification.Language);
 	}
 }

@@ -18,7 +18,7 @@ public sealed record Date
 	/// <exception cref="InvalidDateFormatException"></exception>
 	public Date(string value)
 	{
-		string[] formats = { "yyyy-MM-dd HH:mm" };
+		string[] formats = ["yyyy-MM-dd HH:mm"];
 
 		var parsed = DateTime.TryParseExact(value, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out var date);
 

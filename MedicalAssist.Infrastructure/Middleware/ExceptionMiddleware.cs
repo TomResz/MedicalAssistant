@@ -8,10 +8,8 @@ internal sealed class ExceptionMiddleware : IMiddleware
 {
 	private readonly ILogger<ExceptionMiddleware> _logger;
 
-	public ExceptionMiddleware(ILogger<ExceptionMiddleware> logger)
-	{
-		_logger = logger;
-	}
+	public ExceptionMiddleware(ILogger<ExceptionMiddleware> logger) 
+		=> _logger = logger;
 
 	public async Task InvokeAsync(HttpContext context, RequestDelegate next)
 	{
@@ -50,14 +48,12 @@ internal sealed class ExceptionMiddleware : IMiddleware
 
 		string content = details.ToString();
 
-		if (statusCode == 500)
+		_logger.LogError($"Exception caught: {content}");
+
+		if (statusCode == StatusCodes.Status500InternalServerError)
 		{
 			var criticalErrorDetails = new CriticalErrorDetails(details, ex.StackTrace ?? "");
-			_logger.LogError(criticalErrorDetails.ToString());
-		}
-		else if (statusCode == 400)
-		{
-			_logger.LogError(details.ToString());
+			_logger.LogError($"Critical error stack trace: {criticalErrorDetails.StackTrace}.");
 		}
 
 		context.Response.ContentType = "application/json";

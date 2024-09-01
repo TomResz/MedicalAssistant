@@ -19,7 +19,7 @@ public static class Extensions
 
 		services.AddHangfire((sp,cfg) =>
 		{
-            var options = sp.GetRequiredService<IOptions<PostgresOptions>>().Value;
+            var options = sp.GetRequiredService<IOptions<DatabaseOptions>>().Value;
 
 			var isRunningInDocker = Environment.GetEnvironmentVariable("RUNNING_IN_DOCKER") == "true";
 			var connectionString = isRunningInDocker ? options.DockerConnectionString : options.ConnectionString;

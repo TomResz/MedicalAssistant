@@ -27,7 +27,7 @@ internal sealed class AddVisitCommandHandler
     {
         UserId userId = _userContext.GetUserId;
 
-        Address address = new Address(request.Street, request.City, request.PostalCode);
+        Address address = new(request.Street, request.City, request.PostalCode);
         DoctorName doctorName = request.DoctorName;
         VisitDescription description = request.VisitDescription;
         VisitType visitType = request.VisitType;

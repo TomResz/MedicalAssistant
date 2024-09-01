@@ -12,7 +12,12 @@ internal sealed class DeleteRecommendationCommandHandler : IRequestHandler<Delet
     private readonly IUnitOfWork _unitOfWork;
     private readonly IVisitService _visitService;
     private readonly IUserContext _userContext;
-    public DeleteRecommendationCommandHandler(IVisitRepository visitRepository, IUnitOfWork unitOfWork, IVisitService visitService, IUserContext userContext)
+    
+    public DeleteRecommendationCommandHandler(
+		IVisitRepository visitRepository,
+		IUnitOfWork unitOfWork,
+		IVisitService visitService,
+		IUserContext userContext)
     {
         _visitRepository = visitRepository;
         _unitOfWork = unitOfWork;

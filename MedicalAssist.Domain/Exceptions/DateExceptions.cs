@@ -15,3 +15,10 @@ public sealed class SameDateException : BadRequestException
 
 	}
 }
+
+public sealed class InvalidPredictedDateException : BadRequestException
+{
+	public InvalidPredictedDateException() : base("The date must not be less than the date of the visit.")
+	{
+	}
+}

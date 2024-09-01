@@ -14,7 +14,6 @@ public class User : AggregateRoot<UserId>
 	public FullName FullName { get; private set; }
 	public Role Role { get; private set; }
 	public Date CreatedAtUtc { get; private set; }
-
 	public ExternalUserLogin? ExternalUserProvider { get; private set; }
 	public UserVerification? UserVerification { get; private set; }
 	public RefreshTokenHolder RefreshTokenHolder { get; private set; } = null;
