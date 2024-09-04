@@ -1,5 +1,5 @@
 version: '3.4'
-
+name: medicalassist
 services:
   medicalassist.api:
     image: ${DOCKER_REGISTRY-}medicalassistapi
@@ -10,8 +10,8 @@ services:
     networks:
       - medical-assist-network
     ports:
-    - "5000:5100"
-    - "5001:5101"
+    - "5000:5000"
+    - "5001:5001"
     environment:
      - RUNNING_IN_DOCKER=true
     depends_on:
@@ -30,21 +30,30 @@ services:
     - ./.cointainers/medicalassist-db:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-  
-  medicallassist.ui:
+  medicalassist.ui:
     container_name: medicalassist.ui
     build:
-      context: .
-      dockerfile: MedicalAssist.UI/Dockerfile
+      context: ./MedicalAssist.UI
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ./MedicalAssist.UI/nginx.conf:/etc/nginx/nginx.conf
     networks:
       - medical-assist-network
     depends_on:
       - medicalassist.api
-   
+  medicalassist.pgadmin:
+     container_name: medicalassist.pgadmin
+     image: dpage/pgadmin4
+     environment:
+       PGADMIN_DEFAULT_EMAIL: admin@admin.com
+       PGADMIN_DEFAULT_PASSWORD: admin
+     ports:
+        - "5050:80"
+     networks:
+      - medical-assist-network
+
 networks:
   medical-assist-network:
     driver: bridge

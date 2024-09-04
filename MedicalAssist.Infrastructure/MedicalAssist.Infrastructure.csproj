@@ -31,7 +31,12 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.1" />
   </ItemGroup>
-
+	
+	<ItemGroup>
+		<None Update="Assets\**\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MedicalAssist.Application\MedicalAssist.Application.csproj" />
     <ProjectReference Include="..\MedicalAssist.Domain\MedicalAssist.Domain.csproj" />

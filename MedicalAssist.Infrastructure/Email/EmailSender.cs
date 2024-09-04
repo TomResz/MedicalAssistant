@@ -7,7 +7,7 @@ internal sealed class EmailSender : IEmailSender
 	private readonly SmtpClient _client;
 	private readonly EmailClientSettings _settings;
 
-	private const string _imagePath = "..\\Images\\background.jpg";
+	private static readonly string _imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "background.jpg");
 
 	public EmailSender(SmtpClient client, EmailClientSettings settings)
 	{

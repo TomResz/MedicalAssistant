@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{E8D61428-2A15-484A-A4FE-A50E391E48E2}"
+	ProjectSection(SolutionItems) = preProject
+		MedicalAssist.UI\nginx.conf = MedicalAssist.UI\nginx.conf
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CEF49FF7-383B-4875-873A-9FC923D6A8F1}"
 EndProject
@@ -33,6 +36,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicalAssist.UI", "MedicalAssist.UI\MedicalAssist.UI.csproj", "{A16F1EF5-CB71-403B-91F3-B75AA4619E4B}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D4AC747F-D88E-471D-B081-5DF11E3F78F2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{55740907-05D1-4D21-81BA-AC386793A6E3}"
+	ProjectSection(SolutionItems) = preProject
+		findIpAddress.bat = findIpAddress.bat
+		DockerScripts\rebuildContainers.bat = DockerScripts\rebuildContainers.bat
+		DockerScripts\runDockerContainers.bat = DockerScripts\runDockerContainers.bat
+		stopContainers.bat = stopContainers.bat
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

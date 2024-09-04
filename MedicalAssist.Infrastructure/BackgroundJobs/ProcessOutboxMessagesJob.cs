@@ -65,6 +65,7 @@ internal sealed class ProcessOutboxMessagesJob : IProcessOutboxMessagesJob
 			{
 				message.ErrorMessageJson = JsonConvert.SerializeObject(new { Message = ex.Message, StackTrace = ex.StackTrace });
                 _logger.LogError($"There was an error with processing an event with id='{message.Id}' at the following time='{_clock.GetCurrentUtc()}'.");
+				_logger.LogError($"Error content:{message.ErrorMessageJson}");
             }
             finally
 			{

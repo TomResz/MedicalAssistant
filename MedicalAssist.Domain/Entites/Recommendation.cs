@@ -14,7 +14,14 @@ public class Recommendation
     public Date StartDate { get; private set; }
     public Date EndDate { get; private set; }
     private Recommendation() { }
-    private Recommendation(RecommendationId id,VisitId visitId,Note extraNote,Date createdAt,Medicine medicine,Date startDate,Date endDate)
+    private Recommendation(
+		RecommendationId id,
+		VisitId visitId,
+		Note extraNote,
+		Date createdAt,
+		Medicine medicine,
+		Date startDate,
+		Date endDate)
     {
         Id = id;
         VisitId = visitId;
