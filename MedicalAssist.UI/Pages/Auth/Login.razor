@@ -24,7 +24,7 @@
 						  Variant="MudBlazor.Variant.Filled"
 						  Class="mb-2 py-2"
 						  Immediate="true"
-						  For="@(()=> _user.Password)"/>
+						  For="@(()=> _user.Password)" />
 			<MudCardActions Class="px-0">
 				<MudGrid>
 					<MudItem xs="12">
@@ -46,11 +46,18 @@
 			</MudGrid>
 		</MudCardActions>
 		<MudText Align="Align.Center" Typo="Typo.subtitle1" Class="mt-1">
+			@Translations.ActivationLinkExpired
+			<br />
+			<MudLink Href="/regenerate-code" Color="Color.Primary">
+				@Translations.UnlockAccount
+			</MudLink>
+		</MudText>
+		<MudText Align="Align.Center" Typo="Typo.subtitle1" Class="mt-1">
 			@Translations.LoginPageDontHaveAccountQuestion<br />
 			<MudLink Href="/register" Color="Color.Primary">
 				@Translations.LoginPageRegisterLink
 			</MudLink>
-			<br/>
+			<br />
 			<MudLink Href="/forgot-password" Color="Color.Primary">
 				@Translations.ForgetPasswordQuestion
 			</MudLink>

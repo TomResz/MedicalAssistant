@@ -208,34 +208,6 @@ namespace MedicalAssist.Infrastructure.Migrations
                     b.ToTable("Visits");
                 });
 
-            modelBuilder.Entity("MedicalAssist.Infrastructure.Outbox.OutboxMessage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ContentJson")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ErrorMessageJson")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("OccurredOnUtc")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("ProcessedOnUtc")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OutboxMessage", "MessageProcessing");
-                });
-
             modelBuilder.Entity("MedicalAssist.Domain.Entites.ExternalUserLogin", b =>
                 {
                     b.HasOne("MedicalAssist.Domain.Entites.User", null)

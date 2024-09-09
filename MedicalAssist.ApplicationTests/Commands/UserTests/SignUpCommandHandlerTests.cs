@@ -4,7 +4,6 @@ using MedicalAssist.Application.Exceptions;
 using MedicalAssist.Application.Security;
 using MedicalAssist.Application.User.Commands.SignUp;
 using MedicalAssist.Domain.Abstraction;
-using MedicalAssist.Domain.Entites;
 using MedicalAssist.Domain.Repositories;
 using MedicalAssist.Domain.ValueObjects;
 using NSubstitute;
@@ -18,7 +17,7 @@ public class SignUpCommandHandlerTests
     private readonly IUnitOfWork _unitOfWork = Substitute.For<IUnitOfWork>();
     private readonly ICodeVerification _codeVerification = Substitute.For<ICodeVerification>();
     private readonly IUserLanguageContext _userLanguageContext = Substitute.For<IUserLanguageContext>();
-
+    private readonly IEventPublisher _eventPublisher = Substitute.For<IEventPublisher>();   
     private readonly string _password = "strong-password";
 
     private readonly SignUpCommandHandler _handler;
@@ -34,7 +33,8 @@ public class SignUpCommandHandlerTests
             _clock,
             _unitOfWork,
             _codeVerification,
-            _userLanguageContext);
+            _userLanguageContext,
+            _eventPublisher);
     }
 
     [Fact]

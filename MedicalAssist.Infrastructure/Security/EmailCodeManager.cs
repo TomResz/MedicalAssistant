@@ -1,18 +1,16 @@
 ﻿using MedicalAssist.Application.Security;
 using Microsoft.Extensions.Options;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace MedicalAssist.Infrastructure.Security;
 internal sealed class EmailCodeManager : IEmailCodeManager
 {
-	private readonly byte[] _key;
-	private readonly byte[] _iv;
-
-	public EmailCodeManager(IOptions<AESOptions> options)
+	private readonly IAESService _AESService;
+	public EmailCodeManager(IAESService aESService)
 	{
-		_key = Encoding.UTF8.GetBytes(options.Value.Key); // 32 bytes, AES-256
-		_iv = Encoding.UTF8.GetBytes(options.Value.IV); // 16 bytes
+		_AESService = aESService;
 	}
 	public bool Decode(string code, out string email)
 	{
@@ -20,8 +18,7 @@ internal sealed class EmailCodeManager : IEmailCodeManager
 
 		try
 		{
-			var bytes = Convert.FromBase64String(code);
-			var decrypted = DecryptStringFromBytes_Aes(bytes, _key, _iv);
+			var decrypted = _AESService.DecryptStringFromBase64(code);
 			var parsedEmail = new Domain.ValueObjects.Email(decrypted);
 			email = parsedEmail;
 			return true;
@@ -33,54 +30,6 @@ internal sealed class EmailCodeManager : IEmailCodeManager
 	}
 
 	public string Encode(string email)
-	{
-		var encrypted = EncryptStringToBytes_Aes(email, _key, _iv);
-		return Convert.ToBase64String(encrypted);
-	}
-
-	private byte[] EncryptStringToBytes_Aes(string plainText, byte[] key, byte[] iv)
-	{
-		using (var aesAlg = Aes.Create())
-		{
-			aesAlg.Key = key;
-			aesAlg.IV = iv;
-
-			var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
-
-			using (var msEncrypt = new MemoryStream())
-			{
-				using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
-				{
-					using (var swEncrypt = new StreamWriter(csEncrypt))
-					{
-						swEncrypt.Write(plainText);
-					}
-					return msEncrypt.ToArray();
-				}
-			}
-		}
-	}
-
-	private string DecryptStringFromBytes_Aes(byte[] cipherText, byte[] key, byte[] iv)
-	{
-		using (var aesAlg = Aes.Create())
-		{
-			aesAlg.Key = key;
-			aesAlg.IV = iv;
-
-			var decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
-
-			using (var msDecrypt = new MemoryStream(cipherText))
-			{
-				using (var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
-				{
-					using (var srDecrypt = new StreamReader(csDecrypt))
-					{
-						return srDecrypt.ReadToEnd();
-					}
-				}
-			}
-		}
-	}
+		=> _AESService.EncryptStringToBase64(email);
 }
 

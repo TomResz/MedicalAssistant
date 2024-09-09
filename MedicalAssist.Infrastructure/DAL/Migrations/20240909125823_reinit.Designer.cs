@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MedicalAssist.Infrastructure.Migrations
 {
     [DbContext(typeof(MedicalAssistDbContext))]
-    [Migration("20240601073649_MessageProccesingUpdate")]
-    partial class MessageProccesingUpdate
+    [Migration("20240909125823_reinit")]
+    partial class reinit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -119,6 +119,19 @@ namespace MedicalAssist.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.ComplexProperty<Dictionary<string, object>>("RefreshTokenHolder", "MedicalAssist.Domain.Entites.User.RefreshTokenHolder#RefreshTokenHolder", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.Property<string>("RefreshToken")
+                                .HasColumnType("text")
+                                .HasColumnName("RefreshToken");
+
+                            b1.Property<DateTime?>("RefreshTokenExpirationUtc")
+                                .HasColumnType("timestamp without time zone")
+                                .HasColumnName("RefreshTokenExpirationUtc");
+                        });
+
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
@@ -157,6 +170,9 @@ namespace MedicalAssist.Infrastructure.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)");
 
+                    b.Property<DateTime>("PredictedEndDate")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
@@ -193,34 +209,6 @@ namespace MedicalAssist.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Visits");
-                });
-
-            modelBuilder.Entity("MedicalAssist.Infrastructure.Outbox.OutboxMessage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ContentJson")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ErrorMessage")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("OccurredOnUtc")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("ProcessedOnUtc")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OutboxMessage", "MessageProcessing");
                 });
 
             modelBuilder.Entity("MedicalAssist.Domain.Entites.ExternalUserLogin", b =>

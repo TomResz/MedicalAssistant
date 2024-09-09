@@ -381,4 +381,10 @@
   <data name="SaveSettings" xml:space="preserve">
     <value>Save settings</value>
   </data>
+  <data name="UnlockAccount" xml:space="preserve">
+    <value>Unlock Account</value>
+  </data>
+  <data name="ActivationLinkExpired" xml:space="preserve">
+    <value>Activation link expired ?</value>
+  </data>
 </root>

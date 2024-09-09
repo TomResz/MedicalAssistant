@@ -20,13 +20,15 @@ internal static class Extensions
 
 		var connectionString = isRunningInDocker ? postgresOptions.DockerConnectionString : postgresOptions.ConnectionString;
 
-		services
-			.AddSingleton<ConvertDomainEventToOutboxMessageInterceptor>()
-			.AddDbContext<MedicalAssistDbContext>((sp,opt )=>
+		services.AddSingleton<DomainEventPublisherInterceptor>();
+
+		services.AddDbContext<MedicalAssistDbContext>((sp,opt )=>
 		{
-			var interceptor = sp.GetService<ConvertDomainEventToOutboxMessageInterceptor>();
-			opt.UseNpgsql(connectionString)
-				.AddInterceptors(interceptor);
+			var interceptor = sp.GetRequiredService<DomainEventPublisherInterceptor>();
+			
+			opt
+			.UseNpgsql(connectionString)
+			.AddInterceptors(interceptor);
 		});
 		services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
 

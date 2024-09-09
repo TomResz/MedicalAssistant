@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Security.Authentication;
+using System.Text.Json;
 
 namespace MedicalAssist.Infrastructure.Middleware;
 internal sealed class ExceptionMiddleware : IMiddleware
@@ -17,21 +18,16 @@ internal sealed class ExceptionMiddleware : IMiddleware
 		{
 			await next.Invoke(context);
 		}
-		catch (BadRequestException ex)
-		{
-			await HandleError(StatusCodes.Status400BadRequest, ex, context);
-		}
-		catch (ConflictException ex)
-		{
-			await HandleError(StatusCodes.Status409Conflict, ex, context);
-		}
-		catch (AuthenticationException ex)
-		{
-			await HandleError(StatusCodes.Status401Unauthorized, ex, context);
-		}
 		catch (Exception ex)
 		{
-			await HandleError(StatusCodes.Status500InternalServerError, ex, context);
+			var statusCode = ex switch
+			{
+				BadRequestException => StatusCodes.Status400BadRequest,
+				ConflictException => StatusCodes.Status409Conflict,
+				AuthenticationException => StatusCodes.Status401Unauthorized,
+				_ => StatusCodes.Status500InternalServerError
+			};
+			await HandleError(statusCode, ex, context);
 		}
 	}
 
@@ -46,7 +42,7 @@ internal sealed class ExceptionMiddleware : IMiddleware
 
 		var details = new ErrorDetails(statusCode, type, ex.Message);
 
-		string content = details.ToString();
+		string content = JsonSerializer.Serialize(details);
 
 		_logger.LogError($"Exception caught: {content}");
 

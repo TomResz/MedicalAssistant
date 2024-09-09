@@ -39,8 +39,11 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{55740907-05D1-4D21-81BA-AC386793A6E3}"
 	ProjectSection(SolutionItems) = preProject
-		findIpAddress.bat = findIpAddress.bat
+		addMigration.bat = addMigration.bat
+		findPostgresIPAddress.bat = findPostgresIPAddress.bat
+		rebuildAPI.bat = rebuildAPI.bat
 		DockerScripts\rebuildContainers.bat = DockerScripts\rebuildContainers.bat
+		rebuildUI.bat = rebuildUI.bat
 		DockerScripts\runDockerContainers.bat = DockerScripts\runDockerContainers.bat
 		stopContainers.bat = stopContainers.bat
 	EndProjectSection

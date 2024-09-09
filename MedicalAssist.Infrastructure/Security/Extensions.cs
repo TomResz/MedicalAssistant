@@ -11,9 +11,12 @@ internal static class Extensions
         services.Configure<AESOptions>(configuration.GetSection("AES"));
 		services
             .AddSingleton(typeof(IPasswordHasher<>), typeof(PasswordHasher<>))
-            .AddSingleton<IEmailCodeManager, EmailCodeManager>()
+			.AddSingleton<IEmailCodeManager, EmailCodeManager>()
             .AddSingleton<IPasswordManager, PasswordManager>()
             .AddTransient<ICodeVerification, CodeVerification>();
-        return services;
+
+        services.AddSingleton<IAESService, AESService>();
+
+		return services;
     }
 }

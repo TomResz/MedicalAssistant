@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using MedicalAssist.UI.Shared.Services.Language;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
+using System.Globalization;
+
 
 namespace MedicalAssist.UI.Layout;
 
@@ -14,6 +17,7 @@ public partial class LoginRegisterLayout
 
 	[Inject] NavigationManager Navigation { get; set; }
 	[Inject] AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+	[Inject] ILanguageManager LanguageManager { get; set; }
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -24,5 +28,11 @@ public partial class LoginRegisterLayout
 		{
 			Navigation.NavigateTo("/");
 		}
+	}
+
+	private async Task ChangeLanguage(CultureInfo culture)
+	{
+		await LanguageManager.ChangeLanguage(culture);
+		Navigation.NavigateTo(Navigation.Uri, true);
 	}
 }

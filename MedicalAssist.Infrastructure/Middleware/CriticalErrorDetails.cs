@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace MedicalAssist.Infrastructure.Middleware;
+﻿namespace MedicalAssist.Infrastructure.Middleware;
 public sealed class CriticalErrorDetails 
 { 
     public ErrorDetails ErrorDetails { get; set; }
@@ -9,9 +7,5 @@ public sealed class CriticalErrorDetails
 	{
 		ErrorDetails = errorDetails;
 		StackTrace = stackTrace;
-	}
-	public override string ToString()
-	{
-		return JsonSerializer.Serialize(this);
 	}
 }

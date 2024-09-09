@@ -381,4 +381,10 @@
   <data name="SaveSettings" xml:space="preserve">
     <value>Zapisz ustawienia</value>
   </data>
+  <data name="UnlockAccount" xml:space="preserve">
+    <value>Odblokuj konto</value>
+  </data>
+  <data name="ActivationLinkExpired" xml:space="preserve">
+    <value>Wygasł link aktywacyjny ?</value>
+  </data>
 </root>

@@ -4,7 +4,6 @@ using MedicalAssist.API.SwaggerDocs.Security;
 using MedicalAssist.Application;
 using MedicalAssist.Domain;
 using MedicalAssist.Infrastructure;
-using MedicalAssist.Infrastructure.BackgroundJobs;
 using MedicalAssist.Infrastructure.BackgrounJobs;
 using MedicalAssist.Infrastructure.DAL;
 using MedicalAssist.Infrastructure.Middleware;
@@ -61,7 +60,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("Frontend");
 app.UseSerilogRequestLogging();
-app.UseOutboxMessageProcessing();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

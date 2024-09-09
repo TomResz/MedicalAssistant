@@ -16,7 +16,8 @@ internal sealed class SignUpCommandHandler : IRequestHandler<SignUpCommand>
     private readonly IUnitOfWork _unitOfWork;
     private readonly ICodeVerification _codeVerification;
     private readonly IUserLanguageContext _userLanguageContext;
-	public SignUpCommandHandler(
+    
+    public SignUpCommandHandler(
 		IPasswordManager passwordManager,
 		IUserRepository userRepository,
 		IClock clock,
@@ -30,7 +31,7 @@ internal sealed class SignUpCommandHandler : IRequestHandler<SignUpCommand>
 		_unitOfWork = unitOfWork;
 		_codeVerification = codeVerification;
 		_userLanguageContext = userLanguageContext;
-	}
+    }
 
 	public async Task Handle(SignUpCommand request, CancellationToken cancellationToken)
     {

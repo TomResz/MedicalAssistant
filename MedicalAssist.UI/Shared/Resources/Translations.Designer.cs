@@ -79,6 +79,15 @@ namespace MedicalAssist.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activation link expired ?.
+        /// </summary>
+        internal static string ActivationLinkExpired {
+            get {
+                return ResourceManager.GetString("ActivationLinkExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Visit.
         /// </summary>
         internal static string AddVisitBtn {
@@ -732,6 +741,15 @@ namespace MedicalAssist.UI.Shared.Resources {
         internal static string Tomorrow {
             get {
                 return ResourceManager.GetString("Tomorrow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unlock Account.
+        /// </summary>
+        internal static string UnlockAccount {
+            get {
+                return ResourceManager.GetString("UnlockAccount", resourceCulture);
             }
         }
         

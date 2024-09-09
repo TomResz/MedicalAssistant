@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace MedicalAssist.Infrastructure.Middleware;
+﻿namespace MedicalAssist.Infrastructure.Middleware;
 
 public class ErrorDetails
 {
@@ -13,9 +11,4 @@ public class ErrorDetails
     public int Code { get; set; }
     public string Type { get; set; }
     public string Message { get; set; }
-
-	public override string ToString()
-	{
-        return JsonSerializer.Serialize(this);
-	}
 }

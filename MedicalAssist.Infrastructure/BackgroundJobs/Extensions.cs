@@ -1,9 +1,9 @@
 ﻿using Hangfire;
 using Hangfire.PostgreSql;
 using HangfireBasicAuthenticationFilter;
+using MedicalAssist.Application.Contracts;
 using MedicalAssist.Infrastructure.BackgroundJobs;
 using MedicalAssist.Infrastructure.DAL.Options;
-using MedicalAssist.Infrastructure.Outbox;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,11 +26,15 @@ public static class Extensions
 
 			cfg.UsePostgreSqlStorage(opt =>
                 opt.UseNpgsqlConnection(connectionString ?? throw new ArgumentNullException()));
+
+            cfg.SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+               .UseSimpleAssemblyNameTypeSerializer()
+               .UseRecommendedSerializerSettings();
         });
 
         services.AddHangfireServer(opt => opt.SchedulePollingInterval = TimeSpan.FromSeconds(5));
 
-        services.AddScoped<IProcessOutboxMessagesJob, ProcessOutboxMessagesJob>();
+        services.AddSingleton<IEventPublisher, EventPublisher>();
         return services;
     }
 
