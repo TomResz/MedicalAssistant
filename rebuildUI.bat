@@ -1,6 +1,6 @@
 @echo off
 
-docker-compose up -d --force-recreate --no-deps --build medicalassist.ui
+docker-compose up -d --force-recreate --no-deps --build medicalassistant.ui
 
 docker-compose down
 

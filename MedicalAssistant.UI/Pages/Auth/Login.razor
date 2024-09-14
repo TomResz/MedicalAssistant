@@ -1,0 +1,66 @@
+﻿@page "/login"
+
+@layout LoginRegisterLayout
+
+@using MedicalAssistant.UI.Components
+@using MedicalAssistant.UI.Components.Auth
+
+<PageTitle>@Translations.SignInPageTitle</PageTitle>
+	<MudForm @ref="_form" Model="_user" Validation="@(_validator.ValidateValue)" ValidationDelay="60" Class="mx-0 px-0">
+		<MudCardContent>
+			<MudText Align="@Align.Center" Typo="Typo.h3" Color="Color.Primary">@Translations.SignInPageTitle</MudText>
+
+			<MudTextField @bind-Value="_user.Email"
+						  Label="Email"
+						  Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Email"
+						  Variant="MudBlazor.Variant.Filled"
+						  Class="mb-2 py-2"
+						  Immediate="true"
+						  For="@(()=> _user.Email)" />
+			<MudTextField @bind-Value="_user.Password"
+						  Label="@Translations.Password" InputType="@passwordInputType"
+						  Adornment="Adornment.End" AdornmentIcon="@passwordIcon"
+						  OnAdornmentClick="TogglePasswordVisibility"
+						  Variant="MudBlazor.Variant.Filled"
+						  Class="mb-2 py-2"
+						  Immediate="true"
+						  For="@(()=> _user.Password)" />
+			<MudCardActions Class="px-0">
+				<MudGrid>
+					<MudItem xs="12">
+						<MudButton Variant="MudBlazor.Variant.Filled"
+								   Color="Color.Primary" OnClick="@(async () => await LoginAsync())"
+								   StartIcon="@Icons.Material.Filled.Login"
+								   IconSize="Size.Large"
+								   FullWidth="true"
+								   Disabled="_btnPressed">
+							@Translations.Sign_in
+					</MudButton>
+				</MudItem>
+				<MudItem xs="12" sm="6">
+					<FacebookAuthBtn />
+				</MudItem>
+				<MudItem xs="12" sm="6">
+					<GoogleAuthBtn />
+				</MudItem>
+			</MudGrid>
+		</MudCardActions>
+		<MudText Align="Align.Center" Typo="Typo.subtitle1" Class="mt-1">
+			@Translations.ActivationLinkExpired
+			<br />
+			<MudLink Href="/regenerate-code" Color="Color.Primary">
+				@Translations.UnlockAccount
+			</MudLink>
+		</MudText>
+		<MudText Align="Align.Center" Typo="Typo.subtitle1" Class="mt-1">
+			@Translations.LoginPageDontHaveAccountQuestion<br />
+			<MudLink Href="/register" Color="Color.Primary">
+				@Translations.LoginPageRegisterLink
+			</MudLink>
+			<br />
+			<MudLink Href="/forgot-password" Color="Color.Primary">
+				@Translations.ForgetPasswordQuestion
+			</MudLink>
+		</MudText>
+	</MudCardContent>
+</MudForm>

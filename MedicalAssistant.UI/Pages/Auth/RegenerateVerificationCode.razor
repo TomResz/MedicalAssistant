@@ -1,0 +1,51 @@
+﻿@using MedicalAssistant.UI.Models.RegenareteCode
+@page "/regenerate-code"
+
+<PageTitle>@Translations.RegenerateCodePageTitle</PageTitle>
+
+@if (!_emailSent)
+{
+	<MudForm @ref="_form" Model="_model" Validation="@(_validator.ValidateValue)" ValidationDelay="60" Class="mx-0 px-0">
+		<MudCardContent>
+			<MudText Align="@Align.Center" Typo="Typo.h4" Color="Color.Primary">@Translations.RegenerateCodePageTitle</MudText>
+
+				<MudTextField @bind-Value="_model.Email"
+							  Label="Email"
+							  Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Email"
+							  Variant="MudBlazor.Variant.Filled"
+							  Class="mb-2 py-2"
+							  Immediate="true"
+							  For="@(()=> _model.Email)" />
+				<MudCardActions Class="px-0">
+					<MudGrid>
+						<MudItem xs="12">
+							<MudButton Variant="MudBlazor.Variant.Filled"
+									   Color="Color.Primary" OnClick="@(async () => await Regenerate())"
+									   StartIcon="@Icons.Material.Filled.Login"
+									   IconSize="Size.Large"
+									   FullWidth="true"
+									   Disabled="_btnPressed">
+								@Translations.RegenerateCodeSendAgain
+						</MudButton>
+					</MudItem>
+				</MudGrid>
+			</MudCardActions>
+			<MudText Align="Align.Center" Typo="Typo.subtitle1" Class="mt-3">
+				<MudLink Href="/login" Color="Color.Primary">
+					@Translations.RegisterPageLoginLink
+				</MudLink>
+			</MudText>
+		</MudCardContent>
+	</MudForm>
+}
+else
+{
+	<div class="ma-4 pa-4">
+		<MudText Align="Align.Center" Typo="Typo.subtitle1" Class="mt-1">
+			@Translations.RegenerateCodeEmailSent<br />
+			<MudLink Href="/login" Color="Color.Primary">
+				@Translations.GoToMainPage
+			</MudLink>
+		</MudText>
+	</div>
+}

@@ -8,6 +8,6 @@ IF "%~1"=="" (
 
 SET MIGRATION_NAME=%~1
 
-dotnet ef migrations add %MIGRATION_NAME% --verbose --project MedicalAssist.Infrastructure --startup-project MedicalAssist.API
+dotnet ef migrations add %MIGRATION_NAME% --verbose --project MedicalAssistant.Infrastructure --startup-project MedicalAssistant.API
 
 ENDLOCAL

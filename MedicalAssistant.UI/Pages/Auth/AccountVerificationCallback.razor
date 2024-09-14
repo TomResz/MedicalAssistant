@@ -1,0 +1,30 @@
+﻿@using MedicalAssistant.UI.Components
+@using MedicalAssistant.UI.Shared.Services.Verification
+@page "/verify"
+@layout LoadingLayout
+
+@if (_loading)
+{
+	<LoadingComponent />
+}
+else
+{
+	@if (_verificationStatus == VerificationStatus.Success)
+	{
+		<MudText Typo="Typo.h5" Align="Align.Center">@Translations.AccountVerifiedSuccess</MudText>
+		<MudText Typo="Typo.body1" Align="Align.Center">
+			<MudLink Href="/login">@Translations.Sign_in</MudLink>.
+			</MudText>
+	}
+	else if (_verificationStatus == VerificationStatus.CodeExpired)
+	{
+		<MudText Typo="Typo.h5" Align="Align.Center">@Translations.VerificationCodeExpiredLabel</MudText>
+		<MudText Typo="Typo.body1" Align="Align.Center">
+			<MudLink Href="/regenerate-code">@Translations.VerificationCodeNewCode</MudLink>
+			</MudText>
+	}
+	else
+	{
+		InvalidVerificationCodePrompt();
+	}
+}

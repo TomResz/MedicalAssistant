@@ -1,63 +1,65 @@
 version: '3.4'
-name: medicalassist
+name: medicalassistant
 services:
-  medicalassist.api:
-    image: ${DOCKER_REGISTRY-}medicalassistapi
-    container_name: medicalassist.api
+  medicalassistant.api:
+    image: ${DOCKER_REGISTRY-}medicalassistant
+    container_name: medicalassistant.api
     build:
       context: .
-      dockerfile: MedicalAssist.API/Dockerfile
+      dockerfile: MedicalAssistant.API/Dockerfile
     networks:
-      - medical-assist-network
+      - medical-assistant-network
     ports:
     - "5000:5000"
     - "5001:5001"
     environment:
      - RUNNING_IN_DOCKER=true
     depends_on:
-      - medicalassist.database
-  medicalassist.seq:
+      - medicalassistant.database
+  medicalassistant.seq:
     image: datalust/seq:latest
-    container_name: medicalassist.seq
+    container_name: medicalassistant.seq
     environment:
       - ACCEPT_EULA=Y
     ports:
      - 5341:5341
      - 5100:80 
     networks:
-      - medical-assist-network
+      - medical-assistant-network
 
-  medicalassist.database:
+  medicalassistant.database:
     image: postgres:latest
-    container_name: medicalassist.database
+    container_name: medicalassistant.database
     networks:
-      - medical-assist-network
+      - medical-assistant-network
     environment:
     - POSTGRES_DB=medicalassist
     - POSTGRES_USER=postgres
     - POSTGRES_PASSWORD=postgres
     volumes:
-    - ./.cointainers/medicalassist-db:/var/lib/postgresql/data
+    - ./.cointainers/medicalassistant-db:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-  medicalassist.ui:
-    container_name: medicalassist.ui
+
+
+  medicalassistant.ui:
+    container_name: medicalassistant.ui
     build:
-      context: ./MedicalAssist.UI
+      context: ./MedicalAssistant.UI
       dockerfile: Dockerfile
     ports:
       - "8080:80"
       - "8081:443"
     volumes:
-      - ./MedicalAssist.UI/nginx.conf:/etc/nginx/nginx.conf
+      - ./MedicalAssistant.UI/nginx.conf:/etc/nginx/nginx.conf
       - ./Certificates:/etc/ssl/certs
       - ./Certificates:/etc/ssl/private
     networks:
-      - medical-assist-network
+      - medical-assistant-network
     depends_on:
-      - medicalassist.api
-  medicalassist.pgadmin:
-     container_name: medicalassist.pgadmin
+      - medicalassistant.api
+  medicalassistant.pgadmin:
+     container_name: medicalassistant.pgadmin
      image: dpage/pgadmin4
      environment:
        PGADMIN_DEFAULT_EMAIL: admin@admin.com
@@ -65,8 +67,8 @@ services:
      ports:
         - "5050:80"
      networks:
-      - medical-assist-network
+      - medical-assistant-network
 
 networks:
-  medical-assist-network:
+  medical-assistant-network:
     driver: bridge
