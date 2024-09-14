@@ -9,7 +9,7 @@ public sealed record UserSettingsId
     {
         if(value == Guid.Empty)
         {
-            throw new InvalidUserSettingsId();
+            throw new InvalidUserSettingsIdException();
         }
         Value = value;
     }

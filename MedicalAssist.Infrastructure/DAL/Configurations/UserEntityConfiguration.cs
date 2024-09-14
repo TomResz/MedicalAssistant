@@ -16,14 +16,17 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
             .HasForeignKey(x=>x.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        builder.HasMany(x => x.NotificationHistories)
+            .WithOne(x=>x.User)
+            .HasForeignKey(x => x.UserId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Cascade);
 
-		builder.Property(x => x.Id)
+        builder.Property(x => x.Id)
             .HasConversion(
                 x => x.Value,
                 x => new(x))
             .IsRequired();
-        
-        
 
         builder.ComplexProperty(x => x.RefreshTokenHolder, conf =>
         {

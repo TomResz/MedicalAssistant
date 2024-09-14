@@ -10,6 +10,7 @@ internal sealed class MedicalAssistDbContext : DbContext
     public DbSet<UserVerification> UserVerifications { get; set; }
     public DbSet<VisitNotification> VisitNotifications { get; set; }
     public DbSet<UserSettings> UserSettings { get; set; }
+    public DbSet<NotificationHistory> NotificationHistories { get; set; }
     public MedicalAssistDbContext(DbContextOptions<MedicalAssistDbContext> options) : base(options) 
     {
     }

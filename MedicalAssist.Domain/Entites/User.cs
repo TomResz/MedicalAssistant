@@ -23,6 +23,10 @@ public class User : AggregateRoot<UserId>
 
     private readonly HashSet<Visit> _visits = new();
 	public IEnumerable<Visit> Visits => _visits;
+
+	private readonly HashSet<NotificationHistory> _notificationHistories = new();
+	public IEnumerable<NotificationHistory> NotificationHistories => _notificationHistories;
+
 	protected User() { }
 	
 	private User(UserId id, Email email, Password password, FullName fullName, Role role, Date createdAtUtc,bool hasExternalLoginProvider,bool isVerified)

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MedicalAssist.Domain.Exceptions.IDs;
-public sealed class InvalidUserSettingsId : BadRequestException
+public sealed class InvalidUserSettingsIdException : BadRequestException
 {
-	public InvalidUserSettingsId() : base("Invalid user setting Id.")
+	public InvalidUserSettingsIdException() : base("Invalid user setting Id.")
 	{
 	}
 }

@@ -9,7 +9,7 @@ public sealed record VisitNotificationId
     {
         if(value == Guid.Empty)
         {
-            throw new InvalidVisitNotificationId();
+            throw new InvalidVisitNotificationIdException();
 		}
 		Value = value;
     }
