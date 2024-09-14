@@ -3,6 +3,7 @@ using MedicalAssist.Domain.Repositories;
 using MedicalAssist.Domain.ValueObjects;
 using MedicalAssist.Domain.ValueObjects.IDs;
 using Microsoft.EntityFrameworkCore;
+using System.Threading;
 
 namespace MedicalAssist.Infrastructure.DAL.Repository;
 internal sealed class VisitRepository : IVisitRepository
@@ -19,11 +20,26 @@ internal sealed class VisitRepository : IVisitRepository
 		.Visits
 		.FirstOrDefaultAsync(x => x.Id == visitId, cancellationToken);
 
+	public async Task<Visit?> GetByIdWithNotificationsAsync(VisitId visitId, CancellationToken cancellationToken)
+		=> await _context
+		.Visits
+		.Include(x=>x.Notifications)
+		.FirstOrDefaultAsync(x=>x.Id == visitId,
+				cancellationToken);
+
 	public async Task<Visit?> GetByIdWithRecommendationsAsync(VisitId visitId, CancellationToken cancellationToken)
 		=> await _context
 		.Visits
 		.Include(x => x.Recommendations)
 		.FirstOrDefaultAsync(x => x.Id == visitId, cancellationToken);
+
+	public async Task<Visit?> GetByNotificationId(VisitNotificationId visitNotificationId, CancellationToken cancellationToken) 
+		=> await _context
+			.Visits
+			.Include(x => x.Notifications)
+			.FirstOrDefaultAsync(x => x.Notifications.Any(
+					n => n.Id == visitNotificationId),
+					cancellationToken);
 
 	public async Task<bool> HasConflictingVisits(Guid id, Guid userId, Date date, Date endDate, CancellationToken cancellationToken)
 		=> await _context

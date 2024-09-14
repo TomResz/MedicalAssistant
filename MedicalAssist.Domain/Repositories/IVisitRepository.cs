@@ -11,4 +11,6 @@ public interface IVisitRepository
 	void Update(Visit visit);
 	Task<bool> HasConflictingVisits(Guid id, Guid userId,Date date, Date endDate, CancellationToken cancellationToken);
 	void Remove(Visit visit);
+	Task<Visit?> GetByIdWithNotificationsAsync(VisitId visitId,CancellationToken cancellationToken);
+	Task<Visit?> GetByNotificationId(VisitNotificationId visitNotificationId, CancellationToken cancellationToken);
 }

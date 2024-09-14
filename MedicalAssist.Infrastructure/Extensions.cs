@@ -2,6 +2,7 @@
 using MedicalAssist.Infrastructure.Auth;
 using MedicalAssist.Infrastructure.BackgrounJobs;
 using MedicalAssist.Infrastructure.DAL;
+using MedicalAssist.Infrastructure.Docker;
 using MedicalAssist.Infrastructure.Email;
 using MedicalAssist.Infrastructure.ExternalProviders;
 using MedicalAssist.Infrastructure.Language;
@@ -17,6 +18,7 @@ public static class Extensions
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         => services
             .AddMiddleware()
+            .AddSingleton<IDockerChecker,DockerChecker>()
             .AddPersistance(configuration)
             .AddAuth(configuration)
             .AddSingleton<IClock, Clock>()

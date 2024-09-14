@@ -17,12 +17,15 @@ public partial class SettingsDialog
 	[CascadingParameter]
 	public MudDialogInstance MudDialog { get; set; }
 
-
 	private bool _isLanguageChanged = false;
 
 	private CultureInfo? _culture = null;
 
 	public void Cancel() => MudDialog.Cancel();
+
+	public bool IsNotificationsEnabled { get; set; }
+	public bool AreVisitsEnabled { get; set; } = false;
+	public bool AreEmailsEnabled { get; set; } = false;
 
 	private async Task SaveChanges()
 	{

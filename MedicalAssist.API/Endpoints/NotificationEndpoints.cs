@@ -1,12 +1,11 @@
-﻿
-using MedicalAssist.Infrastructure.Notifications;
+﻿using MedicalAssist.Infrastructure.Notifications;
 using Microsoft.AspNetCore.SignalR;
 
 namespace MedicalAssist.API.Endpoints;
 
-public class NotificationEndpoints : IEndpoint
+public class NotificationEndpoints : IEndpoints
 {
-	public void MapEndpoint(IEndpointRouteBuilder app)
+	public void MapEndpoints(IEndpointRouteBuilder app)
 	{
 		var group = app.MapGroup("notifacation")
 			.WithTags("Notifications");

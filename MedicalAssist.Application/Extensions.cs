@@ -10,6 +10,6 @@ public static class Extensions
         {
             conf.RegisterServicesFromAssemblies(typeof(Extensions).Assembly);
         });
-        return services;
+		return services;
     }
 }

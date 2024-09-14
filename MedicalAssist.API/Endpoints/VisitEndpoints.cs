@@ -7,9 +7,9 @@ using MedicalAssist.Application.Visits.Queries;
 
 namespace MedicalAssist.API.Endpoints;
 
-public sealed class VisitEndpoints : IEndpoint
+public sealed class VisitEndpoints : IEndpoints
 {
-	public void MapEndpoint(IEndpointRouteBuilder app)
+	public void MapEndpoints(IEndpointRouteBuilder app)
 	{
 		var group = app.MapGroup("visit")
 			.RequireAuthorization(Permissions.Permissions.VerifiedUser)

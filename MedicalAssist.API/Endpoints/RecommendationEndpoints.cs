@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MedicalAssist.API.Endpoints;
 
-public sealed class RecommendationEndpoints : IEndpoint
+public sealed class RecommendationEndpoints : IEndpoints
 {
-	public void MapEndpoint(IEndpointRouteBuilder app)
+	public void MapEndpoints(IEndpointRouteBuilder app)
 	{
 		var group = app.MapGroup("{visitId:guid}/recommendation")
 			.RequireAuthorization(Permissions.Permissions.VerifiedUser)

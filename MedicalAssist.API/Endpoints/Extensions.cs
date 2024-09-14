@@ -10,8 +10,8 @@ public static class Extensions
 		var servicesDescriptors = assembly
 			.DefinedTypes
 			.Where(type => type is { IsAbstract: false, IsInterface: false }
-				&& type.IsAssignableTo(typeof(IEndpoint)))
-			.Select(type => ServiceDescriptor.Transient(typeof(IEndpoint), type))
+				&& type.IsAssignableTo(typeof(IEndpoints)))
+			.Select(type => ServiceDescriptor.Transient(typeof(IEndpoints), type))
 			.ToArray();
 
 		services.TryAddEnumerable(servicesDescriptors);
@@ -20,12 +20,12 @@ public static class Extensions
 
 	public static IApplicationBuilder MapEndpoints(this WebApplication app,RouteGroupBuilder? routeGroupBuilder = null)
 	{
-		var endpoints = app.Services.GetRequiredService<IEnumerable<IEndpoint>>();
+		var endpoints = app.Services.GetRequiredService<IEnumerable<IEndpoints>>();
 		IEndpointRouteBuilder builder = routeGroupBuilder is null ? app : routeGroupBuilder; 
 
 		foreach (var endpoint in endpoints)
 		{
-			endpoint.MapEndpoint(builder);
+			endpoint.MapEndpoints(builder);
 		}
 
 		return app;

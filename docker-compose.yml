@@ -15,7 +15,17 @@ services:
     environment:
      - RUNNING_IN_DOCKER=true
     depends_on:
-    - medicalassist.database
+      - medicalassist.database
+  medicalassist.seq:
+    image: datalust/seq:latest
+    container_name: medicalassist.seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+     - 5341:5341
+     - 5100:80 
+    networks:
+      - medical-assist-network
 
   medicalassist.database:
     image: postgres:latest
@@ -23,7 +33,7 @@ services:
     networks:
       - medical-assist-network
     environment:
-    - POSTGES_DB=medicalassist
+    - POSTGRES_DB=medicalassist
     - POSTGRES_USER=postgres
     - POSTGRES_PASSWORD=postgres
     volumes:
@@ -36,7 +46,7 @@ services:
       context: ./MedicalAssist.UI
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8080:80"
       - "8081:443"
     volumes:
       - ./MedicalAssist.UI/nginx.conf:/etc/nginx/nginx.conf

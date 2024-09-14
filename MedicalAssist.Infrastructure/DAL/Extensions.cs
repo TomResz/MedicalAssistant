@@ -19,7 +19,8 @@ internal static class Extensions
 		var isRunningInDocker = Environment.GetEnvironmentVariable("RUNNING_IN_DOCKER") == "true";
 
 		var connectionString = isRunningInDocker ? postgresOptions.DockerConnectionString : postgresOptions.ConnectionString;
-
+		
+		services.AddSingleton<IDatabaseCreator,DatabaseCreator>();
 		services.AddSingleton<DomainEventPublisherInterceptor>();
 
 		services.AddDbContext<MedicalAssistDbContext>((sp,opt )=>
@@ -34,6 +35,7 @@ internal static class Extensions
 
 		services.AddScoped<IUserRepository, UserRepository>();
 		services.AddScoped<IVisitRepository, VisitRepository>();
+		services.AddScoped<IVisitNotificationRepository, VisitNotificationRepository>();
 
 		AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 

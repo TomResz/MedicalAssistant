@@ -19,6 +19,11 @@ public class Visit : AggregateRoot<VisitId>
 
 	private readonly HashSet<Recommendation> _recommendations = new();
     public IEnumerable<Recommendation> Recommendations => _recommendations;
+
+    private readonly HashSet<VisitNotification> _notifications = new();
+
+	public IEnumerable<VisitNotification> Notifications => _notifications;
+
     private Visit() { }
 
     private Visit(VisitId id,UserId userId,Address address,Date date, DoctorName doctorName,VisitDescription visitDescription,VisitType visitType,Date predictedEndDate)
@@ -59,6 +64,11 @@ public class Visit : AggregateRoot<VisitId>
         visit.AddEvent(new VisitCreatedEvent(userId, visit.Id));
 
         return visit;
+    }
+   
+    public void AddNotification(VisitNotification notification)
+    {
+        _notifications.Add(notification);
     }
 
     public void AddRecommendation(Recommendation recommendation)
@@ -102,4 +112,9 @@ public class Visit : AggregateRoot<VisitId>
         VisitType = visitType;
         PredictedEndDate = endDate; 
 	}
+
+	public void DeleteNotification(VisitNotification notification)
+	{
+        _notifications.Remove(notification);
+    }
 }

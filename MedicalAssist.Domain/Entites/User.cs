@@ -17,6 +17,7 @@ public class User : AggregateRoot<UserId>
 	public ExternalUserLogin? ExternalUserProvider { get; private set; }
 	public UserVerification? UserVerification { get; private set; }
 	public RefreshTokenHolder RefreshTokenHolder { get; private set; } = null;
+    public UserSettings UserSettings { get; private set; }
 	public bool IsVerified { get; private set; } = false;
 	public bool HasExternalLoginProvider { get; private set; } = false;
 
@@ -64,7 +65,8 @@ public class User : AggregateRoot<UserId>
 
 		user.RefreshTokenHolder = RefreshTokenHolder.CreateEmpty();
 		user.UserVerification = new UserVerification(user.Id,createdAtUtc.AddHours(2),codeHash);
-	
+		
+		user.UserSettings = UserSettings.Create(user.Id, language);
 		user.AddEvent(new UserCreatedEvent(user.Id,language));
 		return user;
 	}
@@ -73,7 +75,7 @@ public class User : AggregateRoot<UserId>
 		Languages language)
     {
 		Guid id = Guid.NewGuid();	
-        User user = new User(
+        User user = new(
              Guid.NewGuid(),
              email,
              fullName,
@@ -84,6 +86,7 @@ public class User : AggregateRoot<UserId>
 
 		user.RefreshTokenHolder = tokenHolder;
 		user.ExternalUserProvider = new ExternalUserLogin(id, key, provider);
+		user.UserSettings = UserSettings.Create(user.Id,language);
 		user.AddEvent(new UserCreatedByExternalLoginProviderEvent(user.Id,provider,language));
         return user;
     }

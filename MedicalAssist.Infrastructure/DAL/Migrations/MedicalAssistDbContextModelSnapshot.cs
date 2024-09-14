@@ -137,6 +137,29 @@ namespace MedicalAssist.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("MedicalAssist.Domain.Entites.UserSettings", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("EmailNotificationEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("NotificationLanguage")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("NotificationsEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("VisitNotificationEnabled")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserSettings");
+                });
+
             modelBuilder.Entity("MedicalAssist.Domain.Entites.UserVerification", b =>
                 {
                     b.Property<Guid>("UserId")
@@ -208,6 +231,31 @@ namespace MedicalAssist.Infrastructure.Migrations
                     b.ToTable("Visits");
                 });
 
+            modelBuilder.Entity("MedicalAssist.Domain.Entites.VisitNotification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("ScheduledDateUtc")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("SimpleId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("VisitId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VisitId");
+
+                    b.ToTable("VisitNotifications");
+                });
+
             modelBuilder.Entity("MedicalAssist.Domain.Entites.ExternalUserLogin", b =>
                 {
                     b.HasOne("MedicalAssist.Domain.Entites.User", null)
@@ -224,6 +272,17 @@ namespace MedicalAssist.Infrastructure.Migrations
                         .HasForeignKey("VisitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MedicalAssist.Domain.Entites.UserSettings", b =>
+                {
+                    b.HasOne("MedicalAssist.Domain.Entites.User", "User")
+                        .WithOne("UserSettings")
+                        .HasForeignKey("MedicalAssist.Domain.Entites.UserSettings", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MedicalAssist.Domain.Entites.UserVerification", b =>
@@ -244,9 +303,21 @@ namespace MedicalAssist.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MedicalAssist.Domain.Entites.VisitNotification", b =>
+                {
+                    b.HasOne("MedicalAssist.Domain.Entites.Visit", null)
+                        .WithMany("Notifications")
+                        .HasForeignKey("VisitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("MedicalAssist.Domain.Entites.User", b =>
                 {
                     b.Navigation("ExternalUserProvider");
+
+                    b.Navigation("UserSettings")
+                        .IsRequired();
 
                     b.Navigation("UserVerification");
 
@@ -255,6 +326,8 @@ namespace MedicalAssist.Infrastructure.Migrations
 
             modelBuilder.Entity("MedicalAssist.Domain.Entites.Visit", b =>
                 {
+                    b.Navigation("Notifications");
+
                     b.Navigation("Recommendations");
                 });
 #pragma warning restore 612, 618

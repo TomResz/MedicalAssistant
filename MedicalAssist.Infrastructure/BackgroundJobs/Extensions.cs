@@ -35,6 +35,7 @@ public static class Extensions
         services.AddHangfireServer(opt => opt.SchedulePollingInterval = TimeSpan.FromSeconds(5));
 
         services.AddSingleton<IEventPublisher, EventPublisher>();
+        services.AddSingleton<IVisitNotificationScheduler, VisitNotificationScheduler>();
         return services;
     }
 

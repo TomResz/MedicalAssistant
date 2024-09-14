@@ -2,6 +2,7 @@
 using MedicalAssist.Application.Security;
 using MedicalAssist.Application.User.Commands.FacebookAuthentication;
 using MedicalAssist.Application.User.Commands.GoogleAuthentication;
+using MedicalAssist.Application.User.Commands.PasswordChange;
 using MedicalAssist.Application.User.Commands.PasswordChangeByCode;
 using MedicalAssist.Application.User.Commands.PasswordChangeByEmail;
 using MedicalAssist.Application.User.Commands.RefreshToken;
@@ -15,9 +16,9 @@ using MedicalAssist.Infrastructure.Middleware;
 
 namespace MedicalAssist.API.Endpoints;
 
-public sealed class UserEndpoints : IEndpoint
+public sealed class UserEndpoints : IEndpoints
 {
-	public void MapEndpoint(IEndpointRouteBuilder app)
+	public void MapEndpoints(IEndpointRouteBuilder app)
 	{
 
 		var group = app.MapGroup("user").WithTags("Users");
@@ -52,6 +53,12 @@ public sealed class UserEndpoints : IEndpoint
 		});
 
 		group.MapPost("password-change", async (IMediator _mediator, PasswordChangeByEmailCommand command) =>
+		{
+			await _mediator.Send(command);
+			return Results.NoContent();
+		});
+
+		group.MapPut("password-change-auth", async (IMediator _mediator, ChangePasswordCommand command) =>
 		{
 			await _mediator.Send(command);
 			return Results.NoContent();

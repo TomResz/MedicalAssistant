@@ -8,6 +8,8 @@ internal sealed class MedicalAssistDbContext : DbContext
     public DbSet<Recommendation> Recommendations { get; set; }
     public DbSet<Visit> Visits { get; set; }
     public DbSet<UserVerification> UserVerifications { get; set; }
+    public DbSet<VisitNotification> VisitNotifications { get; set; }
+    public DbSet<UserSettings> UserSettings { get; set; }
     public MedicalAssistDbContext(DbContextOptions<MedicalAssistDbContext> options) : base(options) 
     {
     }

@@ -48,7 +48,11 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
         builder.Navigation(x => x.ExternalUserProvider)
             .IsRequired(false);
 
-        builder.HasIndex(x => x.Email)
+		builder.HasOne(x => x.UserSettings)
+	        .WithOne(x => x.User)
+	        .HasForeignKey<UserSettings>(x => x.UserId);
+
+		builder.HasIndex(x => x.Email)
             .IsUnique();
 
         builder.Property(x=> x.Email)

@@ -45,6 +45,13 @@ builder.Services.AddCors(options=>
 
 var app = builder.Build();
 
+using(var scope = app.Services.CreateScope())
+{
+	var dbCreater = scope.ServiceProvider.GetRequiredService<IDatabaseCreator>();
+    await dbCreater.CreateDatabaseIfNotExists();
+    app.ApplyMigrations();
+}
+
 var endpointGroup = app.MapGroup("api");
 app.MapEndpoints(endpointGroup);
 
@@ -52,7 +59,6 @@ app.MapEndpoints(endpointGroup);
 if (app.Environment.IsDevelopment())
 {
     app.UseSwaggerAuthMiddleware();
-    app.ApplyMigrations();
     app.UseSwagger();
     app.UseSwaggerUI();
     app.UseHangfireDashboard(app.Configuration);
