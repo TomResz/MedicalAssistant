@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using MedicalAssistant.UI.Shared.Resources;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace MedicalAssistant.UI.Components.Settings;
@@ -19,6 +20,6 @@ public partial class SettingBtn
 
 	public void ShowSettingDialog()
 	{
-		var dialog = DialogService.Show<SettingsDialog>("Settings", options);
+		var dialog = DialogService.Show<SettingsDialog>(Translations.Settings, options);
 	}
 }

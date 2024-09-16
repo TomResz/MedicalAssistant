@@ -1,4 +1,5 @@
-﻿using MedicalAssistant.Infrastructure.Email.Factory;
+﻿using MedicalAssistant.Application.Dto;
+using MedicalAssistant.Infrastructure.Email.Factory;
 
 namespace MedicalAssistant.Infrastructure.Email.Bodies;
 internal sealed class PolishEmailHtmlBodies : IEmailBody
@@ -27,6 +28,18 @@ internal sealed class PolishEmailHtmlBodies : IEmailBody
 			<p style='font-family: Arial, sans-serif; color: #333; font-size: 20px;'>Naciśnij przycisk aby zmienić hasło.</p>
 			<a href='{route}={code}' style='text-decoration: none; background-color: #007bff; color: #fff; padding: 15px 30px; font-family: Arial, sans-serif; font-size: 20px; border-radius: 5px; cursor: pointer; display: inline-block;'>Zmień hasło</a>
         ";
+		return htmlBody;
+	}
+
+	public string VisitNotification(VisitDto visitDto,string route)
+	{
+		var htmlBody = $@"
+        <p style='font-family: Arial, sans-serif; color: #333; font-size: 20px;''><b>Przypomnienia O Wizycie</b></p>
+        <p style='font-family: Arial, sans-serif; color: #333; font-size: 20px;'>Lekarz: <b>{visitDto.DoctorName}</b>.</p>
+        <p style='font-family: Arial, sans-serif; color: #333; font-size: 20px;'>Typ wizyty: <b>{visitDto.VisitType}</b></p>
+        <p style='font-family: Arial, sans-serif; color: #333; font-size: 20px;'>Data: <b>{visitDto.Date.ToString("HH:mm dd-MM-yyyy")}</b></p>
+        <a href='{route}={visitDto.VisitId}' style='text-decoration: none; background-color: #007bff; color: #fff; padding: 15px 30px; font-family: Arial, sans-serif; font-size: 20px; border-radius: 5px; cursor: pointer; display: inline-block;'>Zobacz szczegóły</a>        
+    ";
 		return htmlBody;
 	}
 }

@@ -33,4 +33,10 @@ public sealed class UserPasswordChangeService : IUserPasswordChangeService
 			new ChangePasswordByEmailRequest { Code = code, NewPassword = newPassword });
 		return await response.DeserializeResponse();
 	}
+
+	public async Task<Response.Base.Response> ChangePassword(ChangePasswordModel model)
+	{
+		var resonse = await _httpClient.PutAsJsonAsync("user/password-change-auth", model);
+		return await resonse.DeserializeResponse();
+	}
 }

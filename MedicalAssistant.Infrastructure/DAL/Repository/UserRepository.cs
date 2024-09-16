@@ -64,4 +64,10 @@ internal sealed class UserRepository : IUserRepository
         .Users
         .Include(x=>x.ExternalUserProvider)
         .FirstOrDefaultAsync(x=>x.Email == email, cancellationToken);
+
+	public async Task<User?> GetByIdWithSettingsAsync(UserId userId, CancellationToken cancellationToken)
+        => await _context
+        .Users
+        .Include(x=>x.UserSettings)
+        .FirstOrDefaultAsync(x=>x.Id ==  userId, cancellationToken);
 }

@@ -16,6 +16,7 @@ services:
      - RUNNING_IN_DOCKER=true
     depends_on:
       - medicalassistant.database
+
   medicalassistant.seq:
     image: datalust/seq:latest
     container_name: medicalassistant.seq
@@ -41,7 +42,6 @@ services:
     ports:
       - "5432:5432"
 
-
   medicalassistant.ui:
     container_name: medicalassistant.ui
     build:
@@ -58,6 +58,7 @@ services:
       - medical-assistant-network
     depends_on:
       - medicalassistant.api
+
   medicalassistant.pgadmin:
      container_name: medicalassistant.pgadmin
      image: dpage/pgadmin4

@@ -8,4 +8,6 @@ internal class EnglishEmailSubjects : IEmailSubject
 	public string Verification => "Medical Assistant - Verification Code";
 
 	public string CodeRegeneration => "Medical Assistant - Verification Code";
+
+	public string VisitNotification => "Medical Assistant - Visit Notification";
 }

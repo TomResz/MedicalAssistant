@@ -2,5 +2,5 @@
 
 namespace MedicalAssistant.Application.User.Commands.PasswordChange;
 public sealed record ChangePasswordCommand(
-    string NewPassword,
+    string Password,
     string ConfirmedPassword) : IRequest;

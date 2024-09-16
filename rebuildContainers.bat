@@ -1,11 +1,11 @@
 @echo off
 
 echo Rebuilding API
-docker-compose up -d --force-recreate --no-deps --build medicalassist.api
+docker-compose up -d --force-recreate --no-deps --build medicalassistant.api
 
 echo  Rebuilding UI
-docker-compose up -d --force-recreate --no-deps --build medicalassist.ui
+docker-compose up -d --force-recreate --no-deps --build medicalassistant.ui
 
 docker-compose down
 
-docker-compose --project-name medicalassist up -d
+docker-compose --project-name medicalassistant up -d

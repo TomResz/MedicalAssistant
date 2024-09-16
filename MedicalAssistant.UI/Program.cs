@@ -20,7 +20,13 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddAuthorizationCore();
+builder.Services.AddAuthorizationCore( conf =>
+{
+	conf.AddPolicy("HasExternalProvider",
+		   x => x.RequireClaim("HasExternalProvider", "True"));
+	conf.AddPolicy("HasInternalAuthProvider",
+			x => x.RequireClaim("HasExternalProvider", "False"));
+});
 
 
 builder.Services

@@ -115,6 +115,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change Password.
+        /// </summary>
+        internal static string ChangePassword {
+            get {
+                return ResourceManager.GetString("ChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to City.
         /// </summary>
         internal static string City {
@@ -421,6 +430,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The new password must not be the same as the old one..
+        /// </summary>
+        internal static string InvalidNewPassword {
+            get {
+                return ResourceManager.GetString("InvalidNewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Incorrect email or password..
         /// </summary>
         internal static string InvalidSignInCredentialsError {
@@ -678,6 +696,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Scheduler {
             get {
                 return ResourceManager.GetString("Scheduler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
         

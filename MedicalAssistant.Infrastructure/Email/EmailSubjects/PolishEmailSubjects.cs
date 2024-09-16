@@ -8,4 +8,6 @@ internal class PolishEmailSubjects : IEmailSubject
 	public string Verification => "Asystent Medyczny - Weryfikacja Konta";
 
 	public string CodeRegeneration => "Asystent Medyczny - Weryfikacja Konta";
+
+	public string VisitNotification => "Asystent Medyczny - Powiadomienie o Wizycie";
 }

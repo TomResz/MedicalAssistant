@@ -1,4 +1,5 @@
 ﻿using MedicalAssistant.Application.Contracts;
+using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Domain.Enums;
 using MedicalAssistant.Infrastructure.Email.Factory;
 
@@ -30,8 +31,18 @@ internal sealed class EmailService : IEmailService
 
 	public async Task SendMailWithVerificationCode(string email, string verificationCode, Languages language)
 	{
-		var body = EmailBodyFactory.Create(language).GetVerificationCodeHtml(_routes.VerificationCodeRoute, verificationCode);
+		var body = EmailBodyFactory.Create(language)
+			.GetVerificationCodeHtml(_routes.VerificationCodeRoute, verificationCode);
 		var subject = EmailSubjectFactory.Create(language).Verification;
+
+		await _emailSender.SendEmailAsync(email, subject, body);
+	}
+
+	public async Task SendMailWithVisitNotification(string email, VisitDto visit, Languages language)
+	{
+		var body = EmailBodyFactory.Create(language)
+			.VisitNotification(visit,_routes.VerificationCodeRoute);
+		var subject = EmailSubjectFactory.Create(language).VisitNotification;
 
 		await _emailSender.SendEmailAsync(email, subject, body);
 	}

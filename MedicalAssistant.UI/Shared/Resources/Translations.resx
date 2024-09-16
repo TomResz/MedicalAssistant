@@ -387,4 +387,13 @@
   <data name="ActivationLinkExpired" xml:space="preserve">
     <value>Activation link expired ?</value>
   </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="InvalidNewPassword" xml:space="preserve">
+    <value>The new password must not be the same as the old one.</value>
+  </data>
 </root>

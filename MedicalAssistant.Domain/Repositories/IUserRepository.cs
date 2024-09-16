@@ -15,4 +15,5 @@ public interface IUserRepository
 	Task<User?> GetUserWithVisitsAsync(UserId userId, CancellationToken cancellationToken =default);
 	Task<User?> GetByVerificationCodeAsync(CodeHash codeHash, CancellationToken cancellationToken = default);
 	void Update(User user);
+	Task<User?> GetByIdWithSettingsAsync(UserId userId, CancellationToken cancellationToken);
 }

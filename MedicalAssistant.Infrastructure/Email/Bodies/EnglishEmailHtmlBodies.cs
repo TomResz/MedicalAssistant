@@ -1,4 +1,5 @@
-﻿using MedicalAssistant.Infrastructure.Email.Factory;
+﻿using MedicalAssistant.Application.Dto;
+using MedicalAssistant.Infrastructure.Email.Factory;
 
 namespace MedicalAssistant.Infrastructure.Email.Bodies;
 internal sealed class EnglishEmailHtmlBodies : IEmailBody
@@ -29,4 +30,16 @@ internal sealed class EnglishEmailHtmlBodies : IEmailBody
         ";
         return htmlBody;
     }
+
+	public string VisitNotification(VisitDto visitDto, string route)
+	{
+		var htmlBody = $@"
+        <p style='font-family: Arial, sans-serif; color: #333; font-size: 20px;''><b>Visit Notification</b></p>
+        <p style='font-family: Arial, sans-serif; color: #333; font-size: 20px;'>Doctor: <b>{visitDto.DoctorName}</b>.</p>
+        <p style='font-family: Arial, sans-serif; color: #333; font-size: 20px;'>Visit Type: <b>{visitDto.VisitType}</b></p>
+        <p style='font-family: Arial, sans-serif; color: #333; font-size: 20px;'>Date: <b>{visitDto.Date.ToString("HH:mm dd-MM-yyyy")}</b></p>
+        <a href='{route}={visitDto.VisitId}' style='text-decoration: none; background-color: #007bff; color: #fff; padding: 15px 30px; font-family: Arial, sans-serif; font-size: 20px; border-radius: 5px; cursor: pointer; display: inline-block;'>Show details</a>        
+    ";
+		return htmlBody;
+	}
 }

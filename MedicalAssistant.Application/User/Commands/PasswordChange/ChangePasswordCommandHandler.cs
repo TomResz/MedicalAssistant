@@ -30,7 +30,7 @@ internal sealed class ChangePasswordCommandHandler
 
     public async Task Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
     {
-        var newPassword = new Password(request.NewPassword);
+        var newPassword = new Password(request.Password);
         var confirmedPassword = new Password(request.ConfirmedPassword);
 
         if (!newPassword.Equals(confirmedPassword))
@@ -48,7 +48,7 @@ internal sealed class ChangePasswordCommandHandler
             throw new UserNotFoundException();
         }
 
-        bool isNewPasswordInvalid = _passwordManager.IsValid(request.NewPassword, user.Password);
+        bool isNewPasswordInvalid = _passwordManager.IsValid(request.Password, user.Password!);
 
 		if (isNewPasswordInvalid)
         {
