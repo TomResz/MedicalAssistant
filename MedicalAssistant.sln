@@ -13,6 +13,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{68FA01DF-611D-4A6A-8011-66BB457D83BC}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.env = .env
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{EC16C102-D533-4BFB-92CB-A68C1D3F8D7F}"
@@ -20,17 +21,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{C5C4EF1F-31C9-412A-AEED-F447E92BAA99}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D4AC747F-D88E-471D-B081-5DF11E3F78F2}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{55740907-05D1-4D21-81BA-AC386793A6E3}"
-	ProjectSection(SolutionItems) = preProject
-		addMigration.bat = addMigration.bat
-		findPostgresIPAddress.bat = findPostgresIPAddress.bat
-		rebuildAPI.bat = rebuildAPI.bat
-		DockerScripts\rebuildContainers.bat = DockerScripts\rebuildContainers.bat
-		rebuildUI.bat = rebuildUI.bat
-		DockerScripts\runDockerContainers.bat = DockerScripts\runDockerContainers.bat
-		stopContainers.bat = stopContainers.bat
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicalAssistant.Application", "MedicalAssistant.Application\MedicalAssistant.Application.csproj", "{5DAE4796-832B-46DD-8E81-F9E8247B7E59}"
 EndProject

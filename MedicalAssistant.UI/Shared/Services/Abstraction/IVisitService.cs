@@ -8,4 +8,5 @@ public interface IVisitService
 	Task<Response<VisitDto>> Add(CreateVisitVisitModel model);
 	Task<Response.Base.Response> Delete(Guid visitId);
 	Task<Response<VisitDto>> Edit(EditVisitModel editVisitModel);
+	Task<Response.Base.Response<VisitDto>> Get(Guid visitId);
 }

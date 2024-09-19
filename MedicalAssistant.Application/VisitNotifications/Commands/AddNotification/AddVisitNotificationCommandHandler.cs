@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
+using MedicalAssistant.Application.Dto.Mappers;
 using MedicalAssistant.Domain.Entites;
 using MedicalAssistant.Domain.Exceptions;
 using MedicalAssistant.Domain.Repositories;
@@ -61,13 +62,7 @@ internal sealed class AddVisitNotificationCommandHandler
 			_notificationRepository.Add(visitNotification);
 			await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-			return new VisitNotificationDto()
-			{
-				Id = visitNotification.Id,
-				ScheduledDateUtc = date,
-				SimpleId = visitNotification.SimpleId,
-				VisitId = visitNotification.VisitId
-			};
+			return visitNotification.ToDto();
 		}
 		catch (Exception)
 		{

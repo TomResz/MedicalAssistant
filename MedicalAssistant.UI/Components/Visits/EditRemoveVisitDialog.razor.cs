@@ -31,10 +31,10 @@ public partial class EditRemoveVisitDialog
 	[Inject]
 	public ISnackbar Snackbar { get; set; }
 
-	private bool _isEditMode = false;
-	private bool _readOnlyMode => !_isEditMode;
+    [Inject]
+    public NavigationManager Navigation { get; set; }
 
-	private MudForm form;
+    private MudForm form;
 	private VisitViewModel _visitModel = new();
 	private readonly VisitViewModelValidator _validator = new();
 
@@ -47,11 +47,6 @@ public partial class EditRemoveVisitDialog
 
 	private async Task BtnPressed()
 	{
-		if (!_isEditMode)
-		{
-			_isEditMode = true;
-			return;
-		}
 		await form.Validate();
 		if (!form.IsValid)
 		{
@@ -85,7 +80,14 @@ public partial class EditRemoveVisitDialog
 
 	private void Cancel() => MudDialog.Cancel();
 
+	#region ShowDetails
+	private void ShowDetails()
+	{
+		MudDialog.Close();
+		Navigation.NavigateTo($"visit/{VisitDto.Id}");
+	}
 
+	#endregion
 	#region Delete Visit
 
 	private async Task DeleteVisit()

@@ -3,14 +3,25 @@
 @layout BaseLayout
 @attribute [AllowAnonymous]
 
-<div class="custom-loading-screen">
-	<MudGrid Justify="Justify.Center">
-		<MudItem xs="12" md="6" lg="4" Class="align-text-center">
-			<div class="custom-loading-container">
-				<MudPaper Elevation="3" Class="pa-4">
-					@Body
-				</MudPaper>
-			</div>
-		</MudItem>
-	</MudGrid>
-</div>
+<MudGrid Justify="Justify.Center" Class="custom-loading-screen">
+	<MudItem xs="12" md="6" lg="4" Class="align-text-center">
+		<MudPaper Elevation="3" Class="pa-4 custom-loading-container">
+			@Body
+		</MudPaper>
+	</MudItem>
+</MudGrid>
+
+
+<style>
+	.custom-loading-screen {
+		height: 100vh !important;
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+	}
+
+	.custom-loading-container {
+		padding: 20px !important;
+		text-align: center !important;
+	}
+</style>

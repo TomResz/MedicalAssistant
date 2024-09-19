@@ -36,7 +36,7 @@ public class ChangePasswordCommandHandlerTests
             "zaq1@WSX",
 			"zaq1@WSX");
         _userRepository.GetByIdAsync(_userId).Returns(UserFactory.CreateUser());
-        _passwordManager.IsValid(command.NewPassword, Arg.Any<string>()).Returns(false);
+        _passwordManager.IsValid(command.Password, Arg.Any<string>()).Returns(false);
         _passwordManager.Secure(Arg.Any<string>()).Returns($"new-password-{Guid.NewGuid()}");
 
         await _handler.Handle(command, default);
@@ -52,7 +52,7 @@ public class ChangePasswordCommandHandlerTests
 	"zaq1@WSX",
 	"zaq1@WSX");
 		_userRepository.GetByIdAsync(_userId).Returns(UserFactory.CreateUser());
-		_passwordManager.IsValid(command.NewPassword, Arg.Any<string>()).Returns(true);
+		_passwordManager.IsValid(command.Password, Arg.Any<string>()).Returns(true);
 
 		Func<Task> act = async () => await _handler.Handle(command, default);
 

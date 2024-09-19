@@ -396,4 +396,10 @@
   <data name="InvalidNewPassword" xml:space="preserve">
     <value>The new password must not be the same as the old one.</value>
   </data>
+  <data name="VisitDetails" xml:space="preserve">
+    <value>Visit Details</value>
+  </data>
+  <data name="ShowDetails" xml:space="preserve">
+    <value>Show Details</value>
+  </data>
 </root>

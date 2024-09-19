@@ -1,9 +1,11 @@
 using MedicalAssistant.UI;
+using MedicalAssistant.UI.Shared.APIClient;
 using MedicalAssistant.UI.Shared.Options;
 using MedicalAssistant.UI.Shared.Services.Abstraction;
 using MedicalAssistant.UI.Shared.Services.Auth;
 using MedicalAssistant.UI.Shared.Services.HubToken;
 using MedicalAssistant.UI.Shared.Services.Language;
+using MedicalAssistant.UI.Shared.Services.Notifications;
 using MedicalAssistant.UI.Shared.Services.RefreshToken;
 using MedicalAssistant.UI.Shared.Services.User;
 using MedicalAssistant.UI.Shared.Services.Verification;
@@ -28,13 +30,13 @@ builder.Services.AddAuthorizationCore( conf =>
 			x => x.RequireClaim("HasExternalProvider", "False"));
 });
 
-
 builder.Services
 	.AddGoogleAuthProvider(builder.Configuration)
 	.AddFacebookAuthProvider(builder.Configuration)
-	.ConfigureExternalApi(builder.Configuration);
+	.ConfigureAPI(builder.Configuration);
 
 builder.Services.AddScoped<LocalStorageService>();
+builder.Services.AddScoped<ITokenManager, TokenManager>();
 builder.Services.AddScoped<MedicalAssistAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(
 	sp => sp.GetRequiredService<MedicalAssistAuthenticationStateProvider>());
@@ -47,6 +49,8 @@ builder.Services.AddScoped<IHubTokenService, HubTokenService>();
 builder.Services.AddScoped<IUserVerificationService, UserVerificationService>();
 builder.Services.AddScoped<IUserDataService, UserDataService>();
 builder.Services.AddScoped<IUserPasswordChangeService, UserPasswordChangeService>();
+builder.Services.AddScoped<IVisitNotificationService, VisitNotificationService>();
+
 
 builder.Services.AddRadzenComponents();
 builder.Services.AddMudServices(config =>

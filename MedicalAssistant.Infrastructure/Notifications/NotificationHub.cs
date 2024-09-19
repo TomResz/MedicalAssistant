@@ -21,8 +21,3 @@ public class NotificationHub : Hub<INotificationsClient>
 		return Task.CompletedTask;
 	}
 }
-
-public interface INotificationsClient
-{
-	Task ReceiveNotification(string content);
-}

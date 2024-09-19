@@ -8,22 +8,23 @@ namespace MedicalAssistant.UI.Shared.Services.HubToken;
 
 public sealed class HubTokenService : IHubTokenService
 {
-	private readonly LocalStorageService _storageService;
+	private readonly ITokenManager _tokenManager;
 	private readonly IRefreshTokenService _refreshTokenService;
 	private readonly AuthenticationStateProvider _authenticationStateProvider;
 	public HubTokenService(
-		LocalStorageService storageService,
 		IRefreshTokenService refreshTokenService,
-		AuthenticationStateProvider authenticationStateProvider)
+		AuthenticationStateProvider authenticationStateProvider,
+		ITokenManager tokenManager)
 	{
-		_storageService = storageService;
 		_refreshTokenService = refreshTokenService;
 		_authenticationStateProvider = authenticationStateProvider;
+		_tokenManager = tokenManager;
 	}
 
 	public async Task<string?> GetJwt()
 	{
-		var token = await _storageService.GetValueAsync("access_token")!;
+		var token = await _tokenManager.GetAccessToken();
+
 
 		if (token is null)
 		{
@@ -34,16 +35,16 @@ public sealed class HubTokenService : IHubTokenService
 		{
 			return token;
 		}
-		var refreshToken = await _storageService.GetValueAsync("refresh_token") ?? "";
+		var refreshToken = await _tokenManager.GetRefreshToken() ?? "";
 		var response = await _refreshTokenService.RefreshToken(token, refreshToken);
-		
-		if(response is null)
+
+		if (response is null)
 		{
 			await (_authenticationStateProvider as MedicalAssistAuthenticationStateProvider)!.LogOutAsync();
 			return null;
 		}
-		await _storageService.SetValueAsync("access_token", response.AccessToken);
-		await _storageService.SetValueAsync("refresh_token", response.RefreshToken);
+		await _tokenManager.SetAccessToken(response.AccessToken);
+		await _tokenManager.SetRefreshToken(response.RefreshToken);
 		return response.AccessToken;
 	}
 

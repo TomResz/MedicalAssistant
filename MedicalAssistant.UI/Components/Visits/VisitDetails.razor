@@ -1,0 +1,91 @@
+﻿@using MedicalAssistant.UI.Models.Visits
+<MudPaper Elevation="4" Class="pa-4 d-flex flex-column" Style="height: 100%;">
+	<MudText Typo="Typo.h5" GutterBottom="true" Class="ml-2">Visit Details</MudText>
+
+	<MudGrid Class="flex-grow-1">
+		<MudItem xs="12" sm="6">
+			<MudCard Class="ma-2">
+				<MudCardContent>
+					<MudText Typo="Typo.subtitle1">Visit Type:</MudText>
+					<MudText Typo="Typo.body1">@Visit.VisitType</MudText>
+					</MudCardContent>
+				</MudCard>
+			</MudItem>
+
+			<MudItem xs="12" sm="6">
+				<MudCard Class="ma-2">
+					<MudCardContent>
+						<MudText Typo="Typo.subtitle1">Doctor Name:</MudText>
+						<MudText Typo="Typo.body1">@Visit.DoctorName</MudText>
+					</MudCardContent>
+				</MudCard>
+			</MudItem>
+		</MudGrid>
+
+		<MudGrid Class="flex-grow-1">
+			<MudItem xs="12" sm="6">
+				<MudCard Class="ma-2">
+					<MudCardContent>
+						<MudText Typo="Typo.subtitle1">Visit Date:</MudText>
+						<MudText Typo="Typo.body1">@Visit.Date.ToString("f")</MudText>
+					</MudCardContent>
+				</MudCard>
+			</MudItem>
+
+			<MudItem xs="12" sm="6">
+				<MudCard Class="ma-2">
+					<MudCardContent>
+						<MudText Typo="Typo.subtitle1">End Date:</MudText>
+						<MudText Typo="Typo.body1">@Visit.End.ToString("f")</MudText>
+					</MudCardContent>
+				</MudCard>
+			</MudItem>
+		</MudGrid>
+
+		<MudGrid Class="flex-grow-1">
+			<MudItem xs="12">
+				<MudCard Class="ma-2">
+					<MudCardContent>
+						<MudText Typo="Typo.subtitle1">Address:</MudText>
+						<MudText Typo="Typo.body1">@Visit.Address.Street, @Visit.Address.PostalCode @Visit.Address.City</MudText>
+					</MudCardContent>
+				</MudCard>
+			</MudItem>
+		</MudGrid>
+
+		<MudGrid Class="flex-grow-1">
+			<MudItem xs="12">
+				<MudCard Class="ma-2">
+					<MudCardContent>
+						<MudText Typo="Typo.subtitle1">Description:</MudText>
+						<MudText Typo="Typo.body1">@Visit.VisitDescription</MudText>
+					</MudCardContent>
+				</MudCard>
+			</MudItem>
+		</MudGrid>
+
+		<MudGrid Class="align-items-end flex-grow-1 px-2">
+
+			<MudItem xs="12" sm="4" Class="d-flex flex-column">
+				<MudButton Class="mt-auto" Variant="@MudBlazor.Variant.Filled" Color="@MudBlazor.Color.Primary" 
+					StartIcon="@Icons.Material.Filled.Edit">
+					@Translations.Edit
+			</MudButton>
+		</MudItem>
+
+		<MudItem xs="12" sm="4" Class="d-flex flex-column justify-end">
+			<MudButton Class="mt-auto" Variant="@MudBlazor.Variant.Filled" Color="MudBlazor.Color.Error"
+					   StartIcon="@Icons.Material.Filled.Delete">
+				@Translations.Delete
+			</MudButton>
+		</MudItem>
+
+		<MudItem xs="12" sm="4" Class="d-flex flex-column justify-end">
+			<MudButton Class="mt-auto" Variant="@MudBlazor.Variant.Filled" Color="MudBlazor.Color.Info" 
+				StartIcon="@Icons.Material.Filled.ArrowBack">
+				Back
+			</MudButton>
+		</MudItem>
+
+	</MudGrid>
+</MudPaper>

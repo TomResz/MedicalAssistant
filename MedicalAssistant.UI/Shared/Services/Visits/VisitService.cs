@@ -38,4 +38,10 @@ public class VisitService : IVisitService
 		var response = await _httpClient.PutAsJsonAsync("visit/edit", editVisitModel);
 		return await response.DeserializeResponse<VisitDto>();
 	}
+
+	public async Task<Response<VisitDto>> Get(Guid visitId)
+	{
+		var response = await _httpClient.GetAsync($"visit/{visitId}");
+		return await response.DeserializeResponse<VisitDto>();
+	}
 }

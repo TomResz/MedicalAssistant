@@ -396,4 +396,10 @@
   <data name="InvalidNewPassword" xml:space="preserve">
     <value>Nowe hasło nie może być takie same jak stare.</value>
   </data>
+  <data name="VisitDetails" xml:space="preserve">
+    <value>Szczegóły Wizyty</value>
+  </data>
+  <data name="ShowDetails" xml:space="preserve">
+    <value>Pokaż szczegóły</value>
+  </data>
 </root>

@@ -33,12 +33,13 @@ public class NotificationHistory
 		PublishedDate = publishedDate;
 		WasRead = wasRead;
 		DateOfRead = dateOfRead;
+		Type = type;
 	}
 
 	public static NotificationHistory Create(
 		UserId userId,
-		string contentJson,
-		string type,
+		ContentJson contentJson,
+		NotificationHistoryType type,
 		Date publishedDate)
 	{
 		return new(

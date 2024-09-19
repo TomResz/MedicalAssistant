@@ -709,6 +709,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Details.
+        /// </summary>
+        internal static string ShowDetails {
+            get {
+                return ResourceManager.GetString("ShowDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign in.
         /// </summary>
         internal static string Sign_in {
@@ -831,6 +840,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string VisitDeletedText {
             get {
                 return ResourceManager.GetString("VisitDeletedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visit Details.
+        /// </summary>
+        internal static string VisitDetails {
+            get {
+                return ResourceManager.GetString("VisitDetails", resourceCulture);
             }
         }
         

@@ -8,11 +8,12 @@
         "Reload": "Reload"
     }
 }
-function changeLangueage(language) {
+function changeLanguage(language) {
     const texts = languages[language] || languages['pl'];
     document.getElementById('error-message').textContent = texts.UnhandledError;
     document.getElementById('reload-link').textContent = texts.Reload;
 }
+
 function setRadzenComponentsTheme(isDarkMode) {
     let normal = document.getElementById('normalTheme');
     let dark = document.getElementById('darkModeTheme');
@@ -28,7 +29,7 @@ function setRadzenComponentsTheme(isDarkMode) {
 function loadErrorLabels() {
     let language = localStorage.getItem("Culture");
     language = language?.startsWith('pl') ? 'pl' : 'en';
-    changeLangueage(language);
+    changeLanguage(language);
 }
 window.onload = function () {
     const loadingTheme = document.querySelector('.loading-logo-screen');

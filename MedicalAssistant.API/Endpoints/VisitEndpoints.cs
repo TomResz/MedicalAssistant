@@ -34,6 +34,13 @@ public sealed class VisitEndpoints : IEndpoints
 			return Results.Ok(response);
 		});
 
+		group.MapGet("/{visitId:guid}", async (
+			IMediator _mediator,Guid visitId) =>
+		{
+			var query = new GetVisitDetailsQuery(visitId);
+			return Results.Ok(await _mediator.Send(query));
+		});
+
 		group.MapDelete("delete/{visitId:guid}", async (
 			IMediator _mediator, 
 			Guid visitId) =>

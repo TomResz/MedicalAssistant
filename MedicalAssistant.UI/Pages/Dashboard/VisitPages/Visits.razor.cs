@@ -2,7 +2,7 @@
 using MedicalAssistant.UI.Shared.Services.Abstraction;
 using Microsoft.AspNetCore.Components;
 
-namespace MedicalAssistant.UI.Pages.Dashboard;
+namespace MedicalAssistant.UI.Pages.Dashboard.VisitPages;
 
 public partial class Visits
 {

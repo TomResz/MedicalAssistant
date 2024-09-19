@@ -1,0 +1,49 @@
+﻿@page "/visit/{VisitId:guid}"
+@using MedicalAssistant.UI.Components.Visits
+
+
+<PageTitle>@Translations.VisitDetails</PageTitle>
+
+	<MudGrid Class="ma-0 visit-grid">
+		<MudItem xs="12" sm="6" Class="pa-0 mx-0 visit-item">
+			<MudCard Class="visit-card">
+				@if (_isVisitLoading)
+			{
+				<MudSkeleton Height="100%" Class="ma-2" Animation="Animation.Pulse" />
+			}
+			else
+			{
+				<VisitDetails Visit="Visit" />
+			}
+		</MudCard>
+	</MudItem>
+
+	<MudItem xs="12" sm="6" Class="pa-0 mx-0 visit-item">
+		<MudCard Class="visit-card">
+			@if (_areNotificationLoading)
+			{
+				<MudSkeleton Height="100%" Class="ma-2" Animation="Animation.Pulse" />
+			}
+			else
+			{
+
+			}
+		</MudCard>
+	</MudItem>
+</MudGrid>
+
+<style>
+	.visit-grid {
+		overflow-y: auto;
+	}
+
+	.visit-item {
+		min-height: calc(100vh - 104px);
+		margin-top: 8px;
+	}
+
+	.visit-card {
+		height: 100%;
+		margin-right: 24px;
+	}
+</style>

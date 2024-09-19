@@ -1,4 +1,5 @@
-﻿using MedicalAssistant.Domain.Abstraction;
+﻿using MedicalAssistant.Application.Contracts;
+using MedicalAssistant.Domain.Abstraction;
 using MedicalAssistant.Infrastructure.Auth;
 using MedicalAssistant.Infrastructure.BackgrounJobs;
 using MedicalAssistant.Infrastructure.DAL;
@@ -7,6 +8,7 @@ using MedicalAssistant.Infrastructure.Email;
 using MedicalAssistant.Infrastructure.ExternalProviders;
 using MedicalAssistant.Infrastructure.Language;
 using MedicalAssistant.Infrastructure.Middleware;
+using MedicalAssistant.Infrastructure.Notifications;
 using MedicalAssistant.Infrastructure.Security;
 using MedicalAssistant.Infrastructure.Time;
 using Microsoft.Extensions.Configuration;
@@ -30,7 +32,8 @@ public static class Extensions
             .AddBackgroundJobs(configuration)
             .AddEmailServices(configuration)
             .AddGoogleService(configuration)
-            .AddLanguageService();
+            .AddLanguageService()
+            .AddSingleton<INotificationSender,NotificationSender>();
 
     internal static T GetOptions<T>(this IConfiguration configuration, string sectionName) where T : class, new()
     {

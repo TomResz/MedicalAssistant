@@ -1,4 +1,5 @@
 ﻿using MedicalAssistant.UI.Shared.Response;
+using MedicalAssistant.UI.Shared.Services.Abstraction;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -7,21 +8,21 @@ namespace MedicalAssistant.UI.Shared.Services.Auth;
 
 public class MedicalAssistAuthenticationStateProvider : AuthenticationStateProvider
 {
-	private readonly LocalStorageService _localStorage;
+	private readonly ITokenManager _tokenManager;
 
-	public MedicalAssistAuthenticationStateProvider(LocalStorageService localStorage)
+	public MedicalAssistAuthenticationStateProvider(ITokenManager tokenManager)
 	{
-		_localStorage = localStorage;
+		_tokenManager = tokenManager;
 	}
 
 	public override async Task<AuthenticationState> GetAuthenticationStateAsync()
 	{
-		var token = await _localStorage.GetValueAsync("access_token");
+		var token = await _tokenManager.GetAccessToken();
 		var claims = new ClaimsIdentity();
 
 		if (token is not null)
 		{
-			claims = GetClaimsFromJwtToken(token);	
+			claims = GetClaimsFromJwtToken(token);
 		}
 		var principal = new ClaimsPrincipal(claims);
 
@@ -52,15 +53,15 @@ public class MedicalAssistAuthenticationStateProvider : AuthenticationStateProvi
 	}
 	public async Task AuthenticateAsync(SignInResponse response)
 	{
-		await _localStorage.SetValueAsync("access_token", response.AccessToken);
-		await _localStorage.SetValueAsync("refresh_token", response.RefreshToken);
+		await _tokenManager.SetAccessToken(response.AccessToken);
+		await _tokenManager.SetRefreshToken(response.RefreshToken);
+
 		NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
 	}
 
 	public async Task LogOutAsync()
 	{
-		await _localStorage.RemoveKeyAsync("access_token");
-		await _localStorage.RemoveKeyAsync("refresh_token");
+		await _tokenManager.DeleteAllTokens();
 		NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
 	}
 }
