@@ -3,7 +3,7 @@ using MedicalAssistant.UI.Models.Validator;
 
 namespace MedicalAssistant.UI.Models.RegenareteCode;
 
-public class RegenerateCodeModelValidator : AbstractValidator<RegenerateCodeModel>
+public class RegenerateCodeModelValidator : BaseValidator<RegenerateCodeModel>
 {
     public RegenerateCodeModelValidator()
     {
@@ -11,12 +11,4 @@ public class RegenerateCodeModelValidator : AbstractValidator<RegenerateCodeMode
 		RuleFor(x => x.Email)
             .EmailMustBeValid();
     }
-	public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
-	{
-		var result = await ValidateAsync(ValidationContext<RegenerateCodeModel>.CreateWithOptions((RegenerateCodeModel)model,
-			x => x.IncludeProperties(propertyName)));
-		if (result.IsValid)
-			return Array.Empty<string>();
-		return result.Errors.Select(e => e.ErrorMessage);
-	};
 }

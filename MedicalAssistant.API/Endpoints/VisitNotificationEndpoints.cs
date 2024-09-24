@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using MedicalAssistant.Application.VisitNotifications.Commands.AddNotifications;
+using MedicalAssistant.Application.VisitNotifications.Commands.ChangeDate;
 using MedicalAssistant.Application.VisitNotifications.Commands.DeleteNotification;
 using MedicalAssistant.Application.VisitNotifications.Queries;
 
@@ -28,7 +29,12 @@ public class VisitNotificationEndpoints : IEndpoints
 			var response = await _mediator.Send(query);
 			return Results.Ok(response);
 		});
-
+		group.MapPut("/date", async (IMediator _mediator, ChangeVisitNotificationDateCommand command)
+			=>
+		{
+			await _mediator.Send(command);
+			return Results.NoContent();
+		});
 		group.MapDelete("/{visitNoticationId:guid}", async (
 			IMediator _mediator, Guid visitNoticationId) =>
 		{

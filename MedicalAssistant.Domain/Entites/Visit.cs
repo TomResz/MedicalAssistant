@@ -117,4 +117,19 @@ public class Visit : AggregateRoot<VisitId>
 	{
         _notifications.Remove(notification);
     }
+
+	public VisitNotification ChangeNotificationDate(Date dateUtc, VisitNotificationId notificationId)
+	{
+        var notification = _notifications.First(x=> x.Id == notificationId);
+        var date = new Date(dateUtc);
+
+        if(date >= Date)
+        {
+            throw new InvalidVisitNotificationDateException();
+        }
+
+        notification.ChangeDate(date);
+
+        return notification;
+    }
 }

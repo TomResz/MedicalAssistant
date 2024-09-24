@@ -40,4 +40,14 @@ public class VisitNotification
 			visitId);
 		return notification;
 	}
+
+	internal void ChangeDate(Date dateUtc)
+	{
+		ScheduledDateUtc = dateUtc;
+	}
+
+	public void ChangeJobId(string jobId)
+	{
+		SimpleId = jobId;
+	}
 }

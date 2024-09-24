@@ -1,13 +1,15 @@
 ﻿@page "/visits"
 
+@using MedicalAssistant.UI.Components
 @using MedicalAssistant.UI.Components.Visits
 @using MedicalAssistant.UI.Models.Visits
 @using MedicalAssistant.UI.Shared.Services.Abstraction
 
 @if (_loading)
 {
-	<h1>@Translations.Loading...</h1>
-
+	<MudCard Style="height: calc(100vh - 96px);">
+		<LoadingSkeletonComponent Class="ma-2" />
+	</MudCard>
 }
 else
 {

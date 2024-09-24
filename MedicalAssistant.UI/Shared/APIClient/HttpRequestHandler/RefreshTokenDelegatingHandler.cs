@@ -12,7 +12,7 @@ public class RefreshTokenDelegatingHandler : DelegatingHandler
     private readonly AuthenticationStateProvider _authenticationStateProvider;
     private readonly IRefreshTokenService _refreshTokenService;
     private readonly ITokenManager _tokenManager;   
-    private readonly SemaphoreSlim _refreshingSemaphore = new(1, 1);
+    private static readonly SemaphoreSlim _refreshingSemaphore = new(1, 1);
 
 	public RefreshTokenDelegatingHandler(
 		AuthenticationStateProvider authenticationStateProvider,
@@ -30,7 +30,7 @@ public class RefreshTokenDelegatingHandler : DelegatingHandler
 
         if (response.StatusCode == HttpStatusCode.Unauthorized)
         {
-            await _refreshingSemaphore.WaitAsync(cancellationToken);
+            await _refreshingSemaphore.WaitAsync(5000,cancellationToken);
             try
             {
                 var jwt = await _tokenManager.GetAccessToken();

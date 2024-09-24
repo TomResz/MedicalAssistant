@@ -20,6 +20,7 @@ internal sealed class GetNotificationByVisitQueryHandler
 		=> await _context
 			.VisitNotifications
 			.Where(x => x.VisitId == new VisitId(request.VisitId))
+			.OrderBy(x=>x.ScheduledDateUtc)
 			.Select(x => x.ToDto())
 			.ToListAsync(cancellationToken);
 }

@@ -7,6 +7,7 @@ using MedicalAssistant.UI.Shared.Services.HubToken;
 using MedicalAssistant.UI.Shared.Services.Language;
 using MedicalAssistant.UI.Shared.Services.Notifications;
 using MedicalAssistant.UI.Shared.Services.RefreshToken;
+using MedicalAssistant.UI.Shared.Services.Time;
 using MedicalAssistant.UI.Shared.Services.User;
 using MedicalAssistant.UI.Shared.Services.Verification;
 using MedicalAssistant.UI.Shared.Services.Visits;
@@ -50,7 +51,7 @@ builder.Services.AddScoped<IUserVerificationService, UserVerificationService>();
 builder.Services.AddScoped<IUserDataService, UserDataService>();
 builder.Services.AddScoped<IUserPasswordChangeService, UserPasswordChangeService>();
 builder.Services.AddScoped<IVisitNotificationService, VisitNotificationService>();
-
+builder.Services.AddScoped<ILocalTimeProvider,LocalTimeProvider>();
 
 builder.Services.AddRadzenComponents();
 builder.Services.AddMudServices(config =>

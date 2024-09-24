@@ -1,4 +1,4 @@
-﻿using MedicalAssistant.UI.Shared.Services.Language;
+﻿using MedicalAssistant.UI.Shared.Services.Abstraction;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;

@@ -1,0 +1,23 @@
+﻿@using MedicalAssistant.UI.Models.Notifications
+<MudCard Class="@Class">
+	<MudCardContent>
+		<MudText Align="Align.Left" Typo="Typo.h6">
+			@VisitNotification.Date.ToString("dd-MM-yyy HH:mm")
+		</MudText>
+	</MudCardContent>
+	<MudCardActions>
+		<MudFab Color="Color.Secondary" Class="my-1 mr-1" StartIcon="@Icons.Material.Filled.Edit" OnClick="@Edit" Label="@Translations.Edit" />
+		<MudFab Color="Color.Error" Class="my-1 mr-1" StartIcon="@Icons.Material.Filled.Remove" OnClick="@Delete" Label="@Translations.Delete" />
+	</MudCardActions>
+</MudCard>
+
+<MudMessageBox @ref="_mudMessageBox" CancelText="@Translations.Cancel" Title="@Translations.NotificationDeleting" >
+	<MessageContent>
+		@Translations.DeletingNotificationQuestion
+	</MessageContent>
+	<YesButton>
+		<MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Filled.DeleteForever">
+			@Translations.Delete
+		</MudButton>
+	</YesButton>
+</MudMessageBox>

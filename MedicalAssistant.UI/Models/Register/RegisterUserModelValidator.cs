@@ -4,9 +4,9 @@ using MedicalAssistant.UI.Shared.Resources;
 
 namespace MedicalAssistant.UI.Models.Register;
 
-public class RegisterUserModelValidator : AbstractValidator<RegisterUserModel>
+public sealed class RegisterUserModelValidator : BaseValidator<RegisterUserModel>
 {
-    public RegisterUserModelValidator()
+	public RegisterUserModelValidator()
 	{
 		RuleLevelCascadeMode = CascadeMode.Stop;
 
@@ -24,14 +24,5 @@ public class RegisterUserModelValidator : AbstractValidator<RegisterUserModel>
 		RuleFor(x => x.ConfirmedPassword)
 			.Equal(x => x.Password)
 			.WithMessage(Translations.PasswordMatch);
-    }
-
-	public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
-	{
-		var result = await ValidateAsync(ValidationContext<RegisterUserModel>.CreateWithOptions((RegisterUserModel)model,
-			x => x.IncludeProperties(propertyName)));
-		if (result.IsValid)
-			return Array.Empty<string>();
-		return result.Errors.Select(e => e.ErrorMessage);
-	};
+	}
 }

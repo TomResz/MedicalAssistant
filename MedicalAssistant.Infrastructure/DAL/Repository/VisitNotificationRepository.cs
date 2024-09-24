@@ -21,4 +21,9 @@ internal sealed class VisitNotificationRepository
 		=> _context
 			.VisitNotifications
 			.Remove(visitNotification);
+
+	public void Update(VisitNotification visitNotification)
+	{
+		_context.VisitNotifications.Update(visitNotification);
+	}
 }

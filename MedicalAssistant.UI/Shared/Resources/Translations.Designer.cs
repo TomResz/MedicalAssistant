@@ -88,6 +88,33 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        internal static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Notification.
+        /// </summary>
+        internal static string AddNotification {
+            get {
+                return ResourceManager.GetString("AddNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        internal static string Address {
+            get {
+                return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Visit.
         /// </summary>
         internal static string AddVisitBtn {
@@ -102,6 +129,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string AddVisitTitle {
             get {
                 return ResourceManager.GetString("AddVisitTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        internal static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
             }
         }
         
@@ -196,6 +232,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this notification ?.
+        /// </summary>
+        internal static string DeletingNotificationQuestion {
+            get {
+                return ResourceManager.GetString("DeletingNotificationQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         internal static string Description {
@@ -259,6 +304,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Notification.
+        /// </summary>
+        internal static string EditNotification {
+            get {
+                return ResourceManager.GetString("EditNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid email pattern..
         /// </summary>
         internal static string EmailInvalidPattern {
@@ -309,6 +363,24 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string EmptyFullname {
             get {
                 return ResourceManager.GetString("EmptyFullname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date cannot be empty..
+        /// </summary>
+        internal static string EmptyNotificationDate {
+            get {
+                return ResourceManager.GetString("EmptyNotificationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time cannot be empty..
+        /// </summary>
+        internal static string EmptyNotificationTime {
+            get {
+                return ResourceManager.GetString("EmptyNotificationTime", resourceCulture);
             }
         }
         
@@ -520,6 +592,42 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Successfully added notification..
+        /// </summary>
+        internal static string NotificationAdded {
+            get {
+                return ResourceManager.GetString("NotificationAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleting Notification.
+        /// </summary>
+        internal static string NotificationDeleting {
+            get {
+                return ResourceManager.GetString("NotificationDeleting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The notification has been successfully edited..
+        /// </summary>
+        internal static string NotificationEdited {
+            get {
+                return ResourceManager.GetString("NotificationEdited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notifications.
+        /// </summary>
+        internal static string Notifications {
+            get {
+                return ResourceManager.GetString("Notifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         internal static string Password {
@@ -597,6 +705,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string PostalCode {
             get {
                 return ResourceManager.GetString("PostalCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Predicted Visit Time.
+        /// </summary>
+        internal static string PredictedVisitTime {
+            get {
+                return ResourceManager.GetString("PredictedVisitTime", resourceCulture);
             }
         }
         
@@ -687,6 +804,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string SaveSettings {
             get {
                 return ResourceManager.GetString("SaveSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scheduled date cannot be greater than visit date..
+        /// </summary>
+        internal static string ScheduledDateGreaterThanVisitDate {
+            get {
+                return ResourceManager.GetString("ScheduledDateGreaterThanVisitDate", resourceCulture);
             }
         }
         
@@ -835,6 +961,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The visit has already taken place..
+        /// </summary>
+        internal static string VisitAlreadyTakenPlace {
+            get {
+                return ResourceManager.GetString("VisitAlreadyTakenPlace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Successfully removed the visit..
         /// </summary>
         internal static string VisitDeletedText {
@@ -858,6 +993,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string VisitHoursConflict {
             get {
                 return ResourceManager.GetString("VisitHoursConflict", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Such a medical visit no longer exists..
+        /// </summary>
+        internal static string VisitNotFound {
+            get {
+                return ResourceManager.GetString("VisitNotFound", resourceCulture);
             }
         }
         

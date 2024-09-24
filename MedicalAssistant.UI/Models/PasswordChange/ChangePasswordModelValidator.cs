@@ -4,7 +4,7 @@ using MedicalAssistant.UI.Shared.Resources;
 
 namespace MedicalAssistant.UI.Models.PasswordChange;
 
-public class ChangePasswordModelValidator : AbstractValidator<ChangePasswordModel>
+public class ChangePasswordModelValidator : BaseValidator<ChangePasswordModel>
 {
 
     public ChangePasswordModelValidator()
@@ -15,12 +15,5 @@ public class ChangePasswordModelValidator : AbstractValidator<ChangePasswordMode
 			.Equal(x => x.Password)
 			.WithMessage(Translations.PasswordMatch);
 	}
-    public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
-	{
-		var result = await ValidateAsync(ValidationContext<ChangePasswordModel>.CreateWithOptions((ChangePasswordModel)model,
-			x => x.IncludeProperties(propertyName)));
-		if (result.IsValid)
-			return Array.Empty<string>();
-		return result.Errors.Select(e => e.ErrorMessage);
-	};
+
 }

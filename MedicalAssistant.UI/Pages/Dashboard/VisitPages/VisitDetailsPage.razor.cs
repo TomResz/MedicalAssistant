@@ -1,6 +1,9 @@
-﻿using MedicalAssistant.UI.Models.Visits;
+﻿using MedicalAssistant.UI.Models.Notifications;
+using MedicalAssistant.UI.Models.Visits;
+using MedicalAssistant.UI.Shared.Resources;
 using MedicalAssistant.UI.Shared.Services.Abstraction;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace MedicalAssistant.UI.Pages.Dashboard.VisitPages;
 
@@ -15,8 +18,17 @@ public partial class VisitDetailsPage
 	[Inject]
 	public IVisitService VisitService { get; set; }
 
-	private VisitDto Visit { get; set; }
+	[Inject]
+	public IVisitNotificationService VisitNotificationService { get; set; }
 
+    [Inject]
+    public NavigationManager Navigation { get; set; }
+
+	[Inject]
+	public ISnackbar Snackbar { get; set; }
+
+    private VisitDto Visit { get; set; }
+	private List<VisitNotificationDto> _visitNotifications { get; set; }
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -26,6 +38,19 @@ public partial class VisitDetailsPage
 		{
 			Visit = response.Value!;
 			_isVisitLoading = false;
+		}
+		else
+		{
+			Snackbar.Add(Translations.VisitNotFound, Severity.Error);
+			Navigation.NavigateTo("/visits");
+			return;
+		}
+
+		var notificationResponse = await VisitNotificationService.Get(VisitId);
+		if (notificationResponse.IsSuccess)
+		{
+			_visitNotifications = notificationResponse.Value!;
+			_areNotificationLoading = false;
 		}
 	}
 }

@@ -49,7 +49,7 @@ public partial class ExternalAuthenticationCallback
 	}
 
 	private async Task<Response<SignInResponse>> GetResponse() 
-	=> Provider switch
+		=> Provider switch
 		{
 			"google-callback" => await AuthService.SignInByGoogle(Code!),
 			_ => await AuthService.SignInByFacebook(Code!),

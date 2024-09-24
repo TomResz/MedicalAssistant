@@ -1,89 +1,91 @@
 ﻿@using MedicalAssistant.UI.Models.Visits
-<MudPaper Elevation="4" Class="pa-4 d-flex flex-column" Style="height: 100%;">
-	<MudText Typo="Typo.h5" GutterBottom="true" Class="ml-2">Visit Details</MudText>
+<MudPaper Elevation="4" Class="pa-4 d-flex flex-column align-stretch h-100">
+	<MudText Typo="Typo.h6" GutterBottom="true" Class="ml-2 text-center">@Translations.VisitDetails</MudText>
+
+	<MudGrid Class="flex-grow-1 ">
+		<MudItem xs="12" sm="6">
+			<MudCard Class="ma-2 h-75">
+				<MudCardContent>
+					<MudText Typo="Typo.button" HtmlTag="h3">@Translations.VisitType:</MudText>
+					<MudText Typo="Typo.body1">@Visit.VisitType</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6">
+			<MudCard Class="ma-2  h-75">
+				<MudCardContent>
+					<MudText Typo="Typo.button" HtmlTag="h3">@Translations.DoctorName:</MudText>
+					<MudText Typo="Typo.body1">@Visit.DoctorName</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+	</MudGrid>
+
+	<MudGrid Class="flex-grow-1 ">
+		<MudItem xs="12" sm="6">
+			<MudCard Class="ma-2 h-75">
+				<MudCardContent>
+					<MudText Typo="Typo.button" HtmlTag="h3">@Translations.Date:</MudText>
+					<MudText Typo="Typo.body1">@Visit.Date.ToString("f")</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6">
+			<MudCard Class="ma-2 h-75">
+				<MudCardContent>
+					<MudText Typo="Typo.button" HtmlTag="h3">@Translations.PredictedVisitTime:</MudText>
+					<MudText Typo="Typo.body1">@PredictedTime.ToString(@"hh\:mm")</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+	</MudGrid>
 
 	<MudGrid Class="flex-grow-1">
-		<MudItem xs="12" sm="6">
+		<MudItem xs="12">
 			<MudCard Class="ma-2">
 				<MudCardContent>
-					<MudText Typo="Typo.subtitle1">Visit Type:</MudText>
-					<MudText Typo="Typo.body1">@Visit.VisitType</MudText>
-					</MudCardContent>
-				</MudCard>
-			</MudItem>
+					<MudText Typo="Typo.button" HtmlTag="h3">@Translations.Address:</MudText>
+					<MudText Typo="Typo.body1">@Translations.Street: <b>@Visit.Address.Street</b></MudText>
+					<MudText Typo="Typo.body1">@Translations.PostalCode: <b>@Visit.Address.PostalCode</b></MudText>
+					<MudText Typo="Typo.body1">@Translations.City: <b>@Visit.Address.City</b></MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+	</MudGrid>
 
-			<MudItem xs="12" sm="6">
-				<MudCard Class="ma-2">
-					<MudCardContent>
-						<MudText Typo="Typo.subtitle1">Doctor Name:</MudText>
-						<MudText Typo="Typo.body1">@Visit.DoctorName</MudText>
-					</MudCardContent>
-				</MudCard>
-			</MudItem>
-		</MudGrid>
+	<MudGrid Class="flex-grow-1">
+		<MudItem xs="12">
+			<MudCard Class="ma-2" Style="min-height: 120px;">
+				<MudCardContent>
+					<MudText Typo="Typo.button" HtmlTag="h3">@Translations.Description:</MudText>
+					<MudText Typo="Typo.body1">@Visit.VisitDescription</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+	</MudGrid>
 
-		<MudGrid Class="flex-grow-1">
-			<MudItem xs="12" sm="6">
-				<MudCard Class="ma-2">
-					<MudCardContent>
-						<MudText Typo="Typo.subtitle1">Visit Date:</MudText>
-						<MudText Typo="Typo.body1">@Visit.Date.ToString("f")</MudText>
-					</MudCardContent>
-				</MudCard>
-			</MudItem>
+	<MudGrid Class="align-items-end flex-grow-1 px-2">
 
-			<MudItem xs="12" sm="6">
-				<MudCard Class="ma-2">
-					<MudCardContent>
-						<MudText Typo="Typo.subtitle1">End Date:</MudText>
-						<MudText Typo="Typo.body1">@Visit.End.ToString("f")</MudText>
-					</MudCardContent>
-				</MudCard>
-			</MudItem>
-		</MudGrid>
-
-		<MudGrid Class="flex-grow-1">
-			<MudItem xs="12">
-				<MudCard Class="ma-2">
-					<MudCardContent>
-						<MudText Typo="Typo.subtitle1">Address:</MudText>
-						<MudText Typo="Typo.body1">@Visit.Address.Street, @Visit.Address.PostalCode @Visit.Address.City</MudText>
-					</MudCardContent>
-				</MudCard>
-			</MudItem>
-		</MudGrid>
-
-		<MudGrid Class="flex-grow-1">
-			<MudItem xs="12">
-				<MudCard Class="ma-2">
-					<MudCardContent>
-						<MudText Typo="Typo.subtitle1">Description:</MudText>
-						<MudText Typo="Typo.body1">@Visit.VisitDescription</MudText>
-					</MudCardContent>
-				</MudCard>
-			</MudItem>
-		</MudGrid>
-
-		<MudGrid Class="align-items-end flex-grow-1 px-2">
-
-			<MudItem xs="12" sm="4" Class="d-flex flex-column">
-				<MudButton Class="mt-auto" Variant="@MudBlazor.Variant.Filled" Color="@MudBlazor.Color.Primary" 
-					StartIcon="@Icons.Material.Filled.Edit">
-					@Translations.Edit
+		<MudItem xs="12" sm="4" Class="d-flex flex-column">
+			<MudButton  Variant="@MudBlazor.Variant.Filled" Color="@MudBlazor.Color.Primary"
+					   StartIcon="@Icons.Material.Filled.Edit" OnClick="@Edit">
+				@Translations.Edit
 			</MudButton>
 		</MudItem>
 
 		<MudItem xs="12" sm="4" Class="d-flex flex-column justify-end">
-			<MudButton Class="mt-auto" Variant="@MudBlazor.Variant.Filled" Color="MudBlazor.Color.Error"
-					   StartIcon="@Icons.Material.Filled.Delete">
+			<MudButton  Variant="@MudBlazor.Variant.Filled" Color="MudBlazor.Color.Error"
+					   StartIcon="@Icons.Material.Filled.Delete" OnClick="@(async () => await Delete())">
 				@Translations.Delete
 			</MudButton>
 		</MudItem>
 
 		<MudItem xs="12" sm="4" Class="d-flex flex-column justify-end">
-			<MudButton Class="mt-auto" Variant="@MudBlazor.Variant.Filled" Color="MudBlazor.Color.Info" 
-				StartIcon="@Icons.Material.Filled.ArrowBack">
-				Back
+			<MudButton  Variant="@MudBlazor.Variant.Filled" Color="MudBlazor.Color.Info"
+					   StartIcon="@Icons.Material.Filled.ArrowBack" OnClick="@ReturnToScheduler">
+				@Translations.Back
 			</MudButton>
 		</MudItem>
 

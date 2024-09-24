@@ -10,8 +10,6 @@ public static class Extensions
 	{
 		services.Configure<APIOptions>(configuration.GetSection(_apiOptionsSection));
 
-
-
 		services.AddHttpClient("api", (sp, conf) =>
 		{
 			var options = sp.GetRequiredService<IOptions<APIOptions>>().Value;

@@ -402,4 +402,52 @@
   <data name="ShowDetails" xml:space="preserve">
     <value>Pokaż szczegóły</value>
   </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Powiadomienia</value>
+  </data>
+  <data name="EditNotification" xml:space="preserve">
+    <value>Edytuj Powiadomienie</value>
+  </data>
+  <data name="EmptyNotificationDate" xml:space="preserve">
+    <value>Data nie może być pusta.</value>
+  </data>
+  <data name="EmptyNotificationTime" xml:space="preserve">
+    <value>Godzina nie może być pusta.</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="AddNotification" xml:space="preserve">
+    <value>Dodaj Powiadomienie</value>
+  </data>
+  <data name="NotificationAdded" xml:space="preserve">
+    <value>Pomyślnie dodano powiadomienie.</value>
+  </data>
+  <data name="VisitAlreadyTakenPlace" xml:space="preserve">
+    <value>Wizyta już się odbyła.</value>
+  </data>
+  <data name="ScheduledDateGreaterThanVisitDate" xml:space="preserve">
+    <value>Data nie może być większa niż data wizyty.</value>
+  </data>
+  <data name="NotificationEdited" xml:space="preserve">
+    <value>Powiadomienie zostało pomyślnie edytowana.</value>
+  </data>
+  <data name="DeletingNotificationQuestion" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć te powiadomienie ?</value>
+  </data>
+  <data name="NotificationDeleting" xml:space="preserve">
+    <value>Usuwanie Powiadomienia</value>
+  </data>
+  <data name="VisitNotFound" xml:space="preserve">
+    <value>Nie istnieje już taka wizyta lekarska.</value>
+  </data>
+  <data name="PredictedVisitTime" xml:space="preserve">
+    <value>Przewidywany Czas Wizyty</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Adres</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Powrót</value>
+  </data>
 </root>

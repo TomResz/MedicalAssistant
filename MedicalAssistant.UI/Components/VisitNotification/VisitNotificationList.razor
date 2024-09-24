@@ -1,0 +1,36 @@
+﻿@using MedicalAssistant.UI.Models.Notifications
+
+<MudPaper Elevation="4" Class="pa-4 list-grid">
+	<MudGrid>
+		<MudItem xs="12">
+			<MudText Typo="Typo.h6" Align="Align.Center" >
+				@Translations.Notifications 
+			</MudText>
+		</MudItem>
+		@if (!_loading)
+		{
+			@foreach (var notification in _notificationModels)
+			{
+				<MudItem xs="12">
+					<VisitNotificationItem VisitNotification="@notification"
+							OnNotificationDelete="@HandleDelete"
+							OnNotificationEdit="@HandleEdit"/>
+				</MudItem>
+			}
+		}
+	</MudGrid>
+	<MudFab StartIcon="@Icons.Material.Filled.Add" Color="Color.Primary" OnClick="Add" Class="fab-button" />
+
+</MudPaper>
+
+<style>
+	.list-grid{
+		height: calc(100vh - 104px);
+		overflow-y: auto;
+	}
+	.fab-button{
+		position: fixed;
+		bottom: 16px;
+		right: 16px;
+	}
+</style>

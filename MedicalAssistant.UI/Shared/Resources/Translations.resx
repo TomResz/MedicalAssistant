@@ -402,4 +402,52 @@
   <data name="ShowDetails" xml:space="preserve">
     <value>Show Details</value>
   </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="EditNotification" xml:space="preserve">
+    <value>Edit Notification</value>
+  </data>
+  <data name="EmptyNotificationDate" xml:space="preserve">
+    <value>Date cannot be empty.</value>
+  </data>
+  <data name="EmptyNotificationTime" xml:space="preserve">
+    <value>Time cannot be empty.</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddNotification" xml:space="preserve">
+    <value>Add Notification</value>
+  </data>
+  <data name="NotificationAdded" xml:space="preserve">
+    <value>Successfully added notification.</value>
+  </data>
+  <data name="VisitAlreadyTakenPlace" xml:space="preserve">
+    <value>The visit has already taken place.</value>
+  </data>
+  <data name="ScheduledDateGreaterThanVisitDate" xml:space="preserve">
+    <value>Scheduled date cannot be greater than visit date.</value>
+  </data>
+  <data name="NotificationEdited" xml:space="preserve">
+    <value>The notification has been successfully edited.</value>
+  </data>
+  <data name="DeletingNotificationQuestion" xml:space="preserve">
+    <value>Are you sure you want to delete this notification ?</value>
+  </data>
+  <data name="NotificationDeleting" xml:space="preserve">
+    <value>Deleting Notification</value>
+  </data>
+  <data name="VisitNotFound" xml:space="preserve">
+    <value>Such a medical visit no longer exists.</value>
+  </data>
+  <data name="PredictedVisitTime" xml:space="preserve">
+    <value>Predicted Visit Time</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
 </root>

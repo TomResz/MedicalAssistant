@@ -3,7 +3,7 @@ using MedicalAssistant.UI.Models.Validator;
 
 namespace MedicalAssistant.UI.Models.PasswordChange;
 
-public sealed class ForgotPasswordModelValidator : AbstractValidator<ForgotPasswordModel>
+public sealed class ForgotPasswordModelValidator : BaseValidator<ForgotPasswordModel>
 {
 	public ForgotPasswordModelValidator()
 	{
@@ -11,12 +11,4 @@ public sealed class ForgotPasswordModelValidator : AbstractValidator<ForgotPassw
 		RuleFor(x => x.Email)
 			.EmailMustBeValid();
 	}
-	public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
-	{
-		var result = await ValidateAsync(ValidationContext<ForgotPasswordModel>.CreateWithOptions((ForgotPasswordModel)model,
-			x => x.IncludeProperties(propertyName)));
-		if (result.IsValid)
-			return Array.Empty<string>();
-		return result.Errors.Select(e => e.ErrorMessage);
-	};
 }

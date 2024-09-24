@@ -1,10 +1,11 @@
 ﻿using FluentValidation;
+using MedicalAssistant.UI.Models.Validator;
 using MedicalAssistant.UI.Shared.Resources;
 using System.Text.RegularExpressions;
 
 namespace MedicalAssistant.UI.Models.Visits;
 
-public class VisitViewModelValidator : AbstractValidator<VisitViewModel>
+public class VisitViewModelValidator : BaseValidator<VisitViewModel>
 {
 	private readonly Regex _postalCodeRegex = new("\\d{2}-\\d{3}", RegexOptions.Compiled);
 	public VisitViewModelValidator()
@@ -53,13 +54,4 @@ public class VisitViewModelValidator : AbstractValidator<VisitViewModel>
 	}
 	private bool IsPredictedTimeValid(TimeSpan? time) 
 		=> time is not null && time.Value > TimeSpan.FromSeconds(0);
-
-	public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
-	{
-		var result = await ValidateAsync(ValidationContext<VisitViewModel>.CreateWithOptions((VisitViewModel)model,
-			x => x.IncludeProperties(propertyName)));
-		if (result.IsValid)
-			return Array.Empty<string>();
-		return result.Errors.Select(e => e.ErrorMessage);
-	};
 }

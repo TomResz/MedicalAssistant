@@ -1,4 +1,6 @@
 ﻿@page "/visit/{VisitId:guid}"
+@using MedicalAssistant.UI.Components
+@using MedicalAssistant.UI.Components.VisitNotification
 @using MedicalAssistant.UI.Components.Visits
 
 
@@ -9,7 +11,7 @@
 			<MudCard Class="visit-card">
 				@if (_isVisitLoading)
 			{
-				<MudSkeleton Height="100%" Class="ma-2" Animation="Animation.Pulse" />
+				<LoadingSkeletonComponent  Class="ma-2"/>
 			}
 			else
 			{
@@ -22,11 +24,11 @@
 		<MudCard Class="visit-card">
 			@if (_areNotificationLoading)
 			{
-				<MudSkeleton Height="100%" Class="ma-2" Animation="Animation.Pulse" />
+				<LoadingSkeletonComponent Class="ma-2" />
 			}
 			else
 			{
-
+				<VisitNotificationList Notifications="@_visitNotifications" VisitId="@VisitId"/>
 			}
 		</MudCard>
 	</MudItem>

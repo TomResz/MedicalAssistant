@@ -26,6 +26,7 @@ internal sealed class GetVisitDetailsQueryHandler
 		var userId = _userContext.GetUserId;
 		var visit = await _context
 			.Visits
+			.AsNoTracking()
 			.FirstOrDefaultAsync(
 				x => x.UserId == userId &&
 					x.Id == new VisitId(request.VisitId), cancellationToken);

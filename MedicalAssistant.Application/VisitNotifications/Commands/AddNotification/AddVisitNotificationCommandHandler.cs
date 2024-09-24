@@ -2,6 +2,7 @@
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Dto.Mappers;
+using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Domain.Entites;
 using MedicalAssistant.Domain.Exceptions;
 using MedicalAssistant.Domain.Repositories;
@@ -45,9 +46,11 @@ internal sealed class AddVisitNotificationCommandHandler
 			throw new UnknownVisitException();
 		}
 
+		Validate(request, visit);
+
 		VisitNotificationId notificationId = Guid.NewGuid();
 		string jobId = _notificationScheduler.ScheduleJob(visitId, notificationId, date);
-		
+
 		try
 		{
 			var visitNotification = VisitNotification.Create(
@@ -58,7 +61,7 @@ internal sealed class AddVisitNotificationCommandHandler
 				   visitId);
 
 			visit.AddNotification(visitNotification);
-			
+
 			_notificationRepository.Add(visitNotification);
 			await _unitOfWork.SaveChangesAsync(cancellationToken);
 
@@ -70,5 +73,18 @@ internal sealed class AddVisitNotificationCommandHandler
 			throw;
 		}
 
+	}
+
+	private static void Validate(AddVisitNotificationCommand request, Visit visit)
+	{
+		if (visit.Date <= new Date(request.CurrentDate))
+		{
+			throw new InvalidVisitNotificationDateException();
+		}
+
+		if (visit.Date <= new Date(request.ScheduledDate))
+		{
+			throw new ScheduledDateCannotBeGreatestThanDateException();
+		}
 	}
 }
