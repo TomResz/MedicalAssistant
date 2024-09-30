@@ -1,5 +1,3 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
@@ -16,6 +14,8 @@ COPY ["MedicalAssistant.Shared/MedicalAssistant.Shared.csproj", "MedicalAssistan
 COPY ["MedicalAssistant.Infrastructure/MedicalAssistant.Infrastructure.csproj", "MedicalAssistant.Infrastructure/"]
 COPY ["MedicalAssistant.UI/MedicalAssistant.UI.csproj", "MedicalAssistant.UI/"]
 RUN dotnet restore "./MedicalAssistant.API/./MedicalAssistant.API.csproj"
+
+
 COPY . .
 WORKDIR "/src/MedicalAssistant.API"
 RUN dotnet build "./MedicalAssistant.API.csproj" -c $BUILD_CONFIGURATION -o /app/build

@@ -1,4 +1,5 @@
 ﻿using MedicalAssistant.Application.Contracts;
+using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Domain.ValueObjects.IDs;
 using Microsoft.AspNetCore.SignalR;
 
@@ -12,8 +13,8 @@ internal sealed class NotificationSender : INotificationSender
 		_hubContext = hubContext;
 	}
 
-	public async Task SendNotification(UserId userId,string content)
+	public async Task SendNotification(UserId userId,NotificationDto notification)
 	{
-		await _hubContext.Clients.User(userId.Value.ToString()).ReceiveNotification(content);
+		await _hubContext.Clients.User(userId.Value.ToString()).ReceiveNotification(notification);
 	}
 }

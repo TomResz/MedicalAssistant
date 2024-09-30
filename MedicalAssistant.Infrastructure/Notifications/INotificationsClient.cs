@@ -1,6 +1,8 @@
-﻿namespace MedicalAssistant.Infrastructure.Notifications;
+﻿using MedicalAssistant.Application.Dto;
+
+namespace MedicalAssistant.Infrastructure.Notifications;
 
 public interface INotificationsClient
 {
-	Task ReceiveNotification(string content);
+	Task ReceiveNotification(NotificationDto notification);
 }

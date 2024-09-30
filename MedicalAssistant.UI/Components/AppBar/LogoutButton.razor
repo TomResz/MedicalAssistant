@@ -18,12 +18,12 @@
 </MudMessageBox>
 @code {
 
-    private readonly MudBlazor.DialogOptions _topCenter = new() { Position = MudBlazor.DialogPosition.TopCenter };
+    private readonly MudBlazor.DialogOptions _options = new() { Position = MudBlazor.DialogPosition.TopCenter };
     private MudMessageBox _mudMessageBox;
 
 	public async Task Logout()
 	{
-		bool? resultOfDialog = await _mudMessageBox.ShowAsync(_topCenter);
+		bool? resultOfDialog = await _mudMessageBox.ShowAsync(_options);
 		if(resultOfDialog is not null && resultOfDialog is true)
 		{
 			await RefreshTokenService.Revoke();

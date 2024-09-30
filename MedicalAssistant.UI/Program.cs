@@ -5,6 +5,7 @@ using MedicalAssistant.UI.Shared.Services.Abstraction;
 using MedicalAssistant.UI.Shared.Services.Auth;
 using MedicalAssistant.UI.Shared.Services.HubToken;
 using MedicalAssistant.UI.Shared.Services.Language;
+using MedicalAssistant.UI.Shared.Services.Notification;
 using MedicalAssistant.UI.Shared.Services.Notifications;
 using MedicalAssistant.UI.Shared.Services.RefreshToken;
 using MedicalAssistant.UI.Shared.Services.Time;
@@ -42,6 +43,7 @@ builder.Services.AddScoped<MedicalAssistAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(
 	sp => sp.GetRequiredService<MedicalAssistAuthenticationStateProvider>());
 
+builder.Services.AddScoped<INotificationService, MedicalAssistant.UI.Shared.Services.Notification.NotificationService>();
 builder.Services.AddScoped<ILanguageManager,LanguageManager>();
 builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
 builder.Services.AddScoped<IUserAuthService, UserAuthService>();

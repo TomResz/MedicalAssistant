@@ -619,6 +619,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notification Of Visit.
+        /// </summary>
+        internal static string NotificationOfVisit {
+            get {
+                return ResourceManager.GetString("NotificationOfVisit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notifications.
         /// </summary>
         internal static string Notifications {
@@ -966,6 +975,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string VisitAlreadyTakenPlace {
             get {
                 return ResourceManager.GetString("VisitAlreadyTakenPlace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date of visit: {0}.
+        /// </summary>
+        internal static string VisitDateCommunicate {
+            get {
+                return ResourceManager.GetString("VisitDateCommunicate", resourceCulture);
             }
         }
         

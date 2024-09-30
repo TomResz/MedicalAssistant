@@ -20,7 +20,15 @@ public static class Extensions
 	{
 		if (response.IsSuccessStatusCode)
 		{
-			var content = JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync())!;
+			var json = await response.Content.ReadAsStringAsync();
+
+			if (string.IsNullOrEmpty(json))
+			{
+				return new(default, true);
+			}
+
+			var content = JsonSerializer.Deserialize<T?>(json,
+								new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
 			return new(content,true);
 		}
 		var errorDetails = JsonSerializer.Deserialize<BaseErrorDetails>(await response.Content.ReadAsStringAsync())!;

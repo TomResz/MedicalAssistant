@@ -35,7 +35,11 @@ public class NotificationHistory
 		DateOfRead = dateOfRead;
 		Type = type;
 	}
-
+	public bool MarkAsRead()
+	{
+		WasRead = true;
+		return WasRead;
+	}
 	public static NotificationHistory Create(
 		UserId userId,
 		ContentJson contentJson,

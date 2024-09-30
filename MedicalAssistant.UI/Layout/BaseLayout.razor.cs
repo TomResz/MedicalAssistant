@@ -50,11 +50,6 @@ public partial class BaseLayout
 			{
 				_isDarkMode = true;
 			}
-			else
-			{
-				_isDarkMode = await _mudThemeProvider.GetSystemPreference();
-
-			}
 			await JSRuntime.InvokeVoidAsync("setRadzenComponentsTheme", _isDarkMode);
 			StateHasChanged();
 		}

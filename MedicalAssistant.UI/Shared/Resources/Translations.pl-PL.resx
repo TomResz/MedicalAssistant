@@ -450,4 +450,10 @@
   <data name="Back" xml:space="preserve">
     <value>Powrót</value>
   </data>
+  <data name="NotificationOfVisit" xml:space="preserve">
+    <value>Powiadomienie o Wizycie</value>
+  </data>
+  <data name="VisitDateCommunicate" xml:space="preserve">
+    <value>Data wizyty to: {0}</value>
+  </data>
 </root>
