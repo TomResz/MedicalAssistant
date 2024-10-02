@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using MedicalAssistant.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MedicalAssistant.Infrastructure.Migrations
 {
     [DbContext(typeof(MedicalAssistDbContext))]
-    partial class MedicalAssistDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240930140301_addedMultipleRefreshToken")]
+    partial class addedMultipleRefreshToken
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,7 +28,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
             modelBuilder.Entity("MedicalAssistant.Domain.ComplexTypes.TokenHolder", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("RefreshToken")
@@ -36,14 +39,9 @@ namespace MedicalAssistant.Infrastructure.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("RefreshTokenExpirationUtc");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                    b.HasKey("UserId");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("TokenHolders");
+                    b.ToTable("TokenHolder");
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.Entites.ExternalUserLogin", b =>

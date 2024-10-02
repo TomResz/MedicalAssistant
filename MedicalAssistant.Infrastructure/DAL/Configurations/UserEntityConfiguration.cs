@@ -1,5 +1,4 @@
-﻿using MedicalAssistant.Domain.ComplexTypes;
-using MedicalAssistant.Domain.Entites;
+﻿using MedicalAssistant.Domain.Entites;
 using MedicalAssistant.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -22,27 +21,16 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
             .IsRequired()
             .OnDelete(DeleteBehavior.Cascade);
 
+        builder.HasMany(x=>x.RefreshTokens)
+            .WithOne()
+            .HasForeignKey(x=>x.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         builder.Property(x => x.Id)
             .HasConversion(
                 x => x.Value,
                 x => new(x))
             .IsRequired();
-
-        builder.ComplexProperty(x => x.RefreshTokenHolder, conf =>
-        {
-            conf.Property(x=> x.RefreshToken)   
-                .HasColumnName(nameof(RefreshTokenHolder.RefreshToken))
-                .HasConversion(x=>x!.Value, x => new(x))
-                .IsRequired(false);    
-
-            conf.Property(x=>x.RefreshTokenExpirationUtc)
-                .HasColumnName(nameof(RefreshTokenHolder.RefreshTokenExpirationUtc))
-                .HasConversion(x=>x!.Value, x => new(x))
-                .IsRequired(false);
-
-            conf.IsRequired(true);
-        });
-
 
         builder.Navigation(x => x.UserVerification)
             .IsRequired(false);

@@ -6,6 +6,7 @@ using MedicalAssistant.Application.Security;
 using MedicalAssistant.Domain.Abstraction;
 using MedicalAssistant.Domain.Exceptions;
 using MedicalAssistant.Domain.Repositories;
+using MedicalAssistant.Domain.ValueObjects;
 
 namespace MedicalAssistant.Application.User.Commands.RefreshToken;
 internal sealed class RefreshTokenCommandHandler
@@ -32,39 +33,46 @@ internal sealed class RefreshTokenCommandHandler
     }
 
     public async Task<RefreshTokenResponse> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
-    {
-        var email = _refreshTokenService.GetEmailFromExpiredToken(request.OldAccessToken)
-            ?? throw new EmptyEmailException();
+	{
+		var id = _refreshTokenService.GetUserIdFromExpiredToken(request.OldAccessToken)
+			?? throw new EmptyEmailException();
 
-        var user = await _userRepository.GetByEmailAsync(email, cancellationToken);
+		Domain.Entites.User? user = await _userRepository.GetWithRefreshTokens(id, cancellationToken);
 
-        if (user is null)
-        {
-            throw new UserNotFoundException();
-        }
+		if (user is null)
+		{
+			throw new UserNotFoundException();
+		}
 
-        Validate(request, user);
+		Validate(request, user);
 
-        user.ChangeRefreshTokenHolder(_refreshTokenService.Generate(_clock.GetCurrentUtc()));
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+		var refreshTokenHolder = _refreshTokenService.Generate(_clock.GetCurrentUtc(), user.Id);
 
-        var jwt = _authenticator.GenerateToken(user);
 
-        return new(
-            jwt.AccessToken,
-            user.RefreshTokenHolder.RefreshToken!);
-    }
+		user.RemoveRefreshToken(request.OldAccessToken);
+		user.AddRefreshToken(refreshTokenHolder);
 
-    private void Validate(RefreshTokenCommand request, Domain.Entites.User user)
-    {
-        if (user.RefreshTokenHolder.RefreshToken != request.RefreshToken)
-        {
-            throw new InvalidRefreshTokenException();
-        }
+		_userRepository.Update(user);
 
-        if (user.RefreshTokenHolder.RefreshTokenExpirationUtc?.Value <= _clock.GetCurrentUtc())
-        {
-            throw new RefreshTokenExpiredException();
-        }
-    }
+		await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+		var jwt = _authenticator.GenerateToken(user);
+
+		return new(
+			jwt.AccessToken,
+			refreshTokenHolder.RefreshToken);
+	}
+
+	private void Validate(RefreshTokenCommand request, Domain.Entites.User user)
+	{
+		var refreshToken = user.RefreshTokens
+			.Where(x => x.RefreshToken == request.RefreshToken)
+			.First();
+
+		if (refreshToken.RefreshTokenExpirationUtc < new Date(_clock.GetCurrentUtc()))
+		{
+			user.RemoveRefreshToken(refreshToken.RefreshToken);
+			throw new RefreshTokenExpiredException();
+		}
+	}
 }

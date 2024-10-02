@@ -23,6 +23,7 @@ internal sealed class UserRepository : IUserRepository
 	public async Task<User?> GetByEmailAsync(Domain.ValueObjects.Email email, CancellationToken cancellationToken = default)
         => await _context
         .Users
+        .Include(x=>x.RefreshTokens)
         .FirstOrDefaultAsync( x => x.Email == email,cancellationToken);
 
 	public async Task<User?> GetByIdAsync(UserId userId, CancellationToken cancellationToken = default)
@@ -70,4 +71,10 @@ internal sealed class UserRepository : IUserRepository
         .Users
         .Include(x=>x.UserSettings)
         .FirstOrDefaultAsync(x=>x.Id ==  userId, cancellationToken);
+
+    public async Task<User?> GetWithRefreshTokens(UserId id,CancellationToken cancellationToken)
+        => await _context
+        .Users
+        .Include(x => x.RefreshTokens)
+        .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 }

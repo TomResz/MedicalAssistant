@@ -70,7 +70,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseInfrastructure();
-
+app.UseRecurringBackgroundJobs();
 app.MapHub<NotificationHub>("notifications");
 
 app.Run();

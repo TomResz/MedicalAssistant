@@ -26,7 +26,15 @@ public class Visit : AggregateRoot<VisitId>
 
     private Visit() { }
 
-    private Visit(VisitId id,UserId userId,Address address,Date date, DoctorName doctorName,VisitDescription visitDescription,VisitType visitType,Date predictedEndDate)
+    private Visit(
+		VisitId id,
+		UserId userId,
+		Address address,
+		Date date,
+		DoctorName doctorName,
+		VisitDescription visitDescription,
+		VisitType visitType,
+		Date predictedEndDate)
     {
         Id = id;
         UserId = userId;

@@ -1,4 +1,5 @@
-﻿using MedicalAssistant.Domain.Entites;
+﻿using MedicalAssistant.Domain.ComplexTypes;
+using MedicalAssistant.Domain.Entites;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedicalAssistant.Infrastructure.DAL;
@@ -11,6 +12,7 @@ internal sealed class MedicalAssistDbContext : DbContext
     public DbSet<VisitNotification> VisitNotifications { get; set; }
     public DbSet<UserSettings> UserSettings { get; set; }
     public DbSet<NotificationHistory> NotificationHistories { get; set; }
+    public DbSet<TokenHolder> TokenHolders { get; set; }
     public MedicalAssistDbContext(DbContextOptions<MedicalAssistDbContext> options) : base(options) 
     {
     }

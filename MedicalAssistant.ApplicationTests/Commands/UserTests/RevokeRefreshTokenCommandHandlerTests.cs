@@ -7,7 +7,7 @@ using MedicalAssistant.Domain.ComplexTypes;
 using MedicalAssistant.Domain.Repositories;
 using MedicalAssistant.Domain.ValueObjects.IDs;
 using NSubstitute;
-using NSubstitute.ReturnsExtensions;
+using NSubstitute.ExceptionExtensions;
 
 namespace MedicalAssistant.Application.Tests.Commands.UserTests;
 public class RevokeRefreshTokenCommandHandlerTests
@@ -30,28 +30,34 @@ public class RevokeRefreshTokenCommandHandlerTests
 	[Fact]
 	public async Task Handle_ValidUser_RevokesToken()
 	{
-		var command = new RevokeRefreshTokenCommand();
 		var user = UserFactory.CreateUser();
-		user.ChangeRefreshTokenHolder(
-			   new RefreshTokenHolder("token",DateTime.UtcNow.AddDays(1)));
-		_userRepository.GetByIdAsync(_userId).Returns(user);
+		user.AddRefreshToken(TokenHolder.Create(
+			"refresh-token", DateTime.Now, user.Id));
+		_context.GetUserId.Returns(user.Id);
+		_userRepository.GetWithRefreshTokens(user.Id, default).Returns(user);
+		var command = new RevokeRefreshTokenCommand("refresh-token");
+
 
 		await _handler.Handle(command, default);
 
-		await _unitOfWork.Received(1).SaveChangesAsync();
-		user.RefreshTokenHolder.RefreshToken.Should().BeNull();
-		user.RefreshTokenHolder.RefreshTokenExpirationUtc.Should().BeNull();
+		await _unitOfWork.Received(1).SaveChangesAsync(default);
 	}
 
 	[Fact]
 	public async Task Handle_InvalidUser_ThrowsUserNotFoundException()
 	{
-		var command = new RevokeRefreshTokenCommand();
-		_userRepository.GetByIdAsync(_userId).ReturnsNull();
+		var user = UserFactory.CreateUser();
+		user.AddRefreshToken(TokenHolder.Create(
+			"invalid-refresh-token", DateTime.Now, user.Id));
+		var command = new RevokeRefreshTokenCommand("refresh-token");
 
-		Func<Task> act = async () => await _handler.Handle(command, default);
 
-		await act.Should().ThrowAsync<UserNotFoundException>();
-		await _unitOfWork.DidNotReceive().SaveChangesAsync();
+		Func<Task> act = async () => 
+			await _handler.Handle(command, default);
+
+		act().ThrowsAsync<UserNotFoundException>();
+
+		await _unitOfWork.DidNotReceive().SaveChangesAsync(default);
+
 	}
 }

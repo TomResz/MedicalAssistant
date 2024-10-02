@@ -8,6 +8,7 @@ using MedicalAssistant.Domain.Abstraction;
 using MedicalAssistant.Domain.ComplexTypes;
 using MedicalAssistant.Domain.Repositories;
 using MedicalAssistant.Domain.ValueObjects;
+using MedicalAssistant.Domain.ValueObjects.IDs;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 
@@ -61,7 +62,10 @@ public class ExternalAuthenticationCommandHandlerTests
 			  user.ExternalUserProvider.Provider);
 
 		_userRepository.GetByEmailWithExternalProviderAsync(user.Email).ReturnsNull();
-		_refreshTokenService.Generate(_clock.GetCurrentUtc()).Returns(new RefreshTokenHolder(refreshToken, _date.AddDays(1)));
+		
+		_refreshTokenService.Generate(_clock.GetCurrentUtc(), Arg.Any<UserId>())
+			.Returns(TokenHolder.Create(refreshToken, _date.AddDays(1), user.Id));
+		
 		_authenticator.GenerateToken(Arg.Any<Domain.Entites.User>())
 			.Returns(new Dto.JwtDto() { AccessToken = accessToken, Expiration = _date.AddMinutes(15) });
 
@@ -89,7 +93,8 @@ public class ExternalAuthenticationCommandHandlerTests
 			  user.ExternalUserProvider.Provider);
 
 		_userRepository.GetByEmailWithExternalProviderAsync(user.Email).Returns(user);
-		_refreshTokenService.Generate(_clock.GetCurrentUtc()).Returns(new RefreshTokenHolder(refreshToken, _date.AddDays(1)));
+		_refreshTokenService.Generate(_clock.GetCurrentUtc(), user.Id)
+			.Returns( TokenHolder.Create(refreshToken, _date.AddDays(1), user.Id));
 		_authenticator.GenerateToken(Arg.Any<Domain.Entites.User>())
 			.Returns(new Dto.JwtDto() { AccessToken = accessToken, Expiration = _date.AddMinutes(15) });
 
@@ -120,7 +125,8 @@ public class ExternalAuthenticationCommandHandlerTests
 			  "Google");
 
 		_userRepository.GetByEmailWithExternalProviderAsync(user.Email).Returns(user);
-		_refreshTokenService.Generate(_clock.GetCurrentUtc()).Returns(new RefreshTokenHolder(refreshToken, _date.AddDays(1)));
+		_refreshTokenService.Generate(_clock.GetCurrentUtc(), user.Id)
+			.Returns( TokenHolder.Create(refreshToken, _date.AddDays(1),user.Id));
 		_authenticator.GenerateToken(Arg.Any<Domain.Entites.User>())
 			.Returns(new Dto.JwtDto() { AccessToken = accessToken, Expiration = _date.AddMinutes(15) });
 

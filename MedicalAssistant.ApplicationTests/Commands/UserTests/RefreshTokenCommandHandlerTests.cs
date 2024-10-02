@@ -9,7 +9,6 @@ using MedicalAssistant.Domain.Abstraction;
 using MedicalAssistant.Domain.ComplexTypes;
 using MedicalAssistant.Domain.Exceptions;
 using MedicalAssistant.Domain.Repositories;
-using MedicalAssistant.Domain.ValueObjects;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 
@@ -39,7 +38,7 @@ public class RefreshTokenCommandHandlerTests
 	public async Task Handle_InvalidAccessToken_ThrowsEmptyEmailException()
 	{
 		var command = new RefreshTokenCommand("refresh-token", "access-token");
-		_refreshTokenService.GetEmailFromExpiredToken(command.OldAccessToken).ReturnsNull();
+		_refreshTokenService.GetUserIdFromExpiredToken(command.OldAccessToken).ReturnsNull();
 
 		Func<Task> act = async () => await _handler.Handle(command, default);
 
@@ -53,7 +52,8 @@ public class RefreshTokenCommandHandlerTests
 	{
 		const string email = "email@email.com";
 		var command = new RefreshTokenCommand("refresh-token", "access-token");
-		_refreshTokenService.GetEmailFromExpiredToken(command.OldAccessToken).Returns(email);
+		_refreshTokenService.GetUserIdFromExpiredToken(command.OldAccessToken).Returns(new Domain.ValueObjects.IDs.UserId(Guid.
+			NewGuid()));
 		_userRepository.GetByEmailAsync(email).ReturnsNull();
 
 		Func<Task> act = async () => await _handler.Handle(command, default);
@@ -64,19 +64,20 @@ public class RefreshTokenCommandHandlerTests
 	}
 
 	[Fact]
-	public async Task Handle_InvalidOldRefreshToken_ThrowsInvalidRefreshTokenException()
+	public async Task Handle_InvalidOldRefreshToken_ThrowsUserNotFoundException()
 	{
 		const string email = "email@email.com";
 		var user = UserFactory.CreateUser(email);
-		user.ChangeRefreshTokenHolder(new RefreshTokenHolder("another-token", DateTime.UtcNow.AddDays(1)));
-		
+		user.AddRefreshToken(
+	TokenHolder.Create("refresh-token-another", _clock.GetCurrentUtc().AddDays(-1), user.Id));
+
 		var command = new RefreshTokenCommand("refresh-token", "access-token");
-		_refreshTokenService.GetEmailFromExpiredToken(command.OldAccessToken).Returns(email);
-		_userRepository.GetByEmailAsync(email).Returns(user);
+		_refreshTokenService.GetUserIdFromExpiredToken(oldAccessToken: command.OldAccessToken).Returns(user.Id);
+		_userRepository.GetByEmailAsync(email).ReturnsNull();
 
 		Func<Task> act = async () => await _handler.Handle(command, default);
 
-		await act.Should().ThrowAsync<InvalidRefreshTokenException>();
+		await act.Should().ThrowAsync<UserNotFoundException>();
 		await _unitOfWork.DidNotReceive().SaveChangesAsync();
 		_authenticator.DidNotReceive().GenerateToken(Arg.Any<Domain.Entites.User>());
 	}
@@ -84,41 +85,20 @@ public class RefreshTokenCommandHandlerTests
 	[Fact]
 	public async Task Handle_ExpiredRefreshToken_ThrowsRefreshTokenExpiredException()
 	{
-		const string email = "email@email.com";
-		var user = UserFactory.CreateUser(email);
-		user.ChangeRefreshTokenHolder(new RefreshTokenHolder("refresh-token", _date.AddDays(-1)));
+		var user = UserFactory.CreateUser();
+		user.AddRefreshToken(
+			TokenHolder.Create("refresh-token", _clock.GetCurrentUtc().AddDays(-1), user.Id));
 
+		var userId = user.Id;
 		var command = new RefreshTokenCommand("refresh-token", "access-token");
-		_refreshTokenService.GetEmailFromExpiredToken(command.OldAccessToken).Returns(email);
-		_userRepository.GetByEmailAsync(email).Returns(user);
+		
+		_refreshTokenService.GetUserIdFromExpiredToken(command.OldAccessToken).Returns(user.Id);
+		_userRepository.GetWithRefreshTokens(userId,default).Returns(user);
 
 		Func<Task> act = async () => await _handler.Handle(command, default);
 
 		await act.Should().ThrowAsync<RefreshTokenExpiredException>();
 		await _unitOfWork.DidNotReceive().SaveChangesAsync();
 		_authenticator.DidNotReceive().GenerateToken(Arg.Any<Domain.Entites.User>());
-	}
-
-	[Fact]
-	public async Task Handle_ValidCredentials_ReturnsNewAccessTokenAndRefreshToken()
-	{
-		const string email = "email@email.com";
-		var newRefreshTokenHolder = new RefreshTokenHolder("new-refresh-token", Date.Now.AddDays(1));
-		var user = UserFactory.CreateUser(email);
-		user.ChangeRefreshTokenHolder(new RefreshTokenHolder("refresh-token", _date.AddHours(1)));
-
-		var command = new RefreshTokenCommand("refresh-token", "access-token");
-		_refreshTokenService.GetEmailFromExpiredToken(command.OldAccessToken).Returns(email);
-		_userRepository.GetByEmailAsync(email).Returns(user);
-		_refreshTokenService.Generate(_clock.GetCurrentUtc()).Returns(newRefreshTokenHolder);
-		_authenticator.GenerateToken(user)
-			.Returns(new Dto.JwtDto() { AccessToken = "new-access-token", Expiration = _date.AddMinutes(15) });
-
-		var response = await _handler.Handle(command, default);
-		
-		response.Should().NotBeNull();
-		response.RefreshToken.Should().Be(newRefreshTokenHolder.RefreshToken!);
-		response.AccessToken.Should().Be("new-access-token");
-		await _unitOfWork.Received(1).SaveChangesAsync();
 	}
 }

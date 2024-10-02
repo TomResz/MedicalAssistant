@@ -1,9 +1,10 @@
-﻿@using MedicalAssistant.UI.Shared.Services.Auth
+﻿@using MedicalAssistant.UI.Shared.Services.Abstraction
+@using MedicalAssistant.UI.Shared.Services.Auth
 @using MedicalAssistant.UI.Shared.Services.RefreshToken
 @inject AuthenticationStateProvider AuthenticationProvider
 @inject IRefreshTokenService RefreshTokenService
 @inject IDialogService Dialog
-
+@inject ITokenManager TokenManager
 <MudMenuItem OnClick="async ()=> await Logout()">@Translations.Log_out</MudMenuItem>
 
 <MudMessageBox @ref="_mudMessageBox" Title="@Translations.Log_out" CancelText="@Translations.Cancel">
@@ -18,15 +19,16 @@
 </MudMessageBox>
 @code {
 
-    private readonly MudBlazor.DialogOptions _options = new() { Position = MudBlazor.DialogPosition.TopCenter };
-    private MudMessageBox _mudMessageBox;
+	private readonly MudBlazor.DialogOptions _options = new() { Position = MudBlazor.DialogPosition.TopCenter };
+	private MudMessageBox _mudMessageBox;
 
 	public async Task Logout()
 	{
 		bool? resultOfDialog = await _mudMessageBox.ShowAsync(_options);
 		if(resultOfDialog is not null && resultOfDialog is true)
 		{
-			await RefreshTokenService.Revoke();
+			string refreshToken = await TokenManager.GetRefreshToken() ?? "";
+			await RefreshTokenService.Revoke(refreshToken);
 			await (AuthenticationProvider as MedicalAssistAuthenticationStateProvider)!.LogOutAsync();
 		}
 	}

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using MedicalAssistant.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MedicalAssistant.Infrastructure.Migrations
 {
     [DbContext(typeof(MedicalAssistDbContext))]
-    partial class MedicalAssistDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240930171027_addedPrimaryIdTokenHolder")]
+    partial class addedPrimaryIdTokenHolder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

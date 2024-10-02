@@ -3,18 +3,18 @@
 namespace MedicalAssistant.Domain.ValueObjects;
 public sealed record RefreshToken
 {
-    public string? Value { get; init; }
+    public string Value { get; init; }
 
     public RefreshToken(string? value)
     {
-        if (value is not null && value.Length is 0 ) 
+        if (string.IsNullOrEmpty(value)) 
         {
             throw new EmptyRefreshTokenException();
         }
         Value = value;
     }
 
-    public static implicit operator RefreshToken(string? value) => new(value);
-    public static implicit operator string?(RefreshToken value) => value?.Value;
+    public static implicit operator RefreshToken(string value) => new(value);
+    public static implicit operator string(RefreshToken value) => value.Value;
 
 }

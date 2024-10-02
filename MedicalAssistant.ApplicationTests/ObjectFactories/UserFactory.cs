@@ -2,7 +2,6 @@
 using MedicalAssistant.Domain.Enums;
 using MedicalAssistant.Domain.ValueObjects;
 using System.Reflection;
-using System.Reflection.Emit;
 
 namespace MedicalAssistant.Application.Tests.ObjectFactories;
 public static class UserFactory
@@ -58,7 +57,6 @@ public static class UserFactory
 	DateTime.UtcNow,
 	key,
 	 provider,
-		new RefreshTokenHolder("refreshToken",DateTime.UtcNow.AddDays(1)),
 		   Languages.English);
 
 		return user;

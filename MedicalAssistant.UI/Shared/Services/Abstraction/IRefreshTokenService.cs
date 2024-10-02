@@ -4,6 +4,6 @@ namespace MedicalAssistant.UI.Shared.Services.RefreshToken;
 
 public interface IRefreshTokenService
 {
-	Task<bool> Revoke();
+	Task<bool> Revoke(string refreshToken);
 	Task<SignInResponse?> RefreshToken(string accessToken,string refreshToken);
 }

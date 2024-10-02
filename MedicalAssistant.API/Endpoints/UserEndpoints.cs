@@ -79,11 +79,11 @@ public sealed class UserEndpoints : IEndpoints
 			return Results.Ok(response);
 		});
 
-		group.MapPut("revoke", async (IMediator _mediator) =>
+		group.MapPut("revoke", async (IMediator _mediator, RevokeRefreshTokenCommand command) =>
 		{
-			await _mediator.Send(new RevokeRefreshTokenCommand());
+			await _mediator.Send(command);
 			return Results.NoContent();	
-		}).RequireAuthorization();
+		}).RequireAuthorization(Permissions.Permissions.VerifiedUser);
 
 		group.MapPost("login-google", async (IMediator _mediator, GoogleAuthenticationCommand command) =>
 		{

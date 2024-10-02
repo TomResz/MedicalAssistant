@@ -22,14 +22,14 @@ internal sealed class RevokeRefreshTokenCommandHandler : IRequestHandler<RevokeR
     {
         var userId = _context.GetUserId;
 
-        var user = await _userRepository.GetByIdAsync(userId,cancellationToken);
+        var user = await _userRepository.GetWithRefreshTokens(userId,cancellationToken);
 
         if(user is null)
         {
             throw new UserNotFoundException();
         }
 
-        user.RevokeRefreshToken();
+        user.RemoveRefreshToken(request.RefreshToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
     }
 }

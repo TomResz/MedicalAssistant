@@ -1,5 +1,6 @@
 ﻿using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Domain.ComplexTypes;
+using MedicalAssistant.Domain.ValueObjects.IDs;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -17,7 +18,7 @@ internal sealed class RefreshTokenService : IRefreshTokenService
         _authOptions = authOptions;
     }
 
-    public RefreshTokenHolder Generate(DateTime date)
+    public TokenHolder Generate(DateTime date,UserId userId)
     {
         var expirationTime = date.Add(_authOptions.Value.RefreshTokenExpiration ?? TimeSpan.FromHours(12));
 
@@ -27,15 +28,20 @@ internal sealed class RefreshTokenService : IRefreshTokenService
         rng.GetBytes(randomHash);
         string hashString = Convert.ToBase64String(randomHash);
 
-        return new(hashString, expirationTime);
+        return TokenHolder.Create(hashString, expirationTime, userId);
     }
 
-	public string? GetEmailFromExpiredToken(string oldAccessToken)
+	public UserId? GetUserIdFromExpiredToken(string oldAccessToken)
 	{
         var claims = PrincipalsFromExpiredToken(oldAccessToken);
-        var email = claims?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-
-        return email;
+        var idValue = claims?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        
+        if (Guid.TryParse(idValue, out var id))
+        {
+            return id;
+        }
+        
+        return null;
 	}
 
 	public ClaimsPrincipal? PrincipalsFromExpiredToken(string oldAccessToken)

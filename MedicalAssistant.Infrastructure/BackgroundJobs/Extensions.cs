@@ -3,6 +3,7 @@ using Hangfire.PostgreSql;
 using HangfireBasicAuthenticationFilter;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Infrastructure.BackgroundJobs;
+using MedicalAssistant.Infrastructure.BackgroundJobs.RecurringJobs;
 using MedicalAssistant.Infrastructure.DAL.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -36,8 +37,22 @@ public static class Extensions
 
         services.AddSingleton<IEventPublisher, EventPublisher>();
         services.AddSingleton<IVisitNotificationScheduler, VisitNotificationScheduler>();
+        services.AddScoped<IExpiredTokenRemovalJob,ExpiredTokenRemovalJob>();
+
         return services;
     }
+
+    public static IApplicationBuilder UseRecurringBackgroundJobs(this WebApplication app)
+    {
+        app.Services
+            .GetRequiredService<IRecurringJobManager>()
+            .AddOrUpdate<IExpiredTokenRemovalJob>(
+                "expired-token-deletion-job",
+                    job => job.ProcessAsync(),
+                    "*/2 * * * *");
+        return app;
+	}
+
 
     public static IApplicationBuilder UseHangfireDashboard(this IApplicationBuilder app, IConfiguration configuration)
     {

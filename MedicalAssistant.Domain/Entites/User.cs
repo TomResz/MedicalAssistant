@@ -16,7 +16,6 @@ public class User : AggregateRoot<UserId>
 	public Date CreatedAtUtc { get; private set; }
 	public ExternalUserLogin? ExternalUserProvider { get; private set; }
 	public UserVerification? UserVerification { get; private set; }
-	public RefreshTokenHolder RefreshTokenHolder { get; private set; } = null;
     public UserSettings UserSettings { get; private set; }
 	public bool IsVerified { get; private set; } = false;
 	public bool HasExternalLoginProvider { get; private set; } = false;
@@ -27,9 +26,20 @@ public class User : AggregateRoot<UserId>
 	private readonly HashSet<NotificationHistory> _notificationHistories = new();
 	public IEnumerable<NotificationHistory> NotificationHistories => _notificationHistories;
 
+	private readonly HashSet<TokenHolder> _refreshTokens = new();
+	public IEnumerable<TokenHolder> RefreshTokens => _refreshTokens;
+	
 	protected User() { }
 	
-	private User(UserId id, Email email, Password password, FullName fullName, Role role, Date createdAtUtc,bool hasExternalLoginProvider,bool isVerified)
+	private User(
+		UserId id,
+		Email email,
+		Password password,
+		FullName fullName,
+		Role role,
+		Date createdAtUtc,
+		bool hasExternalLoginProvider,
+		bool isVerified)
 	{
 		Id = id;
 		Email = email;
@@ -42,7 +52,14 @@ public class User : AggregateRoot<UserId>
 	}
 
 	// For external login provider
-    private User(UserId id, Email email, FullName fullName, Role role, Date createdAtUtc, bool hasExternalLoginProvider, bool isVerified)
+    private User(
+		UserId id,
+		Email email,
+		FullName fullName,
+		Role role,
+		Date createdAtUtc,
+		bool hasExternalLoginProvider,
+		bool isVerified)
     {
         Id = id;
         Email = email;
@@ -55,7 +72,13 @@ public class User : AggregateRoot<UserId>
 
 
 
-    public static User Create(Email email, Password password, FullName fullName, Role role, Date createdAtUtc,CodeHash codeHash,Languages language)
+    public static User Create(Email email, 
+		Password password, 
+		FullName fullName, 
+		Role role, 
+		Date createdAtUtc,
+		CodeHash codeHash,
+		Languages language)
 	{
 		User user = new User(
 			 Guid.NewGuid(),
@@ -67,7 +90,6 @@ public class User : AggregateRoot<UserId>
 			 false,
 			 false);
 
-		user.RefreshTokenHolder = RefreshTokenHolder.CreateEmpty();
 		user.UserVerification = new UserVerification(user.Id,createdAtUtc.AddHours(2),codeHash);
 		
 		user.UserSettings = UserSettings.Create(user.Id, language);
@@ -75,12 +97,17 @@ public class User : AggregateRoot<UserId>
 		return user;
 	}
 
-    public static User CreateByExternalProvider(Email email,FullName fullName, Role role, Date createdAtUtc,ProvidedKey key,Provider provider,RefreshTokenHolder tokenHolder,
+    public static User CreateByExternalProvider(Email email,
+		FullName fullName, 
+		Role role, 
+		Date createdAtUtc,
+		ProvidedKey key,
+		Provider provider,
 		Languages language)
     {
 		Guid id = Guid.NewGuid();	
         User user = new(
-             Guid.NewGuid(),
+             id,
              email,
              fullName,
              role,
@@ -88,20 +115,16 @@ public class User : AggregateRoot<UserId>
              true,
              true);
 
-		user.RefreshTokenHolder = tokenHolder;
 		user.ExternalUserProvider = new ExternalUserLogin(id, key, provider);
 		user.UserSettings = UserSettings.Create(user.Id,language);
 		user.AddEvent(new UserCreatedByExternalLoginProviderEvent(user.Id,provider,language));
         return user;
     }
 
-    public void RevokeRefreshToken() => RefreshTokenHolder.Revoke();
-
-    public void ChangeRefreshTokenHolder(RefreshTokenHolder refreshToken)
+    public void RevokeRefreshToken(TokenHolder tokenHolder)
 	{
-		RefreshTokenHolder = refreshToken;
+		_refreshTokens.Remove(tokenHolder);
 	}
-
 
     public void ChangeFullName(FullName fullName)
 	{
@@ -155,5 +178,15 @@ public class User : AggregateRoot<UserId>
 	public void SendEmailForPasswordChange(string code,Languages language)
 	{
 		AddEvent(new SendEmailForPasswordChangeEvent(Id, code,language));
+	}
+
+	public void AddRefreshToken(TokenHolder refreshToken)
+	{
+		_refreshTokens.Add(refreshToken);
+	}
+
+	public void RemoveRefreshToken(string oldAccessToken)
+	{
+		_refreshTokens.RemoveWhere(x=> x.RefreshToken == oldAccessToken);	
 	}
 }

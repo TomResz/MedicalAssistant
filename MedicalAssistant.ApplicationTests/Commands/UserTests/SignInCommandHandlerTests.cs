@@ -20,6 +20,7 @@ public class SignInCommandHandlerTests
     private readonly IUnitOfWork _unitOfWork = Substitute.For<IUnitOfWork>();
     private readonly IRefreshTokenService _refreshTokenService = Substitute.For<IRefreshTokenService>();
     private readonly IClock _clock = Substitute.For<IClock>();
+    private readonly ITokenRepository _tokenRepository = Substitute.For<ITokenRepository>();
     private readonly SignInCommandHandler _handler;
 
     public SignInCommandHandlerTests()
@@ -32,7 +33,8 @@ public class SignInCommandHandlerTests
              _authenticator,
               _unitOfWork,
                  _refreshTokenService,
-                    _clock);
+                    _clock,
+                    _tokenRepository);
     }
 
     [Fact]
@@ -47,8 +49,8 @@ public class SignInCommandHandlerTests
         _passwordManager.IsValid(command.Password, user.Password!).Returns(true);
         _userRepository.GetByEmailAsync(user.Email).Returns(user);
         _authenticator.GenerateToken(user).Returns(new Dto.JwtDto { AccessToken = accessToken });
-        _refreshTokenService.Generate(Arg.Any<DateTime>())
-            .Returns(new RefreshTokenHolder(refreshToken, expirationTime));
+        _refreshTokenService.Generate(Arg.Any<DateTime>(),user.Id)
+            .Returns( TokenHolder.Create(refreshToken, expirationTime,user.Id));
 
         var result = await _handler.Handle(command, default);
 

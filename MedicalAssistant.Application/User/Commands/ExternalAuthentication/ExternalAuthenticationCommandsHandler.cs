@@ -45,13 +45,11 @@ internal sealed class ExternalAuthenticationCommandHandler
 
 		var (id, email, fullName) = response;
 		Domain.Entites.User? user = await _userRepository.GetByEmailWithExternalProviderAsync(response.Email, cancellationToken);
-
+		
 		if (user is null)
 		{
-			var refreshToken = _refreshTokenService.Generate(_clock.GetCurrentUtc());
-			user = Domain.Entites.User.CreateByExternalProvider(email, fullName, Role.User().ToString(), _clock.GetCurrentUtc(), id, request.Provider, refreshToken,language);
+			user = Domain.Entites.User.CreateByExternalProvider(email, fullName, Role.User().ToString(), _clock.GetCurrentUtc(), id, request.Provider,language);
 			await _userRepository.AddAsync(user, cancellationToken);
-			await _unitOfWork.SaveChangesAsync(cancellationToken);
 		}
 		else
 		{
@@ -59,15 +57,19 @@ internal sealed class ExternalAuthenticationCommandHandler
 			{
 				throw new InvalidExternalProviderException("User with given email already exists!");
 			}
-
-			user.ChangeRefreshTokenHolder(_refreshTokenService.Generate(_clock.GetCurrentUtc()));
-			await _unitOfWork.SaveChangesAsync(cancellationToken);
 		}
 
+		var refreshToken = _refreshTokenService.Generate(_clock.GetCurrentUtc(), user.Id);
+
+		user.AddRefreshToken(refreshToken);
+
+		await _unitOfWork.SaveChangesAsync(cancellationToken);
+
 		var jwt = _authenticator.GenerateToken(user);
+
 		return new(
-	jwt.AccessToken,
-	user.RefreshTokenHolder.RefreshToken!);
+			jwt.AccessToken,
+			refreshToken.RefreshToken);
 	}
 	private static bool IsUserValid(Domain.Entites.User user, string provider, string userId) 
 		=> user.ExternalUserProvider?.ProvidedKey == userId && user.ExternalUserProvider?.Provider == provider;

@@ -11,7 +11,18 @@ public static class Extensions
 		{
 			return new(true);
 		}
-		var errorDetails = JsonSerializer.Deserialize<BaseErrorDetails>(await response.Content.ReadAsStringAsync())!;
+		var json = await response.Content.ReadAsStringAsync();
+		
+		if (string.IsNullOrEmpty(json))
+		{
+			return new(false);
+		}
+
+		var options = new JsonSerializerOptions
+		{
+			PropertyNameCaseInsensitive = true
+		};
+		var errorDetails = JsonSerializer.Deserialize<BaseErrorDetails>(json,options)!;
 
 		return new(false, errorDetails);
 	}

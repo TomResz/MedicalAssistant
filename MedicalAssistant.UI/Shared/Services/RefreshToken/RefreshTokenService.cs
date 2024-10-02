@@ -25,10 +25,11 @@ public class RefreshTokenService : IRefreshTokenService
 			: null;
 	}
 
-	public async Task<bool> Revoke()
+	public async Task<bool> Revoke(string refreshToken)
 	{
 		var httpClient = _httpClientFactory.CreateClient("api");
-		var response = await httpClient.PutAsync("user/revoke",null);
+		var response = await httpClient.PutAsJsonAsync("user/revoke", 
+			new {RefreshToken = refreshToken});
 		return response.IsSuccessStatusCode;
 	}
 }

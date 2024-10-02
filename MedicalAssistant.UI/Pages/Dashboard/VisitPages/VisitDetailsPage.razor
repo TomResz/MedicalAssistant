@@ -9,7 +9,7 @@
 	<MudGrid Class="ma-0 visit-grid">
 		<MudItem xs="12" sm="6" Class="pa-0 mx-0 visit-item">
 			<MudCard Class="visit-card">
-				@if (_isVisitLoading)
+			@if (_isVisitLoading)
 			{
 				<LoadingSkeletonComponent  Class="ma-2"/>
 			}
@@ -17,8 +17,8 @@
 			{
 				<VisitDetails Visit="Visit" />
 			}
-		</MudCard>
-	</MudItem>
+			</MudCard>
+		</MudItem>
 
 	<MudItem xs="12" sm="6" Class="pa-0 mx-0 visit-item">
 		<MudCard Class="visit-card">

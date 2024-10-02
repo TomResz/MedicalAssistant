@@ -17,24 +17,26 @@ internal sealed class SignInCommandHandler
     private readonly IUnitOfWork _unitOfWork;
     private readonly IRefreshTokenService _refreshTokenService;
     private readonly IClock _clock;
+    private readonly ITokenRepository _tokenRepository;
+	public SignInCommandHandler(
+		IPasswordManager passwordManager,
+		IUserRepository userRepository,
+		IAuthenticator authenticator,
+		IUnitOfWork unitOfWork,
+		IRefreshTokenService refreshTokenService,
+		IClock clock,
+		ITokenRepository tokenRepository)
+	{
+		_passwordManager = passwordManager;
+		_userRepository = userRepository;
+		_authenticator = authenticator;
+		_unitOfWork = unitOfWork;
+		_refreshTokenService = refreshTokenService;
+		_clock = clock;
+		_tokenRepository = tokenRepository;
+	}
 
-    public SignInCommandHandler(
-        IPasswordManager passwordManager,
-        IUserRepository userRepository,
-        IAuthenticator authenticator,
-        IUnitOfWork unitOfWork,
-        IRefreshTokenService refreshTokenService,
-        IClock clock)
-    {
-        _passwordManager = passwordManager;
-        _userRepository = userRepository;
-        _authenticator = authenticator;
-        _unitOfWork = unitOfWork;
-        _refreshTokenService = refreshTokenService;
-        _clock = clock;
-    }
-
-    public async Task<SignInResponse> Handle(SignInCommand request, CancellationToken cancellationToken)
+	public async Task<SignInResponse> Handle(SignInCommand request, CancellationToken cancellationToken)
     {
         var (email, password) = request;
 
@@ -47,17 +49,16 @@ internal sealed class SignInCommandHandler
         ValidateUser(request, user);
 
         var jwt = _authenticator.GenerateToken(user);
-        await RegenerateRefreshToken(user, cancellationToken);
 
-        return new(
+		var token = _refreshTokenService.Generate(_clock.GetCurrentUtc(), user.Id);
+
+		user.AddRefreshToken(token);
+        _tokenRepository.Add(token);
+		await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+		return new(
             jwt.AccessToken,
-            user.RefreshTokenHolder.RefreshToken!);
-    }
-
-    private async Task RegenerateRefreshToken(Domain.Entites.User user, CancellationToken cancellationToken)
-    {
-        user.ChangeRefreshTokenHolder(_refreshTokenService.Generate(_clock.GetCurrentUtc()));
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+            token.RefreshToken);
     }
 
     private void ValidateUser(SignInCommand request, Domain.Entites.User user)
