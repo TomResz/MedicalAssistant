@@ -23,7 +23,7 @@ internal static class Extensions
 		services.AddSingleton<IDatabaseCreator,DatabaseCreator>();
 		services.AddSingleton<DomainEventPublisherInterceptor>();
 
-		services.AddDbContext<MedicalAssistDbContext>((sp,opt )=>
+		services.AddDbContext<MedicalAssistantDbContext>((sp,opt )=>
 		{
 			var interceptor = sp.GetRequiredService<DomainEventPublisherInterceptor>();
 			

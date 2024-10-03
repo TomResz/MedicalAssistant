@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 namespace MedicalAssistant.Infrastructure.DAL.Repository;
 internal sealed class UserRepository : IUserRepository
 {
-    private readonly MedicalAssistDbContext _context;
-    public UserRepository(MedicalAssistDbContext context) => _context = context;
+    private readonly MedicalAssistantDbContext _context;
+    public UserRepository(MedicalAssistantDbContext context) => _context = context;
 
     public async Task AddAsync(User user, CancellationToken cancellationToken = default) 
         => await _context

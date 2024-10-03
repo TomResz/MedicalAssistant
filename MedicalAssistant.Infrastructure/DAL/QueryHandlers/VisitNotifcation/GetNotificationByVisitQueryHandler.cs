@@ -9,9 +9,9 @@ namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.VisitNotifcation;
 internal sealed class GetNotificationByVisitQueryHandler
 	: IRequestHandler<GetNotificationByVisitQuery, IEnumerable<VisitNotificationDto>>
 {
-	private readonly MedicalAssistDbContext _context;
+	private readonly MedicalAssistantDbContext _context;
 
-	public GetNotificationByVisitQueryHandler(MedicalAssistDbContext context)
+	public GetNotificationByVisitQueryHandler(MedicalAssistantDbContext context)
 	{
 		_context = context;
 	}

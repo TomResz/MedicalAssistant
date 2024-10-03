@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore;
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Recommendation;
 internal sealed class GetRecommendationsForVisitQueryHandler : IRequestHandler<GetRecommendationsForVisitQuery, IEnumerable<RecommendationDto>>
 {
-    private readonly MedicalAssistDbContext _context;
-    public GetRecommendationsForVisitQueryHandler(MedicalAssistDbContext context)
+    private readonly MedicalAssistantDbContext _context;
+    public GetRecommendationsForVisitQueryHandler(MedicalAssistantDbContext context)
     {
         _context = context;
     }

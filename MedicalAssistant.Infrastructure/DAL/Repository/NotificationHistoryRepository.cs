@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 namespace MedicalAssistant.Infrastructure.DAL.Repository;
 internal sealed class NotificationHistoryRepository : INotificationHistoryRepository
 {
-	private readonly MedicalAssistDbContext _context;
+	private readonly MedicalAssistantDbContext _context;
 
-	public NotificationHistoryRepository(MedicalAssistDbContext context) 
+	public NotificationHistoryRepository(MedicalAssistantDbContext context) 
 		=> _context = context;
 
 	public void Add(NotificationHistory notificationHistory)

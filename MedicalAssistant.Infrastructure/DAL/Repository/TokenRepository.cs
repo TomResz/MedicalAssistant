@@ -5,9 +5,9 @@ namespace MedicalAssistant.Infrastructure.DAL.Repository;
 
 internal sealed class TokenRepository : ITokenRepository
 {
-	private readonly MedicalAssistDbContext _context;
+	private readonly MedicalAssistantDbContext _context;
 
-	public TokenRepository(MedicalAssistDbContext context)
+	public TokenRepository(MedicalAssistantDbContext context)
 	{
 		_context = context;
 	}

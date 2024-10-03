@@ -3,7 +3,7 @@ using MedicalAssistant.Domain.Entites;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedicalAssistant.Infrastructure.DAL;
-internal sealed class MedicalAssistDbContext : DbContext
+internal sealed class MedicalAssistantDbContext : DbContext
 {
     public DbSet<User> Users { get; set; }
     public DbSet<Recommendation> Recommendations { get; set; }
@@ -13,7 +13,7 @@ internal sealed class MedicalAssistDbContext : DbContext
     public DbSet<UserSettings> UserSettings { get; set; }
     public DbSet<NotificationHistory> NotificationHistories { get; set; }
     public DbSet<TokenHolder> TokenHolders { get; set; }
-    public MedicalAssistDbContext(DbContextOptions<MedicalAssistDbContext> options) : base(options) 
+    public MedicalAssistantDbContext(DbContextOptions<MedicalAssistantDbContext> options) : base(options) 
     {
     }
 

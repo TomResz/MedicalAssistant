@@ -2,8 +2,11 @@
 	<MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.Home">
 		@Translations.Currents
 	</MudNavLink>
-
+	
 	<MudNavGroup Title="@Translations.Visits" Icon="@Icons.Material.Outlined.MedicalServices" Expanded="false">
+		<MudNavLink Href="/visits/current" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.ViewWeek">
+			@Translations.Currents
+		</MudNavLink>
 		<MudNavLink Href="/visits" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.CalendarMonth">
 			@Translations.Scheduler
 		</MudNavLink>

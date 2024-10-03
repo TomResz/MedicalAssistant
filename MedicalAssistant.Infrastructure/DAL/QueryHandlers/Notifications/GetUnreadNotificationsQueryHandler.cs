@@ -8,10 +8,10 @@ namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Notifications;
 internal sealed class GetUnreadNotificationsQueryHandler
 	: IRequestHandler<GetUnreadNotificationsQuery, List<NotificationDto>>
 {
-	private readonly MedicalAssistDbContext _context;
+	private readonly MedicalAssistantDbContext _context;
 	private readonly IUserContext _userContext;
 	public GetUnreadNotificationsQueryHandler(
-		MedicalAssistDbContext context,
+		MedicalAssistantDbContext context,
 		IUserContext userContext)
 	{
 		_context = context;

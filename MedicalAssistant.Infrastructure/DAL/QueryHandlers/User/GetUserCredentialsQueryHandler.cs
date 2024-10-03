@@ -12,8 +12,8 @@ internal sealed class GetUserCredentialsQueryHandler
 	: IRequestHandler<GetUserCredentialsQuery, UserCredentialsDto>
 {
 	private readonly IUserContext _userContext;
-	private readonly MedicalAssistDbContext _context;
-	public GetUserCredentialsQueryHandler(IUserContext userContext, MedicalAssistDbContext context)
+	private readonly MedicalAssistantDbContext _context;
+	public GetUserCredentialsQueryHandler(IUserContext userContext, MedicalAssistantDbContext context)
 	{
 		_userContext = userContext;
 		_context = context;

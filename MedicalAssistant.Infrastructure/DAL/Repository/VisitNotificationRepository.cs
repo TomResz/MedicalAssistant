@@ -5,9 +5,9 @@ namespace MedicalAssistant.Infrastructure.DAL.Repository;
 internal sealed class VisitNotificationRepository
 	: IVisitNotificationRepository
 {
-	private readonly MedicalAssistDbContext _context;
+	private readonly MedicalAssistantDbContext _context;
 
-	public VisitNotificationRepository(MedicalAssistDbContext context)
+	public VisitNotificationRepository(MedicalAssistantDbContext context)
 	{
 		_context = context;
 	}

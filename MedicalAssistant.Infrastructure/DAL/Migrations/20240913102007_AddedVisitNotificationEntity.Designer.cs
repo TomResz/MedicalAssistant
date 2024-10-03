@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace MedicalAssistant.Infrastructure.Migrations
 {
-    [DbContext(typeof(MedicalAssistDbContext))]
+    [DbContext(typeof(MedicalAssistantDbContext))]
     [Migration("20240913102007_AddedVisitNotificationEntity")]
     partial class AddedVisitNotificationEntity
     {

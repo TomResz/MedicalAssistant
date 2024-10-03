@@ -49,5 +49,13 @@ public sealed class VisitEndpoints : IEndpoints
 			await _mediator.Send(command);
 			return Results.NoContent();
 		});
+
+		group.MapGet("week/{date:datetime}", async (IMediator _mediator, DateTime date)
+			=>
+		{
+			var query = new GetByWeekVisitQuery(date);
+			var response = await _mediator.Send(query);
+			return Results.Ok(response);
+		});
 	}
 }

@@ -11,10 +11,10 @@ namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Visits;
 internal sealed class GetVisitDetailsQueryHandler
 	: IRequestHandler<GetVisitDetailsQuery, VisitDto>
 {
-	private readonly MedicalAssistDbContext _context;
+	private readonly MedicalAssistantDbContext _context;
 	private readonly IUserContext _userContext;
 	public GetVisitDetailsQueryHandler(
-		MedicalAssistDbContext context,
+		MedicalAssistantDbContext context,
 		IUserContext userContext)
 	{
 		_context = context;

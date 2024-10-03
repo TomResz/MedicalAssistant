@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace MedicalAssistant.Infrastructure.Migrations
 {
-    [DbContext(typeof(MedicalAssistDbContext))]
+    [DbContext(typeof(MedicalAssistantDbContext))]
     partial class MedicalAssistDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

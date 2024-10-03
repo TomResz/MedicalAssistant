@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace MedicalAssistant.Infrastructure.Migrations
 {
-    [DbContext(typeof(MedicalAssistDbContext))]
+    [DbContext(typeof(MedicalAssistantDbContext))]
     [Migration("20240930140301_addedMultipleRefreshToken")]
     partial class addedMultipleRefreshToken
     {

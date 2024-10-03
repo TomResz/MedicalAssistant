@@ -10,8 +10,8 @@ namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Recommendation;
 internal sealed class GetRecommendationsForGivenTimePeriodQueryHandler
     : IRequestHandler<GetRecommendationsForGivenTimePeriodQuery, IEnumerable<RecommendationDto>>
 {
-    private readonly MedicalAssistDbContext _context;
-    public GetRecommendationsForGivenTimePeriodQueryHandler(MedicalAssistDbContext context)
+    private readonly MedicalAssistantDbContext _context;
+    public GetRecommendationsForGivenTimePeriodQueryHandler(MedicalAssistantDbContext context)
     {
         _context = context;
     }

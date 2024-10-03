@@ -7,13 +7,13 @@ using Microsoft.Extensions.Logging;
 namespace MedicalAssistant.Infrastructure.BackgroundJobs.RecurringJobs;
 internal sealed class ExpiredTokenRemovalJob : IExpiredTokenRemovalJob
 {
-	private readonly MedicalAssistDbContext _context;
+	private readonly MedicalAssistantDbContext _context;
 	private readonly IClock _clock;
 	private readonly ILogger<ExpiredTokenRemovalJob> _logger;
 
 
 	public ExpiredTokenRemovalJob(
-		MedicalAssistDbContext context,
+		MedicalAssistantDbContext context,
 		IClock clock,
 		ILogger<ExpiredTokenRemovalJob> logger)
 	{

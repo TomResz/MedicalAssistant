@@ -7,10 +7,11 @@ public class SortingParameters
 {
 	public static OrderDirection FromString(string direction)
 	{
-		if (direction.ToLower() == "asc")
-			return OrderDirection.Ascending;
-		else if (direction.ToLower() == "desc")
-			return OrderDirection.Descending;
-		throw new InvalidSortingParametersException();
+		return direction.ToLower() switch
+		{
+			"asc" => OrderDirection.Ascending,
+			"desc" => OrderDirection.Descending,
+			_ => throw new InvalidSortingParametersException(),
+		};
 	}
 }
