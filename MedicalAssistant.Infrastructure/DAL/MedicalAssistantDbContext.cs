@@ -13,6 +13,9 @@ internal sealed class MedicalAssistantDbContext : DbContext
     public DbSet<UserSettings> UserSettings { get; set; }
     public DbSet<NotificationHistory> NotificationHistories { get; set; }
     public DbSet<TokenHolder> TokenHolders { get; set; }
+    public DbSet<Attachment> Attachments { get; set; }
+
+
     public MedicalAssistantDbContext(DbContextOptions<MedicalAssistantDbContext> options) : base(options) 
     {
     }

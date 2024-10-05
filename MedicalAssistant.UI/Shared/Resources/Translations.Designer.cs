@@ -97,6 +97,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Attachment.
+        /// </summary>
+        internal static string AddAttachment {
+            get {
+                return ResourceManager.GetString("AddAttachment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Notification.
         /// </summary>
         internal static string AddNotification {
@@ -129,6 +138,24 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string AddVisitTitle {
             get {
                 return ResourceManager.GetString("AddVisitTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the attachment ?.
+        /// </summary>
+        internal static string AttachmentDeletePrompt {
+            get {
+                return ResourceManager.GetString("AttachmentDeletePrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attachments.
+        /// </summary>
+        internal static string Attachments {
+            get {
+                return ResourceManager.GetString("Attachments", resourceCulture);
             }
         }
         
@@ -205,6 +232,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current Week.
+        /// </summary>
+        internal static string CurrentWeek {
+            get {
+                return ResourceManager.GetString("CurrentWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
         internal static string Date {
@@ -228,6 +264,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Attachment.
+        /// </summary>
+        internal static string DeleteAttachment {
+            get {
+                return ResourceManager.GetString("DeleteAttachment", resourceCulture);
             }
         }
         
@@ -291,6 +336,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string DoctorName {
             get {
                 return ResourceManager.GetString("DoctorName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download Attachment.
+        /// </summary>
+        internal static string DownloadAttachment {
+            get {
+                return ResourceManager.GetString("DownloadAttachment", resourceCulture);
             }
         }
         
@@ -430,6 +484,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The maximum file size is {0} MB..
+        /// </summary>
+        internal static string FileMaximumSize {
+            get {
+                return ResourceManager.GetString("FileMaximumSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forgot your password ?.
         /// </summary>
         internal static string ForgetPasswordQuestion {
@@ -498,6 +561,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string IncorrectPostalCode {
             get {
                 return ResourceManager.GetString("IncorrectPostalCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The attachment can only be submitted in .png, .jpg, or .pdf format..
+        /// </summary>
+        internal static string InvalidFileExtension {
+            get {
+                return ResourceManager.GetString("InvalidFileExtension", resourceCulture);
             }
         }
         
@@ -606,6 +678,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Month {
             get {
                 return ResourceManager.GetString("Month", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next Week.
+        /// </summary>
+        internal static string NextWeek {
+            get {
+                return ResourceManager.GetString("NextWeek", resourceCulture);
             }
         }
         

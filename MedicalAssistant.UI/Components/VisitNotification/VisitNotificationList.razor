@@ -1,10 +1,10 @@
 ﻿@using MedicalAssistant.UI.Models.Notifications
 
 <MudPaper Elevation="4" Class="pa-4 list-grid">
-	<MudGrid>
+	<MudGrid Class="relative">
 		<MudItem xs="12">
-			<MudText Typo="Typo.h6" Align="Align.Center" >
-				@Translations.Notifications 
+			<MudText Typo="Typo.h6" Align="Align.Center">
+				@Translations.Notifications
 			</MudText>
 		</MudItem>
 		@if (!_loading)
@@ -13,27 +13,36 @@
 			{
 				<MudItem xs="12">
 					<VisitNotificationItem VisitNotification="@notification"
-							OnNotificationDelete="@HandleDelete"
-							OnNotificationEdit="@HandleEdit"/>
+										   OnNotificationDelete="@HandleDelete"
+										   OnNotificationEdit="@HandleEdit"
+										   Class="d-flex align-start pa-4"/>
 				</MudItem>
 			}
 		}
+		<MudItem xs="12" Class="fab-container">
+			<MudTooltip Text="@Translations.AddNotification">
+				<MudFab StartIcon="@Icons.Material.Filled.AddAlarm"
+						Color="Color.Primary" OnClick="Add" />
+			</MudTooltip>
+		</MudItem>
 	</MudGrid>
-	<MudFab StartIcon="@Icons.Material.Filled.AddAlarm" 
-       Color="Color.Primary" OnClick="Add" Class="fab-button" />
-
 </MudPaper>
 
 <style>
-	.list-grid{
+	.list-grid {
 		height: calc(100vh - 104px);
 		overflow-y: auto;
 	}
-	.fab-button{
-		position: fixed;
+
+	.relative {
+		position: relative;
+	}
+
+	.fab-container {
+		position: sticky;
 		bottom: 16px;
-		right: 16px;
-		margin-right: 16px;
+		display: flex;
+		justify-content: flex-end;
 		margin-bottom: 16px;
 	}
 </style>

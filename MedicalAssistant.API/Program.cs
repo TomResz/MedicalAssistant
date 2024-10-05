@@ -19,6 +19,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerDoc();
 builder.Services.AddSwaggerAuthMiddleware(builder.Configuration);
 builder.Services.AddSignalR();
+builder.Services.AddAntiforgery();
 
 builder.Services
     .AddApplication()
@@ -38,7 +39,8 @@ builder.Services.AddCors(options=>
         builder
             .AllowAnyMethod()
             .AllowAnyHeader()
-            .AllowAnyOrigin();
+            .AllowAnyOrigin()
+            .WithExposedHeaders("*");
     });
 });
 
@@ -69,6 +71,8 @@ app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseAntiforgery();
+
 app.UseInfrastructure();
 app.UseRecurringBackgroundJobs();
 app.MapHub<NotificationHub>("notifications");

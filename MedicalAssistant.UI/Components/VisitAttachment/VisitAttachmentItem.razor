@@ -1,0 +1,38 @@
+﻿@using MedicalAssistant.UI.Models.Attachment
+@using MedicalAssistant.UI.Shared.Services.Abstraction
+<MudPaper Class="d-flex align-start pa-4">
+	<MudText Typo="Typo.subtitle1" Class="text-wrapping" Align="Align.Left">@Attachment.FileName</MudText>
+	<MudSpacer />
+	<MudTooltip Text="@Translations.DownloadAttachment">
+		<MudFab StartIcon="@Icons.Material.Filled.Download" Class="mr-2"
+				OnClick="@( async () => await Download(Attachment.Id))" Target="_blank" />
+	</MudTooltip>
+	<MudTooltip Text="@Translations.Delete">
+		<MudFab StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error"
+				OnClick="@( async () => await Delete(Attachment.Id))" />
+	</MudTooltip>
+</MudPaper>
+
+<MudMessageBox @ref="_mudMessageBox" CancelText="@Translations.Cancel" Title="@Translations.DeleteAttachment">
+	<MessageContent>
+		@Translations.AttachmentDeletePrompt
+	</MessageContent>
+	<YesButton>
+		<MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Filled.DeleteForever">
+			@Translations.Delete
+		</MudButton>
+	</YesButton>
+</MudMessageBox>
+
+
+
+
+<style>
+	.text-wrapping {
+		max-width: 25ch;
+		word-wrap: break-word;
+		overflow-wrap: break-word;
+		white-space: normal;
+		display: inline-block;
+	}
+</style>

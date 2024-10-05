@@ -477,4 +477,31 @@
   <data name="Sunday" xml:space="preserve">
     <value>Sunday</value>
   </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Attachments</value>
+  </data>
+  <data name="AddAttachment" xml:space="preserve">
+    <value>Add Attachment</value>
+  </data>
+  <data name="DownloadAttachment" xml:space="preserve">
+    <value>Download Attachment</value>
+  </data>
+  <data name="AttachmentDeletePrompt" xml:space="preserve">
+    <value>Are you sure you want to delete the attachment ?</value>
+  </data>
+  <data name="DeleteAttachment" xml:space="preserve">
+    <value>Delete Attachment</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Current Week</value>
+  </data>
+  <data name="NextWeek" xml:space="preserve">
+    <value>Next Week</value>
+  </data>
+  <data name="InvalidFileExtension" xml:space="preserve">
+    <value>The attachment can only be submitted in .png, .jpg, or .pdf format.</value>
+  </data>
+  <data name="FileMaximumSize" xml:space="preserve">
+    <value>The maximum file size is {0} MB.</value>
+  </data>
 </root>

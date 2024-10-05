@@ -2,6 +2,7 @@ using MedicalAssistant.UI;
 using MedicalAssistant.UI.Shared.APIClient;
 using MedicalAssistant.UI.Shared.Options;
 using MedicalAssistant.UI.Shared.Services.Abstraction;
+using MedicalAssistant.UI.Shared.Services.Attachment;
 using MedicalAssistant.UI.Shared.Services.Auth;
 using MedicalAssistant.UI.Shared.Services.HubToken;
 using MedicalAssistant.UI.Shared.Services.Language;
@@ -54,6 +55,8 @@ builder.Services.AddScoped<IUserDataService, UserDataService>();
 builder.Services.AddScoped<IUserPasswordChangeService, UserPasswordChangeService>();
 builder.Services.AddScoped<IVisitNotificationService, VisitNotificationService>();
 builder.Services.AddScoped<ILocalTimeProvider,LocalTimeProvider>();
+builder.Services.AddScoped<IAttachmentService,AttachmentService>();
+
 
 builder.Services.AddRadzenComponents();
 builder.Services.AddMudServices(config =>

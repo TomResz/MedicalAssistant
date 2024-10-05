@@ -477,4 +477,31 @@
   <data name="Sunday" xml:space="preserve">
     <value>Niedziela</value>
   </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Załączniki</value>
+  </data>
+  <data name="AddAttachment" xml:space="preserve">
+    <value>Dodaj Załącznik</value>
+  </data>
+  <data name="DownloadAttachment" xml:space="preserve">
+    <value>Pobierz Załącznik</value>
+  </data>
+  <data name="AttachmentDeletePrompt" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć załącznik ?</value>
+  </data>
+  <data name="DeleteAttachment" xml:space="preserve">
+    <value>Usuwanie Załącznika</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Bieżący Tydzień</value>
+  </data>
+  <data name="NextWeek" xml:space="preserve">
+    <value>Następny tydzień</value>
+  </data>
+  <data name="InvalidFileExtension" xml:space="preserve">
+    <value>Załącznik może być przesłany tylko w formacie .png, .jpg lub .pdf.</value>
+  </data>
+  <data name="FileMaximumSize" xml:space="preserve">
+    <value>Maksymalny rozmiar pliku wynosi {0} MB.</value>
+  </data>
 </root>

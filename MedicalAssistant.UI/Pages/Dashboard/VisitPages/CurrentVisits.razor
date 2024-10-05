@@ -14,7 +14,7 @@
 			}
 			else
 			{
-				<VisitWeekList Visits="_currentVisits" ListName="Current Week"/>
+				<VisitWeekList Visits="_currentVisits" ListName="@Translations.CurrentWeek"/>
 			}
 			</MudCard>
 		</MudItem>
@@ -27,7 +27,7 @@
 			}
 			else
 			{
-				<VisitWeekList Visits="_nextWeekVisits" ListName="Next week" />
+				<VisitWeekList Visits="_nextWeekVisits" ListName="@Translations.NextWeek" />
 			}
 		</MudCard>
 	</MudItem>
@@ -36,6 +36,7 @@
 <style>
 	.visit-grid {
 		overflow-y: auto;
+		max-height: calc(100vh - 96px);
 	}
 
 	.visit-item {

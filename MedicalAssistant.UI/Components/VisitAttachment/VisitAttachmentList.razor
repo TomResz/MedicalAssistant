@@ -1,0 +1,52 @@
+﻿@using MedicalAssistant.UI.Models.Attachment
+@using MedicalAssistant.UI.Models.Notifications
+@using MedicalAssistant.UI.Shared.Services.Abstraction
+@using System.Net.Http.Headers
+
+<MudPaper Elevation="4" Class="pa-4 list-grid">
+	<MudGrid Class="relative">
+		<MudItem xs="12">
+			<MudText Typo="Typo.h6" Align="Align.Center">
+				@Translations.Attachments
+			</MudText>
+		</MudItem>
+		@if (!_loading)
+		{
+			@foreach (var attachment in _attachments)
+			{
+				<MudItem xs="12">
+					<VisitAttachmentItem Attachment="@attachment" OnAttachmentDeleted="@Delete" />
+				</MudItem>
+			}
+			<MudItem xs=12 Class="fab-container">
+				<MudFileUpload T="IBrowserFile" FilesChanged="@UploadFile" Accept=".pdf, .png, .jpg">
+					<ActivatorContent>
+						<MudTooltip Text="@Translations.AddAttachment">
+							<MudFab StartIcon="@Icons.Material.Filled.AttachFile"
+									Color="Color.Primary" />
+						</MudTooltip>
+					</ActivatorContent>
+				</MudFileUpload>
+			</MudItem>
+		}
+	</MudGrid>
+</MudPaper>
+
+<style>
+	.list-grid {
+		height: calc(100vh - 104px);
+		overflow-y: auto;
+	}
+
+	.rekative {
+		position: relative;
+	}
+
+	.fab-container {
+		position: sticky;
+		bottom: 16px;
+		display: flex;
+		justify-content: flex-end;
+		margin-bottom: 16px;
+	}
+</style>

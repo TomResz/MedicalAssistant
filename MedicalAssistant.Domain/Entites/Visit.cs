@@ -24,6 +24,9 @@ public class Visit : AggregateRoot<VisitId>
 
 	public IEnumerable<VisitNotification> Notifications => _notifications;
 
+
+    private readonly HashSet<Attachment> _attachments = new();
+    public IEnumerable<Attachment> Attachments => _attachments;
     private Visit() { }
 
     private Visit(
@@ -139,5 +142,10 @@ public class Visit : AggregateRoot<VisitId>
         notification.ChangeDate(date);
 
         return notification;
+    }
+    
+    public void AddAttachment(Attachment attachment)
+    {
+        _attachments.Add(attachment);
     }
 }

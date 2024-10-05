@@ -38,6 +38,8 @@ internal static class Extensions
 		services.AddScoped<IVisitNotificationRepository, VisitNotificationRepository>();
 		services.AddScoped<INotificationHistoryRepository, NotificationHistoryRepository>();
 		services.AddScoped<ITokenRepository, TokenRepository>();
+		services.AddScoped<IAttachmentRepository, AttachmentRepository>();
+
 		AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 		return services;

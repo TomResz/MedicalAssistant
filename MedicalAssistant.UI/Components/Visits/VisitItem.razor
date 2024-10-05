@@ -10,17 +10,3 @@
         @Translations.ShowDetails
     </MudButton>
 </MudPaper>
-
-@code{
-
-    [Parameter]
-    public VisitDto Visit { get; set; }
-
-    [Inject]
-    public NavigationManager Navigation { get; set; }
-
-    private void ShowDetails()
-    {
-        Navigation.NavigateTo($"/visit/{Visit.Id}");
-    }
-}
