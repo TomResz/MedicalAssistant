@@ -27,10 +27,17 @@ internal sealed class GetByWeekVisitsQueryHandler
 
 		var startOfWeek = request.Date.Date;
 
-		if (startOfWeek.DayOfWeek != DayOfWeek.Monday)
+
+		if(startOfWeek.DayOfWeek == DayOfWeek.Sunday)
+		{
+			startOfWeek = startOfWeek.AddDays(-6);
+			startOfWeek = startOfWeek.Date;
+		}
+		else if (startOfWeek.DayOfWeek != DayOfWeek.Monday)
 		{
 			startOfWeek = startOfWeek.AddDays(-(int)startOfWeek.DayOfWeek + (int)DayOfWeek.Monday);
 		}
+
 		var endOfWeek = startOfWeek.AddDays(7).AddSeconds(-1);
 
 		var startDate = new Date(startOfWeek);

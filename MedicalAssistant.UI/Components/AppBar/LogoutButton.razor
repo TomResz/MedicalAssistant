@@ -29,7 +29,7 @@
 		{
 			string refreshToken = await TokenManager.GetRefreshToken() ?? "";
 			await RefreshTokenService.Revoke(refreshToken);
-			await (AuthenticationProvider as MedicalAssistAuthenticationStateProvider)!.LogOutAsync();
+			await (AuthenticationProvider as MedicalAssistantAuthenticationStateProvider)!.LogOutAsync();
 		}
 	}
 }

@@ -36,4 +36,16 @@ public class UserSettings
 			  true,
 			  true);
 	}
+
+	public void ChangeSetting(
+		bool notificationsEnabled,
+		bool emailNotificationEnabled,
+		bool visitNotificationEnabled,
+		NotificationLanguage notificationLanguage)
+	{
+		NotificationsEnabled = notificationsEnabled;
+		EmailNotificationEnabled = emailNotificationEnabled;
+		VisitNotificationEnabled = visitNotificationEnabled;
+		NotificationLanguage = NotificationLanguage;
+	}
 }

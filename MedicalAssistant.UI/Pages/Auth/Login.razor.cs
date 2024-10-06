@@ -41,7 +41,7 @@ public partial class Login
 
 			if (response.IsSuccess)
 			{
-				await (AuthenticationStateProvider as MedicalAssistAuthenticationStateProvider)!.AuthenticateAsync(response.Value!);
+				await (AuthenticationStateProvider as MedicalAssistantAuthenticationStateProvider)!.AuthenticateAsync(response.Value!);
 				Navigation.NavigateTo("/");
 			}
 			else

@@ -14,7 +14,9 @@
 	[Parameter] public string? Class { get; set; } = null;
 	[Parameter] public string? RedirectUri { get; set; } = null;
 	[Parameter] public EventCallback<CultureInfo> OnLanguageChanged { get; set; }
+	[Parameter] public bool LoadLanguageFromStorage { get; set; } = true;
 	[Inject] public ILanguageManager LanguageManager { get; set; }
+	[Parameter] public Language? InitiaLanguage { get; set; }
 	private const string _polishIcon = "fi fi-pl";
 	private const string _usaIcon = "fi fi-us";
 
@@ -22,8 +24,12 @@
 
 	protected override async Task OnInitializedAsync()
 	{
-		var currentCulture = await LanguageManager.GetCurrentLanguage();
-		_isPolish = currentCulture is "pl-PL";
+		if (LoadLanguageFromStorage)
+		{
+			var currentCulture = await LanguageManager.GetCurrentLanguage();
+			_isPolish = currentCulture is "pl-PL";
+			InitiaLanguage = _isPolish ? Language.Polish : Language.English;
+		}
 	}
 
 	private async Task ChangeCulture()
@@ -32,4 +38,6 @@
 		var newCulture = _isPolish ? new CultureInfo("pl-PL") : new CultureInfo("en-US");
 		await OnLanguageChanged.InvokeAsync(newCulture);
 	}
+
+	public enum Language { Polish = 1, English = 2, }
 }

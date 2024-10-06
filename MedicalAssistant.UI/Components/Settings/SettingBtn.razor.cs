@@ -12,11 +12,18 @@ public partial class SettingBtn
 	[Inject]
 	public IDialogService DialogService { get; set; }
 
+
 	private readonly DialogOptions options = new() 
 	{ 
 		CloseOnEscapeKey = true, 
 		FullWidth = true 
 	};
+
+	protected override async Task OnInitializedAsync()
+	{
+				
+	}
+
 
 	public void ShowSettingDialog()
 	{

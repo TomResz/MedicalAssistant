@@ -7,54 +7,68 @@
 
 <PageTitle>@Translations.VisitDetails</PageTitle>
 
-	<MudGrid Class="ma-0 visit-grid" >
-		<MudItem xs="12" sm="5" Class="pa-0 mx-0 visit-item">
-			<MudCard Class="visit-card">
+<MudGrid Class="ma-0 visit-grid">
+	<MudItem xs="12" md="6" Class="pa-0 mx-0 visit-item">
+		<MudCard Class="visit-card">
 			@if (_isVisitLoading)
 			{
-				<LoadingSkeletonComponent  Class="ma-2"/>
+				<LoadingSkeletonComponent Class="ma-2" />
 			}
 			else
 			{
 				<VisitDetails Visit="Visit" />
 			}
-			</MudCard>
-		</MudItem>
-
-	<MudItem xs="12" sm="3" Class="pa-0 mx-0 visit-item">
-		<MudCard Class="visit-card">
-			@if (_areNotificationLoading)
-			{
-				<LoadingSkeletonComponent Class="ma-2" />
-			}
-			else
-			{
-				<VisitNotificationList Notifications="@_visitNotifications" VisitId="@VisitId"/>
-			}
 		</MudCard>
 	</MudItem>
-	<MudItem xs="12" sm="4" Class="pa-0 mx-0 visit-item">
-		<MudCard Class="visit-card">
-			@if (_areNotificationLoading)
-			{
-				<LoadingSkeletonComponent Class="ma-2" />
-			}
-			else
-			{
-				<VisitAttachmentList VisitId="@VisitId"/>
-			}
-		</MudCard>
+
+	<MudItem xs="12" md="6" Class="pa-0 mx-0 visit-item">
+		<MudGrid Class="ma-0" Style="min-height: calc(100vh - 104px); ">
+			<MudItem xs="12" Class="pa-0 mx-0">
+				<MudCard Class="visit-card">
+					@if (_areNotificationLoading)
+					{
+						<LoadingSkeletonComponent Class="ma-2" />
+					}
+					else
+					{
+						<div class="h-100">
+							<VisitNotificationList Notifications="@_visitNotifications" VisitId="@VisitId" />
+						</div>
+					}
+				</MudCard>
+			</MudItem>
+
+			<MudItem xs="12" Class="pa-0 mx-0">
+				<MudCard Class="visit-card">
+					@if (_areNotificationLoading)
+					{
+						<LoadingSkeletonComponent Class="ma-2" />
+					}
+					else
+					{
+						<div class=h-100>
+							<VisitAttachmentList VisitId="@VisitId" />
+						</div>
+					}
+				</MudCard>
+			</MudItem>
+		</MudGrid>
 	</MudItem>
 </MudGrid>
 
 <style>
 	.visit-grid {
 		overflow-y: auto;
+		overflow-x: hidden;
 		max-height: calc(100vh - 96px);
 	}
 
 	.visit-item {
 		min-height: calc(100vh - 104px);
+		margin-top: 8px;
+	}
+
+	.visit-lef-item {
 		margin-top: 8px;
 	}
 

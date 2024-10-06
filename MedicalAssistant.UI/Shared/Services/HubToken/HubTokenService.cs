@@ -40,7 +40,7 @@ public sealed class HubTokenService : IHubTokenService
 
 		if (response is null)
 		{
-			await (_authenticationStateProvider as MedicalAssistAuthenticationStateProvider)!.LogOutAsync();
+			await (_authenticationStateProvider as MedicalAssistantAuthenticationStateProvider)!.LogOutAsync();
 			return null;
 		}
 		await _tokenManager.SetAccessToken(response.AccessToken);

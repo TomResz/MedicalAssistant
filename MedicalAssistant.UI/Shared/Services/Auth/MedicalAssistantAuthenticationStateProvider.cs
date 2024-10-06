@@ -6,11 +6,11 @@ using System.Security.Claims;
 
 namespace MedicalAssistant.UI.Shared.Services.Auth;
 
-public class MedicalAssistAuthenticationStateProvider : AuthenticationStateProvider
+public class MedicalAssistantAuthenticationStateProvider : AuthenticationStateProvider
 {
 	private readonly ITokenManager _tokenManager;
 
-	public MedicalAssistAuthenticationStateProvider(ITokenManager tokenManager)
+	public MedicalAssistantAuthenticationStateProvider(ITokenManager tokenManager)
 	{
 		_tokenManager = tokenManager;
 	}

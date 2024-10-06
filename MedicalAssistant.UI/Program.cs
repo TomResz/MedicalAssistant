@@ -6,9 +6,9 @@ using MedicalAssistant.UI.Shared.Services.Attachment;
 using MedicalAssistant.UI.Shared.Services.Auth;
 using MedicalAssistant.UI.Shared.Services.HubToken;
 using MedicalAssistant.UI.Shared.Services.Language;
-using MedicalAssistant.UI.Shared.Services.Notification;
 using MedicalAssistant.UI.Shared.Services.Notifications;
 using MedicalAssistant.UI.Shared.Services.RefreshToken;
+using MedicalAssistant.UI.Shared.Services.Settings;
 using MedicalAssistant.UI.Shared.Services.Time;
 using MedicalAssistant.UI.Shared.Services.User;
 using MedicalAssistant.UI.Shared.Services.Verification;
@@ -25,6 +25,8 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
+
+
 builder.Services.AddAuthorizationCore( conf =>
 {
 	conf.AddPolicy("HasExternalProvider",
@@ -40,11 +42,11 @@ builder.Services
 
 builder.Services.AddScoped<LocalStorageService>();
 builder.Services.AddScoped<ITokenManager, TokenManager>();
-builder.Services.AddScoped<MedicalAssistAuthenticationStateProvider>();
+builder.Services.AddScoped<MedicalAssistantAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(
-	sp => sp.GetRequiredService<MedicalAssistAuthenticationStateProvider>());
+	sp => sp.GetRequiredService<MedicalAssistantAuthenticationStateProvider>());
 
-builder.Services.AddScoped<INotificationService, MedicalAssistant.UI.Shared.Services.Notification.NotificationService>();
+builder.Services.AddScoped<INotificationService, MedicalAssistant.UI.Shared.Services.Notifications.NotificationService>();
 builder.Services.AddScoped<ILanguageManager,LanguageManager>();
 builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
 builder.Services.AddScoped<IUserAuthService, UserAuthService>();
@@ -56,7 +58,7 @@ builder.Services.AddScoped<IUserPasswordChangeService, UserPasswordChangeService
 builder.Services.AddScoped<IVisitNotificationService, VisitNotificationService>();
 builder.Services.AddScoped<ILocalTimeProvider,LocalTimeProvider>();
 builder.Services.AddScoped<IAttachmentService,AttachmentService>();
-
+builder.Services.AddScoped<ISettingsService,SettingsService>();
 
 builder.Services.AddRadzenComponents();
 builder.Services.AddMudServices(config =>

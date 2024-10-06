@@ -68,5 +68,5 @@ public class RefreshTokenDelegatingHandler : DelegatingHandler
     }
 
     private async Task LogOut() 
-        => await (_authenticationStateProvider as MedicalAssistAuthenticationStateProvider)!.LogOutAsync();
+        => await (_authenticationStateProvider as MedicalAssistantAuthenticationStateProvider)!.LogOutAsync();
 }
