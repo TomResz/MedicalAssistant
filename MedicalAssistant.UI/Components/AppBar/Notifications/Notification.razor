@@ -18,10 +18,10 @@
 		<MudPopover AnchorOrigin="Origin.BottomRight" TransformOrigin="Origin.TopRight" Open="@isPopoverOpen" MaxHeight="350">
 			<MudList T="string" Class="pa-2 docs-menu-list">
 				<div class="d-flex justify-space-between align-center px-2">
-					<MudText Typo="Typo.subtitle2">Notifications</MudText>
+					<MudText Typo="Typo.subtitle2">@Translations.Notifications</MudText>
 					<MudButton Class="ml-16 mr-2" Variant="MudBlazor.Variant.Text"
 							   Color="Color.Primary" StartIcon="@Icons.Material.Filled.Done" OnClick="@ClearNotifications">
-						Mark as read
+						@Translations.MarkAsRead
 					</MudButton>
 				</div>
 				@if (_models.Any())

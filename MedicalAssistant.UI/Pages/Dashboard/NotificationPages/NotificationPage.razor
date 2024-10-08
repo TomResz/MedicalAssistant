@@ -1,0 +1,68 @@
+﻿@page "/notification"
+@using MedicalAssistant.UI.Components
+@using MedicalAssistant.UI.Components.AppBar.Notifications
+@using MedicalAssistant.UI.Models.Notifications
+@using System.Web
+@using MedicalAssistant.UI.Shared.Response
+@using MedicalAssistant.UI.Shared.Response.Base
+@using MedicalAssistant.UI.Shared.Services.Abstraction
+
+<div class="d-flex flex-column container-h">
+	@if (_loading)
+	{
+		<MudPaper Class="ma-0  flex-column flex-grow-1 d-flex pa-2">
+			<LoadingSkeletonComponent Class="flex-grow-1 pa-2 ma-2" />
+		</MudPaper>
+	}
+	else
+	{
+		<MudTable Class="flex-grow-1 " FixedFooter="true" Items="_pagedNotifications" @bind-SelectedItem="_selectedNotification"
+				  MultiSelection="false" Bordered="true" Hover="true" Striped="true">
+			<HeaderContent>
+				<MudTh>@Translations.Type</MudTh>
+				<MudTh>@Translations.Description</MudTh>
+				<MudTh>@Translations.WasRead</MudTh>
+				<MudTh>@Translations.DateSent</MudTh>
+				<MudTh>@Translations.ShowDetails</MudTh>
+			</HeaderContent>
+			<RowTemplate>
+				<MudTd DataLabel="@Translations.Type">@(NotificationHelper.ToType(context))</MudTd>
+				<MudTd DataLabel="@Translations.Description">@(NotificationHelper.ToNotificationDescription(context))</MudTd>
+				<MudTd DataLabel="@Translations.WasRead">
+					@if (context.WasRead)
+					{
+						<MudIcon Color="Color.Success" Icon="@Icons.Material.Filled.CheckCircle" />
+					}
+					else
+					{
+						<MudIcon Color="Color.Error" Icon="@Icons.Material.Filled.Cancel" />
+					}
+				</MudTd>
+				<MudTd>
+					@if (_formattedDates.ContainsKey(context.PublishedDateUtc))
+					{
+						@(_formattedDates[context.PublishedDateUtc])
+					}
+				</MudTd>
+				<MudTd DataLabel="@Translations.ShowDetails">
+					<MudButton FullWidth="true" OnClick="@( () => ShowDetails(context))" Color="Color.Primary" Variant="MudBlazor.Variant.Filled">
+						@Translations.ShowDetails
+					</MudButton>
+				</MudTd>
+			</RowTemplate>
+		</MudTable>
+		@if (_totalItemCount > 0)
+		{
+			<div class="d-flex justify-content-end flex-row p-2">
+				<MudSelect Style="max-width: 150px;" Class="ms-auto" Label="@Translations.PageSize" T="int" Immediate="true"
+						   ValueChanged="OnPageSizeChanged" Value="@_pageSize">
+					@foreach (var size in _pageSizes)
+					{
+						<MudSelectItem Value="size">@size</MudSelectItem>
+					}
+				</MudSelect>
+				<MudPagination Class="pt-2" @bind-Page="_currentPage" Count="@_pageCount" SelectedChanged="@OnPageChanged" Selected="@_currentPage" />
+			</div>
+		}
+	}
+</div>

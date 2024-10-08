@@ -22,39 +22,35 @@
 	</MudItem>
 
 	<MudItem xs="12" md="6" Class="pa-0 mx-0 visit-item">
-		<MudGrid Class="ma-0" Style="min-height: calc(100vh - 104px); ">
-			<MudItem xs="12" Class="pa-0 mx-0">
-				<MudCard Class="visit-card">
+		<MudGrid Class="ma-0 d-flex flex-column" Style="min-height: calc(100vh - 104px); padding-right: 24px;">
+			<MudItem xs="12" Class="px-0 pt-0 pb-1 ma-0 mb-0 flex-1 d-flex flex-column" Style="height:50vh; max-height: 50vh; overflow-y: auto;">
+				<MudPaper Class="visit-card h-100 flex-1 d-flex flex-column">
 					@if (_areNotificationLoading)
 					{
-						<LoadingSkeletonComponent Class="ma-2" />
+						<LoadingSkeletonComponent Class="ma-2 flex-1" />
 					}
 					else
 					{
-						<div class="h-100">
-							<VisitNotificationList Notifications="@_visitNotifications" VisitId="@VisitId" />
-						</div>
+						<VisitNotificationList Notifications="_visitNotifications" VisitId="@VisitId" />
 					}
-				</MudCard>
+				</MudPaper>
 			</MudItem>
-
-			<MudItem xs="12" Class="pa-0 mx-0">
-				<MudCard Class="visit-card">
+			<MudItem xs="12" Class="px-0 pt-1 pb-0 flex-1 d-flex flex-column " Style="height:50vh; max-height: 50vh; overflow-y: auto;">
+				<MudPaper Class="visit-card h-100 flex-1 d-flex flex-column">
 					@if (_areNotificationLoading)
 					{
-						<LoadingSkeletonComponent Class="ma-2" />
+						<LoadingSkeletonComponent Class="ma-2 flex-1 " />
 					}
 					else
 					{
-						<div class=h-100>
-							<VisitAttachmentList VisitId="@VisitId" />
-						</div>
+						<VisitAttachmentList VisitId="@VisitId" />
 					}
-				</MudCard>
+				</MudPaper>
 			</MudItem>
 		</MudGrid>
 	</MudItem>
 </MudGrid>
+
 
 <style>
 	.visit-grid {
@@ -76,4 +72,5 @@
 		height: 100%;
 		margin-right: 24px;
 	}
+
 </style>

@@ -142,6 +142,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application Language.
+        /// </summary>
+        internal static string AppLanguage {
+            get {
+                return ResourceManager.GetString("AppLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete the attachment ?.
         /// </summary>
         internal static string AttachmentDeletePrompt {
@@ -246,6 +255,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Date {
             get {
                 return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date Sent.
+        /// </summary>
+        internal static string DateSent {
+            get {
+                return ResourceManager.GetString("DateSent", resourceCulture);
             }
         }
         
@@ -372,6 +390,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string EmailInvalidPattern {
             get {
                 return ResourceManager.GetString("EmailInvalidPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email notifications.
+        /// </summary>
+        internal static string EmailNotifications {
+            get {
+                return ResourceManager.GetString("EmailNotifications", resourceCulture);
             }
         }
         
@@ -556,6 +583,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to History.
+        /// </summary>
+        internal static string History {
+            get {
+                return ResourceManager.GetString("History", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An invalid postal code has been entered..
         /// </summary>
         internal static string IncorrectPostalCode {
@@ -655,6 +691,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mark as read.
+        /// </summary>
+        internal static string MarkAsRead {
+            get {
+                return ResourceManager.GetString("MarkAsRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Medical Assistant.
         /// </summary>
         internal static string MedicalAssist {
@@ -718,6 +763,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notification Language.
+        /// </summary>
+        internal static string NotificationLanguage {
+            get {
+                return ResourceManager.GetString("NotificationLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notification Of Visit.
         /// </summary>
         internal static string NotificationOfVisit {
@@ -732,6 +786,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Notifications {
             get {
                 return ResourceManager.GetString("Notifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page Size.
+        /// </summary>
+        internal static string PageSize {
+            get {
+                return ResourceManager.GetString("PageSize", resourceCulture);
             }
         }
         
@@ -1051,6 +1114,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        internal static string Type {
+            get {
+                return ResourceManager.GetString("Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unlock Account.
         /// </summary>
         internal static string UnlockAccount {
@@ -1065,6 +1137,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string UnverifiedUserError {
             get {
                 return ResourceManager.GetString("UnverifiedUserError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upcoming.
+        /// </summary>
+        internal static string Upcoming {
+            get {
+                return ResourceManager.GetString("Upcoming", resourceCulture);
             }
         }
         
@@ -1159,6 +1240,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notifications of visits.
+        /// </summary>
+        internal static string VisitNotifications {
+            get {
+                return ResourceManager.GetString("VisitNotifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Predicted Time Of Visit.
         /// </summary>
         internal static string VisitPredictedTime {
@@ -1182,6 +1272,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string VisitType {
             get {
                 return ResourceManager.GetString("VisitType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Was read ?.
+        /// </summary>
+        internal static string WasRead {
+            get {
+                return ResourceManager.GetString("WasRead", resourceCulture);
             }
         }
         

@@ -11,5 +11,14 @@
 			@Translations.Scheduler
 		</MudNavLink>
 	</MudNavGroup>
+	<MudNavGroup Title="@Translations.Notifications" Icon="@Icons.Material.Outlined.Notifications" Expanded="false">
+		<MudNavLink Href="/notification/upcoming" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.Upcoming">
+			@Translations.Upcoming
+		</MudNavLink>
+		<MudNavLink Href="/notification?page=1&pagesize=10" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.History">
+			@Translations.History
+		</MudNavLink>
+
+	</MudNavGroup>
 
 </MudNavMenu>

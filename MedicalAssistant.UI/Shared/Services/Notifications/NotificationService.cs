@@ -1,5 +1,6 @@
 ﻿using MedicalAssistant.UI.Models.Notifications;
 using MedicalAssistant.UI.Shared.Response;
+using MedicalAssistant.UI.Shared.Response.Base;
 using MedicalAssistant.UI.Shared.Services.Abstraction;
 using System.Net.Http.Json;
 
@@ -25,4 +26,10 @@ public class NotificationService : INotificationService
         var response = await _httpClient.GetAsync("notification/unread");
         return await response.DeserializeResponse<List<NotificationModel>>();
     }
+
+	public async Task<Response<PagedList<NotificationModel>>> GetPage(int page, int pageSize)
+	{
+        var response = await _httpClient.GetAsync($"notification?page={page}&pagesize={pageSize}");
+        return await response.DeserializeResponse<PagedList<NotificationModel>>();  
+	}
 }

@@ -23,5 +23,12 @@ public class NotificationEndpoints : IEndpoints
 			await _mediator.Send(command);
 			return Results.NoContent();
 		});
+
+		group.MapGet("/", async (IMediator _mediator,int Page,int PageSize) =>
+		{	
+			var query = new GetPageOfNotificationsQuery(Page, PageSize);
+			var response = await _mediator.Send(query);
+			return Results.Ok(response);
+		});
 	}
 }

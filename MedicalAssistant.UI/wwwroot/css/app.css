@@ -112,3 +112,6 @@ code {
     height: 250px;
     animation: heartbeat 1.2s infinite;
 }
+.container-heigth {
+    height: calc(100vh - 96px) !important;
+}

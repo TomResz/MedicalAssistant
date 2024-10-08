@@ -22,35 +22,34 @@ public partial class SettingsDialog
 	[CascadingParameter]
 	public MudDialogInstance MudDialog { get; set; }
 
-	private bool _loading = false;	
+	private bool _loading = false;
 	private bool _isLanguageChanged = false;
 
 	private CultureInfo? _culture = null;
-	private CultureInfo? _notificationCulture = null;
-	
-	private SettingsViewModel _viewModel =new();
+
+	private SettingsViewModel _viewModel = new();
 	private Language? NotificationLanguage { get; set; } = null;
 
 
 	protected override async Task OnInitializedAsync()
 	{
 		var response = await SettingsService.Get();
-        if (response.IsSuccess)
-        {
+		if (response.IsSuccess)
+		{
 			_viewModel = response.Value!;
 			NotificationLanguage = response.Value!.NotificationLanguage is "pl-PL" ? Language.Polish : Language.English;
 			StateHasChanged();
-        }
-    }
+		}
+	}
 
 	public void Cancel() => MudDialog.Cancel();
 
 	private async Task SaveChanges()
 	{
-		_viewModel.NotificationLanguage = _notificationCulture!.Name is "pl-Pl" ? "pl-PL" : "en-US"; 
-		_loading = true;	
+		_viewModel.NotificationLanguage = NotificationLanguage  is Language.Polish ? "pl-PL" : "en-US";
+		_loading = true;
 		var response = await SettingsService.Update(_viewModel);
-		if (response.IsFailure) 
+		if (response.IsFailure)
 		{
 			MudDialog.Close();
 		}
@@ -67,6 +66,6 @@ public partial class SettingsDialog
 
 	private void NotificationLanguageChanged(CultureInfo culture)
 	{
-		_notificationCulture = culture;
+		NotificationLanguage = culture.Name == "pl-PL" ? Language.Polish : Language.English;
 	}
 }

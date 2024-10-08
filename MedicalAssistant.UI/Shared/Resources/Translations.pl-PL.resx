@@ -504,4 +504,37 @@
   <data name="FileMaximumSize" xml:space="preserve">
     <value>Maksymalny rozmiar pliku wynosi {0} MB.</value>
   </data>
+  <data name="MarkAsRead" xml:space="preserve">
+    <value>Zaznacz jako przeczytane</value>
+  </data>
+  <data name="AppLanguage" xml:space="preserve">
+    <value>Język aplikacji</value>
+  </data>
+  <data name="NotificationLanguage" xml:space="preserve">
+    <value>Język powiadomień</value>
+  </data>
+  <data name="VisitNotifications" xml:space="preserve">
+    <value>Powiadomienie o wizytach</value>
+  </data>
+  <data name="EmailNotifications" xml:space="preserve">
+    <value>Powiadomienia email</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="WasRead" xml:space="preserve">
+    <value>Przeczytano ?</value>
+  </data>
+  <data name="PageSize" xml:space="preserve">
+    <value>Rozmiar Strony</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Historia</value>
+  </data>
+  <data name="Upcoming" xml:space="preserve">
+    <value>Nadchodzące</value>
+  </data>
+  <data name="DateSent" xml:space="preserve">
+    <value>Data Wysłania</value>
+  </data>
 </root>

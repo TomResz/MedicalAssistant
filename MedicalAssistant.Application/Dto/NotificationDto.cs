@@ -5,4 +5,5 @@ public class NotificationDto
     public string Type { get; set; }
     public string ContentJson { get; set; }
     public bool WasRead { get; set; }
+    public DateTime PublishedDateUtc { get; set; }
 }

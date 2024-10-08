@@ -7,12 +7,14 @@
 			<MudItem xs="12">
 				<MudPaper Class="pa-4" Elevation="3">
 					<LanguageSwitchBtn Class="@LanguageSwitchClass" OnLanguageChanged="@LanguageChanged" />
+					<MudText Inline="true" Typo="Typo.subtitle1">@Translations.AppLanguage</MudText>
 				</MudPaper>
 			</MudItem>
 			<MudItem xs="12">
 				<MudPaper Class="pa-4" Elevation="3">
 					<LanguageSwitchBtn Class="@LanguageSwitchClass" OnLanguageChanged="@NotificationLanguageChanged"
 									   LoadLanguageFromStorage="false" InitiaLanguage="@NotificationLanguage" />
+					<MudText Inline="true" Class="pt-2" Typo="Typo.subtitle1">@Translations.NotificationLanguage</MudText>
 				</MudPaper>
 			</MudItem>
 			<MudItem xs="12">
@@ -23,9 +25,9 @@
 
 			<MudItem xs="12">
 				<MudPaper Class="pa-4 mb-2" Elevation="3">
-					<MudSwitch @bind-Value="@_viewModel.NotificationsEnabled" Label="Powiadomienia" />
-					<MudSwitch @bind-Value="@_viewModel.VisitNotificationEnabled" Label="Powiadomienia o wizytach" />
-					<MudSwitch @bind-Value="@_viewModel.EmailNotificationEnabled" Label="Powiadomienia e-mail"/>
+					<MudSwitch @bind-Value="@_viewModel.NotificationsEnabled" Label="@Translations.Notifications" />
+					<MudSwitch @bind-Value="@_viewModel.VisitNotificationEnabled" Label="@Translations.VisitNotifications" />
+					<MudSwitch @bind-Value="@_viewModel.EmailNotificationEnabled" Label="@Translations.EmailNotifications" />
 				</MudPaper>
 			</MudItem>
 
@@ -34,8 +36,8 @@
 	<DialogActions>
 		<MudGrid Class="px-3">
 			<MudItem xs="12" sm="6">
-				<MudButton OnClick="@(async () => await SaveChanges())" Disabled="@_loading" 
-					Color="Color.Primary" Variant="MudBlazor.Variant.Filled" FullWidth="true">
+				<MudButton OnClick="@(async () => await SaveChanges())" Disabled="@_loading"
+						   Color="Color.Primary" Variant="MudBlazor.Variant.Filled" FullWidth="true">
 					@Translations.SaveSettings
 				</MudButton>
 			</MudItem>
