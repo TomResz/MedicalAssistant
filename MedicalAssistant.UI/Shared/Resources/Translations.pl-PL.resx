@@ -537,4 +537,7 @@
   <data name="DateSent" xml:space="preserve">
     <value>Data Wysłania</value>
   </data>
+  <data name="ScheduledDateNotification" xml:space="preserve">
+    <value>Zaplanowana Data Powiadomienia</value>
+  </data>
 </root>

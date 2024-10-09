@@ -1,0 +1,47 @@
+﻿@using MedicalAssistant.UI.Components.AppBar.Notifications
+<MudTable Class="flex-grow-1 " FixedFooter="true" Items="@Notifications"
+		  MultiSelection="false" Bordered="true" Hover="true" Striped="true">
+	<HeaderContent>
+		<MudTh>@Translations.DoctorName</MudTh>
+		<MudTh>@Translations.VisitType</MudTh>
+		<MudTh>@Translations.Date</MudTh>
+		<MudTh>@Translations.ScheduledDateNotification</MudTh>
+		<MudTh>@Translations.VisitDetails</MudTh>
+		<MudTh>@Translations.Delete</MudTh>
+	</HeaderContent>
+	<RowTemplate>
+		<MudTd DataLabel="@Translations.DoctorName">@context.DoctorName</MudTd>
+		<MudTd DataLabel="@Translations.VisitType">@context.VisitType</MudTd>
+		<MudTd DataLabel="@Translations.Date">@context.Date.ToString("HH:mm  dd.MM.yyyy")</MudTd>
+		<MudTd DataLabel="@Translations.ScheduledDateNotification">
+			@if (FormattedDates.ContainsKey(context.ScheduledDateUtc))
+			{
+				@(FormattedDates[context.ScheduledDateUtc])
+			}
+		</MudTd>
+		<MudTd DataLabel="@Translations.VisitDetails">
+			<MudTooltip Text="@Translations.VisitDetails">
+				<MudFab StartIcon="@Icons.Material.Filled.Visibility" OnClick="@(() => GoToDetails(context.VisitId))" Color="Color.Primary" />
+			</MudTooltip>
+		</MudTd>
+
+		<MudTd DataLabel="@Translations.Delete">
+			<MudTooltip Text="@Translations.Delete">
+				<MudFab StartIcon="@Icons.Material.Filled.Delete" OnClick="@( async () => await Delete(context.Id))" Color="Color.Error" />
+			</MudTooltip>
+		</MudTd>
+	</RowTemplate>
+</MudTable>
+
+
+
+<MudMessageBox @ref="_mudMessageBox" CancelText="@Translations.Cancel" Title="@Translations.NotificationDeleting">
+	<MessageContent>
+		@Translations.DeletingNotificationQuestion
+	</MessageContent>
+	<YesButton>
+		<MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Filled.DeleteForever">
+			@Translations.Delete
+		</MudButton>
+	</YesButton>
+</MudMessageBox>

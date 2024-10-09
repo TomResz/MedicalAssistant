@@ -537,4 +537,7 @@
   <data name="DateSent" xml:space="preserve">
     <value>Date Sent</value>
   </data>
+  <data name="ScheduledDateNotification" xml:space="preserve">
+    <value>Notification Scheduled Date</value>
+  </data>
 </root>

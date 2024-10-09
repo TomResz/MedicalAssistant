@@ -1,0 +1,37 @@
+﻿@using MedicalAssistant.UI.Components.AppBar.Notifications
+@using MedicalAssistant.UI.Models.Notifications
+<MudTable Class="flex-grow-1 " FixedFooter="true" Items="@Notifications"
+		  MultiSelection="false" Bordered="true" Hover="true" Striped="true">
+	<HeaderContent>
+		<MudTh>@Translations.Type</MudTh>
+		<MudTh>@Translations.Description</MudTh>
+		<MudTh>@Translations.WasRead</MudTh>
+		<MudTh>@Translations.DateSent</MudTh>
+		<MudTh>@Translations.ShowDetails</MudTh>
+	</HeaderContent>
+	<RowTemplate>
+		<MudTd DataLabel="@Translations.Type">@(NotificationHelper.ToType(context))</MudTd>
+		<MudTd DataLabel="@Translations.Description">@(NotificationHelper.ToNotificationDescription(context))</MudTd>
+		<MudTd DataLabel="@Translations.WasRead">
+			@if (context.WasRead)
+			{
+				<MudIcon Color="Color.Success" Icon="@Icons.Material.Filled.CheckCircle" />
+			}
+			else
+			{
+				<MudIcon Color="Color.Error" Icon="@Icons.Material.Filled.Cancel" />
+			}
+		</MudTd>
+		<MudTd>
+			@if (FormattedDates.ContainsKey(context.PublishedDateUtc))
+			{
+				@(FormattedDates[context.PublishedDateUtc])
+			}
+		</MudTd>
+		<MudTd DataLabel="@Translations.ShowDetails">
+			<MudButton FullWidth="true" OnClick="@( () => ShowDetails(context))" Color="Color.Primary" Variant="MudBlazor.Variant.Filled">
+				@Translations.ShowDetails
+			</MudButton>
+		</MudTd>
+	</RowTemplate>
+</MudTable>

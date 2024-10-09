@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
+using MedicalAssistant.Domain.Abstraction;
 using MedicalAssistant.Domain.Entites;
 using MedicalAssistant.Domain.Exceptions;
 using MedicalAssistant.Domain.Repositories;
@@ -15,7 +16,6 @@ internal sealed class ChangeVisitNotificationDateCommandHandler
 	private readonly IVisitNotificationRepository _notificationRepository;
 	private readonly IUnitOfWork _unitOfWork;
 	private readonly IVisitNotificationScheduler _scheduler;
-
 	public ChangeVisitNotificationDateCommandHandler(
 		IVisitRepository visitRepository,
 		IUnitOfWork unitOfWork,
@@ -40,7 +40,7 @@ internal sealed class ChangeVisitNotificationDateCommandHandler
 			throw new UnknownVisitException();
 		}
 
-		NewMethod(request, visit);
+		Validate(request, visit);
 
 		var notification = visit.ChangeNotificationDate(date, notificationId);
 
@@ -53,7 +53,7 @@ internal sealed class ChangeVisitNotificationDateCommandHandler
 		await _unitOfWork.SaveChangesAsync(cancellationToken);
 	}
 
-	private static void NewMethod(ChangeVisitNotificationDateCommand request, Visit visit)
+	private static void Validate(ChangeVisitNotificationDateCommand request, Visit visit)
 	{
 		if (visit.Date <= new Date(request.CurrentDate))
 		{

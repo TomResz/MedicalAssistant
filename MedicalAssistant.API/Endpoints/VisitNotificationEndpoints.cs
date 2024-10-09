@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MedicalAssistant.API.QueryPolicy;
 using MedicalAssistant.Application.VisitNotifications.Commands.AddNotifications;
 using MedicalAssistant.Application.VisitNotifications.Commands.ChangeDate;
 using MedicalAssistant.Application.VisitNotifications.Commands.DeleteNotification;
@@ -41,6 +42,13 @@ public class VisitNotificationEndpoints : IEndpoints
 			var command = new DeleteVisitNotificationCommand(visitNoticationId);
 			await _mediator.Send(command);
 			return Results.NoContent();
+		});
+
+		group.MapGet("/upcoming", async (IMediator _mediator, [AsParameters] PageParameters parameters) =>
+		{
+			var query = new GetUpcomingVisitNotificationPageQuery(parameters.Page, parameters.PageSize);
+			var response = await _mediator.Send(query);
+			return Results.Ok(response);
 		});
 	}
 }

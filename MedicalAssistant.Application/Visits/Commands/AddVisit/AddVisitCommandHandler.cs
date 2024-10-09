@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
+using MedicalAssistant.Application.Dto.Mappers;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Domain.ComplexTypes;
 using MedicalAssistant.Domain.Repositories;

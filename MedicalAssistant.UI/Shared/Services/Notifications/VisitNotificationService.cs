@@ -41,6 +41,12 @@ public class VisitNotificationService : IVisitNotificationService
 		return await response.DeserializeResponse<List<VisitNotificationDto>>();
 	}
 
+	public async Task<Response<PagedList<VisitNotificationWithDetailsModel>>> GetPage(int page, int pageSize)
+	{
+		var response = await _httpClient.GetAsync($"visitnotification/upcoming?page={page}&pagesize={pageSize}");
+		return await response.DeserializeResponse<PagedList<VisitNotificationWithDetailsModel>>();
+	}
+
 	public string MatchErrors(BaseErrorDetails errorDetails)
 		=> errorDetails.Type switch
 		{

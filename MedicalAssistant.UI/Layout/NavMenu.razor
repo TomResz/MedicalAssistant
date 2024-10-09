@@ -2,7 +2,7 @@
 	<MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.Home">
 		@Translations.Currents
 	</MudNavLink>
-	
+
 	<MudNavGroup Title="@Translations.Visits" Icon="@Icons.Material.Outlined.MedicalServices" Expanded="false">
 		<MudNavLink Href="/visits/current" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.ViewWeek">
 			@Translations.Currents
@@ -12,9 +12,11 @@
 		</MudNavLink>
 	</MudNavGroup>
 	<MudNavGroup Title="@Translations.Notifications" Icon="@Icons.Material.Outlined.Notifications" Expanded="false">
-		<MudNavLink Href="/notification/upcoming" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.Upcoming">
-			@Translations.Upcoming
-		</MudNavLink>
+		<MudNavGroup Title="@Translations.Upcoming" Icon="@Icons.Material.Outlined.Upcoming" Expanded="false">
+			<MudNavLink Href="/notification/visit?page=1&pagesize=10"  Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.MedicalServices">
+				@Translations.Visits
+			</MudNavLink>
+		</MudNavGroup>
 		<MudNavLink Href="/notification?page=1&pagesize=10" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.History">
 			@Translations.History
 		</MudNavLink>

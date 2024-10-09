@@ -1,14 +1,8 @@
-﻿@page "/notification"
+﻿@page "/notification/visit"
 @using MedicalAssistant.UI.Components
-@using MedicalAssistant.UI.Components.AppBar.Notifications
 @using MedicalAssistant.UI.Components.VisitNotification
-@using MedicalAssistant.UI.Models.Notifications
-@using System.Web
-@using MedicalAssistant.UI.Shared.Response
-@using MedicalAssistant.UI.Shared.Response.Base
-@using MedicalAssistant.UI.Shared.Services.Abstraction
 
-<div class="d-flex flex-column container-h">
+<div class="d-flex flex-column" style="height: calc(100vh - 96px);">
 	@if (_loading)
 	{
 		<MudPaper Class="ma-0  flex-column flex-grow-1 d-flex pa-2">
@@ -17,8 +11,7 @@
 	}
 	else
 	{
-		<NotificationHistoryTable FormattedDates="@_formattedDates"
-								  Notifications="_notifications" />
+		<UpcomingVisitNotificationsTable OnDelete="@Delete" Notifications="@_notifications" FormattedDates="@_formattedDates" />
 		@if (_totalItemCount > 0)
 		{
 			<div class="d-flex justify-content-end flex-row p-2">

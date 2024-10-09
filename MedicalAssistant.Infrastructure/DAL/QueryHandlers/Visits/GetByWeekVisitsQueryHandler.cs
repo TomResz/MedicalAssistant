@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
-using MedicalAssistant.Application.Visits;
+using MedicalAssistant.Application.Dto.Mappers;
 using MedicalAssistant.Application.Visits.Queries;
 using MedicalAssistant.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;

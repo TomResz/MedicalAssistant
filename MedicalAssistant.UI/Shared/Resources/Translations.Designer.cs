@@ -997,6 +997,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notification Scheduled Date.
+        /// </summary>
+        internal static string ScheduledDateNotification {
+            get {
+                return ResourceManager.GetString("ScheduledDateNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scheduler.
         /// </summary>
         internal static string Scheduler {
