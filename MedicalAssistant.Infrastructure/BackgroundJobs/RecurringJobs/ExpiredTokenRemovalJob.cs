@@ -22,20 +22,20 @@ internal sealed class ExpiredTokenRemovalJob : IExpiredTokenRemovalJob
 		_logger = logger;
 	}
 
-	public async Task ProcessAsync()
+	public async Task ProcessAsync(CancellationToken cancellationToken)
 	{
-		using var transaction = await _context.Database.BeginTransactionAsync();
+		using var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
 		try
 		{
 			var now = _clock.GetCurrentUtc();
 			var deletedCount = await _context
 				.TokenHolders
 				.Where(x => x.RefreshTokenExpirationUtc < new Date(now))
-				.ExecuteDeleteAsync();
+				.ExecuteDeleteAsync(cancellationToken);
 
-			await _context.SaveChangesAsync();
+			await _context.SaveChangesAsync(cancellationToken);
 
-			await transaction.CommitAsync();
+			await transaction.CommitAsync(cancellationToken);
 
 			if (deletedCount > 0)
 			{
@@ -45,7 +45,7 @@ internal sealed class ExpiredTokenRemovalJob : IExpiredTokenRemovalJob
 		catch (Exception ex)
 		{
 			_logger.LogError(ex, "An error occurred while removing expired tokens.");
-			await transaction.RollbackAsync();
+			await transaction.RollbackAsync(cancellationToken);
 		}
 	}
 }

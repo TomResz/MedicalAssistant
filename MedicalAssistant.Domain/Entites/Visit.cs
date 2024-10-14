@@ -17,8 +17,8 @@ public class Visit : AggregateRoot<VisitId>
     public VisitDescription VisitDescription { get; private set; }
     public VisitType VisitType { get; private set; }
 
-	private readonly HashSet<Recommendation> _recommendations = new();
-    public IEnumerable<Recommendation> Recommendations => _recommendations;
+	private readonly HashSet<MedicationRecommendation> _recommendations = new();
+    public IEnumerable<MedicationRecommendation> Recommendations => _recommendations;
 
     private readonly HashSet<VisitNotification> _notifications = new();
 
@@ -82,13 +82,13 @@ public class Visit : AggregateRoot<VisitId>
         _notifications.Add(notification);
     }
 
-    public void AddRecommendation(Recommendation recommendation)
+    public void AddRecommendation(MedicationRecommendation recommendation)
     {
         _recommendations.Add(recommendation);
         AddEvent(new RecommendationAddedEvent(Id,recommendation.Id));
     }
 
-	public void DeleteRecommendation(RecommendationId recommendationId)
+	public void DeleteRecommendation(MedicationRecommendationId recommendationId)
 	{
         bool wasRemoved = _recommendations.RemoveWhere(x=>x.Id == recommendationId) > 0;
         if (!wasRemoved)

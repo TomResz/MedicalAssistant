@@ -42,7 +42,7 @@ internal sealed class GetUpcomingVisitNotificationPageQueryHandler
 				FROM "VisitNotifications" AS vn
 				INNER JOIN "Visits" AS v ON v."Id" = vn."VisitId"
 				WHERE v."UserId" = {userId.Value} AND vn."ScheduledDateUtc" >= {currentDate}
-				ORDER BY vn."ScheduledDateUtc" DESC 
+				ORDER BY vn."ScheduledDateUtc" ASC 
 			""");
 
 

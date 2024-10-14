@@ -50,4 +50,11 @@ public class VisitService : IVisitService
 		var response = await _httpClient.GetAsync($"visit/week/{dateTime.ToString("yyyy-MM-dd")}");
 		return await response.DeserializeResponse<List<VisitDto>>();	
 	}
+
+	public async Task<Response<List<VisitDto>>> GetCompleted(DateTime dateTime)
+	{
+		var date = dateTime.ToString("yyyy-MM-ddTHH:mm:ss");
+		var response = await _httpClient.GetAsync($"visit/completed/{date}");
+		return await response.DeserializeResponse<List<VisitDto>>();
+	}
 }

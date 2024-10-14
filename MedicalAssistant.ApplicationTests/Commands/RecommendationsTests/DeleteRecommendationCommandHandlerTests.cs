@@ -55,7 +55,7 @@ public class DeleteRecommendationCommandHandlerTests
 
 		await _handler.Handle(command,default);
 
-		_visitService.Received(1).RemoveRecommendation(Arg.Any<Visit>(),Arg.Any<UserId>(),Arg.Any<RecommendationId>());
+		_visitService.Received(1).RemoveRecommendation(Arg.Any<Visit>(),Arg.Any<UserId>(),Arg.Any<MedicationRecommendationId>());
 		_visitRepository.Received(1).Update(visit);
 		await _unitOfWork.Received(1).SaveChangesAsync();
 	}

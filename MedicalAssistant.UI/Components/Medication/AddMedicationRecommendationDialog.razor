@@ -1,0 +1,39 @@
+﻿<MudDialog TitleClass="text-center">
+	<DialogContent>
+		<MudForm @ref="_form" ValidationDelay="60" Class="mx-0 px-0">
+			
+			<MudGrid >
+				<MudItem xs="12" sm="6">
+					<MudDateRangePicker @bind-DateRange="_dateRange" PickerVariant="PickerVariant.Dialog" Margin="Margin.Dense"/>
+
+				</MudItem>
+			</MudGrid>
+
+		</MudForm>
+
+	</DialogContent>
+
+	<DialogActions>
+		<MudButton StartIcon="@Icons.Material.Outlined.Add" Color="Color.Primary" Variant="MudBlazor.Variant.Filled">
+			@Translations.Add
+		</MudButton>
+		<MudButton StartIcon="@Icons.Material.Outlined.Cancel" Color="Color.Primary" Variant="MudBlazor.Variant.Filled">
+			@Translations.Cancel
+		</MudButton>
+	</DialogActions>
+
+</MudDialog>
+
+<style>
+	.mud-dialog {
+		height: auto !important;
+		max-height: 90vh;
+		overflow-y: visible;
+	}
+
+	.mud-dialog-content {
+		height: auto !important;
+		max-height: 100%;
+		overflow: visible;
+	}
+</style>

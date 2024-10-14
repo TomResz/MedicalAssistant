@@ -3,6 +3,16 @@
 		@Translations.Currents
 	</MudNavLink>
 
+	<MudNavGroup Title="@Translations.Medication" Icon="@Icons.Material.Outlined.Medication" Expanded="false">
+		<MudNavLink Href="/medication/current" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.ViewWeek">
+			@Translations.Currents
+		</MudNavLink>
+		<MudNavLink Href="/medication" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.CalendarMonth">
+			@Translations.Scheduler
+		</MudNavLink>
+	</MudNavGroup>
+
+
 	<MudNavGroup Title="@Translations.Visits" Icon="@Icons.Material.Outlined.MedicalServices" Expanded="false">
 		<MudNavLink Href="/visits/current" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.ViewWeek">
 			@Translations.Currents

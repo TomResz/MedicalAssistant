@@ -1,0 +1,68 @@
+﻿@using MedicalAssistant.UI.Models.Visits
+
+<MudDialog TitleClass="text-center">
+
+	<DialogContent>
+		<MudPaper Elevation="2" Class="pa-4">
+			<MudRadioGroup T="VisitDto" @bind-Value="SelectedVisit">
+				<MudGrid Spacing="2" Justify="Justify.FlexStart">
+					@foreach (var visit in Visits)
+					{
+						<MudItem xs="12" sm="6" md="3" Class="d-flex flex-row align-items-center" Style="height: 100%;">
+							<MudRadio T="VisitDto" Value="visit" Color="Color.Primary" Class="mr-1 ml-2" />
+							<VisitItem Visit="@visit" Class="flex-grow-1 pa-4 align-self-stretch w-100" />
+						</MudItem>
+					}
+				</MudGrid>
+			</MudRadioGroup>
+		</MudPaper>
+	</DialogContent>
+
+
+	<DialogActions>
+
+		<MudButton StartIcon="@Icons.Material.Filled.Add" Variant="MudBlazor.Variant.Filled"
+				   OnClick="ConfirmSelection" Color="Color.Primary">
+			@Translations.SelectVisit
+		</MudButton>
+
+		<MudButton OnClick="Cancel" StartIcon="@Icons.Material.Filled.Cancel"
+				   Variant="MudBlazor.Variant.Filled" Color="Color.Error">
+			@Translations.Cancel
+		</MudButton>
+
+	</DialogActions>
+</MudDialog>
+
+
+@code {
+	[Parameter]
+	public IReadOnlyList<VisitDto> Visits { get; set; }
+
+	[CascadingParameter]
+	private MudDialogInstance MudDialog { get; set; }
+
+	[Parameter]
+	public Guid? SelectedId { get; set; }
+
+	private VisitDto? SelectedVisit = null;
+
+	private void Cancel() => MudDialog.Cancel();
+
+	protected override void OnParametersSet()
+	{
+		if (SelectedId.HasValue && Visits is not null)
+		{
+			SelectedVisit = Visits.FirstOrDefault(v => v.Id == SelectedId.Value);
+		}
+	}
+
+	private void ConfirmSelection()
+	{
+		if (SelectedVisit is not null)
+		{
+			MudDialog.Close(SelectedVisit);
+			return;
+		}
+	}
+}

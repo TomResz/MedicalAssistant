@@ -13,13 +13,13 @@ internal class VisitService : IVisitService
 		_policy = policy;
 	}
 
-	public void AddRecommendation(Visit visit, UserId userId, Recommendation recommendation)
+	public void AddRecommendation(Visit visit, UserId userId, MedicationRecommendation recommendation)
 	{
         ValidatePolicy(visit, userId);
 		visit.AddRecommendation(recommendation);
 	}
 
-    public void RemoveRecommendation(Visit visit, UserId userId, RecommendationId recommendationId)
+    public void RemoveRecommendation(Visit visit, UserId userId, MedicationRecommendationId recommendationId)
     {
         ValidatePolicy(visit, userId);
         visit.DeleteRecommendation(recommendationId);

@@ -6,7 +6,7 @@ using MedicalAssistant.Domain.ValueObjects;
 namespace MedicalAssistant.Application.Tests.ObjectFactories;
 public class RecommendationFactory
 {
-	public static Recommendation Create(
+	public static MedicationRecommendation Create(
 		VisitId visitId,
 		Note? extraNote = null,
 		Date? createdAt = null,
@@ -16,11 +16,11 @@ public class RecommendationFactory
 	{
 		extraNote ??= "Note";
 		createdAt ??= DateTime.Now;
-		medicine ??= new("Aspiryna",1, TimeOfDay.Morning);
+		medicine ??= new("Aspiryna",1, new string[] { TimeOfDay.Morning });
 		startDate ??= DateTime.Now;
 		endDate ??= DateTime.Now.AddDays(3);
 
-		return Recommendation.Create(
+		return MedicationRecommendation.Create(
 			visitId,
 			 extraNote,
 			 createdAt,

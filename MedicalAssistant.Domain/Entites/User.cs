@@ -28,6 +28,9 @@ public class User : AggregateRoot<UserId>
 
 	private readonly HashSet<TokenHolder> _refreshTokens = new();
 	public IEnumerable<TokenHolder> RefreshTokens => _refreshTokens;
+
+	private readonly HashSet<MedicationRecommendation> _medicationRecommendation = new();
+	public IEnumerable<MedicationRecommendation> MedicationRecommendations => _medicationRecommendation;
 	
 	protected User() { }
 	

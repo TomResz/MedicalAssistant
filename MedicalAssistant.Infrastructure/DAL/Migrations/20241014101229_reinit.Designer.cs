@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using MedicalAssistant.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MedicalAssistant.Infrastructure.Migrations
 {
     [DbContext(typeof(MedicalAssistantDbContext))]
-    partial class MedicalAssistDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241014101229_reinit")]
+    partial class reinit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,6 +95,55 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.ToTable("ExternalUserLogin");
                 });
 
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.MedicationRecommendation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("ExtraNote")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("VisitId")
+                        .HasColumnType("uuid");
+
+                    b.ComplexProperty<Dictionary<string, object>>("Medicine", "MedicalAssistant.Domain.Entites.MedicationRecommendation.Medicine#Medicine", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<int>("Quantity")
+                                .HasColumnType("integer");
+
+                            b1.Property<string[]>("TimeOfDay")
+                                .IsRequired()
+                                .HasColumnType("text[]");
+                        });
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("VisitId");
+
+                    b.ToTable("MedicationRecommendation", (string)null);
+                });
+
             modelBuilder.Entity("MedicalAssistant.Domain.Entites.NotificationHistory", b =>
                 {
                     b.Property<Guid>("Id")
@@ -123,50 +175,6 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("NotificationHistories");
-                });
-
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.Recommendation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("ExtraNote")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<Guid>("VisitId")
-                        .HasColumnType("uuid");
-
-                    b.ComplexProperty<Dictionary<string, object>>("Medicine", "MedicalAssistant.Domain.Entites.Recommendation.Medicine#Medicine", b1 =>
-                        {
-                            b1.IsRequired();
-
-                            b1.Property<string>("Name")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.Property<int>("Quantity")
-                                .HasColumnType("integer");
-
-                            b1.Property<string>("TimeOfDay")
-                                .IsRequired()
-                                .HasColumnType("text");
-                        });
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VisitId");
-
-                    b.ToTable("Recommendations");
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.Entites.User", b =>
@@ -354,6 +362,22 @@ namespace MedicalAssistant.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.MedicationRecommendation", b =>
+                {
+                    b.HasOne("MedicalAssistant.Domain.Entites.User", "User")
+                        .WithMany("MedicationRecommendations")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedicalAssistant.Domain.Entites.Visit", null)
+                        .WithMany("Recommendations")
+                        .HasForeignKey("VisitId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("MedicalAssistant.Domain.Entites.NotificationHistory", b =>
                 {
                     b.HasOne("MedicalAssistant.Domain.Entites.User", "User")
@@ -363,15 +387,6 @@ namespace MedicalAssistant.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.Recommendation", b =>
-                {
-                    b.HasOne("MedicalAssistant.Domain.Entites.Visit", null)
-                        .WithMany("Recommendations")
-                        .HasForeignKey("VisitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.Entites.UserSettings", b =>
@@ -415,6 +430,8 @@ namespace MedicalAssistant.Infrastructure.Migrations
             modelBuilder.Entity("MedicalAssistant.Domain.Entites.User", b =>
                 {
                     b.Navigation("ExternalUserProvider");
+
+                    b.Navigation("MedicationRecommendations");
 
                     b.Navigation("NotificationHistories");
 

@@ -196,6 +196,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select a visit.
+        /// </summary>
+        internal static string ChooseVisit {
+            get {
+                return ResourceManager.GetString("ChooseVisit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to City.
         /// </summary>
         internal static string City {
@@ -349,7 +358,7 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Doctor Name.
+        ///   Looks up a localized string similar to Doctor.
         /// </summary>
         internal static string DoctorName {
             get {
@@ -709,6 +718,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Medication.
+        /// </summary>
+        internal static string Medication {
+            get {
+                return ResourceManager.GetString("Medication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monday.
         /// </summary>
         internal static string Monday {
@@ -1011,6 +1029,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Scheduler {
             get {
                 return ResourceManager.GetString("Scheduler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a visit.
+        /// </summary>
+        internal static string SelectVisit {
+            get {
+                return ResourceManager.GetString("SelectVisit", resourceCulture);
             }
         }
         

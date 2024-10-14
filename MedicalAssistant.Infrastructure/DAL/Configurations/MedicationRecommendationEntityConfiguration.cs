@@ -5,26 +5,32 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MedicalAssistant.Infrastructure.DAL.Configurations;
-internal sealed class RecommendationEntityConfiguration : IEntityTypeConfiguration<Recommendation>
+internal sealed class MedicationRecommendationEntityConfiguration : IEntityTypeConfiguration<MedicationRecommendation>
 {
-    public void Configure(EntityTypeBuilder<Recommendation> builder)
+    public void Configure(EntityTypeBuilder<MedicationRecommendation> builder)
     {
         builder.HasKey(x=> x.Id);
+        builder.ToTable(nameof(MedicationRecommendation));
 
         builder.Property(x => x.VisitId)
             .HasConversion(
                 x => x.Value,
                 x => new(x))
-            .IsRequired();
+            .IsRequired(false);
 
         builder.HasOne<Visit>()
             .WithMany(x=>x.Recommendations)
             .HasForeignKey(x => x.VisitId)
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.Cascade);
 
+        builder.HasOne<User>()
+            .WithMany(x=>x.MedicationRecommendations)
+            .HasForeignKey(x => x.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.Property(x=> x.Id)
-            .HasConversion(x=> x.Value, x=> new RecommendationId(x))
+            .HasConversion(x=> x.Value, x=> new MedicationRecommendationId(x))
             .IsRequired();
 
         builder.Property(x => x.ExtraNote)

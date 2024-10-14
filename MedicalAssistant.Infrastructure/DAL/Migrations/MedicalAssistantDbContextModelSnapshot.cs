@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using MedicalAssistant.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -13,11 +12,9 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MedicalAssistant.Infrastructure.Migrations
 {
     [DbContext(typeof(MedicalAssistantDbContext))]
-    [Migration("20240913132602_changedusersettingsentity")]
-    partial class changedusersettingsentity
+    partial class MedicalAssistantDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,7 +23,58 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("MedicalAssist.Domain.Entites.ExternalUserLogin", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.ComplexTypes.TokenHolder", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("text")
+                        .HasColumnName("RefreshToken");
+
+                    b.Property<DateTime?>("RefreshTokenExpirationUtc")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("RefreshTokenExpirationUtc");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TokenHolders");
+                });
+
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.Attachment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<byte[]>("Content")
+                        .IsRequired()
+                        .HasMaxLength(10485760)
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Extension")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("VisitId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VisitId");
+
+                    b.ToTable("Attachments");
+                });
+
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.ExternalUserLogin", b =>
                 {
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -44,7 +92,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.ToTable("ExternalUserLogin");
                 });
 
-            modelBuilder.Entity("MedicalAssist.Domain.Entites.Recommendation", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.MedicationRecommendation", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -62,10 +110,13 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("VisitId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
-                    b.ComplexProperty<Dictionary<string, object>>("Medicine", "MedicalAssist.Domain.Entites.Recommendation.Medicine#Medicine", b1 =>
+                    b.Property<Guid?>("VisitId")
+                        .HasColumnType("uuid");
+
+                    b.ComplexProperty<Dictionary<string, object>>("Medicine", "MedicalAssistant.Domain.Entites.MedicationRecommendation.Medicine#Medicine", b1 =>
                         {
                             b1.IsRequired();
 
@@ -76,19 +127,54 @@ namespace MedicalAssistant.Infrastructure.Migrations
                             b1.Property<int>("Quantity")
                                 .HasColumnType("integer");
 
-                            b1.Property<string>("TimeOfDay")
+                            b1.Property<string[]>("TimeOfDay")
                                 .IsRequired()
-                                .HasColumnType("text");
+                                .HasColumnType("text[]");
                         });
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.HasIndex("VisitId");
 
-                    b.ToTable("Recommendations");
+                    b.ToTable("MedicationRecommendation", (string)null);
                 });
 
-            modelBuilder.Entity("MedicalAssist.Domain.Entites.User", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.NotificationHistory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ContentJson")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DateOfRead")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("PublishedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("UserId");
+
+                    b.Property<bool>("WasRead")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("NotificationHistories");
+                });
+
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -119,19 +205,6 @@ namespace MedicalAssistant.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.ComplexProperty<Dictionary<string, object>>("RefreshTokenHolder", "MedicalAssist.Domain.Entites.User.RefreshTokenHolder#RefreshTokenHolder", b1 =>
-                        {
-                            b1.IsRequired();
-
-                            b1.Property<string>("RefreshToken")
-                                .HasColumnType("text")
-                                .HasColumnName("RefreshToken");
-
-                            b1.Property<DateTime?>("RefreshTokenExpirationUtc")
-                                .HasColumnType("timestamp without time zone")
-                                .HasColumnName("RefreshTokenExpirationUtc");
-                        });
-
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
@@ -140,7 +213,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("MedicalAssist.Domain.Entites.UserSettings", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.UserSettings", b =>
                 {
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -163,7 +236,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.ToTable("UserSettings");
                 });
 
-            modelBuilder.Entity("MedicalAssist.Domain.Entites.UserVerification", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.UserVerification", b =>
                 {
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -180,7 +253,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.ToTable("UserVerifications");
                 });
 
-            modelBuilder.Entity("MedicalAssist.Domain.Entites.Visit", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.Visit", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -209,7 +282,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)");
 
-                    b.ComplexProperty<Dictionary<string, object>>("Address", "MedicalAssist.Domain.Entites.Visit.Address#Address", b1 =>
+                    b.ComplexProperty<Dictionary<string, object>>("Address", "MedicalAssistant.Domain.Entites.Visit.Address#Address", b1 =>
                         {
                             b1.IsRequired();
 
@@ -234,7 +307,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.ToTable("Visits");
                 });
 
-            modelBuilder.Entity("MedicalAssist.Domain.Entites.VisitNotification", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.VisitNotification", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -259,65 +332,107 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.ToTable("VisitNotifications");
                 });
 
-            modelBuilder.Entity("MedicalAssist.Domain.Entites.ExternalUserLogin", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.ComplexTypes.TokenHolder", b =>
                 {
-                    b.HasOne("MedicalAssist.Domain.Entites.User", null)
-                        .WithOne("ExternalUserProvider")
-                        .HasForeignKey("MedicalAssist.Domain.Entites.ExternalUserLogin", "UserId")
+                    b.HasOne("MedicalAssistant.Domain.Entites.User", null)
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MedicalAssist.Domain.Entites.Recommendation", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.Attachment", b =>
                 {
-                    b.HasOne("MedicalAssist.Domain.Entites.Visit", null)
-                        .WithMany("Recommendations")
+                    b.HasOne("MedicalAssistant.Domain.Entites.Visit", null)
+                        .WithMany("Attachments")
                         .HasForeignKey("VisitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MedicalAssist.Domain.Entites.UserSettings", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.ExternalUserLogin", b =>
                 {
-                    b.HasOne("MedicalAssist.Domain.Entites.User", "User")
-                        .WithOne("UserSettings")
-                        .HasForeignKey("MedicalAssist.Domain.Entites.UserSettings", "UserId")
+                    b.HasOne("MedicalAssistant.Domain.Entites.User", null)
+                        .WithOne("ExternalUserProvider")
+                        .HasForeignKey("MedicalAssistant.Domain.Entites.ExternalUserLogin", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.MedicationRecommendation", b =>
+                {
+                    b.HasOne("MedicalAssistant.Domain.Entites.User", "User")
+                        .WithMany("MedicationRecommendations")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedicalAssistant.Domain.Entites.Visit", null)
+                        .WithMany("Recommendations")
+                        .HasForeignKey("VisitId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.NotificationHistory", b =>
+                {
+                    b.HasOne("MedicalAssistant.Domain.Entites.User", "User")
+                        .WithMany("NotificationHistories")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MedicalAssist.Domain.Entites.UserVerification", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.UserSettings", b =>
                 {
-                    b.HasOne("MedicalAssist.Domain.Entites.User", null)
+                    b.HasOne("MedicalAssistant.Domain.Entites.User", "User")
+                        .WithOne("UserSettings")
+                        .HasForeignKey("MedicalAssistant.Domain.Entites.UserSettings", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.UserVerification", b =>
+                {
+                    b.HasOne("MedicalAssistant.Domain.Entites.User", null)
                         .WithOne("UserVerification")
-                        .HasForeignKey("MedicalAssist.Domain.Entites.UserVerification", "UserId")
+                        .HasForeignKey("MedicalAssistant.Domain.Entites.UserVerification", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MedicalAssist.Domain.Entites.Visit", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.Visit", b =>
                 {
-                    b.HasOne("MedicalAssist.Domain.Entites.User", null)
+                    b.HasOne("MedicalAssistant.Domain.Entites.User", null)
                         .WithMany("Visits")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MedicalAssist.Domain.Entites.VisitNotification", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.VisitNotification", b =>
                 {
-                    b.HasOne("MedicalAssist.Domain.Entites.Visit", null)
+                    b.HasOne("MedicalAssistant.Domain.Entites.Visit", null)
                         .WithMany("Notifications")
                         .HasForeignKey("VisitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MedicalAssist.Domain.Entites.User", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.User", b =>
                 {
                     b.Navigation("ExternalUserProvider");
+
+                    b.Navigation("MedicationRecommendations");
+
+                    b.Navigation("NotificationHistories");
+
+                    b.Navigation("RefreshTokens");
 
                     b.Navigation("UserSettings")
                         .IsRequired();
@@ -327,8 +442,10 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.Navigation("Visits");
                 });
 
-            modelBuilder.Entity("MedicalAssist.Domain.Entites.Visit", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.Visit", b =>
                 {
+                    b.Navigation("Attachments");
+
                     b.Navigation("Notifications");
 
                     b.Navigation("Recommendations");

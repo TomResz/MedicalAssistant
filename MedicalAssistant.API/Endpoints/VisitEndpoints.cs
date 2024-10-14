@@ -1,5 +1,6 @@
 ﻿
 using MediatR;
+using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Visits.Commands.AddVisit;
 using MedicalAssistant.Application.Visits.Commands.DeleteVisit;
 using MedicalAssistant.Application.Visits.Commands.EditVisit;
@@ -35,14 +36,14 @@ public sealed class VisitEndpoints : IEndpoints
 		});
 
 		group.MapGet("/{visitId:guid}", async (
-			IMediator _mediator,Guid visitId) =>
+			IMediator _mediator, Guid visitId) =>
 		{
 			var query = new GetVisitDetailsQuery(visitId);
 			return Results.Ok(await _mediator.Send(query));
 		});
 
 		group.MapDelete("delete/{visitId:guid}", async (
-			IMediator _mediator, 
+			IMediator _mediator,
 			Guid visitId) =>
 		{
 			var command = new DeleteVisitCommand(visitId);
@@ -57,5 +58,13 @@ public sealed class VisitEndpoints : IEndpoints
 			var response = await _mediator.Send(query);
 			return Results.Ok(response);
 		});
+
+		group.MapGet("completed/{date:datetime}", async (IMediator _mediator, DateTime date) =>
+		{
+			var query = new GetCompletedVisitsQuery(date);
+			var response = await _mediator.Send(query);
+			return Results.Ok(response);
+		}).Produces(StatusCodes.Status200OK,typeof(IEnumerable<VisitDto>));
+
 	}
 }

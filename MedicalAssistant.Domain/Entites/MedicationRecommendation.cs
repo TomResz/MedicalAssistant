@@ -4,18 +4,20 @@ using MedicalAssistant.Domain.ValueObjects;
 using MedicalAssistant.Domain.ValueObjects.IDs;
 
 namespace MedicalAssistant.Domain.Entites;
-public class Recommendation
+public class MedicationRecommendation
 {
-    public RecommendationId Id { get; private set; }
-    public VisitId VisitId { get; private set; }
+    public MedicationRecommendationId Id { get; private set; }
+    public VisitId? VisitId { get; private set; }
+    public UserId UserId { get; set; }
     public Note ExtraNote { get; private set; }
     public Date CreatedAt { get; private set; }
     public Medicine Medicine { get; private set; }
     public Date StartDate { get; private set; }
     public Date EndDate { get; private set; }
-    private Recommendation() { }
-    private Recommendation(
-		RecommendationId id,
+    public User User { get;private set; }
+    private MedicationRecommendation() { }
+    private MedicationRecommendation(
+		MedicationRecommendationId id,
 		VisitId visitId,
 		Note extraNote,
 		Date createdAt,
@@ -32,7 +34,7 @@ public class Recommendation
         EndDate = endDate;
     }
 
-    public static Recommendation Create(
+    public static MedicationRecommendation Create(
 		VisitId visitId,
 		Note extraNote,
 		Date createdAt,
@@ -45,7 +47,7 @@ public class Recommendation
             throw new InvalidEndDateException();
         }
 
-        Recommendation recommendation = new Recommendation(
+        MedicationRecommendation recommendation = new MedicationRecommendation(
             Guid.NewGuid(),
 			visitId,
 			extraNote,

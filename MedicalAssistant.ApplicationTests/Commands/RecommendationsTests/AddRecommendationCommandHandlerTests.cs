@@ -27,7 +27,7 @@ public class AddRecommendationCommandHandlerTests
 		"Note",
 		"Medicine",
 		2,
-		TimeOfDay.Morning,
+		[TimeOfDay.Morning],
 		   _date,
 			_date.AddMonths(1));
 
@@ -56,7 +56,7 @@ public class AddRecommendationCommandHandlerTests
 
 		await _handler.Handle(command, default);
 
-		_visitService.Received(1).AddRecommendation(visit, user.Id, Arg.Any<Recommendation>());
+		_visitService.Received(1).AddRecommendation(visit, user.Id, Arg.Any<MedicationRecommendation>());
 		_visitRepository.Received(1).Update(visit);
 		await _unitOfWork.Received(1).SaveChangesAsync();
 	}
@@ -76,7 +76,7 @@ public class AddRecommendationCommandHandlerTests
 
 		await act.Should().ThrowAsync<UnknownVisitException>();
 
-		_visitService.DidNotReceive().AddRecommendation(Arg.Any<Visit>(), user.Id, Arg.Any<Recommendation>());
+		_visitService.DidNotReceive().AddRecommendation(Arg.Any<Visit>(), user.Id, Arg.Any<MedicationRecommendation>());
 		_visitRepository.DidNotReceive().Update(Arg.Any<Visit>());
 		await _unitOfWork.DidNotReceive().SaveChangesAsync();
 	}

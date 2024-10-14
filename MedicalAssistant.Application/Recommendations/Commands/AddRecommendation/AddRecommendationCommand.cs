@@ -6,6 +6,6 @@ public sealed record AddRecommendationCommand(
     string? ExtraNote,
     string MedicineName,
     int Quantity,
-    string TimeOfDay,
+    string[] TimeOfDay,
     DateTime StartDate,
     DateTime EndDate) : IRequest;

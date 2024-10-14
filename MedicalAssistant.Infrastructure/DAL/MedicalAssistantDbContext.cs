@@ -6,7 +6,7 @@ namespace MedicalAssistant.Infrastructure.DAL;
 internal sealed class MedicalAssistantDbContext : DbContext
 {
     public DbSet<User> Users { get; set; }
-    public DbSet<Recommendation> Recommendations { get; set; }
+    public DbSet<MedicationRecommendation> Recommendations { get; set; }
     public DbSet<Visit> Visits { get; set; }
     public DbSet<UserVerification> UserVerifications { get; set; }
     public DbSet<VisitNotification> VisitNotifications { get; set; }

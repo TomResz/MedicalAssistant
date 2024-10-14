@@ -1,0 +1,14 @@
+﻿@page "/medication"
+@using MedicalAssistant.UI.Components
+@using MedicalAssistant.UI.Components.Medication
+
+@if (_loading)
+{
+	<MudCard Style="height: calc(100vh - 96px);">
+		<LoadingSkeletonComponent Class="ma-2" />
+	</MudCard>
+}
+else
+{
+	<MedicationSchedulerComponent Items="_items" />
+}

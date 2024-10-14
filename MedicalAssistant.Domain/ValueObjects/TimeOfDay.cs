@@ -3,20 +3,25 @@
 namespace MedicalAssistant.Domain.ValueObjects;
 public sealed record TimeOfDay
 {
-	public static IEnumerable<string> AvailableTimesOfDay { get; } = new[] { "morning", "afternoon", "evening", "night" };
+	public static IEnumerable<string> AvailableTimesOfDay { get; } = ["morning", "afternoon", "evening", "night"];
 
-	public string Value { get; }
-	public TimeOfDay(string value)
+	public string[] Value { get; }
+
+	public TimeOfDay(string[] value)
 	{
-		if (string.IsNullOrEmpty(value))
+		if (value.Length is 0)
 		{
 			throw new EmptyTimeOfDayValueException();
 		}
 
-		if (!AvailableTimesOfDay.Contains(value))
+		foreach (string s in value)
 		{
-			throw new InvalidTimeOfDayException(value);
+			if (!AvailableTimesOfDay.Contains(s))
+			{
+				throw new InvalidTimeOfDayException(s);
+			}
 		}
+
 		Value = value;
 	}
 
@@ -26,6 +31,6 @@ public sealed record TimeOfDay
 	public const string Night = "night";
 
 
-	public static implicit operator TimeOfDay(string value) => new TimeOfDay(value);
-	public static implicit operator string(TimeOfDay value) => value.Value;
+	public static implicit operator TimeOfDay(string[] value) => new(value);
+	public static implicit operator string[](TimeOfDay value) => value.Value;
 }

@@ -8,6 +8,9 @@ public partial class VisitItem
 	[Parameter]
 	public VisitDto Visit { get; set; }
 
+	[Parameter]
+	public string? Class { get; set; }	
+
 	[Inject]
 	public NavigationManager Navigation { get; set; }
 

@@ -31,7 +31,7 @@ internal sealed class AddRecommendationCommandHandler : IRequestHandler<AddRecom
 
     public async Task Handle(AddRecommendationCommand request, CancellationToken cancellationToken)
     {
-        Recommendation recommendation = Recommendation.Create(
+        MedicationRecommendation recommendation = MedicationRecommendation.Create(
             request.VisitId,
              request.ExtraNote,
              _clock.GetCurrentUtc(),

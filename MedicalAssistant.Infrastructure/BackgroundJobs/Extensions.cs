@@ -48,7 +48,7 @@ public static class Extensions
             .GetRequiredService<IRecurringJobManager>()
             .AddOrUpdate<IExpiredTokenRemovalJob>(
                 "expired-token-deletion-job",
-                    job => job.ProcessAsync(),
+                    job => job.ProcessAsync(default),
                     "*/2 * * * *");
         return app;
 	}

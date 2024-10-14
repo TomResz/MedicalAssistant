@@ -292,7 +292,7 @@
     <value>Nie</value>
   </data>
   <data name="DoctorName" xml:space="preserve">
-    <value>Imię i Nazwisko Lekarza</value>
+    <value>Lekarz</value>
   </data>
   <data name="VisitType" xml:space="preserve">
     <value>Typ Wizyty</value>
@@ -539,5 +539,14 @@
   </data>
   <data name="ScheduledDateNotification" xml:space="preserve">
     <value>Zaplanowana Data Powiadomienia</value>
+  </data>
+  <data name="Medication" xml:space="preserve">
+    <value>Lekarstwa</value>
+  </data>
+  <data name="SelectVisit" xml:space="preserve">
+    <value>Wybierz wizytę</value>
+  </data>
+  <data name="ChooseVisit" xml:space="preserve">
+    <value>Wybierz wizytę</value>
   </data>
 </root>

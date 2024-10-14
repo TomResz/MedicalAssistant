@@ -1,0 +1,18 @@
+﻿
+<RadzenScheduler @ref="_scheduler"
+				 Style=" height: calc(100vh - 96px);overflow: hidden;"
+				 TItem="MedicationDto" Data="_items"
+				 StartProperty="Start" EndProperty="End"
+				 TextProperty="Name"
+				 SelectedIndex="2"
+				 TodayText="@Translations.Today"
+				 NextText="@Translations.Tomorrow"
+				 PrevText="@Translations.Yesterday"
+				 SlotRender=@SelectTodayDate
+				 SlotSelect="@AddMedication"
+				 AppointmentSelect="@EditMedication">
+	<RadzenDayView Text="@Translations.Day" StartTime="TimeSpan.FromHours(6.0)" EndTime="TimeSpan.FromHours(24.0)" TimeFormat="HH:mm" />
+	<RadzenWeekView Text="@Translations.Week" StartTime="TimeSpan.FromHours(6.0)" EndTime="TimeSpan.FromHours(24.0)" TimeFormat="HH:mm" />
+	<RadzenMonthView Text="@Translations.Month" />
+	<RadzenYearView Text="@Translations.Year" />
+</RadzenScheduler>

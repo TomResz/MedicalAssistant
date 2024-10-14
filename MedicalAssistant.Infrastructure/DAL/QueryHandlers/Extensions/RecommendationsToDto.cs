@@ -3,7 +3,7 @@
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Extensions;
 internal static class RecommendationsToDto
 {
-    internal static RecommendationDto ToDto(this Domain.Entites.Recommendation recommendation)
+    internal static RecommendationDto ToDto(this Domain.Entites.MedicationRecommendation recommendation)
         => new RecommendationDto
         {
             Id = recommendation.Id,
