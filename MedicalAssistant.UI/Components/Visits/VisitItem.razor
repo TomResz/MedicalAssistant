@@ -1,12 +1,14 @@
 ﻿@using MedicalAssistant.UI.Models.Visits
 <MudPaper Elevation="4" Class="@(Class ?? "pa-4")" Style="margin-top: 0px;">
-    <MudText Typo="Typo.h6">@Translations.VisitType: @Visit.VisitType</MudText>
-    <MudText Typo="Typo.body1">@Translations.DoctorName: <b>@Visit.DoctorName</b></MudText>
-    <MudText Typo="Typo.body1">@Translations.Date: <b>@Visit.Date.ToString("dd.MM.yyyy HH:mm")</b></MudText>
+	<MudText Typo="Typo.h6">@Translations.VisitType: @Visit.VisitType</MudText>
+	<MudText Typo="Typo.body1">@Translations.DoctorName: <b>@Visit.DoctorName</b></MudText>
+	<MudText Typo="Typo.body1">@Translations.Date: <b>@Visit.Date.ToString("dd.MM.yyyy HH:mm")</b></MudText>
 
-    <MudSpacer />
-
-    <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Primary" OnClick="ShowDetails" >
-        @Translations.ShowDetails
-    </MudButton>
+	<MudSpacer />
+	@if (ButtonVisible)
+	{
+		<MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Primary" OnClick="ShowDetails">
+			@Translations.ShowDetails
+		</MudButton>
+	}
 </MudPaper>

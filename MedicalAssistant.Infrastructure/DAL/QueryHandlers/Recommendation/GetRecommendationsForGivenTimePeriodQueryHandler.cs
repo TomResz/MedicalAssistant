@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using MedicalAssistant.Application.Dto;
-using MedicalAssistant.Application.Recommendations.Queries;
+using MedicalAssistant.Application.MedicationRecommendations.Queries;
 using MedicalAssistant.Domain.ValueObjects;
 using MedicalAssistant.Domain.ValueObjects.IDs;
 using MedicalAssistant.Infrastructure.DAL.QueryHandlers.Extensions;

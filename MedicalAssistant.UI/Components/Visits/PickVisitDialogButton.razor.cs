@@ -17,6 +17,9 @@ public partial class PickVisitDialogButton
 	[Inject]
 	public ILocalTimeProvider LocalTimeProvider { get; set; }
 
+	[Inject]
+	public ISnackbar Snackbar { get; set; }
+
 	[Parameter]
 	public string ButtonName { get; set; }
 
@@ -35,11 +38,21 @@ public partial class PickVisitDialogButton
 
 		if (response.IsSuccess)
 		{
+			var visits = response.Value!;
+
+			if(visits is null
+				|| visits.Count == 0)
+			{
+				Snackbar.Add(Translations.NoVisitsToChoose, Severity.Warning);
+				return;
+			}
+
+
 			var visitId = SelectedVisit?.Id;
 
 			DialogParameters parameters = new()
 			{
-				{nameof(SelectVisitDialog.Visits),response.Value! },
+				{nameof(SelectVisitDialog.Visits),visits},
 				{nameof(SelectVisitDialog.SelectedId),visitId }
 			};
 

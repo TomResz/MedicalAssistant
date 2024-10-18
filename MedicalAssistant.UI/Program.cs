@@ -6,6 +6,7 @@ using MedicalAssistant.UI.Shared.Services.Attachment;
 using MedicalAssistant.UI.Shared.Services.Auth;
 using MedicalAssistant.UI.Shared.Services.HubToken;
 using MedicalAssistant.UI.Shared.Services.Language;
+using MedicalAssistant.UI.Shared.Services.Medication;
 using MedicalAssistant.UI.Shared.Services.Notifications;
 using MedicalAssistant.UI.Shared.Services.RefreshToken;
 using MedicalAssistant.UI.Shared.Services.Settings;
@@ -59,10 +60,13 @@ builder.Services.AddScoped<IVisitNotificationService, VisitNotificationService>(
 builder.Services.AddScoped<ILocalTimeProvider,LocalTimeProvider>();
 builder.Services.AddScoped<IAttachmentService,AttachmentService>();
 builder.Services.AddScoped<ISettingsService,SettingsService>();
+builder.Services.AddScoped<IMedicationService,MedicationService>();
 
 builder.Services.AddRadzenComponents();
 builder.Services.AddMudServices(config =>
 {
+	config.PopoverOptions.ThrowOnDuplicateProvider = false;
+
 	config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomLeft;
 
 	config.SnackbarConfiguration.PreventDuplicates = false;

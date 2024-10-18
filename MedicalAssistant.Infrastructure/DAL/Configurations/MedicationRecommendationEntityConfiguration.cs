@@ -18,7 +18,7 @@ internal sealed class MedicationRecommendationEntityConfiguration : IEntityTypeC
                 x => new(x))
             .IsRequired(false);
 
-        builder.HasOne<Visit>()
+        builder.HasOne(x=>x.Visit)
             .WithMany(x=>x.Recommendations)
             .HasForeignKey(x => x.VisitId)
             .IsRequired(false)

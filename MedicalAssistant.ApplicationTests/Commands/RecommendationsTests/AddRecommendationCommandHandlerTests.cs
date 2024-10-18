@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using MedicalAssistant.Application.Contracts;
-using MedicalAssistant.Application.Recommendations.Commands.AddRecommendation;
+using MedicalAssistant.Application.MedicationRecommendations.Commands.AddRecommendation;
 using MedicalAssistant.Application.Tests.ObjectFactories;
 using MedicalAssistant.Domain.Abstraction;
 using MedicalAssistant.Domain.DomainServices;
@@ -19,10 +19,10 @@ public class AddRecommendationCommandHandlerTests
 	private readonly IClock _clock = Substitute.For<IClock>();
 	private readonly IUserContext _userContext = Substitute.For<IUserContext>();
 	private readonly IUnitOfWork _unitOfWork = Substitute.For<IUnitOfWork>();
+	private readonly IUserRepository _userRepository = Substitute.For<IUserRepository>();
+	private readonly AddMedicationRecommendationCommandHandler _handler;
 
-	private readonly AddRecommendationCommandHandler _handler;
-
-	private readonly AddRecommendationCommand _command = new(
+	private readonly AddMedicationRecommendationCommand _command = new(
 		Guid.NewGuid(),
 		"Note",
 		"Medicine",
@@ -41,7 +41,8 @@ public class AddRecommendationCommandHandlerTests
 			  _clock,
 			  _userContext,
 			  _visitService,
-			   _unitOfWork);
+			   _unitOfWork,
+			   _userRepository);
     }
 
 	[Fact]

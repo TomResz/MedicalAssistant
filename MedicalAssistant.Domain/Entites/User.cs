@@ -192,4 +192,9 @@ public class User : AggregateRoot<UserId>
 	{
 		_refreshTokens.RemoveWhere(x=> x.RefreshToken == oldAccessToken);	
 	}
+
+	public void AddMedicationRecommendation(MedicationRecommendation recommendation)
+	{
+		_medicationRecommendation.Add(recommendation);
+	}
 }

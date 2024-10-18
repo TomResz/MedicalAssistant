@@ -148,4 +148,9 @@ public class Visit : AggregateRoot<VisitId>
     {
         _attachments.Add(attachment);
     }
+
+	public void UpdateMedicationRecommendation(MedicationRecommendation recommendation)
+	{
+		throw new NotImplementedException();
+	}
 }

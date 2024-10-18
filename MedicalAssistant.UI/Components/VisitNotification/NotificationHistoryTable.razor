@@ -22,7 +22,7 @@
 				<MudIcon Color="Color.Error" Icon="@Icons.Material.Filled.Cancel" />
 			}
 		</MudTd>
-		<MudTd>
+		<MudTd DataLabel="@Translations.WasRead">
 			@if (FormattedDates.ContainsKey(context.PublishedDateUtc))
 			{
 				@(FormattedDates[context.PublishedDateUtc])

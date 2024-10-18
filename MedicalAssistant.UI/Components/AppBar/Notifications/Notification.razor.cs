@@ -1,5 +1,6 @@
 ﻿using MedicalAssistant.UI.Models.Notifications;
 using MedicalAssistant.UI.Shared.Options;
+using MedicalAssistant.UI.Shared.Resources;
 using MedicalAssistant.UI.Shared.Services.Abstraction;
 using MedicalAssistant.UI.Shared.Services.HubToken;
 using Microsoft.AspNetCore.Components;
@@ -54,7 +55,7 @@ public partial class Notification : IAsyncDisposable
 		_hubConnection.On<NotificationModel>("ReceiveNotification", notification =>
 		{
 			_models.Add(notification);
-			Snackbar.Add("Przyszła nowa wiadomość", MudBlazor.Severity.Normal);
+			Snackbar.Add(Translations.NewNotifcation, MudBlazor.Severity.Normal);
 			InvokeAsync(StateHasChanged);
 		});
 

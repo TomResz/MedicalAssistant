@@ -549,4 +549,52 @@
   <data name="ChooseVisit" xml:space="preserve">
     <value>Wybierz wizytę</value>
   </data>
+  <data name="NewNotifcation" xml:space="preserve">
+    <value>Nowe powiadomienie</value>
+  </data>
+  <data name="DateRange" xml:space="preserve">
+    <value>Zakres dat</value>
+  </data>
+  <data name="MedicationName" xml:space="preserve">
+    <value>Nazwa Lekarstwa</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Ilość</value>
+  </data>
+  <data name="Morning" xml:space="preserve">
+    <value>Rano</value>
+  </data>
+  <data name="Afternoon" xml:space="preserve">
+    <value>Popołudniu</value>
+  </data>
+  <data name="Evening" xml:space="preserve">
+    <value>Wieczór</value>
+  </data>
+  <data name="Night" xml:space="preserve">
+    <value>Noc</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Notatka</value>
+  </data>
+  <data name="NoVisitsToChoose" xml:space="preserve">
+    <value>Brak wizyt do wyboru.</value>
+  </data>
+  <data name="AddingMedication" xml:space="preserve">
+    <value>Dodawanie lekarstwa</value>
+  </data>
+  <data name="SelectedVisit" xml:space="preserve">
+    <value>Wybrana wizyta</value>
+  </data>
+  <data name="DeleteSelectedVisit" xml:space="preserve">
+    <value>Usuń wizytę</value>
+  </data>
+  <data name="MedicineNameNotEmpty" xml:space="preserve">
+    <value>Nazwa leku jest wymagana</value>
+  </data>
+  <data name="InvalidTimeOfDay" xml:space="preserve">
+    <value>Należy wybrać co najmniej jeden z przedziałów czasowych (rano, wieczorem, po południu lub w nocy).</value>
+  </data>
+  <data name="RecommendationAdded" xml:space="preserve">
+    <value>Pomyślnie dodano zalecenie.</value>
+  </data>
 </root>

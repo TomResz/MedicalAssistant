@@ -1,0 +1,50 @@
+﻿@using MedicalAssistant.UI.Components.AppBar
+@using MedicalAssistant.UI.Shared.Services.Abstraction
+@using Microsoft.AspNetCore.Authorization
+@using System.Globalization
+@inherits LayoutComponentBase
+@layout BaseLayout
+@attribute [AllowAnonymous]
+
+<MudGrid Justify="Justify.Center" Class="custom-loading-screen">
+	<MudItem xs="12" md="8">
+		<MudPaper Elevation="3" Class="pa-4 custom-loading-container">
+			@Body
+		</MudPaper>
+	</MudItem>
+</MudGrid>
+<div class="position-fixed bottom-0 right-0 d-flex m-1">
+	<MudIconButton Icon="@(BaseLayout.IsDarkMode ? DarkModeIcon : LightModeIcon)" OnClick="async ()=> await BaseLayout.ThemeToggle()" Size="Size.Large" />
+	<LanguageSwitchBtn Class="ms-2" OnLanguageChanged="@ChangeLanguage" />
+</div>
+
+<style>
+	.custom-loading-screen {
+		height: 100vh !important;
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+	}
+
+	.custom-loading-container {
+		padding: 16px !important;
+		text-align: center !important;
+		min-height: 90vh !important;
+	}
+</style>
+
+@code{
+	[CascadingParameter] BaseLayout BaseLayout { get; set; }
+
+	private const string DarkModeIcon = Icons.Material.Filled.Nightlight;
+	private const string LightModeIcon = Icons.Material.Filled.Brightness4;
+
+	[Inject] ILanguageManager LanguageManager { get; set; }
+	[Inject] NavigationManager Navigation { get; set; }
+
+	private async Task ChangeLanguage(CultureInfo culture)
+	{
+		await LanguageManager.ChangeLanguage(culture);
+		Navigation.NavigateTo(Navigation.Uri, true);
+	}
+}

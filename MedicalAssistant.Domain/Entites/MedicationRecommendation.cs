@@ -15,10 +15,13 @@ public class MedicationRecommendation
     public Date StartDate { get; private set; }
     public Date EndDate { get; private set; }
     public User User { get;private set; }
+    public Visit? Visit { get; private set; }
     private MedicationRecommendation() { }
+
     private MedicationRecommendation(
 		MedicationRecommendationId id,
-		VisitId visitId,
+        UserId userId,
+		VisitId? visitId,
 		Note extraNote,
 		Date createdAt,
 		Medicine medicine,
@@ -26,6 +29,7 @@ public class MedicationRecommendation
 		Date endDate)
     {
         Id = id;
+        UserId = userId;
         VisitId = visitId;
         ExtraNote = extraNote;
         CreatedAt = createdAt;
@@ -35,7 +39,8 @@ public class MedicationRecommendation
     }
 
     public static MedicationRecommendation Create(
-		VisitId visitId,
+		VisitId? visitId,
+        UserId userId,
 		Note extraNote,
 		Date createdAt,
 		Medicine medicine,
@@ -49,6 +54,7 @@ public class MedicationRecommendation
 
         MedicationRecommendation recommendation = new MedicationRecommendation(
             Guid.NewGuid(),
+            userId,
 			visitId,
 			extraNote,
             createdAt,
@@ -58,4 +64,17 @@ public class MedicationRecommendation
 
         return recommendation;
     }
+
+	public void Update(Medicine medicine, Date start, Date end, VisitId? visitId, string? extraNote)
+	{
+        if(end <= start)
+        {
+
+        }
+        Medicine = medicine;
+        StartDate = start;
+        EndDate = end;
+        VisitId = visitId;
+        ExtraNote = extraNote;
+	}
 }

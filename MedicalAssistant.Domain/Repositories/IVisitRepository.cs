@@ -13,4 +13,6 @@ public interface IVisitRepository
 	void Remove(Visit visit);
 	Task<Visit?> GetByIdWithNotificationsAsync(VisitId visitId,CancellationToken cancellationToken);
 	Task<Visit?> GetByNotificationId(VisitNotificationId visitNotificationId, CancellationToken cancellationToken);
+
+	Task<bool> Exists(VisitId id,CancellationToken cancellationToken);
 }

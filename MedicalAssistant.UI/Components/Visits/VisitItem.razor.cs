@@ -14,6 +14,9 @@ public partial class VisitItem
 	[Inject]
 	public NavigationManager Navigation { get; set; }
 
+	[Parameter]
+	public bool ButtonVisible { get; set; } = true;	
+
 	private void ShowDetails()
 	{
 		Navigation.NavigateTo($"/visit/{Visit.Id}");

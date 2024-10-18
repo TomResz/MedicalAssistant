@@ -367,12 +367,14 @@ namespace MedicalAssistant.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MedicalAssistant.Domain.Entites.Visit", null)
+                    b.HasOne("MedicalAssistant.Domain.Entites.Visit", "Visit")
                         .WithMany("Recommendations")
                         .HasForeignKey("VisitId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("User");
+
+                    b.Navigation("Visit");
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.Entites.NotificationHistory", b =>

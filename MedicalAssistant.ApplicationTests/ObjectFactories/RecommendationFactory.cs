@@ -8,6 +8,7 @@ public class RecommendationFactory
 {
 	public static MedicationRecommendation Create(
 		VisitId visitId,
+		UserId userId,
 		Note? extraNote = null,
 		Date? createdAt = null,
 		Medicine? medicine = null,
@@ -22,6 +23,7 @@ public class RecommendationFactory
 
 		return MedicationRecommendation.Create(
 			visitId,
+			userId,
 			 extraNote,
 			 createdAt,
 			 medicine,
