@@ -44,13 +44,15 @@ internal sealed class ExceptionMiddleware : IMiddleware
 
 		string content = JsonSerializer.Serialize(details);
 
-		_logger.LogError("Exception occurred: {Message} {@Errors} {@Exception} ", details.Type,details.Message,ex);
-
+		_logger.LogError("Exception occurred: {Message} {@Errors} {@Exception} ", details.Type, details.Message, ex);
+		
 		if (statusCode == StatusCodes.Status500InternalServerError)
 		{
 			var criticalErrorDetails = new CriticalErrorDetails(details, ex.StackTrace ?? "");
 			_logger.LogError($"Critical error stack trace: {criticalErrorDetails.StackTrace}.");
 		}
+
+
 
 		context.Response.ContentType = "application/json";
 		context.Response.StatusCode = statusCode;

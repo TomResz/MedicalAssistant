@@ -44,7 +44,7 @@ internal sealed class ChangeVisitNotificationDateCommandHandler
 
 		var notification = visit.ChangeNotificationDate(date, notificationId);
 
-		_scheduler.Delete(notification.SimpleId);
+		_scheduler.Delete(notification.JobId);
 		var jobId = _scheduler.ScheduleJob(visit.Id, notificationId, date.ToDate());
 
 		notification.ChangeJobId(jobId);

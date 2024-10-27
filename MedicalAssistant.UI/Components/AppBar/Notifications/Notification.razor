@@ -5,17 +5,23 @@
 @using Microsoft.Extensions.Options
 
 
-@if (UnReadNotifications > 0)
-{
-	<div class="mt-3">
+<div class="mt-3">
+	@if (UnReadNotifications > 0)
+	{
 		<MudBadge Content="@UnReadNotifications" Color="Color.Primary" Overlap="true" Class="mr-4 my-1 pr-0 pt-0" Max="9">
 			<MudIconButton Icon="@Icons.Material.Filled.Notifications"
 						   Color="@Color.Inherit"
 						   Style="padding-right: 0px; padding-top: 0px;"
 						   OnClick="@ToggleCollapse" />
 		</MudBadge>
-		<MudOverlay @bind-Visible="isPopoverOpen" AutoClose="true" />
-		<MudPopover AnchorOrigin="Origin.BottomRight" TransformOrigin="Origin.TopRight" Open="@isPopoverOpen" MaxHeight="350">
+	}
+	else
+	{
+		<MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit"
+					   OnClick="@ToggleCollapse" Style="padding-top: 0px;" />
+	}
+	<MudOverlay @bind-Visible="isPopoverOpen" AutoClose="true" />
+	<MudPopover AnchorOrigin="Origin.BottomRight" TransformOrigin="Origin.TopRight" Class="responsive-popover" Open="@isPopoverOpen" MaxHeight="350">
 			<MudList T="string" Class="pa-2 docs-menu-list">
 				<div class="d-flex justify-space-between align-center px-2">
 					<MudText Typo="Typo.subtitle2">@Translations.Notifications</MudText>
@@ -28,18 +34,26 @@
 				{
 					@foreach (var notification in _models)
 					{
-						<MudListItem OnClick="@(() => GoToNotificationDetails(notification))" Class="px-2 py-0 rounded">
-							<MudText Typo="Typo.subtitle2">@NotificationHelper.ToType(notification)</MudText>
-							<MudText Typo="Typo.body2">@NotificationHelper.ToNotificationDescription(notification)</MudText>
+						<MudListItem OnClick="@(() => GoToNotificationDetails(notification))" Class="@((!notification.WasRead) ? "unread-notification px-2 py-0 rounded " : "px-2 py-0 rounded")">
+						    <MudText Typo="Typo.subtitle2">@NotificationHelper.ToType(notification)</MudText>
+						    <MudText Typo="Typo.body2">@NotificationHelper.ToNotificationDescription(notification)</MudText>
 						</MudListItem>
 						<MudDivider Class="my-2" />
 					}
 				}
 			</MudList>
 		</MudPopover>
-	</div>
-}
-else
-{
-	<MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" />
-}
+</div>
+
+<style>
+	.responsive-popover {
+		width: auto;
+		max-width: 350px; 
+	}
+
+	.unread-notification {
+        background-color: #424242; /* Ciemnoszare tło */
+        color: #ffffff; /* Biały tekst dla lepszej czytelności */
+		font-weight: bold;
+	}
+</style>

@@ -17,22 +17,24 @@ internal sealed class RefreshTokenCommandHandler
     private readonly IUserRepository _userRepository;
     private readonly IRefreshTokenService _refreshTokenService;
     private readonly IAuthenticator _authenticator;
+	private readonly IRefreshTokenRepository _refreshTokenRepository;
+	public RefreshTokenCommandHandler(
+		IClock clock,
+		IUnitOfWork unitOfWork,
+		IUserRepository userRepository,
+		IRefreshTokenService refreshTokenService,
+		IAuthenticator authenticator,
+		IRefreshTokenRepository refreshTokenRepository)
+	{
+		_clock = clock;
+		_unitOfWork = unitOfWork;
+		_userRepository = userRepository;
+		_refreshTokenService = refreshTokenService;
+		_authenticator = authenticator;
+		_refreshTokenRepository = refreshTokenRepository;
+	}
 
-    public RefreshTokenCommandHandler(
-        IClock clock,
-        IUnitOfWork unitOfWork,
-        IUserRepository userRepository,
-        IRefreshTokenService refreshTokenService,
-        IAuthenticator authenticator)
-    {
-        _clock = clock;
-        _unitOfWork = unitOfWork;
-        _userRepository = userRepository;
-        _refreshTokenService = refreshTokenService;
-        _authenticator = authenticator;
-    }
-
-    public async Task<RefreshTokenResponse> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
+	public async Task<RefreshTokenResponse> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
 	{
 		var id = _refreshTokenService.GetUserIdFromExpiredToken(request.OldAccessToken)
 			?? throw new EmptyEmailException();
@@ -44,7 +46,7 @@ internal sealed class RefreshTokenCommandHandler
 			throw new UserNotFoundException();
 		}
 
-		Validate(request, user);
+		await Validate(request, user,cancellationToken);
 
 		var refreshTokenHolder = _refreshTokenService.Generate(_clock.GetCurrentUtc(), user.Id);
 
@@ -54,6 +56,7 @@ internal sealed class RefreshTokenCommandHandler
 
 		_userRepository.Update(user);
 
+		await _refreshTokenRepository.DeleteAsync(request.OldAccessToken,cancellationToken);
 		await _unitOfWork.SaveChangesAsync(cancellationToken);
 
 		var jwt = _authenticator.GenerateToken(user);
@@ -63,7 +66,7 @@ internal sealed class RefreshTokenCommandHandler
 			refreshTokenHolder.RefreshToken);
 	}
 
-	private void Validate(RefreshTokenCommand request, Domain.Entites.User user)
+	private async Task Validate(RefreshTokenCommand request, Domain.Entites.User user,CancellationToken ct)
 	{
 		var refreshToken = user.RefreshTokens
 			.Where(x => x.RefreshToken == request.RefreshToken)
@@ -72,6 +75,7 @@ internal sealed class RefreshTokenCommandHandler
 		if (refreshToken.RefreshTokenExpirationUtc < new Date(_clock.GetCurrentUtc()))
 		{
 			user.RemoveRefreshToken(refreshToken.RefreshToken);
+			await _refreshTokenRepository.DeleteAsync(refreshToken.RefreshToken,ct);
 			throw new RefreshTokenExpiredException();
 		}
 	}

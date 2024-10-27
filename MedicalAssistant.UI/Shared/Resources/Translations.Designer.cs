@@ -799,6 +799,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notification of medication : {0}.
+        /// </summary>
+        internal static string MedicationNotificationCommunicate {
+            get {
+                return ResourceManager.GetString("MedicationNotificationCommunicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Medicine name is required.
         /// </summary>
         internal static string MedicineNameNotEmpty {

@@ -9,4 +9,5 @@ public interface INotificationService
 	Task<Response<List<NotificationModel>>> GetUnread();
 	Task<Response.Base.Response> MarkAsRead(List<Guid> ids);
 	Task<Response<PagedList<NotificationModel>>> GetPage(int page, int pageSize);
+	Task<Response<List<NotificationModel>>> Get();
 }

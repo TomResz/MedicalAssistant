@@ -1,5 +1,6 @@
 ﻿using MedicalAssistant.API.SwaggerDocs.CustomHeaders;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -8,10 +9,17 @@ namespace MedicalAssistant.API.SwaggerDocs;
 public static class SwaggerExtensions
 {
     public static IServiceCollection AddSwaggerDoc(this IServiceCollection services)
-    {
+	{
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Medical Assist API", Version = "v1" });
+			c.MapType<TimeOnly>(() => new OpenApiSchema
+			{
+				Type = "string",
+				Format = "time",
+				Example = new OpenApiString(DateTime.UtcNow.ToString("HH:mm"))
+			});
+
+			c.SwaggerDoc("v1", new OpenApiInfo { Title = "Medical Assist API", Version = "v1" });
             var securityScheme = new OpenApiSecurityScheme
             {
                 Name = "JWT",

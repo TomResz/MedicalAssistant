@@ -30,5 +30,12 @@ public class NotificationEndpoints : IEndpoints
 			var response = await _mediator.Send(query);
 			return Results.Ok(response);
 		});
+
+		group.MapGet("all", async (IMediator _mediator) =>
+		{
+			var query = new GetNotificationsQuery();
+			var response = await _mediator.Send(query);
+			return Results.Ok(response);	
+		});
 	}
 }

@@ -19,4 +19,11 @@ internal sealed class MedicationRecommendationRepository : IMedicationRecommenda
 		=> await _context
 			.Recommendations
 			.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+
+	public async Task<MedicationRecommendation?> GetWithNotificationsAsync(MedicationRecommendationId recommendationId, CancellationToken cancellationToken)
+		=> await _context
+		.Recommendations
+		.Include(x=>x.Visit)
+		.Include(x=>x.Notifications)
+		.FirstOrDefaultAsync(x=>x.Id == recommendationId,cancellationToken);
 }

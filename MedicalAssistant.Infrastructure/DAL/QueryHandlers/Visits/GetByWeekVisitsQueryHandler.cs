@@ -1,59 +1,61 @@
-﻿using MediatR;
+﻿using Dapper;
+using MediatR;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
-using MedicalAssistant.Application.Dto.Mappers;
 using MedicalAssistant.Application.Visits.Queries;
-using MedicalAssistant.Domain.ValueObjects;
-using Microsoft.EntityFrameworkCore;
+using MedicalAssistant.Infrastructure.DAL.Dapper;
 
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Visits;
 internal sealed class GetByWeekVisitsQueryHandler
 	: IRequestHandler<GetByWeekVisitQuery, IEnumerable<VisitDto>>
 {
-	private readonly MedicalAssistantDbContext _context;
+
+	private readonly ISqlConnectionFactory _sqlConnectionFactory;
 	private readonly IUserContext _userContext;
 
 	public GetByWeekVisitsQueryHandler(
-		MedicalAssistantDbContext context,
-		IUserContext userContext)
+		IUserContext userContext,
+		ISqlConnectionFactory sqlConnectionFactory)
 	{
-		_context = context;
 		_userContext = userContext;
+		_sqlConnectionFactory = sqlConnectionFactory;
 	}
 
 	public async Task<IEnumerable<VisitDto>> Handle(GetByWeekVisitQuery request, CancellationToken cancellationToken)
 	{
 		var userId = _userContext.GetUserId;
 
-		var startOfWeek = request.Date.Date;
+		var date = request.Date.Date;
+
+		using var connection = _sqlConnectionFactory.Create();
+
+		const string sql = $"""
+			SELECT 
+				v."Id" as  {nameof(VisitDto.VisitId)},
+				v."Date" as {nameof(VisitDto.Date)},
+				v."DoctorName" as {nameof(VisitDto.DoctorName)},
+				v."VisitType" as {nameof(VisitDto.VisitType)},
+				v."PredictedEndDate" as {nameof(VisitDto.EndDate)},
+				v."VisitDescription" as {nameof(VisitDto.VisitDescription)},
+				v."Address_PostalCode" as {nameof(Location.PostalCode)},
+				v."Address_Street" as {nameof(Location.Street)},
+				v."Address_City" as {nameof(Location.City)}
+				FROM "Visits" as v
+				WHERE v."UserId" = @userId 
+					AND v."Date" >= date_trunc('week', @date)
+					AND v."Date" < date_trunc('week', @date) + interval '1 week' 
+			""";
 
 
-		if(startOfWeek.DayOfWeek == DayOfWeek.Sunday)
-		{
-			startOfWeek = startOfWeek.AddDays(-6);
-			startOfWeek = startOfWeek.Date;
-		}
-		else if (startOfWeek.DayOfWeek != DayOfWeek.Monday)
-		{
-			startOfWeek = startOfWeek.AddDays(-(int)startOfWeek.DayOfWeek + (int)DayOfWeek.Monday);
-		}
+		var response = await connection.QueryAsync<VisitDto, Location, VisitDto>(sql: sql,
+			map: (visit, address) =>
+			{
+				visit.Address = address;
+				return visit;
+			},
+			param: new { userId = userId.Value, date = date },
+			splitOn: nameof(Location.PostalCode));
 
-		var endOfWeek = startOfWeek.AddDays(7).AddSeconds(-1);
-
-		var startDate = new Date(startOfWeek);
-		var endDate = new Date(endOfWeek);
-
-
-		var visits = await _context
-			.Visits
-			.Where(x => x.Date >= startDate 
-				&& x.Date <= endDate 
-				&& x.UserId == userId)
-			.AsNoTracking()
-			.OrderBy(x => x.Date)
-			.Select(x => x.ToDto())
-			.ToListAsync(cancellationToken);
-
-		return visits;
+		return response;
 	}
 }

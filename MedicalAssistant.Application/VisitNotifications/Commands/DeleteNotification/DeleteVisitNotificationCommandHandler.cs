@@ -54,7 +54,7 @@ internal sealed class DeleteVisitNotificationCommandHandler
 			throw new NotificationHasAlreadyBeenSentException(notification.Id);
 		}
 
-		string jobId = notification.SimpleId;
+		string jobId = notification.JobId;
 
 
 		_visitNotificationRepository.Delete(notification);

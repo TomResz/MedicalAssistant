@@ -21,6 +21,20 @@ internal sealed class EmailService : IEmailService
 
 		await _emailSender.SendEmailAsync(email, subject, body);
 	}
+
+	public async Task SendMailWithMedicationRecommendation(string email, MedicationRecommendationDto medicationRecommendation, Languages langueage)
+	{
+		var body = EmailBodyFactory
+			.Create(langueage)
+			.MedicationRecommendation(_routes.MedicationRecommendation, medicationRecommendation);
+
+		var subject = EmailSubjectFactory
+			.Create(langueage)
+			.MedicationRecommendation;
+
+		await _emailSender.SendEmailAsync(email, subject, body);
+	}
+
 	public async Task SendMailWithRegenerateVerificationCode(string email, string newVerificationCode, Languages language)
 	{
 		var body = EmailBodyFactory.Create(language).GetRegeneratedVerificationCodeHtml(_routes.RegeneratedVerificationCodeRoute, newVerificationCode);

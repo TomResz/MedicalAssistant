@@ -5,6 +5,12 @@ namespace MedicalAssistant.UI.Shared.Response;
 
 public static class Extensions
 {
+	private readonly static JsonSerializerOptions options = new JsonSerializerOptions
+	{
+		PropertyNameCaseInsensitive = true,
+		Converters = { new TimeOnlyJsonConverter() }
+	};
+
 	public async static Task<Base.Response> DeserializeResponse(this HttpResponseMessage response)
 	{
 		if (response.IsSuccessStatusCode)
@@ -12,17 +18,14 @@ public static class Extensions
 			return new(true);
 		}
 		var json = await response.Content.ReadAsStringAsync();
-		
+
 		if (string.IsNullOrEmpty(json))
 		{
 			return new(false);
 		}
 
-		var options = new JsonSerializerOptions
-		{
-			PropertyNameCaseInsensitive = true
-		};
-		var errorDetails = JsonSerializer.Deserialize<BaseErrorDetails>(json,options)!;
+
+		var errorDetails = JsonSerializer.Deserialize<BaseErrorDetails>(json, options)!;
 
 		return new(false, errorDetails);
 	}
@@ -35,15 +38,14 @@ public static class Extensions
 
 			if (string.IsNullOrEmpty(json))
 			{
-				return new(default, true);
+				return new Response<T>(default, true);
 			}
 
-			var content = JsonSerializer.Deserialize<T?>(json,
-								new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
-			return new(content,true);
+			var content = JsonSerializer.Deserialize<T?>(json,options)!;
+			return new Response<T>(content, true);
 		}
 		var errorDetails = JsonSerializer.Deserialize<BaseErrorDetails>(await response.Content.ReadAsStringAsync())!;
 
-		return new(default,false, errorDetails);
+		return new(default, false, errorDetails);
 	}
 }

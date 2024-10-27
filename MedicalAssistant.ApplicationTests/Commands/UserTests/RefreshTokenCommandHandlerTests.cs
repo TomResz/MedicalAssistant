@@ -20,7 +20,7 @@ public class RefreshTokenCommandHandlerTests
 	private readonly IUserRepository _userRepository = Substitute.For<IUserRepository>();
 	private readonly IRefreshTokenService _refreshTokenService = Substitute.For<IRefreshTokenService>();
 	private readonly IAuthenticator _authenticator = Substitute.For<IAuthenticator>();
-
+	private readonly IRefreshTokenRepository _refreshTokenRepository = Substitute.For<IRefreshTokenRepository>();
 	private static readonly DateTime _date = DateTime.UtcNow.AddMinutes(1);	
 	private readonly RefreshTokenCommandHandler _handler;
 	public RefreshTokenCommandHandlerTests()
@@ -31,7 +31,8 @@ public class RefreshTokenCommandHandlerTests
 		_unitOfWork,
 	_userRepository,
 	 _refreshTokenService,
-	 _authenticator);
+	 _authenticator,
+	 _refreshTokenRepository);
     }
 
 	[Fact]

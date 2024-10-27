@@ -600,4 +600,7 @@
   <data name="MedicationEdited" xml:space="preserve">
     <value>Zalecenie zostało pomyślnie zaktualizowane.</value>
   </data>
+  <data name="MedicationNotificationCommunicate" xml:space="preserve">
+    <value>Powiadomienie o lekach: {0}</value>
+  </data>
 </root>

@@ -30,6 +30,7 @@ internal sealed class GetUnreadNotificationsQueryHandler
 				Id = x.Id,
 				WasRead = x.WasRead,
 				ContentJson = x.ContentJson,
+				PublishedDateUtc = (DateTime)x.PublishedDate,
 				Type = x.Type
 			})
 			.AsNoTracking()

@@ -7,4 +7,5 @@ internal interface IEmailBody
 	string GetRegeneratedVerificationCodeHtml(string route, string newVerificationCode);
 	string PasswordChange(string route, string code);
 	string VisitNotification(VisitDto visitDto, string route);
+	string MedicationRecommendation(string route, MedicationRecommendationDto dto);
 }

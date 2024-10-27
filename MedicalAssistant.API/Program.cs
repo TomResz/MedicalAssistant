@@ -1,4 +1,5 @@
 using MedicalAssistant.API.Endpoints;
+using MedicalAssistant.API.RequestConverters;
 using MedicalAssistant.API.SwaggerDocs;
 using MedicalAssistant.API.SwaggerDocs.Security;
 using MedicalAssistant.Application;
@@ -20,6 +21,11 @@ builder.Services.AddSwaggerDoc();
 builder.Services.AddSwaggerAuthMiddleware(builder.Configuration);
 builder.Services.AddSignalR();
 builder.Services.AddAntiforgery();
+
+builder.Services.ConfigureHttpJsonOptions(opt =>
+{
+    opt.SerializerOptions.Converters.Add(new TimeOnlyJsonConverter());
+});
 
 builder.Services
     .AddApplication()

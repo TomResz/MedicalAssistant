@@ -16,8 +16,11 @@ public class MedicationRecommendation
     public Date EndDate { get; private set; }
     public User User { get;private set; }
     public Visit? Visit { get; private set; }
-    private MedicationRecommendation() { }
 
+    private readonly HashSet<MedicationRecommendationNotification> _notifications = [];
+    public IEnumerable<MedicationRecommendationNotification> Notifications => _notifications;
+
+    private MedicationRecommendation() { }
     private MedicationRecommendation(
 		MedicationRecommendationId id,
         UserId userId,
@@ -87,4 +90,9 @@ public class MedicationRecommendation
 	{
         VisitId = null;
 	}
+
+    public void AddMedication(MedicationRecommendationNotification notification)
+    {
+        _notifications.Add(notification);
+    }
 }

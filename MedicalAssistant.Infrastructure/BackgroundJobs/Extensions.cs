@@ -2,6 +2,7 @@
 using Hangfire.PostgreSql;
 using HangfireBasicAuthenticationFilter;
 using MedicalAssistant.Application.Contracts;
+using MedicalAssistant.Application.MedicationNotifications.Commands.Add;
 using MedicalAssistant.Infrastructure.BackgroundJobs;
 using MedicalAssistant.Infrastructure.BackgroundJobs.RecurringJobs;
 using MedicalAssistant.Infrastructure.DAL.Options;
@@ -37,6 +38,7 @@ public static class Extensions
 
         services.AddSingleton<IEventPublisher, EventPublisher>();
         services.AddSingleton<IVisitNotificationScheduler, VisitNotificationScheduler>();
+        services.AddSingleton<IMedicationRecommendationNotificationScheduler,MedicationNotificationScheduler>();
         services.AddScoped<IExpiredTokenRemovalJob,ExpiredTokenRemovalJob>();
 
         return services;

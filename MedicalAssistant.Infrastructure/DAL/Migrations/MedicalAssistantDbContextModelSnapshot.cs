@@ -141,6 +141,34 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.ToTable("MedicationRecommendation", (string)null);
                 });
 
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.MedicationRecommendationNotification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("End")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("JobId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("MedicationRecommendationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<TimeSpan>("TriggerTimeUtc")
+                        .HasColumnType("TIME");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MedicationRecommendationId");
+
+                    b.ToTable("MedicationRecommendationsNotifications");
+                });
+
             modelBuilder.Entity("MedicalAssistant.Domain.Entites.NotificationHistory", b =>
                 {
                     b.Property<Guid>("Id")
@@ -312,12 +340,12 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("ScheduledDateUtc")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("SimpleId")
+                    b.Property<string>("JobId")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("ScheduledDateUtc")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -377,6 +405,15 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.Navigation("Visit");
                 });
 
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.MedicationRecommendationNotification", b =>
+                {
+                    b.HasOne("MedicalAssistant.Domain.Entites.MedicationRecommendation", null)
+                        .WithMany("Notifications")
+                        .HasForeignKey("MedicationRecommendationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("MedicalAssistant.Domain.Entites.NotificationHistory", b =>
                 {
                     b.HasOne("MedicalAssistant.Domain.Entites.User", "User")
@@ -424,6 +461,11 @@ namespace MedicalAssistant.Infrastructure.Migrations
                         .HasForeignKey("VisitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MedicalAssistant.Domain.Entites.MedicationRecommendation", b =>
+                {
+                    b.Navigation("Notifications");
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.Entites.User", b =>

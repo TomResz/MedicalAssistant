@@ -43,7 +43,7 @@ public partial class Notification : IAsyncDisposable
 				.WithAutomaticReconnect()
 				.Build();
 
-		var currentNotificationsResponse = await NotificationService.GetUnread();
+		var currentNotificationsResponse = await NotificationService.Get();
 
 		if (currentNotificationsResponse.IsSuccess)
 		{

@@ -41,6 +41,7 @@ internal static class Extensions
 		services.AddScoped<IAttachmentRepository, AttachmentRepository>();
 		services.AddScoped<IUserSettingRepository,UserSettingsRepository>();
 		services.AddScoped<IMedicationRecommendationRepository, MedicationRecommendationRepository>();
+		services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 
 		AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 

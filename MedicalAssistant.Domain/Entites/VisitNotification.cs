@@ -6,7 +6,7 @@ public class VisitNotification
 {
 	public VisitNotificationId Id { get; private set; }
 	public UserId UserId { get; private set; }
-	public string SimpleId { get; private set; }
+	public string JobId { get; private set; }
 	public Date ScheduledDateUtc { get; private set; }
 	public VisitId VisitId { get; private set; }
 
@@ -20,7 +20,7 @@ public class VisitNotification
     {
         Id = id;
 		UserId = userId;
-		SimpleId = simpleId;
+		JobId = simpleId;
 		ScheduledDateUtc = scheduledDateUtc;
 		VisitId = visitId;
     }
@@ -48,6 +48,6 @@ public class VisitNotification
 
 	public void ChangeJobId(string jobId)
 	{
-		SimpleId = jobId;
+		JobId = jobId;
 	}
 }

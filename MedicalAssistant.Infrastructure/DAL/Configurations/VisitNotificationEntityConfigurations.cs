@@ -34,7 +34,7 @@ internal sealed class VisitNotificationEntityConfigurations : IEntityTypeConfigu
 			x => x.Value,
 			   x => new(x))
 			.IsRequired();
-		builder.Property(x=>x.SimpleId)
+		builder.Property(x=>x.JobId)
 			.IsRequired();
 	}
 }
