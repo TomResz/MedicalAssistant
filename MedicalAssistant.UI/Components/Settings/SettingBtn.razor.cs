@@ -18,13 +18,6 @@ public partial class SettingBtn
 		CloseOnEscapeKey = true, 
 		FullWidth = true 
 	};
-
-	protected override async Task OnInitializedAsync()
-	{
-				
-	}
-
-
 	public void ShowSettingDialog()
 	{
 		var dialog = DialogService.Show<SettingsDialog>(Translations.Settings, options);

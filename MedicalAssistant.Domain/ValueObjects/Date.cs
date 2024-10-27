@@ -32,10 +32,13 @@ public sealed record Date
 	public Date AddHours(int hours) => new(Value.AddHours(hours));
 	public Date AddDays(int days) => new(Value.AddDays(days));
 
-    public static implicit operator DateTime(Date date)
+	public Date AddMilliseconds(int miliseconds)
+		=> new Date(Value.AddMilliseconds(miliseconds));
+
+	public static explicit operator DateTime(Date date)
         => date.Value;
 
-    public static implicit operator Date(DateTime value)
+	public static implicit operator Date(DateTime value)
         => new(value);
 	public static implicit operator Date(string value)
 	    => new(value);
@@ -53,4 +56,6 @@ public sealed record Date
         => date1.Value >= date2.Value;
 
     public static Date Now => new(DateTime.UtcNow);
+
+	public DateTime ToDate() => this.Value;
 }

@@ -42,5 +42,8 @@
     <ProjectReference Include="..\MedicalAssistant.Domain\MedicalAssistant.Domain.csproj" />
     <ProjectReference Include="..\MedicalAssistant.Shared\MedicalAssistant.Shared.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DAL\Dapper\" />
+  </ItemGroup>
 
 </Project>

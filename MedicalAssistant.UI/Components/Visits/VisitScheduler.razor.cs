@@ -1,9 +1,12 @@
 ﻿using MedicalAssistant.UI.Models.Visits;
 using MedicalAssistant.UI.Shared.Resources;
+using MedicalAssistant.UI.Shared.Response.Base;
+using MedicalAssistant.UI.Shared.Services.Abstraction;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Radzen;
 using Radzen.Blazor;
+using System.Globalization;
 
 namespace MedicalAssistant.UI.Components.Visits;
 
@@ -14,6 +17,8 @@ public partial class VisitScheduler
 
 	[Inject]
 	public IDialogService DialogService { get; set; }
+	[Inject]
+	public IVisitService VisitService { get; set; }
 
 
 	RadzenScheduler<VisitDto> _scheduler;
@@ -21,6 +26,7 @@ public partial class VisitScheduler
 	private List<VisitDto> _visits = [];
 
 
+	private CultureInfo GetCulture => CultureInfo.CurrentCulture;
 	protected override async Task OnInitializedAsync()
 	{
 		_visits = [.. Visits];
@@ -93,5 +99,31 @@ public partial class VisitScheduler
 	{
 		_visits.Add(visitModel);
 		await _scheduler.Reload();
+	}
+
+
+	private async Task ViewMoreDialog(SchedulerMoreSelectEventArgs args)
+	{
+		var date = args.Start;
+		Response<List<VisitDto>> response = await VisitService.GetByDate(date);
+
+		if (response.IsSuccess &&
+			response?.Value?.Count > 0)
+		{
+			List<VisitDto> visits = response.Value;
+
+			var parameters = new DialogParameters()
+			{
+				{ nameof(VisitSchedulerMoreViewDialog.Visits), visits },
+			};
+
+			var options = new MudBlazor.DialogOptions()
+			{
+				FullWidth = true,
+				NoHeader = true,
+				MaxWidth = MaxWidth.Large,
+			};
+			var dialog = DialogService.Show<VisitSchedulerMoreViewDialog>(null,parameters, options);
+		}
 	}
 }

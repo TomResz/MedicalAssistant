@@ -597,4 +597,7 @@
   <data name="RecommendationAdded" xml:space="preserve">
     <value>Pomyślnie dodano zalecenie.</value>
   </data>
+  <data name="MedicationEdited" xml:space="preserve">
+    <value>Zalecenie zostało pomyślnie zaktualizowane.</value>
+  </data>
 </root>

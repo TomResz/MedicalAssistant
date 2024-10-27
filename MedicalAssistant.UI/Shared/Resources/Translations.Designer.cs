@@ -781,6 +781,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The recommendation has been successfully updated..
+        /// </summary>
+        internal static string MedicationEdited {
+            get {
+                return ResourceManager.GetString("MedicationEdited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Medication.
         /// </summary>
         internal static string MedicationName {

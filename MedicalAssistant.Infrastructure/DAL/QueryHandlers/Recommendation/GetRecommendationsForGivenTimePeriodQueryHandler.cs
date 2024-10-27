@@ -23,6 +23,7 @@ internal sealed class GetRecommendationsForGivenTimePeriodQueryHandler
 
         var recommendations = await _context
             .Recommendations
+            .Include(x=>x.Visit)
             .Where(x=>x.VisitId == new VisitId(request.VisitId)
                 && x.StartDate <= end
                 && x.EndDate >= begin)

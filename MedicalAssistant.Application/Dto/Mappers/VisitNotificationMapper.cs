@@ -7,7 +7,7 @@ public static class VisitNotificationMapper
 		=> new VisitNotificationDto
 		{
 			Id = notification.Id,
-			ScheduledDateUtc = notification.ScheduledDateUtc,
+			ScheduledDateUtc = notification.ScheduledDateUtc.ToDate(),
 			VisitId = notification.VisitId,
 		};
 }

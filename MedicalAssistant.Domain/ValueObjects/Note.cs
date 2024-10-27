@@ -15,6 +15,6 @@ public sealed record Note
         }
         Value = value;  
     }
-    public static implicit operator string?(Note note) => note.Value;
+    public static implicit operator string?(Note? note) => note?.Value;
     public static implicit operator Note(string? value) => new(value);  
 }

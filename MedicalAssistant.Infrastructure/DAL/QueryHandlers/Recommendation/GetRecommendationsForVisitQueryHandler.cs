@@ -18,6 +18,7 @@ internal sealed class GetRecommendationsForVisitQueryHandler : IRequestHandler<G
     {
         var recommendations = await _context
                 .Recommendations
+                .Include(x=>x.Visit)
                 .Where(x => x.VisitId == new VisitId(request.VisitId))
                 .Select(x => x.ToDto())
                 .AsNoTracking()

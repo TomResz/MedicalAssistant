@@ -85,6 +85,7 @@ public class Visit : AggregateRoot<VisitId>
     public void AddRecommendation(MedicationRecommendation recommendation)
     {
         _recommendations.Add(recommendation);
+        recommendation.ChangeVisitId(Id);
         AddEvent(new RecommendationAddedEvent(Id,recommendation.Id));
     }
 
@@ -105,7 +106,7 @@ public class Visit : AggregateRoot<VisitId>
             throw new SameDateException();
         }
         Date = date;
-        AddEvent(new VisitDateChangedEvent(Id,date));
+        AddEvent(new VisitDateChangedEvent(Id,(DateTime)date));
     }
 
 	public void Update(
@@ -132,7 +133,7 @@ public class Visit : AggregateRoot<VisitId>
 	public VisitNotification ChangeNotificationDate(Date dateUtc, VisitNotificationId notificationId)
 	{
         var notification = _notifications.First(x=> x.Id == notificationId);
-        var date = new Date(dateUtc);
+        var date = new Date(dateUtc.Value);
 
         if(date >= Date)
         {

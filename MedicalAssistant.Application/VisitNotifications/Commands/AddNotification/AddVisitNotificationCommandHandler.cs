@@ -49,7 +49,7 @@ internal sealed class AddVisitNotificationCommandHandler
 		Validate(request, visit);
 
 		VisitNotificationId notificationId = Guid.NewGuid();
-		string jobId = _notificationScheduler.ScheduleJob(visitId, notificationId, date);
+		string jobId = _notificationScheduler.ScheduleJob(visitId, notificationId, date.ToDate());
 
 		try
 		{

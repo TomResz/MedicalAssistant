@@ -1,0 +1,53 @@
+﻿@page "/medication/{Id:guid}"
+@using MedicalAssistant.UI.Components
+@using MedicalAssistant.UI.Components.Visits
+
+<MudGrid Class="ma-0 visit-grid">
+	<MudItem xs="12" md="6" Class="pa-0 mx-0 visit-item">
+		<MudCard Class="visit-card">
+			@if (_isMedicationLoading)
+			{
+				<LoadingSkeletonComponent Class="ma-2" />
+			}
+			else
+			{
+			}
+		</MudCard>
+	</MudItem>
+
+	<MudItem xs="12" md="6" Class="pa-0 mx-0 visit-item">
+		
+	</MudItem>
+</MudGrid>
+
+
+<style>
+	.visit-grid {
+		overflow-y: auto;
+		overflow-x: hidden;
+		max-height: calc(100vh - 96px);
+	}
+
+	.visit-item {
+		min-height: calc(100vh - 104px);
+		margin-top: 8px;
+	}
+
+	.visit-lef-item {
+		margin-top: 8px;
+	}
+
+	.visit-card {
+		height: 100%;
+		margin-right: 24px;
+	}
+
+</style>
+
+@code {
+	private bool _isMedicationLoading = true;
+	private bool _isNotificationLoading = true;
+
+	[Parameter]
+	public Guid Id { get; set; }
+}

@@ -33,7 +33,7 @@ internal sealed class GetPageOfNotificationsQueryHandler
 				ContentJson = x.ContentJson,
 				Type = x.Type,
 				WasRead = x.WasRead,
-				PublishedDateUtc = x.PublishedDate
+				PublishedDateUtc = x.PublishedDate.ToDate()
 			});
 
 		PagedList<NotificationDto> pagedHistoryList = await PagedListFactory<NotificationDto>.CreateByQueryAsync(

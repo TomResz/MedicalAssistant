@@ -11,4 +11,5 @@ public interface IVisitService
 	Task<Response.Base.Response<VisitDto>> Get(Guid visitId);
 	Task<Response<List<VisitDto>>> GetByWeek(DateTime dateTime);
 	Task<Response<List<VisitDto>>> GetCompleted(DateTime dateTime);
+	Task<Response<List<VisitDto>>> GetByDate(DateTime date);
 }

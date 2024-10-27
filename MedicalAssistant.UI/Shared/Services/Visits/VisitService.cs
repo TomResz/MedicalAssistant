@@ -57,4 +57,10 @@ public class VisitService : IVisitService
 		var response = await _httpClient.GetAsync($"visit/completed/{date}");
 		return await response.DeserializeResponse<List<VisitDto>>();
 	}
+
+	public async Task<Response<List<VisitDto>>> GetByDate(DateTime date)
+	{
+		var response = await _httpClient.GetAsync($"visit/{date.ToString("yyyy-MM-dd")}");
+		return await response.DeserializeResponse<List<VisitDto>>();
+	}
 }

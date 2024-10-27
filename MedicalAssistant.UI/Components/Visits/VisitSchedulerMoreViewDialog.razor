@@ -1,0 +1,20 @@
+﻿@using MedicalAssistant.UI.Models.Visits
+@code {
+	[Parameter]
+	public IReadOnlyList<VisitDto> Visits { get; set; }
+}
+<MudDialog>
+	<DialogContent>
+		<MudGrid>
+			@if (Visits is not null)
+			{
+				foreach (var visit in Visits)
+				{
+					<MudItem xs="12" sm="6" md="@(Visits.Count > 3 ? 4 : 6)">
+						<VisitItem ButtonVisible="true" Visit="visit" Class="pa-4" />
+					</MudItem>
+				}
+			}
+		</MudGrid>
+	</DialogContent>
+</MudDialog>

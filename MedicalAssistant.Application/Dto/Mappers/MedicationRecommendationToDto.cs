@@ -7,8 +7,8 @@ public static class MedicationRecommendationToDto
 		=> new()
 		{
 			Id = recommendation.Id,
-			EndDate = recommendation.EndDate,
-			StartDate = recommendation.StartDate,
+			EndDate = recommendation.EndDate.ToDate(),
+			StartDate = recommendation.StartDate.ToDate(),
 			ExtraNote = recommendation.ExtraNote,
 			Name = recommendation.Medicine.Name,
 			Quantity = recommendation.Medicine.Quantity,

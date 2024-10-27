@@ -1,0 +1,18 @@
+﻿@using MedicalAssistant.UI.Models.Medication
+@code {
+	[Parameter]
+	public IReadOnlyList<MedicationDto> Medications { get; set; }
+}
+
+<MudDialog>
+    <DialogContent>
+        <MudGrid>
+            @foreach (var medication in Medications)
+            {
+                <MudItem xs="12" sm="6" md="@(Medications.Count > 3 ? 4 : 6)">
+                    <MedicationItem ButtonVisible="true" Class="pa-4" Medication="medication" />
+                </MudItem>
+            }
+        </MudGrid>
+    </DialogContent>
+</MudDialog>

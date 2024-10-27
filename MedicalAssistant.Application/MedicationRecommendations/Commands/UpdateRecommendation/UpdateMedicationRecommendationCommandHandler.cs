@@ -43,12 +43,17 @@ internal sealed class UpdateMedicationRecommendationCommandHandler
 		if (request.VisitId is not null)
 		{
 			var visit = await _visitRepository.GetByIdAsync(request.VisitId, cancellationToken);
+			
 			if(visit is null)
 			{
 				throw new UnknownVisitException();
 			}
 
 			visitDto = visit.ToDto();
+		}
+		else
+		{
+			recommendation.DeleteVisitId();
 		}
 
 		recommendation.Update(medicine,start, end, visitDto?.VisitId,request.ExtraNote);

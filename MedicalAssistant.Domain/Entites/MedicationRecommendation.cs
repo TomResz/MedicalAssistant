@@ -77,4 +77,14 @@ public class MedicationRecommendation
         VisitId = visitId;
         ExtraNote = extraNote;
 	}
+
+	internal void ChangeVisitId(VisitId id)
+	{
+        VisitId = id;
+	}
+
+	public void DeleteVisitId()
+	{
+        VisitId = null;
+	}
 }

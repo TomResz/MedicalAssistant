@@ -8,18 +8,34 @@
 
 <RadzenScheduler @ref="_scheduler"
 				 Style=" height: calc(100vh - 96px);overflow: hidden;"
-				 TItem="VisitDto" Data=@_visits 
+				 TItem="VisitDto" Data=@_visits
 				 StartProperty="Date" EndProperty="End"
 				 TextProperty="VisitType"
-				 SelectedIndex="2" 
-				 TodayText="@Translations.Today" 
+				 SelectedIndex="2"
+				 TodayText="@Translations.Today"
 				 NextText="@Translations.Tomorrow"
 				 PrevText="@Translations.Yesterday"
-				 SlotRender=@SelectTodayDate 
+				 SlotRender=@SelectTodayDate
 				 SlotSelect="@AddVist"
-				 AppointmentSelect="@EditRemoveVisit">
-	<RadzenDayView Text="@Translations.Day" StartTime="TimeSpan.FromHours(6.0)" EndTime="TimeSpan.FromHours(24.0)" TimeFormat="HH:mm"  />
+				 MoreSelect="@ViewMoreDialog"
+				 AppointmentSelect="@EditRemoveVisit" Culture="@GetCulture">
+	<RadzenDayView Text="@Translations.Day" StartTime="TimeSpan.FromHours(6.0)" EndTime="TimeSpan.FromHours(24.0)" TimeFormat="HH:mm" />
 	<RadzenWeekView Text="@Translations.Week" StartTime="TimeSpan.FromHours(6.0)" EndTime="TimeSpan.FromHours(24.0)" TimeFormat="HH:mm" />
 	<RadzenMonthView Text="@Translations.Month" />
 	<RadzenYearView Text="@Translations.Year" />
 </RadzenScheduler>
+
+<script>
+	window.addEventListener('resize', function () {
+		const culture = localStorage.getItem("Culture");
+		if (culture !== 'pl-PL') {
+			return;
+		}
+		var elements = document.getElementsByClassName("rz-event-list-btn");
+		for (let i = 0; i < elements.length; i++) {
+			if (elements[i].innerHTML.includes("more")) {
+				elements[i].innerHTML = elements[i].innerHTML.replace("more", "więcej");
+			}
+		}
+	});
+</script>

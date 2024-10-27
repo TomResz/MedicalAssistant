@@ -8,7 +8,7 @@ using MudBlazor;
 
 namespace MedicalAssistant.UI.Components.Medication;
 
-public partial class AddMedicationRecommendationDialog
+public partial class EditMedicationRecommendationDialog
 {
 	private MudForm _form;
 
@@ -21,27 +21,33 @@ public partial class AddMedicationRecommendationDialog
 	public MudDialogInstance DialogInstance { get; set; }
 
 	[Parameter]
-	public DateRange? DateRange { get; set; } = null;
+	public MedicationDto Medication { get; set; }
+
+    [Parameter]
+    public Guid Id { get; set; }
+
+    [Inject]
+	public IMedicationService MedicationService { get; set; }
 
 	[Inject]
-	public IMedicationService MedicationService { get; set; }
+	public IVisitService VisitService { get; set; }
 
 	[Inject]
 	public ISnackbar Snackbar { get; set; }
 
+
 	protected override void OnParametersSet()
 	{
-		if (DateRange is not null)
+		if (Medication is null)
 		{
-			_viewModel.DateRange = DateRange;
+			DialogInstance.Close();
+			return;
 		}
-	}
 
-	private async Task VisitPick(VisitDto visitDto)
-	{
-		_visitDto = visitDto;
-		_viewModel.VisitId = visitDto.Id;
-		await InvokeAsync(StateHasChanged);
+		_visitDto = Medication.Visit;
+		_viewModel = Medication.ToViewModel();
+
+
 	}
 
 	private async Task Submit()
@@ -51,36 +57,30 @@ public partial class AddMedicationRecommendationDialog
 		{
 			return;
 		}
+		var request = _viewModel.ToUpdateRequest(Id);
 
-		var request = _viewModel.ToInsertRequest();
-		Response<AddMedicationResponse> response = await MedicationService.Add(request);
+		Response<VisitDto?> response = await MedicationService.Update(request);
 
 		if (response.IsSuccess)
 		{
-			var responseValue = response.Value!;
+			_visitDto = response.Value;
 
-			var dto = new MedicationDto
-			{
-				Id = responseValue.Id,
-				Visit = responseValue.Visit,
-				EndDate = request.EndDate,
-				StartDate = request.StartDate,
-				TimeOfDay = request.TimeOfDay,
-				ExtraNote = request.ExtraNote,
-				Name = request.MedicineName,
-				Quantity = request.Quantity,
-			};
-
+			var dto = _viewModel.ToDto(_visitDto,Id);
 			DialogInstance.Close(dto);
-			Snackbar.Add(Translations.RecommendationAdded, Severity.Success);
+			Snackbar.Add(Translations.MedicationEdited,Severity.Success);
 			return;
 		}
 		else
 		{
-			Snackbar.Add(Translations.SomethingWentWrong, Severity.Error);
+			Snackbar.Add(Translations.SomethingWentWrong,Severity.Error);
 		}
-	}
 
+	}
+	private async Task VisitPick(VisitDto visitDto)
+	{
+		_visitDto = visitDto;
+		await InvokeAsync(StateHasChanged);
+	}
 	public void Cancel() => DialogInstance.Cancel();
 
 	private async Task Delete()
@@ -89,6 +89,5 @@ public partial class AddMedicationRecommendationDialog
 		_viewModel.VisitId = null;
 		await InvokeAsync(StateHasChanged);
 	}
+
 }
-
-

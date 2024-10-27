@@ -7,12 +7,12 @@ internal static class RecommendationsToDto
         => new RecommendationDto
         {
             Id = recommendation.Id,
-            CreatedAt = recommendation.CreatedAt,
+            CreatedAt = recommendation.CreatedAt.ToDate(),
             ExtraNote = recommendation.ExtraNote,
             MedicineName = recommendation.Medicine.Name,
             MedicineQuantity = recommendation.Medicine.Quantity,
             MedicineTimeOfDay = recommendation.Medicine.TimeOfDay,
-            BeginDate = recommendation.StartDate,
-            EndDate = recommendation.EndDate,
+            BeginDate = recommendation.StartDate.ToDate(),
+            EndDate = recommendation.EndDate.ToDate(),
         };
 }

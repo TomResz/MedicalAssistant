@@ -1,5 +1,6 @@
-﻿using MedicalAssistant.UI.Models.Visits;
+﻿using MedicalAssistant.UI.Models.Medication;
 using MedicalAssistant.UI.Shared.Resources;
+using MedicalAssistant.UI.Shared.Response.Base;
 using MedicalAssistant.UI.Shared.Services.Abstraction;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -13,10 +14,10 @@ public partial class MedicationSchedulerComponent
 	RadzenScheduler<MedicationDto> _scheduler;
 
 	[Inject]
-	public IDialogService DialogService { get; set; }
+	public IMedicationService MedicationService { get; set; }
 
 	[Inject]
-	public ILocalTimeProvider LocalTimeProvider { get; set; }
+	public IDialogService DialogService { get; set; }
 
 	[Parameter]
 	public IReadOnlyList<MedicationDto> Items { get; set; }
@@ -42,21 +43,22 @@ public partial class MedicationSchedulerComponent
 	private async Task AddMedication(SchedulerSlotSelectEventArgs args)
 	{
 		string[] validViews = [Translations.Month, Translations.Day, Translations.Week];
+		var selectedDate = args.Start;
 
 		if (!validViews.Contains(args.View.Text))
 		{
 			return;
 		}
 
-		var date = await LocalTimeProvider.CurrentDate();
 		var dialogParameters = new DialogParameters
 		{
-			{nameof(AddMedicationRecommendationDialog.DateRange), new DateRange(date,date)},
+			{nameof(AddMedicationRecommendationDialog.DateRange), new DateRange(selectedDate,selectedDate)},
 		};
 
 		var options = new MudBlazor.DialogOptions()
 		{
-			MaxWidth = MaxWidth.ExtraLarge,
+			MaxWidth = MaxWidth.Large,
+			FullWidth = true,
 		};
 
 		var dialog = await DialogService.ShowAsync<AddMedicationRecommendationDialog>(
@@ -78,20 +80,54 @@ public partial class MedicationSchedulerComponent
 
 	private async Task EditMedication(SchedulerAppointmentSelectEventArgs<MedicationDto> args)
 	{
-		await Task.CompletedTask;
+		var parameters = new DialogParameters
+		{
+			{ nameof(EditMedicationRecommendationDialog.Id),args.Data.Id},
+			{ nameof(EditMedicationRecommendationDialog.Medication),args.Data},
+		};
+
+		var options = new MudBlazor.DialogOptions() { CloseOnEscapeKey = true, FullWidth = true , MaxWidth= MaxWidth.Large};
+		var dialog = DialogService.Show<EditMedicationRecommendationDialog>(Translations.Edit, parameters,options);
+		var result = await dialog.Result;
+
+		if(result is not null &&
+			!result.Canceled &&
+			result.Data is MedicationDto medication)
+		{
+			var index = _items.FindIndex(x=> x.Id == medication.Id);
+
+			if(index is not -1)
+			{
+				_items[index] = medication;
+				await _scheduler.Reload();
+			}
+		}
 	}
-}
 
+    private async Task ShowMore(SchedulerMoreSelectEventArgs args)
+	{
+		var date = args.Start.Date;
 
-public class MedicationDto
-{
-	public Guid Id { get; set; }
-	public VisitDto? Visit { get; set; }
-	public DateTime StartDate { get; set; }
-	public DateTime EndDate { get; set; }
-	public string Name { get; set; }
-	public string[] TimeOfDay { get; set; }
-	public int Quantity { get; set; }
-	public string? ExtraNote { get; set; }
+		Response<List<MedicationDto>> response = await MedicationService.GetByDate(date);
 
+		if (response.IsFailure || response.Value is null || response.Value.Count is 0 )
+		{
+			return;
+		}
+		var medications = response.Value!;
+
+		var parameters = new DialogParameters()
+		{
+			{nameof(MedicationSchedulerMoreSelectDialog.Medications),medications }
+		};
+
+		var options = new MudBlazor.DialogOptions()
+		{
+			FullWidth = true,
+			MaxWidth = MaxWidth.Large,
+			NoHeader = true,
+		};
+
+		var dialog = DialogService.Show<MedicationSchedulerMoreSelectDialog>(null, parameters, options);
+    }
 }

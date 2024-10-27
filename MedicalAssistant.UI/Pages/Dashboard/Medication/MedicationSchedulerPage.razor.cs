@@ -1,4 +1,4 @@
-﻿using MedicalAssistant.UI.Components.Medication;
+﻿using MedicalAssistant.UI.Models.Medication;
 using MedicalAssistant.UI.Shared.Services.Abstraction;
 using Microsoft.AspNetCore.Components;
 
