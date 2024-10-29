@@ -25,7 +25,7 @@
 			<MudList T="string" Class="pa-2 docs-menu-list">
 				<div class="d-flex justify-space-between align-center px-2">
 					<MudText Typo="Typo.subtitle2">@Translations.Notifications</MudText>
-					<MudButton Class="ml-16 mr-2" Variant="MudBlazor.Variant.Text"
+					<MudButton Class="ml-6 mr-2" Variant="MudBlazor.Variant.Text"
 							   Color="Color.Primary" StartIcon="@Icons.Material.Filled.Done" OnClick="@ClearNotifications">
 						@Translations.MarkAsRead
 					</MudButton>
@@ -48,12 +48,12 @@
 <style>
 	.responsive-popover {
 		width: auto;
-		max-width: 350px; 
+		max-width: 320px; 
 	}
 
 	.unread-notification {
-        background-color: #424242; /* Ciemnoszare tło */
-        color: #ffffff; /* Biały tekst dla lepszej czytelności */
+        background-color: #424242; 
+        color: #ffffff; 
 		font-weight: bold;
 	}
 </style>

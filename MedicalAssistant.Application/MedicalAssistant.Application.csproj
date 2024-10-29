@@ -27,7 +27,6 @@
 
 	<ItemGroup>
 	  <Folder Include="MedicationNotifications\Commands\Delete\" />
-	  <Folder Include="MedicationNotifications\Queries\" />
 	</ItemGroup>
 
 </Project>

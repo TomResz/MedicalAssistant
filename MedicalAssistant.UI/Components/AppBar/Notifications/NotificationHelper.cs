@@ -16,43 +16,53 @@ public static class NotificationHelper
 
 	public static string ToType(NotificationModel model)
 	{
-		if (model.Type == NotificationTypes.VisitNotification)
+		return model.Type switch
 		{
-			return Translations.NotificationOfVisit;
-		}
-		else if(model.Type == NotificationTypes.MedicationRecommendation)
-		{
-
-		}
-		return string.Empty;
+			NotificationTypes.VisitNotification => Translations.NotificationOfVisit,
+			NotificationTypes.MedicationNotification => Translations.MedicationNotificationType,
+			_ => string.Empty,
+		};
 	}
 
 	public static string ToNotificationDescription(NotificationModel notification)
 	{
-		if (notification.Type == NotificationTypes.VisitNotification)
+		switch (notification.Type)
 		{
-			var visitObj = JsonSerializer.Deserialize<VisitDto>(notification.ContentJson, _jsonSerializerOptions)!;
-			return string.Format(Translations.VisitDateCommunicate, visitObj.Date.ToString());
-		}
-		else if (notification.Type == NotificationTypes.MedicationRecommendation)
-		{
-			var medicationDto = JsonSerializer.Deserialize<MedicationDto>(notification.ContentJson, _jsonSerializerOptions)!;
-			return string.Format(Translations.MedicationNotificationCommunicate, medicationDto.Name);
+			case NotificationTypes.VisitNotification:
+				{
+					var visitObj = JsonSerializer.Deserialize<VisitDto>(notification.ContentJson, _jsonSerializerOptions)!;
+					return string.Format(Translations.VisitDateCommunicate, visitObj.Date.ToString());
+				}
+
+			case NotificationTypes.MedicationNotification:
+				{
+					var medicationDto = JsonSerializer.Deserialize<MedicationDto>(notification.ContentJson, _jsonSerializerOptions)!;
+					return string.Format(Translations.MedicationNotificationCommunicate, medicationDto.Name);
+				}
 		}
 		return string.Empty;
 	}
 
 	public static void GoToNotificationDetails(NotificationModel notification, NavigationManager navigationManager)
 	{
-		if (notification.Type == NotificationTypes.VisitNotification)
+		switch (notification.Type)
 		{
-			VisitDto visitObj = JsonSerializer.Deserialize<VisitDto>(notification.ContentJson, _jsonSerializerOptions)!;
-			navigationManager.NavigateTo($"visit/{visitObj.Id}");
-		}
-		else if(notification.Type == NotificationTypes.MedicationRecommendation)
-		{
-			var medicationDto = JsonSerializer.Deserialize<MedicationDto>(notification.ContentJson, _jsonSerializerOptions)!;
-			navigationManager.NavigateTo($"medication/{medicationDto.Id}");
+			case NotificationTypes.VisitNotification:
+				{
+					VisitDto visitObj = JsonSerializer.Deserialize<VisitDto>(notification.ContentJson, _jsonSerializerOptions)!;
+					navigationManager.NavigateTo($"visit/{visitObj.Id}");
+					break;
+				}
+
+			case NotificationTypes.MedicationNotification:
+				{
+					var medicationDto = JsonSerializer.Deserialize<MedicationDto>(notification.ContentJson, _jsonSerializerOptions)!;
+					navigationManager.NavigateTo($"medication/{medicationDto.Id}");
+					break;
+				}
+
+			default:
+				break;
 		}
 	}
 }

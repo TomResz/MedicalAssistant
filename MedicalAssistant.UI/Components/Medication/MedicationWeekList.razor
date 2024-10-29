@@ -1,4 +1,5 @@
-﻿@using MedicalAssistant.UI.Models.Visits
+﻿@using MedicalAssistant.UI.Models.Medication
+@using MedicalAssistant.UI.Models.Visits
 <MudGrid>
 	<MudItem xs="12">
 		<MudText Typo="Typo.h4" Class="text-center">@ListName.ToUpper()</MudText>
@@ -6,7 +7,7 @@
 </MudGrid>
 @foreach (var day in _days)
 {	
-	@if (GroupedVisits[day].Any())
+	@if (GroupedMedications[day].Any())
 	{
 		<MudPaper Elevation="4" Class="pa-4 my-2 mx-2">
 			<MudGrid>
@@ -14,10 +15,10 @@
 					<MudText Typo="Typo.h6" Align="Align.Center"> @DayOfWeekToString(day)</MudText>
 				</MudItem>
 
-				@foreach (var visit in GroupedVisits[day].OrderBy(x=>x.Date))
+				@foreach (MedicationDto medication in GroupedMedications[day].OrderBy(x => x.Name))
 				{
 					<MudItem xs="12" sm="6">
-						<VisitItem Visit="visit" />
+						<MedicationItem Medication="medication"/>
 					</MudItem>
 				}
 			</MudGrid>

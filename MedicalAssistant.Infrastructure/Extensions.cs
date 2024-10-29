@@ -3,7 +3,6 @@ using MedicalAssistant.Domain.Abstraction;
 using MedicalAssistant.Infrastructure.Auth;
 using MedicalAssistant.Infrastructure.BackgrounJobs;
 using MedicalAssistant.Infrastructure.DAL;
-using MedicalAssistant.Infrastructure.DAL.Dapper;
 using MedicalAssistant.Infrastructure.Docker;
 using MedicalAssistant.Infrastructure.Email;
 using MedicalAssistant.Infrastructure.ExternalProviders;
@@ -34,8 +33,7 @@ public static class Extensions
             .AddEmailServices(configuration)
             .AddGoogleService(configuration)
             .AddLanguageService()
-            .AddSingleton<INotificationSender,NotificationSender>()
-            .AddSingleton<ISqlConnectionFactory,ConnectionFactory>();
+            .AddSingleton<INotificationSender,NotificationSender>();
 
     internal static T GetOptions<T>(this IConfiguration configuration, string sectionName) where T : class, new()
     {

@@ -10,4 +10,6 @@ public interface IMedicationService
     Task<Response<AddMedicationResponse>> Add(AddMedicationModel model);
 	Task<Response<VisitDto?>> Update(UpdateMedicationModel request);
     Task<Response<List<MedicationDto>>> GetByDate(DateTime date);
+    Task<Response.Base.Response> Delete(Guid id);
+	Task<Response<List<MedicationWithDayDto>>> Week(DateTime date);
 }

@@ -6,6 +6,7 @@ using MedicalAssistant.Domain.Abstraction;
 using MedicalAssistant.Domain.Entites;
 using MedicalAssistant.Domain.Events;
 using MedicalAssistant.Domain.Repositories;
+using MedicalAssistant.Domain.ValueObjects;
 using MedicalAssistant.Domain.ValueObjects.IDs;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
@@ -84,7 +85,7 @@ internal sealed class SendMedicationNotificationEventHandler
 		var notificationHistory = NotificationHistory.Create(
 			user.Id,
 			contentJson,
-			"Medication_Recommendation",
+			NotificationHistoryType.MedicationNotification,
 			_clock.GetCurrentUtc());
 
 		_historyRepository.Add(notificationHistory);

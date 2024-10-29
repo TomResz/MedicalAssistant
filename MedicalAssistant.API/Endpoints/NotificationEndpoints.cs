@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MedicalAssistant.Application.MedicationRecommendations.Commands.DeleteRecommendation;
 using MedicalAssistant.Application.Notifications.Commands.MarkAsRead;
 using MedicalAssistant.Application.Notifications.Queries;
 
@@ -36,6 +37,13 @@ public class NotificationEndpoints : IEndpoints
 			var query = new GetNotificationsQuery();
 			var response = await _mediator.Send(query);
 			return Results.Ok(response);	
+		});
+
+		group.MapDelete("/{id:guid}", async (IMediator _mediator,Guid id) =>
+		{
+			var command = new DeleteRecommendationCommand(id);
+			await _mediator.Send(command);
+			return Results.NoContent();
 		});
 	}
 }

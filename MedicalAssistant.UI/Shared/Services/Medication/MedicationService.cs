@@ -23,6 +23,12 @@ public class MedicationService : IMedicationService
 		return await response.DeserializeResponse<AddMedicationResponse>();
 	}
 
+	public async Task<Response.Base.Response> Delete(Guid id)
+	{
+		var response = await _httpClient.DeleteAsync($"recommendation/{id}");
+		return await response.DeserializeResponse();
+	}
+
 	public async Task<Response<List<MedicationDto>>> GetAll()
 	{
 		var response = await _httpClient.GetAsync("recommendation/");
@@ -39,5 +45,11 @@ public class MedicationService : IMedicationService
 	{
 		var response = await _httpClient.PatchAsJsonAsync("recommendation", request);
 		return await response.DeserializeResponse<VisitDto?>();
+	}
+
+	public async Task<Response<List<MedicationWithDayDto>>> Week(DateTime date)
+	{
+		var response = await _httpClient.GetAsync($"recommendation/week/{date:yyyy-MM-dd}");
+		return await response.DeserializeResponse<List<MedicationWithDayDto>>();	
 	}
 }

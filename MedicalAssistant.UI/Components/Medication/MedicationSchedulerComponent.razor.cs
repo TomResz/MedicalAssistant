@@ -84,19 +84,20 @@ public partial class MedicationSchedulerComponent
 		{
 			{ nameof(EditMedicationRecommendationDialog.Id),args.Data.Id},
 			{ nameof(EditMedicationRecommendationDialog.Medication),args.Data},
+			{nameof(EditMedicationRecommendationDialog.OnMedicationDeleted),EventCallback.Factory.Create<Guid>(this,MedicationDeleted)},
 		};
 
-		var options = new MudBlazor.DialogOptions() { CloseOnEscapeKey = true, FullWidth = true , MaxWidth= MaxWidth.Large};
-		var dialog = DialogService.Show<EditMedicationRecommendationDialog>(Translations.Edit, parameters,options);
+		var options = new MudBlazor.DialogOptions() { CloseOnEscapeKey = true, FullWidth = true, MaxWidth = MaxWidth.Large };
+		var dialog = DialogService.Show<EditMedicationRecommendationDialog>(Translations.Edit, parameters, options);
 		var result = await dialog.Result;
 
-		if(result is not null &&
+		if (result is not null &&
 			!result.Canceled &&
 			result.Data is MedicationDto medication)
 		{
-			var index = _items.FindIndex(x=> x.Id == medication.Id);
+			var index = _items.FindIndex(x => x.Id == medication.Id);
 
-			if(index is not -1)
+			if (index is not -1)
 			{
 				_items[index] = medication;
 				await _scheduler.Reload();
@@ -104,13 +105,25 @@ public partial class MedicationSchedulerComponent
 		}
 	}
 
-    private async Task ShowMore(SchedulerMoreSelectEventArgs args)
+	public void MedicationDeleted(Guid medicationId)
+	{
+		var medication = _items.FirstOrDefault(x => x.Id == medicationId);
+		
+		if (medication is not null)
+		{
+			_items.Remove(medication);
+			_scheduler.Reload();
+		}
+	}
+
+
+	private async Task ShowMore(SchedulerMoreSelectEventArgs args)
 	{
 		var date = args.Start.Date;
 
 		Response<List<MedicationDto>> response = await MedicationService.GetByDate(date);
 
-		if (response.IsFailure || response.Value is null || response.Value.Count is 0 )
+		if (response.IsFailure || response.Value is null || response.Value.Count is 0)
 		{
 			return;
 		}
@@ -129,5 +142,5 @@ public partial class MedicationSchedulerComponent
 		};
 
 		var dialog = DialogService.Show<MedicationSchedulerMoreSelectDialog>(null, parameters, options);
-    }
+	}
 }

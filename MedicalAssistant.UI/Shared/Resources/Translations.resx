@@ -603,4 +603,10 @@
   <data name="MedicationNotificationCommunicate" xml:space="preserve">
     <value>Notification of medication : {0}</value>
   </data>
+  <data name="MedicationNotificationType" xml:space="preserve">
+    <value>Notification Of Medication</value>
+  </data>
+  <data name="DialogRemoveMedication" xml:space="preserve">
+    <value>Are you sure you want to remove this recommendation ?</value>
+  </data>
 </root>

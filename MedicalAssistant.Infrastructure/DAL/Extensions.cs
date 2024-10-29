@@ -1,5 +1,7 @@
-﻿using MedicalAssistant.Application.Contracts;
+﻿using Dapper;
+using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Domain.Repositories;
+using MedicalAssistant.Infrastructure.DAL.Dapper;
 using MedicalAssistant.Infrastructure.DAL.Interceptors;
 using MedicalAssistant.Infrastructure.DAL.Options;
 using MedicalAssistant.Infrastructure.DAL.Repository;
@@ -45,6 +47,9 @@ internal static class Extensions
 
 		AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
+		services.AddSingleton<ISqlConnectionFactory, ConnectionFactory>();
+		SqlMapper.AddTypeHandler(new SqlTimeOnlyMapper());
+		
 		return services;
 	}
 }

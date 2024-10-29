@@ -7,6 +7,7 @@ using MedicalAssistant.Domain.Abstraction;
 using MedicalAssistant.Domain.Entites;
 using MedicalAssistant.Domain.Exceptions;
 using MedicalAssistant.Domain.Repositories;
+using MedicalAssistant.Domain.ValueObjects;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
@@ -67,7 +68,7 @@ internal sealed class SendVisitNotificationEventHandler
 		var notificationObj = NotificationHistory.Create(
 			user.Id,
 			contentJson,
-			"Visit Notification",
+			NotificationHistoryType.VisitNotification,
 			  _clock.GetCurrentUtc());
 
 		_notificationHistoryRepository.Add(notificationObj);

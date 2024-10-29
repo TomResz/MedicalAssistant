@@ -1,0 +1,48 @@
+﻿@using MedicalAssistant.UI.Components
+@using MedicalAssistant.UI.Components.Medication
+@page "/medication/current"
+
+<MudGrid Class="ma-0 visit-grid">
+		<MudItem xs="12" sm="6" Class="pa-0 mx-0 visit-item">
+			<MudCard Class="visit-card" Elevation="3">
+			@if (_loading)
+			{
+				<LoadingSkeletonComponent  Class="ma-2"/>
+			}
+			else
+			{
+				<MedicationWeekList Medications="@_currentWeek" ListName="@Translations.CurrentWeek"/>
+			}
+		</MudCard>
+		</MudItem>
+
+	<MudItem xs="12" sm="6" Class="pa-0 mx-0 visit-item">
+		<MudCard Class="visit-card" Elevation="3">
+			@if (_secondLoading)
+			{
+				<LoadingSkeletonComponent  Class="ma-2"/>
+			}
+			else
+			{
+				<MedicationWeekList Medications="@_nextWeek" ListName="@Translations.NextWeek"/>
+			}
+		</MudCard>
+	</MudItem>
+</MudGrid>
+
+<style>
+	.visit-grid {
+		overflow-y: auto;
+		max-height: calc(100vh - 96px);
+	}
+
+	.visit-item {
+		min-height: calc(100vh - 104px);
+		margin-top: 8px;
+	}
+
+	.visit-card {
+		height: 100%;
+		margin-right: 24px;
+	}
+</style>

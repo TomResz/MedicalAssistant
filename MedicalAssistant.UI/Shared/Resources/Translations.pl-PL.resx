@@ -603,4 +603,10 @@
   <data name="MedicationNotificationCommunicate" xml:space="preserve">
     <value>Powiadomienie o lekach: {0}</value>
   </data>
+  <data name="MedicationNotificationType" xml:space="preserve">
+    <value>Powiadomienie o Lekarstwie</value>
+  </data>
+  <data name="DialogRemoveMedication" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć te zalecenie ?</value>
+  </data>
 </root>

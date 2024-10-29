@@ -1,18 +1,18 @@
-﻿using MedicalAssistant.UI.Models.Visits;
+﻿using MedicalAssistant.UI.Models.Medication;
 using MedicalAssistant.UI.Shared.Resources;
 using Microsoft.AspNetCore.Components;
 
-namespace MedicalAssistant.UI.Components.Visits;
+namespace MedicalAssistant.UI.Components.Medication;
 
-public partial class VisitWeekList
+public partial class MedicationWeekList
 {
 	[Parameter]
 	public string ListName { get; set; }
 
 	[Parameter]
-	public IReadOnlyList<VisitDto> Visits { get; set; }
+	public IReadOnlyList<MedicationWithDayDto> Medications { get; set; }
 
-	private Dictionary<DayOfWeek, List<VisitDto>> GroupedVisits { get; set; }
+	private Dictionary<DayOfWeek, List<MedicationWithDayDto>> GroupedMedications { get; set; }
 
 	private readonly IReadOnlyList<DayOfWeek> _days =
 	[
@@ -40,17 +40,17 @@ public partial class VisitWeekList
 
 	protected override Task OnInitializedAsync()
 	{
-		GroupedVisits = [];
+		GroupedMedications = [];
 
 		foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)))
 		{
-			GroupedVisits[day] = [];
+			GroupedMedications[day] = [];
 		}
 
-		foreach (var visit in Visits)
+		foreach (var medication in Medications)
 		{
-			DayOfWeek dayOfWeek = visit.Date.DayOfWeek;
-			GroupedVisits[dayOfWeek].Add(visit);
+			DayOfWeek dayOfWeek = medication.Day.DayOfWeek;
+			GroupedMedications[dayOfWeek].Add(medication);
 		}
 
 		return Task.CompletedTask;

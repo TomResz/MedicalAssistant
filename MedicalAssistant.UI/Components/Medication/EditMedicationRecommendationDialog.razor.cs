@@ -15,7 +15,7 @@ public partial class EditMedicationRecommendationDialog
 	private VisitDto? _visitDto = null;
 
 	private MedicationViewModel _viewModel = new();
-	private MedicationViewModelValidator _validator = new();
+	private readonly MedicationViewModelValidator _validator = new();
 
 	[CascadingParameter]
 	public MudDialogInstance DialogInstance { get; set; }
@@ -23,10 +23,14 @@ public partial class EditMedicationRecommendationDialog
 	[Parameter]
 	public MedicationDto Medication { get; set; }
 
-    [Parameter]
-    public Guid Id { get; set; }
+	[Parameter]
+	public Guid Id { get; set; }
 
-    [Inject]
+	[Parameter]
+	public EventCallback<Guid> OnMedicationDeleted { get; set; }
+
+
+	[Inject]
 	public IMedicationService MedicationService { get; set; }
 
 	[Inject]
@@ -34,6 +38,9 @@ public partial class EditMedicationRecommendationDialog
 
 	[Inject]
 	public ISnackbar Snackbar { get; set; }
+
+	[Inject]
+	public IDialogService DialogService { get; set; }
 
 
 	protected override void OnParametersSet()
@@ -46,8 +53,6 @@ public partial class EditMedicationRecommendationDialog
 
 		_visitDto = Medication.Visit;
 		_viewModel = Medication.ToViewModel();
-
-
 	}
 
 	private async Task Submit()
@@ -65,14 +70,14 @@ public partial class EditMedicationRecommendationDialog
 		{
 			_visitDto = response.Value;
 
-			var dto = _viewModel.ToDto(_visitDto,Id);
+			var dto = _viewModel.ToDto(_visitDto, Id);
 			DialogInstance.Close(dto);
-			Snackbar.Add(Translations.MedicationEdited,Severity.Success);
+			Snackbar.Add(Translations.MedicationEdited, Severity.Success);
 			return;
 		}
 		else
 		{
-			Snackbar.Add(Translations.SomethingWentWrong,Severity.Error);
+			Snackbar.Add(Translations.SomethingWentWrong, Severity.Error);
 		}
 
 	}
@@ -88,6 +93,27 @@ public partial class EditMedicationRecommendationDialog
 		_visitDto = null;
 		_viewModel.VisitId = null;
 		await InvokeAsync(StateHasChanged);
+	}
+
+	private async Task DeleteMedication()
+	{
+		bool? result = await DialogService.ShowMessageBox(
+			Translations.DialogVisitRemoving,
+			(MarkupString)Translations.DialogRemoveMedication,
+			yesText: Translations.DialogYes, cancelText: Translations.DialogNo);
+
+		if (result is null || result == false)
+		{
+			return;
+		}
+
+		var response = await MedicationService.Delete(Id);
+
+		if (response.IsSuccess)
+		{
+			DialogInstance.Close();
+			await OnMedicationDeleted.InvokeAsync(Id);
+		}
 	}
 
 }

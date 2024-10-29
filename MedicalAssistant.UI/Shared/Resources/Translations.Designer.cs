@@ -367,6 +367,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove this recommendation ?.
+        /// </summary>
+        internal static string DialogRemoveMedication {
+            get {
+                return ResourceManager.GetString("DialogRemoveMedication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Removing a Visit.
         /// </summary>
         internal static string DialogVisitRemoving {
@@ -804,6 +813,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string MedicationNotificationCommunicate {
             get {
                 return ResourceManager.GetString("MedicationNotificationCommunicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notification Of Medication.
+        /// </summary>
+        internal static string MedicationNotificationType {
+            get {
+                return ResourceManager.GetString("MedicationNotificationType", resourceCulture);
             }
         }
         
