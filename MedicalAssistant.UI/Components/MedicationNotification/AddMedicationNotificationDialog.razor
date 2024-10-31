@@ -1,0 +1,31 @@
+﻿<MudDialog TitleClass="text-center">
+	<DialogContent>
+		<MudGrid>
+			<MudItem xs="12">
+					<MudDateRangePicker @bind-DateRange="@DateRange"
+										MinDate="@_dateRange.Start"
+										MaxDate="@_dateRange.End"
+										PickerVariant="PickerVariant.Static"
+										/>
+			</MudItem>
+			<MudItem xs="12">
+				<MudTimePicker PickerVariant="PickerVariant.Dialog" @bind-Time="Time" />
+			</MudItem>
+		</MudGrid>
+	</DialogContent>
+	<DialogActions>
+		<MudGrid Class="px-3">
+			<MudItem xs="12" sm="6">
+				<MudButton OnClick="@(async () => await Add())" Variant="MudBlazor.Variant.Filled" FullWidth="true"
+						   Color="Color.Primary" Disabled="@_btnPressed">
+					@Translations.Add
+				</MudButton>
+			</MudItem>
+			<MudItem xs="12" sm="6">
+				<MudButton OnClick="Cancel" Variant="MudBlazor.Variant.Filled" FullWidth="true">
+					@Translations.Cancel
+				</MudButton>
+			</MudItem>
+		</MudGrid>
+	</DialogActions>
+</MudDialog>

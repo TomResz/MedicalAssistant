@@ -6,7 +6,7 @@ using MedicalAssistant.Domain.Repositories;
 
 namespace MedicalAssistant.Application.MedicationNotifications.Commands.Add;
 internal sealed class AddMedicationNotificationCommandHandler
-	: IRequestHandler<AddMedicationNotificationCommand>
+	: IRequestHandler<AddMedicationNotificationCommand,Guid>
 {
 	private readonly IMedicationRecommendationRepository _repository;
 	private readonly IUnitOfWork _unitOfWork;
@@ -22,7 +22,7 @@ internal sealed class AddMedicationNotificationCommandHandler
 		_scheduler = scheduler;
 	}
 
-	public async Task Handle(AddMedicationNotificationCommand request, CancellationToken cancellationToken)
+	public async Task<Guid> Handle(AddMedicationNotificationCommand request, CancellationToken cancellationToken)
 	{
 		MedicationRecommendation? medication = await _repository.GetAsync(request.MedicationRecommendationId, cancellationToken);
 
@@ -50,6 +50,8 @@ internal sealed class AddMedicationNotificationCommandHandler
 		catch (Exception)
 		{
 			_scheduler.Remove(notification.JobId);
+			throw;
 		}
+		return notification.Id;
 	}
 }

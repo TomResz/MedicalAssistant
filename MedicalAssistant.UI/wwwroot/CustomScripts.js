@@ -38,5 +38,4 @@ window.onload = function () {
         loadingTheme.style.backgroundColor = isDarkMode == "true" ? 'rgba(50,51,61,1)' : 'white';
     }
     loadErrorLabels();
-    updateMoreText();
 }

@@ -31,4 +31,12 @@ public sealed class LocalTimeProvider : ILocalTimeProvider
 		var offset = TimeSpan.FromMinutes(-timezoneOffsetInMinutes);
 		return dateTimeUtc.Add(offset);
 	}
+
+	public async Task<double> TimeZoneOffset()
+	{
+		var timezoneOffsetInMinutes = await _jsRuntime.InvokeAsync<int>("getTimezoneOffsetInMinutes");
+		double time =  Math.Round(-timezoneOffsetInMinutes / 60.0,1);
+		Console.WriteLine(time);
+		return time;
+	}
 }

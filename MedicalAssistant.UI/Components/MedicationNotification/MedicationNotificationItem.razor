@@ -1,0 +1,29 @@
+﻿<MudPaper Class="@Class">
+	<MudStack Spacing="1">
+		<MudText Align="Align.Left" Typo="Typo.h6">
+			@Notification.StartDate.ToString("dd.MM.yyyy") - @Notification.EndDate.ToString("dd.MM.yyyy")
+		</MudText>
+		<MudText Align="Align.Left" Typo="Typo.h6">
+			@Notification.Time.ToString("HH:mm")
+		</MudText>
+	</MudStack>
+	<MudSpacer />
+
+	<MudTooltip Text="@Translations.Edit">
+		<MudFab Class="mr-2" StartIcon="@Icons.Material.Filled.Edit" OnClick="@Edit"/>
+	</MudTooltip>
+	<MudTooltip Text="@Translations.Delete">
+		<MudFab Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete" OnClick="@Delete"/>
+	</MudTooltip>
+</MudPaper>
+
+<MudMessageBox @ref="_mudMessageBox" CancelText="@Translations.Cancel" Title="@Translations.NotificationDeleting">
+	<MessageContent>
+		@Translations.DeletingNotificationQuestion
+	</MessageContent>
+	<YesButton>
+		<MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Filled.DeleteForever">
+			@Translations.Delete
+		</MudButton>
+	</YesButton>
+</MudMessageBox>

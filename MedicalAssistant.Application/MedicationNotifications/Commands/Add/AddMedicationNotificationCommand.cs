@@ -5,4 +5,4 @@ public sealed record AddMedicationNotificationCommand(
 	Guid MedicationRecommendationId,
 	DateTime Start,
 	DateTime End,
-	TimeOnly TriggerTimeUtc) : IRequest;
+	TimeOnly TriggerTimeUtc) : IRequest<Guid>;

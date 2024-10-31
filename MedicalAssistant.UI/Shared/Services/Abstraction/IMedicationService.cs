@@ -12,4 +12,5 @@ public interface IMedicationService
     Task<Response<List<MedicationDto>>> GetByDate(DateTime date);
     Task<Response.Base.Response> Delete(Guid id);
 	Task<Response<List<MedicationWithDayDto>>> Week(DateTime date);
+    Task<Response<MedicationDto>> GetById(Guid id);
 }

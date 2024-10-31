@@ -5,4 +5,5 @@ public interface ILocalTimeProvider
 	Task<DateTime> FromUtcToLocal(DateTime dateTimeUtc);
 	Task<DateTime> FromLocalToUtc(DateTime dateTimeLocal);
 	Task<DateTime> CurrentDate();
+	Task<double> TimeZoneOffset();
 }

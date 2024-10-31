@@ -39,7 +39,7 @@ public class MedicationRecommendationNotification
 		Date startDate = new(start.Value.Date);
 		Date endDate = new(end.Value.Date.AddDays(1).AddTicks(-1));
 
-		if(endDate <= start)
+		if(endDate < start)
 		{
 			throw new SameDateException();
 		}
@@ -63,5 +63,16 @@ public class MedicationRecommendationNotification
 	public void ChangeJobId(string jobId)
 	{
 		JobId = jobId;
+	}
+
+	public void Edit(Date start, Date end, TimeOnly triggerTimeUtc)
+	{
+		if (end < start)
+		{
+			throw new SameDateException();
+		}
+		Start = start;
+		End = end;
+		TriggerTimeUtc = triggerTimeUtc;
 	}
 }

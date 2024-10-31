@@ -1,19 +1,9 @@
 using MedicalAssistant.UI;
 using MedicalAssistant.UI.Shared.APIClient;
 using MedicalAssistant.UI.Shared.Options;
+using MedicalAssistant.UI.Shared.Services;
 using MedicalAssistant.UI.Shared.Services.Abstraction;
-using MedicalAssistant.UI.Shared.Services.Attachment;
 using MedicalAssistant.UI.Shared.Services.Auth;
-using MedicalAssistant.UI.Shared.Services.HubToken;
-using MedicalAssistant.UI.Shared.Services.Language;
-using MedicalAssistant.UI.Shared.Services.Medication;
-using MedicalAssistant.UI.Shared.Services.Notifications;
-using MedicalAssistant.UI.Shared.Services.RefreshToken;
-using MedicalAssistant.UI.Shared.Services.Settings;
-using MedicalAssistant.UI.Shared.Services.Time;
-using MedicalAssistant.UI.Shared.Services.User;
-using MedicalAssistant.UI.Shared.Services.Verification;
-using MedicalAssistant.UI.Shared.Services.Visits;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -47,20 +37,7 @@ builder.Services.AddScoped<MedicalAssistantAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(
 	sp => sp.GetRequiredService<MedicalAssistantAuthenticationStateProvider>());
 
-builder.Services.AddScoped<INotificationService, MedicalAssistant.UI.Shared.Services.Notifications.NotificationService>();
-builder.Services.AddScoped<ILanguageManager,LanguageManager>();
-builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
-builder.Services.AddScoped<IUserAuthService, UserAuthService>();
-builder.Services.AddScoped<IVisitService,VisitService>();
-builder.Services.AddScoped<IHubTokenService, HubTokenService>();
-builder.Services.AddScoped<IUserVerificationService, UserVerificationService>();
-builder.Services.AddScoped<IUserDataService, UserDataService>();
-builder.Services.AddScoped<IUserPasswordChangeService, UserPasswordChangeService>();
-builder.Services.AddScoped<IVisitNotificationService, VisitNotificationService>();
-builder.Services.AddScoped<ILocalTimeProvider,LocalTimeProvider>();
-builder.Services.AddScoped<IAttachmentService,AttachmentService>();
-builder.Services.AddScoped<ISettingsService,SettingsService>();
-builder.Services.AddScoped<IMedicationService,MedicationService>();
+builder.Services.AddServices();
 
 builder.Services.AddRadzenComponents();
 builder.Services.AddMudServices(config =>
@@ -91,10 +68,12 @@ using (var sp = host.Services.CreateScope())
 
 	var stored = await localStorage.GetValueAsync("Culture");
 	CultureInfo culture = new(stored ?? defaultCulture);
+
 	if(stored is null)
 	{
 		await localStorage.SetValueAsync("Culture", culture.Name);
 	}
+
 	CultureInfo.DefaultThreadCurrentCulture = culture;
 	CultureInfo.DefaultThreadCurrentUICulture = culture;
 }

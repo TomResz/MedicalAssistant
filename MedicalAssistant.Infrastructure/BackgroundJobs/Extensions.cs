@@ -2,7 +2,6 @@
 using Hangfire.PostgreSql;
 using HangfireBasicAuthenticationFilter;
 using MedicalAssistant.Application.Contracts;
-using MedicalAssistant.Application.MedicationNotifications.Commands.Add;
 using MedicalAssistant.Infrastructure.BackgroundJobs;
 using MedicalAssistant.Infrastructure.BackgroundJobs.RecurringJobs;
 using MedicalAssistant.Infrastructure.DAL.Options;

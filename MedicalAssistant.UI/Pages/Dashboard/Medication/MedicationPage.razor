@@ -1,27 +1,43 @@
 ﻿@page "/medication/{Id:guid}"
 @using MedicalAssistant.UI.Components
+@using MedicalAssistant.UI.Components.MedicationNotification
 @using MedicalAssistant.UI.Components.Visits
+@using MedicalAssistant.UI.Models.MedicationNotification
+@using MedicalAssistant.UI.Shared.Services.Abstraction
 
-<MudGrid Class="ma-0 visit-grid">
-	<MudItem xs="12" md="6" Class="pa-0 mx-0 visit-item">
-		<MudCard Class="visit-card">
-			@if (_isMedicationLoading)
-			{
-				<LoadingSkeletonComponent Class="ma-2" />
-			}
-			else
-			{
-			}
-		</MudCard>
-	</MudItem>
+<div class="main-container">
+	<MudGrid Class="ma-0 visit-grid">
+		<MudItem xs="12" md="6" Class="pa-0 mx-0 visit-item">
+			<MudCard Class="visit-card">
+				@if (_isMedicationLoading)
+				{
+					<LoadingSkeletonComponent Class="ma-2" />
+				}
+				else
+				{
+				}
+			</MudCard>
+		</MudItem>
 
-	<MudItem xs="12" md="6" Class="pa-0 mx-0 visit-item">
-		
-	</MudItem>
-</MudGrid>
-
+		<MudItem xs="12" md="6" Class="pa-0 mx-0 visit-item">
+			<MudCard Class="visit-card">
+				@if (_notificationsLoading)
+				{
+					<LoadingSkeletonComponent Class="ma-2" />
+				}
+				else
+				{
+					<MedicationNotificationList Notifications="_notifications" MedicationId="Id" />
+				}
+			</MudCard>
+		</MudItem>
+	</MudGrid>
+</div>
 
 <style>
+	.main-container{
+		overflow-x: hidden;
+	}
 	.visit-grid {
 		overflow-y: auto;
 		overflow-x: hidden;
@@ -43,11 +59,3 @@
 	}
 
 </style>
-
-@code {
-	private bool _isMedicationLoading = true;
-	private bool _isNotificationLoading = true;
-
-	[Parameter]
-	public Guid Id { get; set; }
-}

@@ -1,6 +1,6 @@
 ﻿using Hangfire;
 using MediatR;
-using MedicalAssistant.Application.MedicationNotifications.Commands.Add;
+using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Domain.Abstraction;
 using MedicalAssistant.Domain.Events;
 using MedicalAssistant.Domain.ValueObjects;

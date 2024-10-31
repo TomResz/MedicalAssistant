@@ -1,0 +1,48 @@
+﻿<MudPaper Elevation="4" Class="pa-4 list-grid flex-1 h-100 flex-1">
+	<MudGrid Class="relative">
+		<MudItem xs="12">
+			<MudText Typo="Typo.h6" Align="Align.Center">
+				@Translations.Notifications
+			</MudText>
+		</MudItem>
+		@if (!_loading)
+		{
+			@foreach (var notification in _notifications)
+			{
+				<MudItem xs="12">
+					<MedicationNotificationItem 
+						Notification="notification"
+						Class="d-flex align-start pa-4" 
+						OnNotificationDeleted="@NotificationDelete"
+						OnNotificationEdited="@NotificationEdit"/>
+				</MudItem>
+			}
+		}
+		<MudItem xs="12" Class="fab-container">
+			<MudTooltip Text="@Translations.AddNotification">
+				<MudFab StartIcon="@Icons.Material.Filled.AddAlarm"
+						Color="Color.Primary" OnClick="Add" />
+			</MudTooltip>
+		</MudItem>
+	</MudGrid>
+</MudPaper>
+
+
+<style>
+	.list-grid {
+		overflow-y: auto;
+	}
+
+	.relative {
+		position: relative;
+	}
+
+	.fab-container {
+		position: sticky;
+		bottom: 16px;
+		display: flex;
+		justify-content: flex-end;
+		margin-bottom: 16px;
+	}
+</style>
+

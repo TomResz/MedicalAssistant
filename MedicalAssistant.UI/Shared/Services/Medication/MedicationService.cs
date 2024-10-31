@@ -41,7 +41,13 @@ public class MedicationService : IMedicationService
 		return await response.DeserializeResponse<List<MedicationDto>>();
     }
 
-    public async Task<Response<VisitDto?>> Update(UpdateMedicationModel request)
+	public async Task<Response<MedicationDto>> GetById(Guid id)
+	{
+		var response = await _httpClient.GetAsync($"recommendation/{id}");
+		return await response.DeserializeResponse<MedicationDto>();
+	}
+
+	public async Task<Response<VisitDto?>> Update(UpdateMedicationModel request)
 	{
 		var response = await _httpClient.PatchAsJsonAsync("recommendation", request);
 		return await response.DeserializeResponse<VisitDto?>();

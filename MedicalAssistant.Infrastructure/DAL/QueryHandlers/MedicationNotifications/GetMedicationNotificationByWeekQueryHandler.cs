@@ -46,8 +46,10 @@ internal sealed class GetMedicationNotificationByWeekQueryHandler
 			ON 
 			    n."Start" <= wd.day AND n."End" >= wd.day
 
-			INNER JOIN "MedicationRecommendation" as med
-			on med."Id" = n."MedicationRecommendationId"
+			INNER JOIN 
+				"MedicationRecommendation" as med
+			ON
+				med."Id" = n."MedicationRecommendationId"
 			WHERE med."UserId"= @UserId
 			ORDER BY wd.Day;
 			""";
@@ -56,13 +58,17 @@ internal sealed class GetMedicationNotificationByWeekQueryHandler
 
 		var response = await connection.QueryAsync<MedicationNotificationDto>(
 			sql: query,
-			param: new { CurrentDate = request.Date.Date, UserId = _userContext.GetUserId.Value });
+			param: new
+			{
+				CurrentDate = request.Date.Date,
+				UserId = _userContext.GetUserId.Value
+			});
 
-        foreach (var item in response)
-        {
+		foreach (var item in response)
+		{
 			item.Time = item.Time.AddHours(request.Offset);
-        }
+		}
 
-        return response;
+		return response;
 	}
 }

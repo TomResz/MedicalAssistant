@@ -8,5 +8,6 @@ public static class Extensions
 	public static IServiceCollection AddDomain(this IServiceCollection services)
 		=> services
 			.AddSingleton<IVisitPolicy, UserVisitPolicy>()
-			.AddSingleton<IVisitService, VisitService>();
+			.AddSingleton<IVisitService, VisitService>()
+			.AddSingleton<IMedicationRecommendationPolicy,MedicationRecommendationPolicy>();
 }
