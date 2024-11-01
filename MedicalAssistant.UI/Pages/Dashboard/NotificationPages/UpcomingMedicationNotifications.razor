@@ -1,0 +1,29 @@
+﻿@page "/notification/medication"
+@using MedicalAssistant.UI.Components
+@using MedicalAssistant.UI.Components.MedicationNotification
+
+<div class="d-flex flex-column" style="height: calc(100vh - 96px);">
+	@if (_loading)
+	{
+		<MudPaper Class="ma-0  flex-column flex-grow-1 d-flex pa-2">
+			<LoadingSkeletonComponent Class="flex-grow-1 pa-2 ma-2" />
+		</MudPaper>
+	}
+	else
+	{
+		<UpcomingMedicationNotificationsTable OnDelete="@Delete" Notifications="@_notifications" />
+		@if (_totalItemCount > 0)
+		{
+			<div class="d-flex justify-content-end flex-row p-2">
+				<MudSelect Style="max-width: 150px;" Class="ms-auto" Label="@Translations.PageSize" T="int" Immediate="true"
+						   ValueChanged="OnPageSizeChanged" Value="@_pageSize">
+					@foreach (var size in _pageSizes)
+					{
+						<MudSelectItem Value="size">@size</MudSelectItem>
+					}
+				</MudSelect>
+				<MudPagination Class="pt-2" @bind-Page="_currentPage" Count="@_pageCount" SelectedChanged="@OnPageChanged" Selected="@_currentPage" />
+			</div>
+		}
+	}
+</div>

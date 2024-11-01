@@ -24,7 +24,7 @@ public class MedicationNotificationService
 
 	public async Task<Response<Guid>> Add(AddMedicationNotificationModel model)
 	{
-		var response = await _httpClient.PostAsJsonAsync("recommendationNotification", model, options: _options);;
+		var response = await _httpClient.PostAsJsonAsync("recommendationNotification", model, options: _options); ;
 		return await response.DeserializeResponse<Guid>();
 	}
 
@@ -54,7 +54,14 @@ public class MedicationNotificationService
 
 	public async Task<Response.Base.Response> Edit(EditMedicationNotificationModel model)
 	{
-		var response = await _httpClient.PatchAsJsonAsync("recommendationNotification", model, _options); 
+		var response = await _httpClient.PatchAsJsonAsync("recommendationNotification", model, _options);
 		return await response.DeserializeResponse();
+	}
+
+	public async Task<Response<PagedList<MedicationNotificationPageContentDto>>> GetPagedList(int page, int pageSize, DateTime date, double offset)
+	{
+		var parameters = $"?page={page}&pageSize={pageSize}&date={date:yyyy-MM-dd}&offset={Math.Round(offset,1)}";
+		var response = await _httpClient.GetAsync($"recommendationNotification{parameters}");
+		return await response.DeserializeResponse<PagedList<MedicationNotificationPageContentDto>>();
 	}
 }

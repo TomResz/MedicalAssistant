@@ -1,28 +1,30 @@
-﻿using MedicalAssistant.UI.Models.Notifications;
-using MedicalAssistant.UI.Shared.Response;
+﻿using MedicalAssistant.UI.Models.MedicationNotification;
+using MedicalAssistant.UI.Models.Notifications;
 using MedicalAssistant.UI.Shared.Response.Base;
 using MedicalAssistant.UI.Shared.Services.Abstraction;
+using MedicalAssistant.UI.Shared.Services.Time;
 using Microsoft.AspNetCore.Components;
 using System.Web;
 
 namespace MedicalAssistant.UI.Pages.Dashboard.NotificationPages;
 
-public partial class UpcomingVisitNotifications
+public partial class UpcomingMedicationNotifications
 {
-	private List<VisitNotificationWithDetailsModel> _notifications = [];
+	private List<MedicationNotificationPageContentDto> _notifications = [];
 
 	private int _currentPage;
 	private int _pageSize = 5;
 	private int _pageCount = 0;
 	private int _totalItemCount = 0;
-	private readonly List<int> _pageSizes = [5, 10, 15, 25, 50, 100];
+	private readonly static List<int> _pageSizes = [5, 10, 15, 25, 50, 100];
 	private bool _loading = false;
-	private Dictionary<DateTime, string> _formattedDates = [];
-	private const string RoutePrefix = "notification/visit";
+
+	private const string RoutePrefix = "notification/medication";
 
 	[Inject] public NavigationManager NavigationManager { get; set; }
-	[Inject] public IVisitNotificationService NotificationService { get; set; }
+	[Inject] public IMedicationNotificationService NotificationService { get; set; }
 	[Inject] public ILocalTimeProvider TimeProvider { get; set; }
+
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -34,23 +36,15 @@ public partial class UpcomingVisitNotifications
 
 	private async Task LoadData()
 	{
-		Response<PagedList<VisitNotificationWithDetailsModel>> response = await NotificationService.GetPage(_currentPage, _pageSize);
+		var currentDate = await TimeProvider.CurrentDate();
+		var offset = await TimeProvider.TimeZoneOffset();
+
+		var response = await NotificationService.GetPagedList(_currentPage, _pageSize,currentDate,offset);
 		if (response.IsSuccess)
 		{
 			_notifications = response.Value!.Items;
 			_pageCount = response.Value!.PageTotalCount;
 			_totalItemCount = response.Value!.TotalCount;
-		}
-		foreach (var item in _notifications) 
-		{
-            Console.WriteLine($"{item.Id}");
-		}
-		foreach (var notification in _notifications)
-		{
-			if (!_formattedDates.ContainsKey(notification.ScheduledDateUtc))
-			{
-				_formattedDates[notification.ScheduledDateUtc] = await FromUtc(notification.ScheduledDateUtc);
-			}
 		}
 
 		await InvokeAsync(StateHasChanged);
@@ -99,18 +93,8 @@ public partial class UpcomingVisitNotifications
 		await LoadData();
 	}
 
-	private async Task<string> FromUtc(DateTime dateUtc)
-		=> (await TimeProvider.FromUtcToLocal(dateUtc)).ToString("HH:mm dd.MM.yyyy");
-
-
 	private async Task Delete(Guid id)
 	{
-		var response = await NotificationService.Delete(id);
-		if (response.IsSuccess) 
-		{
-			var item = _notifications.First(x=>x.Id == id);
-			_notifications.Remove(item);
-			StateHasChanged();
-		}
+
 	}
 }

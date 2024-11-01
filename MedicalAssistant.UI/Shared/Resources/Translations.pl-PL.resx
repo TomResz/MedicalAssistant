@@ -609,4 +609,10 @@
   <data name="DialogRemoveMedication" xml:space="preserve">
     <value>Czy na pewno chcesz usunąć te zalecenie ?</value>
   </data>
+  <data name="TimesOfDay" xml:space="preserve">
+    <value>Pory Dnia</value>
+  </data>
+  <data name="MedicationDeleted" xml:space="preserve">
+    <value>Zalecenie zostało usunięte.</value>
+  </data>
 </root>

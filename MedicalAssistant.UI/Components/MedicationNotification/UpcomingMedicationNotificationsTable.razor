@@ -1,0 +1,40 @@
+﻿<MudTable Class="flex-grow-1 " FixedFooter="true" Items="@Notifications"
+		  MultiSelection="false" Bordered="true" Hover="true" Striped="true">
+	<HeaderContent>
+		<MudTh>@Translations.MedicationName</MudTh>
+		<MudTh>@Translations.Date</MudTh>
+		<MudTh>@Translations.Time</MudTh>
+		<MudTh>@Translations.VisitDetails</MudTh>
+		<MudTh>@Translations.Delete</MudTh>
+	</HeaderContent>
+	<RowTemplate>
+		<MudTd DataLabel="@Translations.MedicationName">@context.MedicineName</MudTd>
+		<MudTd DataLabel="@Translations.Date">@context.StartDate.ToString("dd.MM.yyyy") - @context.EndDate.ToString("dd.MM.yyyy") </MudTd>
+		<MudTd DataLabel="@Translations.ScheduledDateNotification">
+			@context.Time
+		</MudTd>
+		<MudTd DataLabel="@Translations.VisitDetails">
+			<MudTooltip Text="@Translations.VisitDetails">
+				<MudFab StartIcon="@Icons.Material.Filled.Visibility" OnClick="@(() => GoToDetails(context.MedicationId))" Color="Color.Primary" />
+			</MudTooltip>
+		</MudTd>
+
+		<MudTd DataLabel="@Translations.Delete">
+			<MudTooltip Text="@Translations.Delete">
+				<MudFab StartIcon="@Icons.Material.Filled.Delete" OnClick="@( async () => await Delete(context.Id))" Color="Color.Error" />
+			</MudTooltip>
+		</MudTd>
+	</RowTemplate>
+</MudTable>
+
+
+<MudMessageBox @ref="_mudMessageBox" CancelText="@Translations.Cancel" Title="@Translations.NotificationDeleting">
+	<MessageContent>
+		@Translations.DeletingNotificationQuestion
+	</MessageContent>
+	<YesButton>
+		<MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Filled.DeleteForever">
+			@Translations.Delete
+		</MudButton>
+	</YesButton>
+</MudMessageBox>

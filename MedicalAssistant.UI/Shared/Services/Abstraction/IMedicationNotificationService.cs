@@ -1,5 +1,6 @@
 ﻿using MedicalAssistant.UI.Models.Medication;
 using MedicalAssistant.UI.Models.MedicationNotification;
+using MedicalAssistant.UI.Shared.Response;
 using MedicalAssistant.UI.Shared.Response.Base;
 
 namespace MedicalAssistant.UI.Shared.Services.Abstraction;
@@ -11,4 +12,5 @@ public interface IMedicationNotificationService
 	Task<Response<Guid>> Add(AddMedicationNotificationModel model);
 	Task<Response.Base.Response> Delete(Guid id);
 	Task<Response.Base.Response> Edit(EditMedicationNotificationModel model);
+	Task<Response<PagedList<MedicationNotificationPageContentDto>>> GetPagedList(int page, int pageSize, DateTime date, double offset);	
 }

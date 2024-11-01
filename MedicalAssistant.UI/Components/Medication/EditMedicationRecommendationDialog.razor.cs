@@ -84,6 +84,7 @@ public partial class EditMedicationRecommendationDialog
 	private async Task VisitPick(VisitDto visitDto)
 	{
 		_visitDto = visitDto;
+		_viewModel.VisitId = _visitDto.Id;
 		await InvokeAsync(StateHasChanged);
 	}
 	public void Cancel() => DialogInstance.Cancel();

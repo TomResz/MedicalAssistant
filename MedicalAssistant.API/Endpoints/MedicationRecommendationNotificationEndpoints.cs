@@ -60,5 +60,13 @@ public class MedicationRecommendationNotificationEndpoints
 			await _mediator.Send(command);
 			return Results.NoContent();
 		});
+
+		group.MapGet("/", async (IMediator _mediator, [FromQuery] int Page,
+			[FromQuery] int PageSize, [FromQuery] int Offset, [FromQuery]DateTime Date) =>
+		{
+			var query = new GetUpcomingMedicationNotificationPageQuery(Page, PageSize,Offset,Date);
+			var response = await _mediator.Send(query);
+			return Results.Ok(response);
+		});
 	}
 }

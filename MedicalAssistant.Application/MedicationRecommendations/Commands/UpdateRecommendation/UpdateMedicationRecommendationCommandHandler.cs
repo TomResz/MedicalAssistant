@@ -6,6 +6,7 @@ using MedicalAssistant.Domain.ComplexTypes;
 using MedicalAssistant.Domain.Exceptions;
 using MedicalAssistant.Domain.Repositories;
 using MedicalAssistant.Domain.ValueObjects;
+using MedicalAssistant.Domain.ValueObjects.IDs;
 
 namespace MedicalAssistant.Application.MedicationRecommendations.Commands.UpdateRecommendation;
 internal sealed class UpdateMedicationRecommendationCommandHandler
@@ -42,11 +43,21 @@ internal sealed class UpdateMedicationRecommendationCommandHandler
 
 		if (request.VisitId is not null)
 		{
-			var visit = await _visitRepository.GetByIdAsync(request.VisitId, cancellationToken);
+			var visit = await _visitRepository.GetByIdWithRecommendationsAsync(request.VisitId, cancellationToken);
 			
 			if(visit is null)
 			{
 				throw new UnknownVisitException();
+			}
+
+			var exists = visit
+				.Recommendations
+				.FirstOrDefault(x => x.Id == new MedicationRecommendationId(request.Id)) is not null; 
+
+			if(!exists)
+			{
+				visit.AddRecommendation(recommendation);
+				_visitRepository.Update(visit);
 			}
 
 			visitDto = visit.ToDto();

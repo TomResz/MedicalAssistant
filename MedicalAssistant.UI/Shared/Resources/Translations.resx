@@ -609,4 +609,10 @@
   <data name="DialogRemoveMedication" xml:space="preserve">
     <value>Are you sure you want to remove this recommendation ?</value>
   </data>
+  <data name="TimesOfDay" xml:space="preserve">
+    <value>Times Of Day</value>
+  </data>
+  <data name="MedicationDeleted" xml:space="preserve">
+    <value>The recommendation has been removed.</value>
+  </data>
 </root>

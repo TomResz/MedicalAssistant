@@ -44,6 +44,7 @@ public partial class MedicationPage
 		if (response.IsSuccess)
 		{
 			_notifications = response.Value!;
+			_notificationsLoading = false;
 		}
 
 		var responseMedication = await MedicationService.GetById(Id);
@@ -51,7 +52,7 @@ public partial class MedicationPage
 		if (responseMedication.IsSuccess)
 		{
 			_medication = responseMedication.Value!;
-			_notificationsLoading = false;
+			_isMedicationLoading = false;
 		}
 		else
 		{

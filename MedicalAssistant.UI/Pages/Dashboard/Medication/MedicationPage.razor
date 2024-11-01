@@ -1,5 +1,6 @@
 ﻿@page "/medication/{Id:guid}"
 @using MedicalAssistant.UI.Components
+@using MedicalAssistant.UI.Components.Medication
 @using MedicalAssistant.UI.Components.MedicationNotification
 @using MedicalAssistant.UI.Components.Visits
 @using MedicalAssistant.UI.Models.MedicationNotification
@@ -15,6 +16,7 @@
 				}
 				else
 				{
+					<MedicationDetails Medication="@_medication" />
 				}
 			</MudCard>
 		</MudItem>

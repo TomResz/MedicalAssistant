@@ -790,6 +790,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The recommendation has been removed..
+        /// </summary>
+        internal static string MedicationDeleted {
+            get {
+                return ResourceManager.GetString("MedicationDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The recommendation has been successfully updated..
         /// </summary>
         internal static string MedicationEdited {
@@ -1299,6 +1308,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Time {
             get {
                 return ResourceManager.GetString("Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Times Of Day.
+        /// </summary>
+        internal static string TimesOfDay {
+            get {
+                return ResourceManager.GetString("TimesOfDay", resourceCulture);
             }
         }
         
