@@ -42,6 +42,8 @@ public partial class EditMedicationRecommendationDialog
 	[Inject]
 	public IDialogService DialogService { get; set; }
 
+	[Inject]
+	public NavigationManager NavigationManager { get; set; }
 
 	protected override void OnParametersSet()
 	{
@@ -116,5 +118,7 @@ public partial class EditMedicationRecommendationDialog
 			await OnMedicationDeleted.InvokeAsync(Id);
 		}
 	}
+
+	private void ShowDetails() => NavigationManager.NavigateTo($"/medication/{Id}");
 
 }

@@ -1,0 +1,32 @@
+﻿@code {
+	[Parameter]
+	public string? Class { get; set; } = null;
+
+	[Parameter]
+	public RenderFragment ChildContent { get; set; }
+
+	[Parameter]
+	public string Title { get; set; }
+}
+<MudPaper Elevation="3" Class="@( Class != null ? Class : "d-flex flex-column flex-grow-1 pa-4")">
+
+	<div class="flex-grow-1">
+		<MudText Typo="Typo.h4" GutterBottom="true" Align="Align.Center">
+			@Title
+		</MudText>
+		<MudText Typo="Typo.subtitle1" GutterBottom="true" Align="Align.Center">
+			@(string.Format(Translations.EffectiveDate, DateTime.Now.ToString("dd-MM-yyyy")))
+		</MudText>
+		<MudDivider Class="mb-4" />
+		@ChildContent
+	</div>
+
+	<div class="mt-auto">
+		<MudDivider Class="mt-4 mb-4 flex-grow-1 align-items-end" />
+
+		<MudText Typo="Typo.subtitle1" GutterBottom="true" Align="Align.Center">
+			@Translations.ThankYouMessage
+		</MudText>
+	</div>
+</MudPaper>
+

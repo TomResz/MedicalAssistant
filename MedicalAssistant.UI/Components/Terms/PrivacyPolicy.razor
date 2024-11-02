@@ -1,0 +1,100 @@
+﻿<MudExpansionPanels MultiExpansion="true">
+    <MudExpansionPanel Text=@($"1. {Translations.PrivacyGeneralTitle}")>
+        <MudList T="string" Dense="true">
+            <MudListItem>
+                @((MarkupString)Translations.PrivacyGeneralContent)
+            </MudListItem>
+        </MudList>
+    </MudExpansionPanel>
+
+    <MudExpansionPanel Text="@Translations.PrivacyAdminTitle">
+        <MudList T="string" Dense="true">
+            <MudListItem>
+                @((MarkupString)Translations.PrivacyAdminContent)
+            </MudListItem>
+        </MudList>
+    </MudExpansionPanel>
+
+    <MudExpansionPanel Text="@Translations.PrivacyDataScopeTitle">
+        <MudList T="string" Dense="true">
+            <MudListItem>
+                @((MarkupString)Translations.PrivacyDataScopeContent1)
+            </MudListItem>
+            <MudListItem>
+                @((MarkupString)Translations.PrivacyDataScopeContent2)
+            </MudListItem>
+
+        </MudList>
+    </MudExpansionPanel>
+
+    <MudExpansionPanel Text="@Translations.PrivacyPurposeTitle">
+        <MudList T="string" Dense="true">
+            <MudListItem>
+                @((MarkupString)Translations.PrivacyPurposeContent1)
+            </MudListItem>
+            <MudListItem>
+                @((MarkupString)Translations.PrivacyPurposeContent2)
+            </MudListItem>
+            <MudListItem>
+                @((MarkupString)Translations.PrivacyPurposeContent3)
+            </MudListItem>
+        </MudList>
+    </MudExpansionPanel>
+
+    <MudExpansionPanel Text="@Translations.PrivacyLegalBasisTitle">
+        <MudList T="string" Dense="true">
+            <MudListItem>
+                @((MarkupString)Translations.PrivacyLegalBasisContent1)
+            </MudListItem>
+            <MudListItem>
+                @((MarkupString)Translations.PrivacyLegalBasisContent2)
+            </MudListItem>
+        </MudList>
+    </MudExpansionPanel>
+
+    <MudExpansionPanel Text="@Translations.PrivacySharingTitle">
+        <MudList T="string" Dense="true">
+            <MudListItem>
+                @((MarkupString)Translations.PrivacySharingContent)
+            </MudListItem>
+        </MudList>
+    </MudExpansionPanel>
+
+    <MudExpansionPanel Text="@Translations.PrivacyUserRightsTitle">
+        <MudList T="string" Dense="true">
+            <MudListItem>
+                @((MarkupString)Translations.PrivacyUserRightsContent1)
+            </MudListItem>
+            <MudListItem>
+                @((MarkupString)Translations.PrivacyUserRightsContent2)
+            </MudListItem>
+            <MudListItem>
+                @((MarkupString)Translations.PrivacyUserRightsContent3)
+            </MudListItem>
+        </MudList>
+    </MudExpansionPanel>
+
+    <MudExpansionPanel Text="@Translations.PrivacySecurityTitle">
+        <MudList T="string" Dense="true">
+            <MudListItem>
+                @((MarkupString)Translations.PrivacySecurityContent)
+            </MudListItem>
+        </MudList>
+    </MudExpansionPanel>
+
+    <MudExpansionPanel Text="@Translations.PrivacyChangesTitle">
+        <MudList T="string" Dense="true">
+            <MudListItem>
+                @((MarkupString)Translations.PrivacyChangesContent)
+            </MudListItem>
+        </MudList>
+    </MudExpansionPanel>
+
+    <MudExpansionPanel Text="@Translations.PrivacyContactTitle">
+        <MudList T="string" Dense="true">
+            <MudListItem>
+                @((MarkupString)Translations.PrivacyContactContent)
+            </MudListItem>
+        </MudList>
+    </MudExpansionPanel>
+</MudExpansionPanels>

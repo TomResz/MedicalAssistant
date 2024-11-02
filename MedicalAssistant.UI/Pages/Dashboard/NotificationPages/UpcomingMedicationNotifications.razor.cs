@@ -1,8 +1,5 @@
 ﻿using MedicalAssistant.UI.Models.MedicationNotification;
-using MedicalAssistant.UI.Models.Notifications;
-using MedicalAssistant.UI.Shared.Response.Base;
 using MedicalAssistant.UI.Shared.Services.Abstraction;
-using MedicalAssistant.UI.Shared.Services.Time;
 using Microsoft.AspNetCore.Components;
 using System.Web;
 
@@ -95,6 +92,16 @@ public partial class UpcomingMedicationNotifications
 
 	private async Task Delete(Guid id)
 	{
+		var response = await NotificationService.Delete(id);
 
+		if (response.IsSuccess)
+		{
+			var item = _notifications.FirstOrDefault(x => x.Id == id);
+			if (item is not null)
+			{
+				_notifications.Remove(item);
+				await InvokeAsync(StateHasChanged);
+			}
+		}
 	}
 }

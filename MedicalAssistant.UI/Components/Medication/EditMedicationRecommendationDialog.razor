@@ -69,6 +69,12 @@
 
 			<PickVisitDialogButton ButtonName="@Translations.SelectVisit" OnVisitPicked="@VisitPick"
 								   Class="mx-2 px-2 my-1 flex-grow-1 w-100 align-self-stretch" />
+
+			<MudButton StartIcon="@Icons.Material.Outlined.Details" Color="Color.Primary" Variant="MudBlazor.Variant.Filled"
+					   Class="mx-2 my-1 px-2 flex-grow-1 align-self-stretch w-100" OnClick="@ShowDetails">
+				@Translations.ShowDetails
+			</MudButton>
+
 			@if (_visitDto is not null)
 			{
 				<MudButton StartIcon="@Icons.Material.Outlined.Delete" Color="Color.Error" Variant="MudBlazor.Variant.Filled"

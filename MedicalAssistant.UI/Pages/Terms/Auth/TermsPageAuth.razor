@@ -1,7 +1,10 @@
 ﻿@page "/terms"
-@layout MainLayout
 @using MedicalAssistant.UI.Components.Terms
 
+<PageTitle>@Translations.AppTitle</PageTitle>
+
 <div class="d-flex flex-column" style="height: calc(100vh - 96px);">
-	<Terms Class="pa-4 flex-grow-1" />
+	<TermsWrapper Title="@Translations.AppTitle">
+		<TermsOfUse />
+	</TermsWrapper>
 </div>

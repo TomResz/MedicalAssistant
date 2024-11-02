@@ -39,7 +39,7 @@
 			<MudPaper Class="pa-4">
 				<MudIcon Icon="@Icons.Material.Filled.ViewDay" Size="Size.Large" Color="Color.Primary" Class="mr-1" />
 				<MudText Typo="Typo.subtitle1" Inline="true">@Translations.TimesOfDay:</MudText>
-				<MudText Typo="Typo.body1" Inline="true">@string.Join(", ", Medication.TimeOfDay)</MudText>
+				<MudText Typo="Typo.body1" Inline="true">@ToTimesOfDay(Medication.TimeOfDay)</MudText>
 			</MudPaper>
 		</MudItem>
 

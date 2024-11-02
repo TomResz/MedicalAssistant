@@ -169,6 +169,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application Terms of Service - Medical Assistant.
+        /// </summary>
+        internal static string AppTitle {
+            get {
+                return ResourceManager.GetString("AppTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete the attachment ?.
         /// </summary>
         internal static string AttachmentDeletePrompt {
@@ -241,6 +250,51 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 2.1. The user uses the Application voluntarily and at their own risk..
+        /// </summary>
+        internal static string Condition1 {
+            get {
+                return ResourceManager.GetString("Condition1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2.2. Using the Application requires consent to the processing of personal data, including medical data, in accordance with the Privacy Policy..
+        /// </summary>
+        internal static string Condition2 {
+            get {
+                return ResourceManager.GetString("Condition2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2.3. The user is required to use the Application in accordance with the law and these terms..
+        /// </summary>
+        internal static string Condition3 {
+            get {
+                return ResourceManager.GetString("Condition3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2.4. Users are prohibited from providing illegal content, including false medical data, infringing third-party rights, or content that is harmful or fraudulent..
+        /// </summary>
+        internal static string Condition4 {
+            get {
+                return ResourceManager.GetString("Condition4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2. Terms of Use.
+        /// </summary>
+        internal static string Conditions {
+            get {
+                return ResourceManager.GetString("Conditions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm Password.
         /// </summary>
         internal static string ConfirmedPassword {
@@ -309,6 +363,51 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Day {
             get {
                 return ResourceManager.GetString("Day", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1.1. &lt;strong&gt;Application&lt;/strong&gt; – software available online or for download, known as &apos;Medical Assistant&apos;, designed to help users manage their medical and health data..
+        /// </summary>
+        internal static string Definition1 {
+            get {
+                return ResourceManager.GetString("Definition1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1.2. &lt;strong&gt;User&lt;/strong&gt; – any person accessing the Application, regardless of the access method (web, mobile)..
+        /// </summary>
+        internal static string Definition2 {
+            get {
+                return ResourceManager.GetString("Definition2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1.3. &lt;strong&gt;Medical Data&lt;/strong&gt; – any information related to the user&apos;s health, including medical history, test results, recorded visits, medical recommendations, and other data entered by the user into the Application..
+        /// </summary>
+        internal static string Definition3 {
+            get {
+                return ResourceManager.GetString("Definition3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1.4. &lt;strong&gt;Administrator&lt;/strong&gt; – the application owner responsible for its operation and development..
+        /// </summary>
+        internal static string Definition4 {
+            get {
+                return ResourceManager.GetString("Definition4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Definitions.
+        /// </summary>
+        internal static string Definitions {
+            get {
+                return ResourceManager.GetString("Definitions", resourceCulture);
             }
         }
         
@@ -435,6 +534,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string EditNotification {
             get {
                 return ResourceManager.GetString("EditNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effective Date: {0}.
+        /// </summary>
+        internal static string EffectiveDate {
+            get {
+                return ResourceManager.GetString("EffectiveDate", resourceCulture);
             }
         }
         
@@ -1069,6 +1177,249 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The administrator of users&apos; personal data is the owner of the &apos;Medical Assistant&apos; application, who is responsible for their security and confidentiality..
+        /// </summary>
+        internal static string PrivacyAdminContent {
+            get {
+                return ResourceManager.GetString("PrivacyAdminContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2. Data Administrator.
+        /// </summary>
+        internal static string PrivacyAdminTitle {
+            get {
+                return ResourceManager.GetString("PrivacyAdminTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Administrator reserves the right to change this Privacy Policy. Users will be notified of changes in advance..
+        /// </summary>
+        internal static string PrivacyChangesContent {
+            get {
+                return ResourceManager.GetString("PrivacyChangesContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 9. Changes to the Privacy Policy.
+        /// </summary>
+        internal static string PrivacyChangesTitle {
+            get {
+                return ResourceManager.GetString("PrivacyChangesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For any questions or concerns regarding the processing of personal data, please contact us at: contact@medicalassistant.com..
+        /// </summary>
+        internal static string PrivacyContactContent {
+            get {
+                return ResourceManager.GetString("PrivacyContactContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 10. Contact.
+        /// </summary>
+        internal static string PrivacyContactTitle {
+            get {
+                return ResourceManager.GetString("PrivacyContactTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact information (e.g., email address)..
+        /// </summary>
+        internal static string PrivacyDataScopeContent1 {
+            get {
+                return ResourceManager.GetString("PrivacyDataScopeContent1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medical and health data entered by the user (e.g., medical history, test results)..
+        /// </summary>
+        internal static string PrivacyDataScopeContent2 {
+            get {
+                return ResourceManager.GetString("PrivacyDataScopeContent2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 3. Scope of Collected Data.
+        /// </summary>
+        internal static string PrivacyDataScopeTitle {
+            get {
+                return ResourceManager.GetString("PrivacyDataScopeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Privacy Policy sets out the principles for processing personal data of users using the &apos;Medical Assistant&apos; application..
+        /// </summary>
+        internal static string PrivacyGeneralContent {
+            get {
+                return ResourceManager.GetString("PrivacyGeneralContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1. General Provisions.
+        /// </summary>
+        internal static string PrivacyGeneralTitle {
+            get {
+                return ResourceManager.GetString("PrivacyGeneralTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User consent provided during application registration..
+        /// </summary>
+        internal static string PrivacyLegalBasisContent1 {
+            get {
+                return ResourceManager.GetString("PrivacyLegalBasisContent1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Legal provisions requiring the processing of specific data (if applicable)..
+        /// </summary>
+        internal static string PrivacyLegalBasisContent2 {
+            get {
+                return ResourceManager.GetString("PrivacyLegalBasisContent2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 5. Legal Basis for Data Processing.
+        /// </summary>
+        internal static string PrivacyLegalBasisTitle {
+            get {
+                return ResourceManager.GetString("PrivacyLegalBasisTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Privacy Policy.
+        /// </summary>
+        internal static string PrivacyPolicyTitle {
+            get {
+                return ResourceManager.GetString("PrivacyPolicyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To enable the user to access the application&apos;s features..
+        /// </summary>
+        internal static string PrivacyPurposeContent1 {
+            get {
+                return ResourceManager.GetString("PrivacyPurposeContent1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To manage health data and medical history..
+        /// </summary>
+        internal static string PrivacyPurposeContent2 {
+            get {
+                return ResourceManager.GetString("PrivacyPurposeContent2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To ensure application security and protect against misuse..
+        /// </summary>
+        internal static string PrivacyPurposeContent3 {
+            get {
+                return ResourceManager.GetString("PrivacyPurposeContent3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 4. Purposes of Data Processing.
+        /// </summary>
+        internal static string PrivacyPurposeTitle {
+            get {
+                return ResourceManager.GetString("PrivacyPurposeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The application uses technical and organizational measures to ensure the security of personal data processed and to protect it from unauthorized access, modification, disclosure, or destruction..
+        /// </summary>
+        internal static string PrivacySecurityContent {
+            get {
+                return ResourceManager.GetString("PrivacySecurityContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 8. Data Security.
+        /// </summary>
+        internal static string PrivacySecurityTitle {
+            get {
+                return ResourceManager.GetString("PrivacySecurityTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User data will not be shared with third parties without their consent, except as required by law..
+        /// </summary>
+        internal static string PrivacySharingContent {
+            get {
+                return ResourceManager.GetString("PrivacySharingContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 6. Sharing of Personal Data.
+        /// </summary>
+        internal static string PrivacySharingTitle {
+            get {
+                return ResourceManager.GetString("PrivacySharingTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access to and correction of their data..
+        /// </summary>
+        internal static string PrivacyUserRightsContent1 {
+            get {
+                return ResourceManager.GetString("PrivacyUserRightsContent1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deletion of their data from the application..
+        /// </summary>
+        internal static string PrivacyUserRightsContent2 {
+            get {
+                return ResourceManager.GetString("PrivacyUserRightsContent2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Withdrawal of consent to data processing at any time..
+        /// </summary>
+        internal static string PrivacyUserRightsContent3 {
+            get {
+                return ResourceManager.GetString("PrivacyUserRightsContent3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 7. User Rights.
+        /// </summary>
+        internal static string PrivacyUserRightsTitle {
+            get {
+                return ResourceManager.GetString("PrivacyUserRightsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quantity.
         /// </summary>
         internal static string Quantity {
@@ -1164,6 +1515,51 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string RegisterPageTitle {
             get {
                 return ResourceManager.GetString("RegisterPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 3.1. Using the Application may require registration and creation of a user account..
+        /// </summary>
+        internal static string Registration1 {
+            get {
+                return ResourceManager.GetString("Registration1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 3.2. The user agrees to provide truthful and current information during registration and update it as needed..
+        /// </summary>
+        internal static string Registration2 {
+            get {
+                return ResourceManager.GetString("Registration2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 3.3. The user account is personal, and access to it cannot be shared with third parties..
+        /// </summary>
+        internal static string Registration3 {
+            get {
+                return ResourceManager.GetString("Registration3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 3. Registration and User Account.
+        /// </summary>
+        internal static string RegistrationTitle {
+            get {
+                return ResourceManager.GetString("RegistrationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regulations.
+        /// </summary>
+        internal static string Regulations {
+            get {
+                return ResourceManager.GetString("Regulations", resourceCulture);
             }
         }
         
@@ -1290,6 +1686,24 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Sunday {
             get {
                 return ResourceManager.GetString("Sunday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Terms of Use.
+        /// </summary>
+        internal static string Terms {
+            get {
+                return ResourceManager.GetString("Terms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thank you for using the Medical Assistant Application!.
+        /// </summary>
+        internal static string ThankYouMessage {
+            get {
+                return ResourceManager.GetString("ThankYouMessage", resourceCulture);
             }
         }
         

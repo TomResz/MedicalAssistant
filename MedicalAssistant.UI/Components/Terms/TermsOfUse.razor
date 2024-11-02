@@ -1,0 +1,49 @@
+﻿<MudExpansionPanels MultiExpansion="true">
+	<MudExpansionPanel Text=@($"1. {Translations.Definitions}" )>
+		<MudList T="string" Dense="true">
+			<MudListItem>
+				@((MarkupString)Translations.Definition1)
+			</MudListItem>
+			<MudListItem>
+				@((MarkupString)Translations.Definition2)
+			</MudListItem>
+			<MudListItem>
+				@((MarkupString)Translations.Definition3)
+			</MudListItem>
+			<MudListItem>
+				@((MarkupString)Translations.Definition4)
+			</MudListItem>
+		</MudList>
+	</MudExpansionPanel>
+
+	<MudExpansionPanel Text="@Translations.Conditions">
+		<MudList T="string" Dense="true">
+			<MudListItem>
+				@((MarkupString)Translations.Condition1)
+			</MudListItem>
+			<MudListItem>
+				@((MarkupString)Translations.Condition2)
+			</MudListItem>
+			<MudListItem>
+				@((MarkupString)Translations.Condition3)
+			</MudListItem>
+			<MudListItem>
+				@((MarkupString)Translations.Condition4)
+			</MudListItem>
+		</MudList>
+	</MudExpansionPanel>
+
+	<MudExpansionPanel Text="@Translations.RegistrationTitle">
+		<MudList T="string" Dense="true">
+			<MudListItem>
+				@((MarkupString)Translations.Registration1)
+			</MudListItem>
+			<MudListItem>
+				@((MarkupString)Translations.Registration2)
+			</MudListItem>
+			<MudListItem>
+				@((MarkupString)Translations.Registration3)
+			</MudListItem>
+		</MudList>
+	</MudExpansionPanel>
+</MudExpansionPanels>

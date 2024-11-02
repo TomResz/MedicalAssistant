@@ -21,6 +21,7 @@
 			@Translations.Scheduler
 		</MudNavLink>
 	</MudNavGroup>
+	
 	<MudNavGroup Title="@Translations.Notifications" Icon="@Icons.Material.Outlined.Notifications" Expanded="false">
 		<MudNavGroup Title="@Translations.Upcoming" Icon="@Icons.Material.Outlined.Upcoming" Expanded="false">
 			<MudNavLink Href="/notification/visit?page=1&pagesize=10"  Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.MedicalServices">
@@ -34,6 +35,15 @@
 			@Translations.History
 		</MudNavLink>
 
+	</MudNavGroup>
+
+	<MudNavGroup Title="@Translations.Regulations" Icon="@Icons.Material.Filled.TextSnippet" Expanded="false">
+		<MudNavLink Href="/terms" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Policy">
+			@Translations.Terms
+		</MudNavLink>
+		<MudNavLink Href="/privacy" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.PrivacyTip">
+			@Translations.PrivacyPolicyTitle
+		</MudNavLink>
 	</MudNavGroup>
 
 </MudNavMenu>

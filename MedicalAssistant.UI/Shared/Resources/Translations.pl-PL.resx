@@ -615,4 +615,142 @@
   <data name="MedicationDeleted" xml:space="preserve">
     <value>Zalecenie zostało usunięte.</value>
   </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Regulamin Aplikacji Asystent Medyczny</value>
+  </data>
+  <data name="EffectiveDate" xml:space="preserve">
+    <value>Data wejścia w życie: {0}</value>
+  </data>
+  <data name="Definitions" xml:space="preserve">
+    <value>Definicje</value>
+  </data>
+  <data name="Definition1" xml:space="preserve">
+    <value>1.1. &lt;strong&gt;Aplikacja&lt;/strong&gt; – oprogramowanie dostępne online lub do pobrania, znane jako „Asystent Medyczny”, które wspomaga użytkowników w zarządzaniu danymi medycznymi i zdrowotnymi.</value>
+  </data>
+  <data name="Definition2" xml:space="preserve">
+    <value>1.2. &lt;strong&gt;Użytkownik&lt;/strong&gt; – każda osoba, która uzyskuje dostęp do Aplikacji, niezależnie od sposobu jej użycia (web, mobile).</value>
+  </data>
+  <data name="Definition3" xml:space="preserve">
+    <value>1.3. &lt;strong&gt;Dane Medyczne&lt;/strong&gt; – wszelkie informacje dotyczące zdrowia użytkownika, w tym historie chorób, wyniki badań, zapisane wizyty, zalecenia lekarskie, i inne dane wprowadzone przez użytkownika do Aplikacji.</value>
+  </data>
+  <data name="Definition4" xml:space="preserve">
+    <value>1.4. &lt;strong&gt;Administrator&lt;/strong&gt; – właściciel aplikacji, odpowiedzialny za jej działanie i rozwój.</value>
+  </data>
+  <data name="Conditions" xml:space="preserve">
+    <value>2. Warunki Korzystania</value>
+  </data>
+  <data name="Condition1" xml:space="preserve">
+    <value>2.1. Użytkownik korzysta z Aplikacji dobrowolnie i na własną odpowiedzialność.</value>
+  </data>
+  <data name="Condition2" xml:space="preserve">
+    <value>2.2. Korzystanie z Aplikacji wymaga zgody na przetwarzanie danych osobowych zgodnie z Polityką Prywatności, w tym danych medycznych.</value>
+  </data>
+  <data name="Condition3" xml:space="preserve">
+    <value>2.3. Użytkownik zobowiązany jest do korzystania z Aplikacji zgodnie z przepisami prawa oraz regulaminem.</value>
+  </data>
+  <data name="Condition4" xml:space="preserve">
+    <value>2.4. Użytkownikowi zabrania się dostarczania treści niezgodnych z prawem, w tym fałszywych danych medycznych, naruszających prawa osób trzecich, czy o charakterze szkodliwym lub oszukańczym.</value>
+  </data>
+  <data name="RegistrationTitle" xml:space="preserve">
+    <value>3. Rejestracja i Konto Użytkownika</value>
+  </data>
+  <data name="Registration1" xml:space="preserve">
+    <value>3.1. Korzystanie z Aplikacji może wymagać rejestracji i założenia konta użytkownika.</value>
+  </data>
+  <data name="Registration2" xml:space="preserve">
+    <value>3.2. Użytkownik zobowiązuje się do podania prawdziwych i aktualnych danych podczas rejestracji oraz ich aktualizacji, gdy zachodzi taka potrzeba.</value>
+  </data>
+  <data name="Registration3" xml:space="preserve">
+    <value>3.3. Konto użytkownika jest osobiste, a dostęp do niego nie może być udostępniany osobom trzecim.</value>
+  </data>
+  <data name="ThankYouMessage" xml:space="preserve">
+    <value>Dziękujemy za korzystanie z Aplikacji Asystent Medyczny!</value>
+  </data>
+  <data name="Regulations" xml:space="preserve">
+    <value>Regulaminy</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Warunki Korzystania</value>
+  </data>
+  <data name="PrivacyGeneralTitle" xml:space="preserve">
+    <value>1. Postanowienia Ogólne</value>
+  </data>
+  <data name="PrivacyGeneralContent" xml:space="preserve">
+    <value>Niniejsza Polityka Prywatności określa zasady przetwarzania danych osobowych użytkowników korzystających z aplikacji „Asystent Medyczny”.</value>
+  </data>
+  <data name="PrivacyAdminTitle" xml:space="preserve">
+    <value>2. Administrator Danych</value>
+  </data>
+  <data name="PrivacyAdminContent" xml:space="preserve">
+    <value>Administratorem danych osobowych użytkowników jest właściciel aplikacji „Asystent Medyczny”, który odpowiada za ich bezpieczeństwo i poufność.</value>
+  </data>
+  <data name="PrivacyDataScopeTitle" xml:space="preserve">
+    <value>3. Zakres Zbieranych Danych</value>
+  </data>
+  <data name="PrivacyDataScopeContent1" xml:space="preserve">
+    <value>Dane kontaktowe (np. adres e-mail).</value>
+  </data>
+  <data name="PrivacyDataScopeContent2" xml:space="preserve">
+    <value>Dane medyczne i zdrowotne wprowadzone przez użytkownika (np. historia chorób, wyniki badań).</value>
+  </data>
+  <data name="PrivacyPurposeTitle" xml:space="preserve">
+    <value>4. Cele Przetwarzania Danych</value>
+  </data>
+  <data name="PrivacyPurposeContent1" xml:space="preserve">
+    <value>Umożliwienie użytkownikowi dostępu do funkcji aplikacji.</value>
+  </data>
+  <data name="PrivacyPurposeContent2" xml:space="preserve">
+    <value>Zarządzanie danymi zdrowotnymi i historią medyczną.</value>
+  </data>
+  <data name="PrivacyPurposeContent3" xml:space="preserve">
+    <value>Zapewnienie bezpieczeństwa aplikacji i ochrony przed nadużyciami.</value>
+  </data>
+  <data name="PrivacyLegalBasisTitle" xml:space="preserve">
+    <value>5. Podstawa Prawna Przetwarzania Danych</value>
+  </data>
+  <data name="PrivacyLegalBasisContent1" xml:space="preserve">
+    <value>Zgoda użytkownika udzielona podczas rejestracji w aplikacji.</value>
+  </data>
+  <data name="PrivacyLegalBasisContent2" xml:space="preserve">
+    <value>Przepisy prawa wymagające przetwarzania określonych danych (w przypadku wystąpienia takiej sytuacji).</value>
+  </data>
+  <data name="PrivacySharingTitle" xml:space="preserve">
+    <value>6. Udostępnianie Danych Osobowych</value>
+  </data>
+  <data name="PrivacySharingContent" xml:space="preserve">
+    <value>Dane użytkownika nie będą udostępniane osobom trzecim bez jego zgody, z wyjątkiem sytuacji wymaganych przepisami prawa.</value>
+  </data>
+  <data name="PrivacyUserRightsTitle" xml:space="preserve">
+    <value>7. Prawa Użytkownika</value>
+  </data>
+  <data name="PrivacyUserRightsContent1" xml:space="preserve">
+    <value>"Dostępu do swoich danych oraz ich poprawiania.</value>
+  </data>
+  <data name="PrivacyUserRightsContent2" xml:space="preserve">
+    <value>Usunięcia swoich danych z aplikacji.</value>
+  </data>
+  <data name="PrivacyUserRightsContent3" xml:space="preserve">
+    <value>Cofnięcia zgody na przetwarzanie danych w dowolnym momencie.</value>
+  </data>
+  <data name="PrivacySecurityTitle" xml:space="preserve">
+    <value>8. Bezpieczeństwo Danych</value>
+  </data>
+  <data name="PrivacySecurityContent" xml:space="preserve">
+    <value>Aplikacja stosuje środki techniczne i organizacyjne w celu zapewnienia bezpieczeństwa przetwarzanych danych osobowych oraz ochrony ich przed nieuprawnionym dostępem, modyfikacją, ujawnieniem lub zniszczeniem.</value>
+  </data>
+  <data name="PrivacyChangesTitle" xml:space="preserve">
+    <value>9. Zmiany Polityki Prywatności</value>
+  </data>
+  <data name="PrivacyChangesContent" xml:space="preserve">
+    <value>Administrator zastrzega sobie prawo do zmiany niniejszej Polityki Prywatności. O zmianach użytkownicy będą informowani z odpowiednim wyprzedzeniem.</value>
+  </data>
+  <data name="PrivacyContactTitle" xml:space="preserve">
+    <value>10. Kontakt</value>
+  </data>
+  <data name="PrivacyContactContent" xml:space="preserve">
+    <value>Wszelkie pytania i wątpliwości dotyczące przetwarzania danych osobowych prosimy kierować na adres e-mail: kontakt@asystentmedyczny.pl.</value>
+  </data>
+  <data name="PrivacyPolicyTitle" xml:space="preserve">
+    <value>Polityka Prywatności</value>
+  </data>
 </root>

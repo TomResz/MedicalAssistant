@@ -3,6 +3,7 @@ using MedicalAssistant.UI.Shared.Resources;
 using MedicalAssistant.UI.Shared.Services.Abstraction;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using System.Text;
 
 namespace MedicalAssistant.UI.Components.Medication;
 
@@ -67,4 +68,19 @@ public partial class MedicationDetails
 	}
 
 	private void ReturnToScheduler() => Navigation.NavigateTo("/medication");
+
+	private string ToTimesOfDay(string[] times)
+	{
+		var sb = new StringBuilder();
+		if(times.Contains(MedicationMappers.Morning))
+			sb.Append($"{Translations.Morning}, ");
+		if(times.Contains(MedicationMappers.Afternoon))
+			sb.Append($"{Translations.Afternoon}, ");
+		if (times.Contains(MedicationMappers.Evening))
+			sb.Append($"{Translations.Evening}, ");
+		if (times.Contains(MedicationMappers.Night))
+			sb.Append($"{Translations.Night}, ");
+
+		return sb.ToString();
+	}
 }

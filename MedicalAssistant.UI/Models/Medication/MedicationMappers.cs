@@ -6,10 +6,10 @@ namespace MedicalAssistant.UI.Components.Medication;
 
 public static class MedicationMappers
 {
-	private const string Morning = "morning";
-	private const string Afternoon = "afternoon";
-	private const string Evening = "evening";
-	private const string Nigth = "night";
+	public const string Morning = "morning";
+	public const string Afternoon = "afternoon";
+	public const string Evening = "evening";
+	public const string Night = "night";
 
 	public static AddMedicationModel ToInsertRequest(this MedicationViewModel viewModel)
 	{
@@ -25,7 +25,7 @@ public static class MedicationMappers
 			timesOfDay.Add(Evening);
 
 		if (viewModel.NightChecked)
-			timesOfDay.Add(Nigth);
+			timesOfDay.Add(Night);
 
 		return new()
 		{
@@ -70,7 +70,7 @@ public static class MedicationMappers
 			timesOfDay.Add(Evening);
 
 		if (viewModel.NightChecked)
-			timesOfDay.Add(Nigth);
+			timesOfDay.Add(Night);
 		return timesOfDay;
 	}
 
@@ -105,7 +105,7 @@ public static class MedicationMappers
 			MorningChecked = model.TimeOfDay.Contains(Morning),
 			AfternoonChecked = model.TimeOfDay.Contains(Afternoon),
 			EveningChecked = model.TimeOfDay.Contains(Evening),
-			NightChecked = model.TimeOfDay.Contains(Nigth)
+			NightChecked = model.TimeOfDay.Contains(Night)
 		};
 	}
 
@@ -117,7 +117,7 @@ public static class MedicationMappers
 			AfternoonChecked = medicationDto.TimeOfDay.Contains(Afternoon),
 			MorningChecked= medicationDto.TimeOfDay.Contains(Morning),
 			EveningChecked = medicationDto.TimeOfDay.Contains(Evening),
-			NightChecked = medicationDto.TimeOfDay.Contains(Nigth),
+			NightChecked = medicationDto.TimeOfDay.Contains(Night),
 			DateRange = new(medicationDto.StartDate,medicationDto.EndDate),
 			ExtraNote = medicationDto.ExtraNote,
 			MedicineName = medicationDto.Name,	
