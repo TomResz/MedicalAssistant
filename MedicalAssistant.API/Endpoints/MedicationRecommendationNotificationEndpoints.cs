@@ -68,5 +68,12 @@ public class MedicationRecommendationNotificationEndpoints
 			var response = await _mediator.Send(query);
 			return Results.Ok(response);
 		});
+
+		group.MapGet("/{date:datetime}", async (IMediator _mediator, DateTime date) =>
+		{
+			var query = new GetMedicationRecommendationByDateQuery(date);
+			var response = await _mediator.Send(query);
+			return Results.Ok(response);	
+		});
 	}
 }

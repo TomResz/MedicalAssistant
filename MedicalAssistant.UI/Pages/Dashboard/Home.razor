@@ -1,7 +1,21 @@
 ﻿@page "/"
+@using MedicalAssistant.UI.Components
+@using MedicalAssistant.UI.Components.Medication
 
-<PageTitle>Home</PageTitle>
+<PageTitle>@Translations.MedicalAssist</PageTitle>
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
+<MudGrid>
+	<MudItem xs="12" sm="6" md="3">
+		<MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+			<Clock />
+		</MudPaper>
+	</MudItem>
+	<MudItem xs="12" sm="6" md="9">
+		<MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+			<MedicationDailyTimeLine />
+		</MudPaper>
+	</MudItem>
+</MudGrid>
+
+

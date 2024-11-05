@@ -25,7 +25,7 @@ internal sealed class GetMedicationRecommendationByDateQueryHandler
     public async Task<IEnumerable<MedicationRecommendationDto>> Handle(GetMedicationRecommendationByDateQuery request, CancellationToken cancellationToken)
     {
         var userId = _userContext.GetUserId;
-        var date = new Date(request.Date);
+        var date = new Date(request.Date.Date);
 
         var response = await _context
             .Recommendations

@@ -39,3 +39,19 @@ window.onload = function () {
     }
     loadErrorLabels();
 }
+
+let prefixSet = false;
+
+function addNotificationTitlePrefix(notificationCount) {
+
+    if (prefixSet) {
+        removePrefix();
+    }
+    document.title = `(${notificationCount}) ${document.title}`
+    prefixSet = true;
+}
+
+function removePrefix() {
+    document.title = document.title.replace(/^\(\d+\)\s*/, '');
+    prefixSet = false;
+}

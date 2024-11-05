@@ -5,6 +5,7 @@ using MedicalAssistant.Application.Visits.Queries;
 using MedicalAssistant.Infrastructure.DAL.QueryHandlers.Extensions;
 using Microsoft.EntityFrameworkCore;
 using MedicalAssistant.Application.Dto.Mappers;
+using MedicalAssistant.Domain.Entites;
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Visits;
 internal sealed class GetAllVisitsQueryHandler
 	: IRequestHandler<GetAllVisitsQuery, IEnumerable<VisitDto>>
@@ -21,12 +22,26 @@ internal sealed class GetAllVisitsQueryHandler
 	{
 		var userId = _userContext.GetUserId;
 
-		var visits = await _context
+		var firstPartOfQuery = _context
 			.Visits
-			.Where(x => x.UserId == userId)
+			.Where(x => x.UserId == userId);
+
+		IQueryable<Visit> sortedQuery = firstPartOfQuery; 
+
+		if (request.Direction.ToLower() == "asc")
+		{
+			sortedQuery = sortedQuery.OrderBy(x => x.Date);
+		}
+		else 
+		{
+			sortedQuery = sortedQuery.OrderByDescending(x => x.Date);
+		}
+
+		var visits = await sortedQuery
 			.Select(x => x.ToDto())
 			.AsNoTracking()
 			.ToListAsync(cancellationToken);
+
 		return visits;
 	}
 }

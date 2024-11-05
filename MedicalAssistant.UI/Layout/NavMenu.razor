@@ -4,8 +4,11 @@
 	</MudNavLink>
 
 	<MudNavGroup Title="@Translations.Medication" Icon="@Icons.Material.Outlined.Medication" Expanded="false">
-		<MudNavLink Href="/medication/current" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.ViewWeek">
+		<MudNavLink Href="/medication/daily" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.Today">
 			@Translations.Currents
+		</MudNavLink>
+		<MudNavLink Href="/medication/current" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.ViewWeek">
+			@Translations.CurrentWeek
 		</MudNavLink>
 		<MudNavLink Href="/medication" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.CalendarMonth">
 			@Translations.Scheduler
@@ -14,6 +17,9 @@
 
 
 	<MudNavGroup Title="@Translations.Visits" Icon="@Icons.Material.Outlined.MedicalServices" Expanded="false">
+		<MudNavLink Href="/visits/all" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.DensitySmall">
+			@Translations.AllVisits
+		</MudNavLink>
 		<MudNavLink Href="/visits/current" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.ViewWeek">
 			@Translations.Currents
 		</MudNavLink>

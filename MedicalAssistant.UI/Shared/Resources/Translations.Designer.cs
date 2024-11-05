@@ -160,6 +160,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Visits.
+        /// </summary>
+        internal static string AllVisits {
+            get {
+                return ResourceManager.GetString("AllVisits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application Language.
         /// </summary>
         internal static string AppLanguage {
@@ -174,6 +183,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string AppTitle {
             get {
                 return ResourceManager.GetString("AppTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ascending.
+        /// </summary>
+        internal static string Ascending {
+            get {
+                return ResourceManager.GetString("Ascending", resourceCulture);
             }
         }
         
@@ -444,6 +462,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string DeletingNotificationQuestion {
             get {
                 return ResourceManager.GetString("DeletingNotificationQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Descending.
+        /// </summary>
+        internal static string Descending {
+            get {
+                return ResourceManager.GetString("Descending", resourceCulture);
             }
         }
         
@@ -1605,6 +1632,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Scheduler {
             get {
                 return ResourceManager.GetString("Scheduler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Searchable text.
+        /// </summary>
+        internal static string SearchTerm {
+            get {
+                return ResourceManager.GetString("SearchTerm", resourceCulture);
             }
         }
         

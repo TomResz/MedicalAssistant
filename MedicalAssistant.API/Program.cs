@@ -9,9 +9,14 @@ using MedicalAssistant.Infrastructure.BackgrounJobs;
 using MedicalAssistant.Infrastructure.DAL;
 using MedicalAssistant.Infrastructure.Middleware;
 using MedicalAssistant.Infrastructure.Notifications;
+using Microsoft.AspNetCore.Localization;
 using Serilog;
+using System.Globalization;
 using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
+
+
+
 
 
 builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
@@ -52,6 +57,7 @@ builder.Services.AddCors(options=>
 
 
 var app = builder.Build();
+
 
 using(var scope = app.Services.CreateScope())
 {

@@ -2,7 +2,9 @@
 using MedicalAssistant.UI.Shared.Response;
 using MedicalAssistant.UI.Shared.Response.Base;
 using MedicalAssistant.UI.Shared.Services.Abstraction;
+using Microsoft.Extensions.FileProviders;
 using System.Net.Http.Json;
+using System.Web;
 
 namespace MedicalAssistant.UI.Shared.Services.Visits;
 
@@ -15,9 +17,16 @@ public class VisitService : IVisitService
 		_httpClient = httpClient;
 	}
 
-	public async Task<Response<List<VisitDto>>> GetAllVisits()
+	public async Task<Response<List<VisitDto>>> GetAllVisits(string? direction = null)
 	{
-		var response = await _httpClient.GetAsync("visit/");
+		string uri = "visit";
+
+		if(direction is not null)
+		{
+			uri = $"visit?direction={direction}";
+		}
+
+		var response = await _httpClient.GetAsync(uri);
 		return await response.DeserializeResponse<List<VisitDto>>();
 	}
 
@@ -61,6 +70,18 @@ public class VisitService : IVisitService
 	public async Task<Response<List<VisitDto>>> GetByDate(DateTime date)
 	{
 		var response = await _httpClient.GetAsync($"visit/{date.ToString("yyyy-MM-dd")}");
+		return await response.DeserializeResponse<List<VisitDto>>();
+	}
+
+	public async Task<Response<List<VisitDto>>> GetBySearchTerm(string searchTerm,string? direction = null)
+	{
+		string dir = string.Empty;
+		if(!string.IsNullOrEmpty(direction))
+		{
+			dir = $"?direction={direction}";
+		}
+		var httpCodedText = HttpUtility.UrlEncode($"{searchTerm}{dir}");
+		var response = await _httpClient.GetAsync($"visit/search/{httpCodedText}");
 		return await response.DeserializeResponse<List<VisitDto>>();
 	}
 }

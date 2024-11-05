@@ -9,32 +9,32 @@ internal sealed class VisitEntityConfiguration : IEntityTypeConfiguration<Visit>
 {
     public void Configure(EntityTypeBuilder<Visit> builder)
     {
-        builder.HasKey( x => x.Id);
+        builder.HasKey(x => x.Id);
 
         builder.HasOne<User>()
-            .WithMany(x=>x.Visits)
-            .HasForeignKey(x=>x.UserId)
+            .WithMany(x => x.Visits)
+            .HasForeignKey(x => x.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
-		builder.Property(x => x.Id)
+        builder.Property(x => x.Id)
             .HasConversion(
                 x => x.Value,
                     x => new(x))
             .IsRequired();
 
-		builder.Property(x => x.UserId)
+        builder.Property(x => x.UserId)
             .HasConversion(
-            x => x.Value, 
+            x => x.Value,
             x => new UserId(x))
             .IsRequired();
 
-		builder.Property(x => x.Date)
+        builder.Property(x => x.Date)
             .HasConversion(x => x.Value, x => new Date(x));
 
-		builder.Property(x => x.PredictedEndDate)
-	        .HasConversion(x => x.Value, x => new Date(x));
+        builder.Property(x => x.PredictedEndDate)
+            .HasConversion(x => x.Value, x => new Date(x));
 
-		builder.ComplexProperty(x => x.Address, conf =>
+        builder.ComplexProperty(x => x.Address, conf =>
         {
             conf.Property(x => x.PostalCode)
                 .HasConversion(postalCode => postalCode.Value, value => new PostalCode(value))
@@ -50,21 +50,31 @@ internal sealed class VisitEntityConfiguration : IEntityTypeConfiguration<Visit>
                 .IsRequired();
         });
 
-        builder.Property(x=> x.DoctorName)
-            .HasConversion(x=> x.Value, x => new DoctorName(x))
+        builder.Property(x => x.DoctorName)
+            .HasConversion(x => x.Value, x => new DoctorName(x))
             .HasMaxLength(DoctorName.MaxLength)
-			.IsRequired();
+            .IsRequired();
 
-        builder.Property(x=> x.VisitType)
-            .HasConversion(x=>x.Value, x => new VisitType(x))
+        builder.Property(x => x.VisitType)
+            .HasConversion(x => x.Value, x => new VisitType(x))
             .HasMaxLength(VisitType.MaxLength)
             .IsRequired();
-        
 
-		builder.Property(x => x.VisitDescription)
-			.HasConversion(x => x.Value, x => new VisitDescription(x))
-			.HasMaxLength(VisitDescription.MaxLength)
-			.IsRequired();
+
+        builder.Property(x => x.VisitDescription)
+            .HasConversion(x => x.Value, x => new VisitDescription(x))
+            .HasMaxLength(VisitDescription.MaxLength)
+            .IsRequired();
+
+
+        builder.HasIndex(b => new
+        {
+            b.VisitType,
+            b.VisitDescription,
+            b.DoctorName
+        })
+        .HasMethod("GIN")
+        .IsTsVectorExpressionIndex("english");
 
 	}
 }

@@ -1,0 +1,85 @@
+﻿@page "/medication/daily"
+@using MedicalAssistant.UI.Components
+@using MedicalAssistant.UI.Components.Medication
+@using MedicalAssistant.UI.Components.MedicationNotification
+
+
+<div class="main-container">
+	<MudGrid Class="ma-0 visit-grid">
+
+		<MudItem xs="12" sm="6" md="3" Class="pa-0 mx-0 visit-item">
+			<MudCard Class="visit-card">
+				@if (_isMedicationLoading)
+				{
+					<LoadingSkeletonComponent Class="ma-2" />
+				}
+				else
+				{
+					<MedicationListView Medications="morningRecommendations" Title="@Translations.Morning" />
+				}
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="3" Class="pa-0 mx-0 visit-item">
+			<MudCard Class="visit-card">
+				@if (_isMedicationLoading)
+				{
+					<LoadingSkeletonComponent Class="ma-2" />
+				}
+				else
+				{
+					<MedicationListView Medications="afternoonRecommendations" Title="@Translations.Afternoon" />
+
+				}
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12"  sm="6" md="3" Class="pa-0 mx-0 visit-item">
+			<MudCard Class="visit-card">
+				@if (_isMedicationLoading)
+				{
+					<LoadingSkeletonComponent Class="ma-2" />
+				}
+				else
+				{
+					<MedicationListView Medications="eveningRecommendations" Title="@Translations.Evening" />
+				}
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="3" Class="pa-0 mx-0 visit-item">
+			<MudCard Class="visit-card">
+				@if (_isMedicationLoading)
+				{
+					<LoadingSkeletonComponent Class="ma-2" />
+				}
+				else
+				{
+					<MedicationListView Medications="nightRecommendations" Title="@Translations.Night" />
+				}
+			</MudCard>
+		</MudItem>
+	</MudGrid>
+</div>
+
+<style>
+	.main-container{
+		overflow-x: hidden;
+	}
+	.visit-grid {
+		overflow-y: auto;
+		overflow-x: hidden;
+		max-height: calc(100vh - 96px);
+	}
+
+	.visit-item {
+		min-height: calc(100vh - 104px);
+		margin-top: 8px;
+	}
+
+	.visit-card {
+		height: 100%;
+		margin-right: 24px;
+	}
+
+</style>

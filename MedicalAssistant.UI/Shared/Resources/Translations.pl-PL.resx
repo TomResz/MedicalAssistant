@@ -753,4 +753,16 @@
   <data name="PrivacyPolicyTitle" xml:space="preserve">
     <value>Polityka Prywatności</value>
   </data>
+  <data name="AllVisits" xml:space="preserve">
+    <value>Wszystkie Wizyty</value>
+  </data>
+  <data name="SearchTerm" xml:space="preserve">
+    <value>Tekst do wyszukania</value>
+  </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>Rosnąco</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>Malejąco</value>
+  </data>
 </root>

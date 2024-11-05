@@ -2,12 +2,11 @@
 using MedicalAssistant.UI.Shared.Options;
 using MedicalAssistant.UI.Shared.Resources;
 using MedicalAssistant.UI.Shared.Services.Abstraction;
-using MedicalAssistant.UI.Shared.Services.HubToken;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Options;
+using Microsoft.JSInterop;
 using MudBlazor;
-using System.Text.Json;
 
 namespace MedicalAssistant.UI.Components.AppBar.Notifications;
 
@@ -26,7 +25,10 @@ public partial class Notification : IAsyncDisposable
 	[Inject]
 	public ISnackbar Snackbar { get; set; }
 
-	private readonly List<NotificationModel> _models = new();
+	[Inject]
+	public IJSRuntime JSRuntime { get; set; }
+
+	private readonly List<NotificationModel> _models = [];
 	private HubConnection? _hubConnection;
 	private bool isExpanded = false;
 	private bool isPopoverOpen = false;
@@ -49,14 +51,22 @@ public partial class Notification : IAsyncDisposable
 		{
 			var results = currentNotificationsResponse.Value!;
 			_models.AddRange(results);
+			if (UnReadNotifications > 0)
+			{
+				await JSRuntime.InvokeVoidAsync("addNotificationTitlePrefix", UnReadNotifications);
+			}
 			await InvokeAsync(StateHasChanged);
 		}
 
-		_hubConnection.On<NotificationModel>("ReceiveNotification", notification =>
+		_hubConnection.On<NotificationModel>("ReceiveNotification", async notification =>
 		{
 			_models.Add(notification);
 			Snackbar.Add(Translations.NewNotifcation, MudBlazor.Severity.Normal);
-			InvokeAsync(StateHasChanged);
+			if (UnReadNotifications > 0)
+			{
+				await JSRuntime.InvokeVoidAsync("addNotificationTitlePrefix", UnReadNotifications);
+			}
+			await InvokeAsync(StateHasChanged);
 		});
 
 		await _hubConnection.StartAsync();
@@ -86,6 +96,11 @@ public partial class Notification : IAsyncDisposable
 			.Where(x => x.WasRead == false)
 			.Select(x => x.Id).ToList();
 
+		if (ids.Count == 0)
+		{
+			return;
+		}
+
 		var response = await NotificationService.MarkAsRead(ids);
 
 		if (response.IsSuccess)
@@ -95,6 +110,7 @@ public partial class Notification : IAsyncDisposable
 				.ToList();
 
 			selectedNotifications.ForEach(x => x.WasRead = true);
+			await JSRuntime.InvokeVoidAsync("removePrefix");
 			await InvokeAsync(StateHasChanged);
 		}
 

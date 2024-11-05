@@ -1,0 +1,39 @@
+﻿@using MedicalAssistant.UI.Models.Medication
+<MudPaper Elevation="4" Class="pa-4 list-grid flex-1 h-100 flex-1">
+	<MudGrid Class="relative">
+		<MudItem xs="12">
+			<MudText Typo="Typo.h6" Align="Align.Center">
+				@Title
+			</MudText>
+		</MudItem>
+
+		@foreach (var medication in Medications)
+		{
+			<MudItem xs="12">
+				<MedicationItem ButtonVisible="true" Medication="medication" Class=" pa-4" />
+			</MudItem>
+		}
+	</MudGrid>
+</MudPaper>
+
+
+<style>
+	.list-grid {
+		overflow-y: auto;
+	}
+
+	.relative {
+		position: relative;
+	}
+
+</style>
+
+@code {
+
+	[Parameter]
+	public string Title { get; set; }
+
+	[Parameter]
+	public IReadOnlyList<MedicationDto> Medications { get; set; }
+
+}

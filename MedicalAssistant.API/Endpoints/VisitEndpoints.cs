@@ -5,6 +5,7 @@ using MedicalAssistant.Application.Visits.Commands.AddVisit;
 using MedicalAssistant.Application.Visits.Commands.DeleteVisit;
 using MedicalAssistant.Application.Visits.Commands.EditVisit;
 using MedicalAssistant.Application.Visits.Queries;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MedicalAssistant.API.Endpoints;
 
@@ -16,8 +17,8 @@ public sealed class VisitEndpoints : IEndpoints
 			.RequireAuthorization(Permissions.Permissions.VerifiedUser)
 			.WithTags("Visits");
 
-		group.MapGet("/", async (IMediator _mediator)
-			=> await _mediator.Send(new GetAllVisitsQuery()));
+		group.MapGet("/", async (IMediator _mediator, [FromQuery]string direction = "asc")
+			=> await _mediator.Send(new GetAllVisitsQuery(direction)));
 
 		group.MapPost("add", async (
 			IMediator _mediator,
@@ -72,6 +73,14 @@ public sealed class VisitEndpoints : IEndpoints
 			var response = await _mediator.Send(query);
 			return Results.Ok(response);
 		}).Produces(StatusCodes.Status200OK,typeof(IEnumerable<VisitDto>));
+
+
+		group.MapGet("search/{searchTerm}", async (IMediator _mediator, string searchTerm,[FromQuery]string direction = "asc") =>
+		{
+			var query = new GetVisitBySerchTermQuery(searchTerm,direction);
+			var response = await _mediator.Send(query);
+			return Results.Ok(response);	
+		});
 
 	}
 }

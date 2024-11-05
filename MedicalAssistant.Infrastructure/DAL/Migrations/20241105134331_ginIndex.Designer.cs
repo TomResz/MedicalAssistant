@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using MedicalAssistant.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MedicalAssistant.Infrastructure.Migrations
 {
     [DbContext(typeof(MedicalAssistantDbContext))]
-    partial class MedicalAssistantDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241105134331_ginIndex")]
+    partial class ginIndex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,7 +46,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TokenHolders", (string)null);
+                    b.ToTable("TokenHolders");
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.Entites.Attachment", b =>
@@ -71,7 +74,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     b.HasIndex("VisitId");
 
-                    b.ToTable("Attachments", (string)null);
+                    b.ToTable("Attachments");
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.Entites.ExternalUserLogin", b =>
@@ -89,7 +92,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("ExternalUserLogin", (string)null);
+                    b.ToTable("ExternalUserLogin");
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.Entites.MedicationRecommendation", b =>
@@ -166,7 +169,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     b.HasIndex("MedicationRecommendationId");
 
-                    b.ToTable("MedicationRecommendationsNotifications", (string)null);
+                    b.ToTable("MedicationRecommendationsNotifications");
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.Entites.NotificationHistory", b =>
@@ -199,7 +202,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("NotificationHistories", (string)null);
+                    b.ToTable("NotificationHistories");
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.Entites.User", b =>
@@ -238,7 +241,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.Entites.UserSettings", b =>
@@ -261,7 +264,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("UserSettings", (string)null);
+                    b.ToTable("UserSettings");
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.Entites.UserVerification", b =>
@@ -278,7 +281,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("UserVerifications", (string)null);
+                    b.ToTable("UserVerifications");
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.Entites.Visit", b =>
@@ -337,7 +340,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("VisitType", "VisitDescription", "DoctorName"), "GIN");
 
-                    b.ToTable("Visits", (string)null);
+                    b.ToTable("Visits");
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.Entites.VisitNotification", b =>
@@ -362,7 +365,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     b.HasIndex("VisitId");
 
-                    b.ToTable("VisitNotifications", (string)null);
+                    b.ToTable("VisitNotifications");
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.ComplexTypes.TokenHolder", b =>
