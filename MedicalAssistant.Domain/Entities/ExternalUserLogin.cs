@@ -1,7 +1,7 @@
 ﻿using MedicalAssistant.Domain.ValueObjects;
 using MedicalAssistant.Domain.ValueObjects.IDs;
 
-namespace MedicalAssistant.Domain.Entites;
+namespace MedicalAssistant.Domain.Entities;
 public class ExternalUserLogin
 {
     public UserId  UserId { get; private set; }

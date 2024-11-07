@@ -44,11 +44,11 @@ internal sealed class ExternalAuthenticationCommandHandler
 		}
 
 		var (id, email, fullName) = response;
-		Domain.Entites.User? user = await _userRepository.GetByEmailWithExternalProviderAsync(response.Email, cancellationToken);
+		Domain.Entities.User? user = await _userRepository.GetByEmailWithExternalProviderAsync(response.Email, cancellationToken);
 		
 		if (user is null)
 		{
-			user = Domain.Entites.User.CreateByExternalProvider(email, fullName, Role.User().ToString(), _clock.GetCurrentUtc(), id, request.Provider,language);
+			user = Domain.Entities.User.CreateByExternalProvider(email, fullName, Role.User().ToString(), _clock.GetCurrentUtc(), id, request.Provider,language);
 			await _userRepository.AddAsync(user, cancellationToken);
 		}
 		else
@@ -71,7 +71,7 @@ internal sealed class ExternalAuthenticationCommandHandler
 			jwt.AccessToken,
 			refreshToken.RefreshToken);
 	}
-	private static bool IsUserValid(Domain.Entites.User user, string provider, string userId) 
+	private static bool IsUserValid(Domain.Entities.User user, string provider, string userId) 
 		=> user.ExternalUserProvider?.ProvidedKey == userId && user.ExternalUserProvider?.Provider == provider;
 
 

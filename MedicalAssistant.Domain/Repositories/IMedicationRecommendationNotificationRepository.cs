@@ -1,4 +1,4 @@
-﻿using MedicalAssistant.Domain.Entites;
+﻿using MedicalAssistant.Domain.Entities;
 using MedicalAssistant.Domain.ValueObjects.IDs;
 
 namespace MedicalAssistant.Domain.Repositories;

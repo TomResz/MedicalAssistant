@@ -6,7 +6,7 @@ using MedicalAssistant.Domain.Primitives;
 using MedicalAssistant.Domain.ValueObjects;
 using MedicalAssistant.Domain.ValueObjects.IDs;
 
-namespace MedicalAssistant.Domain.Entites;
+namespace MedicalAssistant.Domain.Entities;
 public class User : AggregateRoot<UserId>
 {
 	public Email Email { get; private set; }
@@ -32,6 +32,9 @@ public class User : AggregateRoot<UserId>
 	private readonly HashSet<MedicationRecommendation> _medicationRecommendation = new();
 	public IEnumerable<MedicationRecommendation> MedicationRecommendations => _medicationRecommendation;
 	
+	private readonly HashSet<MedicalHistory> _medicalHistory = new();
+	public IEnumerable<MedicalHistory> MedicalHistories => _medicalHistory;
+
 	protected User() { }
 	
 	private User(

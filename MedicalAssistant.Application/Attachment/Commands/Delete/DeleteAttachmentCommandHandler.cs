@@ -22,7 +22,7 @@ internal sealed class DeleteAttachmentCommandHandler
 	public async Task Handle(DeleteAttachmentCommand request, CancellationToken cancellationToken)
 	{
 		var attachmentId = new AttachmentId(request.Id);
-		Expression<Func<Domain.Entites.Attachment, bool>> predicate = (x) => x.Id == attachmentId;
+		Expression<Func<Domain.Entities.Attachment, bool>> predicate = (x) => x.Id == attachmentId;
 		
 		var wasDeleted = await _attachmentRepository.DeleteAsync(predicate) > 0;
 

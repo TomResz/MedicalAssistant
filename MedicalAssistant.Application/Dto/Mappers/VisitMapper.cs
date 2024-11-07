@@ -1,4 +1,4 @@
-﻿using MedicalAssistant.Domain.Entites;
+﻿using MedicalAssistant.Domain.Entities;
 
 namespace MedicalAssistant.Application.Dto.Mappers;
 public static class VisitMapper

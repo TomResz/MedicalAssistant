@@ -3,7 +3,7 @@
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Extensions;
 internal static class UserToUserCredentialsDto
 {
-	public static UserCredentialsDto ToUserCredentialsDto(this Domain.Entites.User user) 
+	public static UserCredentialsDto ToUserCredentialsDto(this Domain.Entities.User user) 
 		=> new()
 	{
 		UserId = user.Id,

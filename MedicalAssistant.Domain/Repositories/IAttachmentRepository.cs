@@ -5,5 +5,5 @@ namespace MedicalAssistant.Domain.Repositories;
 
 public interface IAttachmentRepository
 {
-	Task<int> DeleteAsync(Expression<Func<Domain.Entites.Attachment, bool>> predicate);
+	Task<int> DeleteAsync(Expression<Func<Domain.Entities.Attachment, bool>> predicate);
 }

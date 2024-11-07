@@ -13,7 +13,7 @@ internal sealed class AttachmentRepository : IAttachmentRepository
 		_context = context;
 	}
 
-	public async Task<int> DeleteAsync(Expression<Func<Domain.Entites.Attachment,bool>> predicate)
+	public async Task<int> DeleteAsync(Expression<Func<Domain.Entities.Attachment,bool>> predicate)
 	{
 		var response = await _context
 			.Attachments

@@ -5,7 +5,7 @@ using MedicalAssistant.Application.Visits.Queries;
 using MedicalAssistant.Infrastructure.DAL.QueryHandlers.Extensions;
 using Microsoft.EntityFrameworkCore;
 using MedicalAssistant.Application.Dto.Mappers;
-using MedicalAssistant.Domain.Entites;
+using MedicalAssistant.Domain.Entities;
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Visits;
 internal sealed class GetAllVisitsQueryHandler
 	: IRequestHandler<GetAllVisitsQuery, IEnumerable<VisitDto>>

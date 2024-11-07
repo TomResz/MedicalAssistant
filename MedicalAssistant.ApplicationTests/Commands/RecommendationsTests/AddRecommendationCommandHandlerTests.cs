@@ -4,7 +4,7 @@ using MedicalAssistant.Application.MedicationRecommendations.Commands.AddRecomme
 using MedicalAssistant.Application.Tests.ObjectFactories;
 using MedicalAssistant.Domain.Abstraction;
 using MedicalAssistant.Domain.DomainServices;
-using MedicalAssistant.Domain.Entites;
+using MedicalAssistant.Domain.Entities;
 using MedicalAssistant.Domain.Exceptions;
 using MedicalAssistant.Domain.Repositories;
 using MedicalAssistant.Domain.ValueObjects;

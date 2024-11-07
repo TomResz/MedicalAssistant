@@ -1,3 +1,4 @@
+using System.Reflection;
 using MedicalAssistant.API.Endpoints;
 using MedicalAssistant.API.RequestConverters;
 using MedicalAssistant.API.SwaggerDocs;
@@ -9,10 +10,8 @@ using MedicalAssistant.Infrastructure.BackgrounJobs;
 using MedicalAssistant.Infrastructure.DAL;
 using MedicalAssistant.Infrastructure.Middleware;
 using MedicalAssistant.Infrastructure.Notifications;
-using Microsoft.AspNetCore.Localization;
 using Serilog;
-using System.Globalization;
-using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -61,8 +60,8 @@ var app = builder.Build();
 
 using(var scope = app.Services.CreateScope())
 {
-	var dbCreater = scope.ServiceProvider.GetRequiredService<IDatabaseCreator>();
-    await dbCreater.CreateDatabaseIfNotExists();
+	var creator = scope.ServiceProvider.GetRequiredService<IDatabaseCreator>();
+    await creator.CreateDatabaseIfNotExists();
     app.ApplyMigrations();
 }
 

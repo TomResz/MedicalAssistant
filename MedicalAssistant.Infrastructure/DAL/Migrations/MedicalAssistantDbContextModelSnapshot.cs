@@ -43,10 +43,10 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TokenHolders", (string)null);
+                    b.ToTable("TokenHolders");
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.Attachment", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.Attachment", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -71,10 +71,42 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     b.HasIndex("VisitId");
 
-                    b.ToTable("Attachments", (string)null);
+                    b.ToTable("Attachments");
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.ExternalUserLogin", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.DiseaseStage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("MedicalHistoryId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(35)
+                        .HasColumnType("character varying(35)");
+
+                    b.Property<string>("Note")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("VisitId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MedicalHistoryId");
+
+                    b.HasIndex("VisitId");
+
+                    b.ToTable("DiseaseStages");
+                });
+
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.ExternalUserLogin", b =>
                 {
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -89,10 +121,47 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("ExternalUserLogin", (string)null);
+                    b.ToTable("ExternalUserLogin");
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.MedicationRecommendation", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.MedicalHistory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("DiseaseEndDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("DiseaseName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<DateTime>("DiseaseStartDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SymptomDescription")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("VisitId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("VisitId");
+
+                    b.ToTable("MedicalHistories");
+                });
+
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.MedicationRecommendation", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -116,7 +185,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.Property<Guid?>("VisitId")
                         .HasColumnType("uuid");
 
-                    b.ComplexProperty<Dictionary<string, object>>("Medicine", "MedicalAssistant.Domain.Entites.MedicationRecommendation.Medicine#Medicine", b1 =>
+                    b.ComplexProperty<Dictionary<string, object>>("Medicine", "MedicalAssistant.Domain.Entities.MedicationRecommendation.Medicine#Medicine", b1 =>
                         {
                             b1.IsRequired();
 
@@ -141,7 +210,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.ToTable("MedicationRecommendation", (string)null);
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.MedicationRecommendationNotification", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.MedicationRecommendationNotification", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -166,10 +235,10 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     b.HasIndex("MedicationRecommendationId");
 
-                    b.ToTable("MedicationRecommendationsNotifications", (string)null);
+                    b.ToTable("MedicationRecommendationsNotifications");
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.NotificationHistory", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.NotificationHistory", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -199,10 +268,10 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("NotificationHistories", (string)null);
+                    b.ToTable("NotificationHistories");
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.User", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -238,10 +307,10 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.UserSettings", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.UserSettings", b =>
                 {
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -261,10 +330,10 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("UserSettings", (string)null);
+                    b.ToTable("UserSettings");
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.UserVerification", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.UserVerification", b =>
                 {
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -278,10 +347,10 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("UserVerifications", (string)null);
+                    b.ToTable("UserVerifications");
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.Visit", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.Visit", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -310,7 +379,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)");
 
-                    b.ComplexProperty<Dictionary<string, object>>("Address", "MedicalAssistant.Domain.Entites.Visit.Address#Address", b1 =>
+                    b.ComplexProperty<Dictionary<string, object>>("Address", "MedicalAssistant.Domain.Entities.Visit.Address#Address", b1 =>
                         {
                             b1.IsRequired();
 
@@ -337,10 +406,10 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("VisitType", "VisitDescription", "DoctorName"), "GIN");
 
-                    b.ToTable("Visits", (string)null);
+                    b.ToTable("Visits");
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.VisitNotification", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.VisitNotification", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -362,45 +431,75 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     b.HasIndex("VisitId");
 
-                    b.ToTable("VisitNotifications", (string)null);
+                    b.ToTable("VisitNotifications");
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.ComplexTypes.TokenHolder", b =>
                 {
-                    b.HasOne("MedicalAssistant.Domain.Entites.User", null)
+                    b.HasOne("MedicalAssistant.Domain.Entities.User", null)
                         .WithMany("RefreshTokens")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.Attachment", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.Attachment", b =>
                 {
-                    b.HasOne("MedicalAssistant.Domain.Entites.Visit", null)
+                    b.HasOne("MedicalAssistant.Domain.Entities.Visit", null)
                         .WithMany("Attachments")
                         .HasForeignKey("VisitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.ExternalUserLogin", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.DiseaseStage", b =>
                 {
-                    b.HasOne("MedicalAssistant.Domain.Entites.User", null)
+                    b.HasOne("MedicalAssistant.Domain.Entities.MedicalHistory", null)
+                        .WithMany("DiseaseStages")
+                        .HasForeignKey("MedicalHistoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedicalAssistant.Domain.Entities.Visit", null)
+                        .WithMany("DiseaseStages")
+                        .HasForeignKey("VisitId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.ExternalUserLogin", b =>
+                {
+                    b.HasOne("MedicalAssistant.Domain.Entities.User", null)
                         .WithOne("ExternalUserProvider")
-                        .HasForeignKey("MedicalAssistant.Domain.Entites.ExternalUserLogin", "UserId")
+                        .HasForeignKey("MedicalAssistant.Domain.Entities.ExternalUserLogin", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.MedicationRecommendation", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.MedicalHistory", b =>
                 {
-                    b.HasOne("MedicalAssistant.Domain.Entites.User", "User")
+                    b.HasOne("MedicalAssistant.Domain.Entities.User", "User")
+                        .WithMany("MedicalHistories")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedicalAssistant.Domain.Entities.Visit", null)
+                        .WithMany("MedicalHistories")
+                        .HasForeignKey("VisitId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.MedicationRecommendation", b =>
+                {
+                    b.HasOne("MedicalAssistant.Domain.Entities.User", "User")
                         .WithMany("MedicationRecommendations")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MedicalAssistant.Domain.Entites.Visit", "Visit")
+                    b.HasOne("MedicalAssistant.Domain.Entities.Visit", "Visit")
                         .WithMany("Recommendations")
                         .HasForeignKey("VisitId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -410,18 +509,18 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.Navigation("Visit");
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.MedicationRecommendationNotification", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.MedicationRecommendationNotification", b =>
                 {
-                    b.HasOne("MedicalAssistant.Domain.Entites.MedicationRecommendation", null)
+                    b.HasOne("MedicalAssistant.Domain.Entities.MedicationRecommendation", null)
                         .WithMany("Notifications")
                         .HasForeignKey("MedicationRecommendationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.NotificationHistory", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.NotificationHistory", b =>
                 {
-                    b.HasOne("MedicalAssistant.Domain.Entites.User", "User")
+                    b.HasOne("MedicalAssistant.Domain.Entities.User", "User")
                         .WithMany("NotificationHistories")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -430,52 +529,59 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.UserSettings", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.UserSettings", b =>
                 {
-                    b.HasOne("MedicalAssistant.Domain.Entites.User", "User")
+                    b.HasOne("MedicalAssistant.Domain.Entities.User", "User")
                         .WithOne("UserSettings")
-                        .HasForeignKey("MedicalAssistant.Domain.Entites.UserSettings", "UserId")
+                        .HasForeignKey("MedicalAssistant.Domain.Entities.UserSettings", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.UserVerification", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.UserVerification", b =>
                 {
-                    b.HasOne("MedicalAssistant.Domain.Entites.User", null)
+                    b.HasOne("MedicalAssistant.Domain.Entities.User", null)
                         .WithOne("UserVerification")
-                        .HasForeignKey("MedicalAssistant.Domain.Entites.UserVerification", "UserId")
+                        .HasForeignKey("MedicalAssistant.Domain.Entities.UserVerification", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.Visit", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.Visit", b =>
                 {
-                    b.HasOne("MedicalAssistant.Domain.Entites.User", null)
+                    b.HasOne("MedicalAssistant.Domain.Entities.User", null)
                         .WithMany("Visits")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.VisitNotification", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.VisitNotification", b =>
                 {
-                    b.HasOne("MedicalAssistant.Domain.Entites.Visit", null)
+                    b.HasOne("MedicalAssistant.Domain.Entities.Visit", null)
                         .WithMany("Notifications")
                         .HasForeignKey("VisitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.MedicationRecommendation", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.MedicalHistory", b =>
+                {
+                    b.Navigation("DiseaseStages");
+                });
+
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.MedicationRecommendation", b =>
                 {
                     b.Navigation("Notifications");
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.User", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.User", b =>
                 {
                     b.Navigation("ExternalUserProvider");
+
+                    b.Navigation("MedicalHistories");
 
                     b.Navigation("MedicationRecommendations");
 
@@ -491,9 +597,13 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.Navigation("Visits");
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entites.Visit", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.Visit", b =>
                 {
                     b.Navigation("Attachments");
+
+                    b.Navigation("DiseaseStages");
+
+                    b.Navigation("MedicalHistories");
 
                     b.Navigation("Notifications");
 

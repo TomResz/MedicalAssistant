@@ -6,12 +6,12 @@ using MedicalAssistant.Application.Visits.Queries;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Visits;
-internal sealed class GetVisitBySerchTermQueryHandler
+internal sealed class GetVisitBySearchTermQueryHandler
     : IRequestHandler<GetVisitBySerchTermQuery, IEnumerable<VisitDto>>
 {
     private readonly MedicalAssistantDbContext _context;
     private readonly IUserContext _userContext;
-    public GetVisitBySerchTermQueryHandler(
+    public GetVisitBySearchTermQueryHandler(
         MedicalAssistantDbContext context,
         IUserContext userContext)
     {
@@ -29,21 +29,19 @@ internal sealed class GetVisitBySerchTermQueryHandler
                 EF.Functions.ToTsVector("english", x.DoctorName + " " + x.VisitType + " " + x.VisitDescription)
                 .Matches(EF.Functions.PhraseToTsQuery("english", request.SearchTerm)));
 
-        var sortableQuery = query;
-
         if(request.Direction == "asc")
         {
-            sortableQuery = query
+            query = query
                 .OrderBy(x => x.Date);
         }
         else
         {
-			sortableQuery = query
+			query = query
 	            .OrderByDescending(x => x.Date);
 		}
 
 
-		var response = await sortableQuery
+		var response = await query
             .Select(x=>x.ToDto())
             .ToListAsync(cancellationToken);
 

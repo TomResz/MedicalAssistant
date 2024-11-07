@@ -29,7 +29,7 @@ internal sealed class AddAttachmentCommandHandler
 
 		byte[] fileContent = await FileToStream(file);
 
-		var attachment = Domain.Entites.Attachment.Create(
+		var attachment = Domain.Entities.Attachment.Create(
 			visitId,
 			file.FileName,
 			fileContent);

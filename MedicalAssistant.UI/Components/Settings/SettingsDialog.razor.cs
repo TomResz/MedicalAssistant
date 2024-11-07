@@ -3,6 +3,7 @@ using MedicalAssistant.UI.Shared.Services.Abstraction;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System.Globalization;
+using MedicalAssistant.UI.Shared.Resources;
 using static MedicalAssistant.UI.Components.AppBar.LanguageSwitchBtn;
 
 namespace MedicalAssistant.UI.Components.Settings;
@@ -22,6 +23,9 @@ public partial class SettingsDialog
 	[CascadingParameter]
 	public MudDialogInstance MudDialog { get; set; }
 
+	[Inject] 
+	public ISnackbar Snackbar { get; set; }
+	
 	private bool _loading = false;
 	private bool _isLanguageChanged = false;
 
@@ -49,9 +53,15 @@ public partial class SettingsDialog
 		_viewModel.NotificationLanguage = NotificationLanguage  is Language.Polish ? "pl-PL" : "en-US";
 		_loading = true;
 		var response = await SettingsService.Update(_viewModel);
-		if (response.IsFailure)
+		if (response.IsSuccess)
 		{
 			MudDialog.Close();
+			Snackbar.Add(Translations.SettingsSaved, Severity.Success);
+		}
+		else
+		{
+			MudDialog.Close();
+			Snackbar.Add(Translations.SomethingWentWrong, Severity.Error);
 		}
 		_loading = false;
 	}

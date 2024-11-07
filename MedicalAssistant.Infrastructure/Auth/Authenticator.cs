@@ -1,7 +1,7 @@
 ﻿using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Security;
 using MedicalAssistant.Domain.Abstraction;
-using MedicalAssistant.Domain.Entites;
+using MedicalAssistant.Domain.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

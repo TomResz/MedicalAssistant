@@ -3,7 +3,7 @@ using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Dto.Mappers;
 using MedicalAssistant.Domain.Abstraction;
-using MedicalAssistant.Domain.Entites;
+using MedicalAssistant.Domain.Entities;
 using MedicalAssistant.Domain.Events;
 using MedicalAssistant.Domain.Repositories;
 using MedicalAssistant.Domain.ValueObjects;

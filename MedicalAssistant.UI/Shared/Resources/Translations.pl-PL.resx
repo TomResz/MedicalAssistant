@@ -765,4 +765,7 @@
   <data name="Descending" xml:space="preserve">
     <value>Malejąco</value>
   </data>
+  <data name="SettingsSaved" xml:space="preserve">
+    <value>Ustawienia zostały zapisane.</value>
+  </data>
 </root>

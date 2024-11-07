@@ -50,7 +50,7 @@ internal sealed class SignUpCommandHandler : IRequestHandler<SignUpCommand>
         var securedPassword = _passwordManager.Secure(password);
         var verificationCode = _codeVerification.Generate(_clock.GetCurrentUtc());
 
-        var user = Domain.Entites.User.Create(
+        var user = Domain.Entities.User.Create(
             email,
             securedPassword,
             fullName,

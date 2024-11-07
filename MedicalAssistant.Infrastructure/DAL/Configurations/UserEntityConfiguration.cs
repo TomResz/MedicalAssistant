@@ -1,4 +1,4 @@
-﻿using MedicalAssistant.Domain.Entites;
+﻿using MedicalAssistant.Domain.Entities;
 using MedicalAssistant.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -15,7 +15,16 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
             .HasForeignKey(x=>x.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasMany(x=> x.MedicationRecommendations)
+
+
+		builder.HasMany(x=>x.MedicalHistories)
+			.WithOne(x=>x.User)
+			.HasForeignKey(x => x.UserId)
+			.OnDelete(DeleteBehavior.Cascade)
+            .IsRequired(true);
+
+
+		builder.HasMany(x=> x.MedicationRecommendations)
             .WithOne(x=>x.User)
             .HasForeignKey(x=>x.UserId)
             .OnDelete(DeleteBehavior.Cascade);

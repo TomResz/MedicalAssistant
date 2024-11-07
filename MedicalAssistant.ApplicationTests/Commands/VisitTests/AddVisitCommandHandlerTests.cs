@@ -2,7 +2,7 @@
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Tests.ObjectFactories;
 using MedicalAssistant.Application.Visits.Commands.AddVisit;
-using MedicalAssistant.Domain.Entites;
+using MedicalAssistant.Domain.Entities;
 using MedicalAssistant.Domain.Exceptions;
 using MedicalAssistant.Domain.Repositories;
 using NSubstitute;

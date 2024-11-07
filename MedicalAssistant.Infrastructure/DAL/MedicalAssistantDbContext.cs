@@ -1,8 +1,9 @@
 ﻿using MedicalAssistant.Domain.ComplexTypes;
-using MedicalAssistant.Domain.Entites;
+using MedicalAssistant.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedicalAssistant.Infrastructure.DAL;
+
 internal sealed class MedicalAssistantDbContext : DbContext
 {
     public DbSet<User> Users { get; set; }
@@ -14,15 +15,17 @@ internal sealed class MedicalAssistantDbContext : DbContext
     public DbSet<NotificationHistory> NotificationHistories { get; set; }
     public DbSet<TokenHolder> TokenHolders { get; set; }
     public DbSet<Attachment> Attachments { get; set; }
-
+    public DbSet<MedicalHistory> MedicalHistories { get; set; }
     public DbSet<MedicationRecommendationNotification> MedicationRecommendationsNotifications { get; set; }
 
-    public MedicalAssistantDbContext(DbContextOptions<MedicalAssistantDbContext> options) : base(options) 
+    public DbSet<DiseaseStage> DiseaseStages { get; set; }
+
+    public MedicalAssistantDbContext(DbContextOptions<MedicalAssistantDbContext> options) : base(options)
     {
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);   
+        modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
     }
 }

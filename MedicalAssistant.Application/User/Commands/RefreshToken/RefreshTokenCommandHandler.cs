@@ -39,7 +39,7 @@ internal sealed class RefreshTokenCommandHandler
 		var id = _refreshTokenService.GetUserIdFromExpiredToken(request.OldAccessToken)
 			?? throw new EmptyEmailException();
 
-		Domain.Entites.User? user = await _userRepository.GetWithRefreshTokens(id, cancellationToken);
+		Domain.Entities.User? user = await _userRepository.GetWithRefreshTokens(id, cancellationToken);
 
 		if (user is null)
 		{
@@ -66,7 +66,7 @@ internal sealed class RefreshTokenCommandHandler
 			refreshTokenHolder.RefreshToken);
 	}
 
-	private async Task Validate(RefreshTokenCommand request, Domain.Entites.User user,CancellationToken ct)
+	private async Task Validate(RefreshTokenCommand request, Domain.Entities.User user,CancellationToken ct)
 	{
 		var refreshToken = user.RefreshTokens
 			.Where(x => x.RefreshToken == request.RefreshToken)

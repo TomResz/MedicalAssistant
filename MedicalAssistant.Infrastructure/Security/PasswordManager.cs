@@ -1,5 +1,5 @@
 ﻿using MedicalAssistant.Application.Security;
-using MedicalAssistant.Domain.Entites;
+using MedicalAssistant.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace MedicalAssistant.Infrastructure.Security;

@@ -6,11 +6,11 @@ using System.Reflection;
 namespace MedicalAssistant.Application.Tests.ObjectFactories;
 public static class UserFactory
 {
-	public static Domain.Entites.User CreateUser(
+	public static Domain.Entities.User CreateUser(
 		string email = "example@gmail.com",
 		string password = "notSecuredPassword")
 	{
-		var user = Domain.Entites.User.Create(
+		var user = Domain.Entities.User.Create(
 	email,
 	password,
 	"John Done",
@@ -26,11 +26,11 @@ public static class UserFactory
 	}
 
 
-	public static Domain.Entites.User CreateNotVerifiedUser(
+	public static Domain.Entities.User CreateNotVerifiedUser(
 		string email = "example@gmail.com",
 		string password = "notSecuredPassword")
 	{
-		var user = Domain.Entites.User.Create(
+		var user = Domain.Entities.User.Create(
 	email,
 	password,
 	"John Done",
@@ -45,12 +45,12 @@ public static class UserFactory
 		return user;
 	}
 
-	public static Domain.Entites.User CreateWithExternalAuthProvider(
+	public static Domain.Entities.User CreateWithExternalAuthProvider(
 		string email = "example@gmail.com",
 		string provider = "google",
 		string key = "12345678")
 	{
-		var user = Domain.Entites.User.CreateByExternalProvider(
+		var user = Domain.Entities.User.CreateByExternalProvider(
 	email,
 	"John Done",
 	Role.User(),

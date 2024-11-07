@@ -61,7 +61,7 @@ internal sealed class SignInCommandHandler
             token.RefreshToken);
     }
 
-    private void ValidateUser(SignInCommand request, Domain.Entites.User user)
+    private void ValidateUser(SignInCommand request, Domain.Entities.User user)
     {
         if (user.HasExternalLoginProvider)
         {

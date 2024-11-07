@@ -35,7 +35,7 @@ internal sealed class AddVisitCommandHandler
         Date date = request.Date;
         Date endDate = request.PredictedEndDate;
 
-        Domain.Entites.Visit visit = Domain.Entites.Visit.Create(
+        Domain.Entities.Visit visit = Domain.Entities.Visit.Create(
             userId,
                address,
                date,
@@ -44,7 +44,7 @@ internal sealed class AddVisitCommandHandler
                visitType,
                endDate);
 
-        Domain.Entites.User? user = await _userRepository.GetUserWithVisitsAsync(userId, cancellationToken);
+        Domain.Entities.User? user = await _userRepository.GetUserWithVisitsAsync(userId, cancellationToken);
 
         if (user is null)
         {

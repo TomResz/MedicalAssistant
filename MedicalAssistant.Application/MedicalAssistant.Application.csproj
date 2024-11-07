@@ -25,4 +25,8 @@
 		<InternalsVisibleTo Include="MedicalAssistant.Application.Tests" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="MedicalHistory\Query\" />
+	</ItemGroup>
+
 </Project>

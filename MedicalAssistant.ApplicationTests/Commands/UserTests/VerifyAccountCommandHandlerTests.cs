@@ -33,7 +33,7 @@ public class VerifyAccountCommandHandlerTests
 
 		await _handler.Handle(command, default);
 
-		_userRepository.Received(1).Update(Arg.Any<Domain.Entites.User>());
+		_userRepository.Received(1).Update(Arg.Any<Domain.Entities.User>());
 		await _unitOfWork.Received(1).SaveChangesAsync(default);
 	}
 
@@ -46,7 +46,7 @@ public class VerifyAccountCommandHandlerTests
 		Func<Task> act = async () => await _handler.Handle(command, default);
 
 		await act.Should().ThrowAsync<UnknownVerificationCode>();
-		_userRepository.DidNotReceive().Update(Arg.Any<Domain.Entites.User>());
+		_userRepository.DidNotReceive().Update(Arg.Any<Domain.Entities.User>());
 		await _unitOfWork.DidNotReceive().SaveChangesAsync(default);
 	}
 
@@ -57,7 +57,7 @@ public class VerifyAccountCommandHandlerTests
 		_userRepository.GetByVerificationCodeAsync(command.CodeHash).Returns(UserFactory.CreateUser());
 
 		await _handler.Handle(command, default);
-		_userRepository.DidNotReceive().Update(Arg.Any<Domain.Entites.User>());
+		_userRepository.DidNotReceive().Update(Arg.Any<Domain.Entities.User>());
 		await _unitOfWork.DidNotReceive().SaveChangesAsync(default);
 	}
 }

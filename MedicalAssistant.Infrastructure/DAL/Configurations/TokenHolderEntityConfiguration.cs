@@ -29,7 +29,7 @@ internal sealed class TokenHolderEntityConfiguration : IEntityTypeConfiguration<
 			.HasConversion(x => x!.Value, x => new(x))
 			.IsRequired(false);
 
-		builder.HasOne<Domain.Entites.User>()
+		builder.HasOne<Domain.Entities.User>()
 			.WithMany(x=>x.RefreshTokens)
 			.HasForeignKey(x=>x.UserId)
 			.OnDelete(DeleteBehavior.Cascade);

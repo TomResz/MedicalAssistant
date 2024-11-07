@@ -45,7 +45,7 @@ public class ExternalAuthenticationCommandHandlerTests
 		await act.Should().ThrowAsync<InvalidExternalAuthenticationResponseException>();
 
 		await _userRepository.DidNotReceive().GetByEmailWithExternalProviderAsync(Arg.Any<Email>());
-		_authenticator.DidNotReceive().GenerateToken(Arg.Any<Domain.Entites.User>());
+		_authenticator.DidNotReceive().GenerateToken(Arg.Any<Domain.Entities.User>());
 	}
 
 	[Fact]
@@ -66,7 +66,7 @@ public class ExternalAuthenticationCommandHandlerTests
 		_refreshTokenService.Generate(_clock.GetCurrentUtc(), Arg.Any<UserId>())
 			.Returns(TokenHolder.Create(refreshToken, _date.AddDays(1), user.Id));
 		
-		_authenticator.GenerateToken(Arg.Any<Domain.Entites.User>())
+		_authenticator.GenerateToken(Arg.Any<Domain.Entities.User>())
 			.Returns(new Dto.JwtDto() { AccessToken = accessToken, Expiration = _date.AddMinutes(15) });
 
 		var response = await _handler.Handle(command, default);
@@ -76,7 +76,7 @@ public class ExternalAuthenticationCommandHandlerTests
 		response.RefreshToken.Should().Be(refreshToken);
 
 		await _unitOfWork.Received(1).SaveChangesAsync();
-		await _userRepository.Received(1).AddAsync(Arg.Any<Domain.Entites.User>());
+		await _userRepository.Received(1).AddAsync(Arg.Any<Domain.Entities.User>());
 	}
 
 	[Fact]
@@ -95,7 +95,7 @@ public class ExternalAuthenticationCommandHandlerTests
 		_userRepository.GetByEmailWithExternalProviderAsync(user.Email).Returns(user);
 		_refreshTokenService.Generate(_clock.GetCurrentUtc(), user.Id)
 			.Returns( TokenHolder.Create(refreshToken, _date.AddDays(1), user.Id));
-		_authenticator.GenerateToken(Arg.Any<Domain.Entites.User>())
+		_authenticator.GenerateToken(Arg.Any<Domain.Entities.User>())
 			.Returns(new Dto.JwtDto() { AccessToken = accessToken, Expiration = _date.AddMinutes(15) });
 
 		var response = await _handler.Handle(command, default);
@@ -105,7 +105,7 @@ public class ExternalAuthenticationCommandHandlerTests
 		response.RefreshToken.Should().Be(refreshToken);
 
 		await _unitOfWork.Received(1).SaveChangesAsync();
-		await _userRepository.DidNotReceive().AddAsync(Arg.Any<Domain.Entites.User>());
+		await _userRepository.DidNotReceive().AddAsync(Arg.Any<Domain.Entities.User>());
 	}
 
 	[Fact]
@@ -127,7 +127,7 @@ public class ExternalAuthenticationCommandHandlerTests
 		_userRepository.GetByEmailWithExternalProviderAsync(user.Email).Returns(user);
 		_refreshTokenService.Generate(_clock.GetCurrentUtc(), user.Id)
 			.Returns( TokenHolder.Create(refreshToken, _date.AddDays(1),user.Id));
-		_authenticator.GenerateToken(Arg.Any<Domain.Entites.User>())
+		_authenticator.GenerateToken(Arg.Any<Domain.Entities.User>())
 			.Returns(new Dto.JwtDto() { AccessToken = accessToken, Expiration = _date.AddMinutes(15) });
 
 		Func<Task> act = async () => await _handler.Handle(command, default);
@@ -135,6 +135,6 @@ public class ExternalAuthenticationCommandHandlerTests
 		await act.Should().ThrowAsync<InvalidExternalProviderException>();
 
 		await _unitOfWork.DidNotReceive().SaveChangesAsync();
-		await _userRepository.DidNotReceive().AddAsync(Arg.Any<Domain.Entites.User>());
+		await _userRepository.DidNotReceive().AddAsync(Arg.Any<Domain.Entities.User>());
 	}
 }

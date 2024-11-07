@@ -1,6 +1,6 @@
 ﻿using MedicalAssistant.Domain.Exceptions;
 
-namespace MedicalAssistant.Domain.Entites;
+namespace MedicalAssistant.Domain.ValueObjects;
 
 public sealed record FileExtension
 {

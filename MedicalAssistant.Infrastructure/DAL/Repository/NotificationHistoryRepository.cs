@@ -1,4 +1,4 @@
-﻿using MedicalAssistant.Domain.Entites;
+﻿using MedicalAssistant.Domain.Entities;
 using MedicalAssistant.Domain.Repositories;
 using MedicalAssistant.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;

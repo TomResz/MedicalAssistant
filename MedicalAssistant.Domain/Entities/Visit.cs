@@ -5,7 +5,7 @@ using MedicalAssistant.Domain.Primitives;
 using MedicalAssistant.Domain.ValueObjects;
 using MedicalAssistant.Domain.ValueObjects.IDs;
 
-namespace MedicalAssistant.Domain.Entites;
+namespace MedicalAssistant.Domain.Entities;
 public class Visit : AggregateRoot<VisitId>
 {
     public UserId UserId { get; private set; }
@@ -27,6 +27,12 @@ public class Visit : AggregateRoot<VisitId>
 
     private readonly HashSet<Attachment> _attachments = new();
     public IEnumerable<Attachment> Attachments => _attachments;
+    
+    private readonly HashSet<MedicalHistory> _medicalHistories = new();
+    public IEnumerable<MedicalHistory> MedicalHistories => _medicalHistories;
+
+    private readonly HashSet<DiseaseStage> _diseaseStages = new();
+    public IEnumerable<DiseaseStage> DiseaseStages => _diseaseStages;
     private Visit() { }
 
     private Visit(
@@ -149,9 +155,15 @@ public class Visit : AggregateRoot<VisitId>
     {
         _attachments.Add(attachment);
     }
+    
 
-	public void UpdateMedicationRecommendation(MedicationRecommendation recommendation)
+	public void AddMedicalHistory(MedicalHistory medicalHistory)
 	{
-		throw new NotImplementedException();
+		if (medicalHistory.DiseaseStartDate.Value.Date < Date.Value.Date)
+		{
+			throw new InvalidMedicalHistoryStartDateException();
+		}
+		_medicalHistories.Add(medicalHistory);
 	}
+	
 }

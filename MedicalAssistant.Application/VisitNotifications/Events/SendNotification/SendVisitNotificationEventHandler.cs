@@ -4,7 +4,7 @@ using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Dto.Mappers;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Domain.Abstraction;
-using MedicalAssistant.Domain.Entites;
+using MedicalAssistant.Domain.Entities;
 using MedicalAssistant.Domain.Exceptions;
 using MedicalAssistant.Domain.Repositories;
 using MedicalAssistant.Domain.ValueObjects;
@@ -54,7 +54,7 @@ internal sealed class SendVisitNotificationEventHandler
 			throw new UnknownVisitException();
         }
 
-		Domain.Entites.User? user = await _userRepository.GetByIdWithSettingsAsync(visit.UserId, cancellationToken);
+		Domain.Entities.User? user = await _userRepository.GetByIdWithSettingsAsync(visit.UserId, cancellationToken);
 
         if (user is null)
         {

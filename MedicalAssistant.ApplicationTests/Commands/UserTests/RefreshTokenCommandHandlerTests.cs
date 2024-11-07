@@ -45,7 +45,7 @@ public class RefreshTokenCommandHandlerTests
 
 		await act.Should().ThrowAsync<EmptyEmailException>();
 		await _unitOfWork.DidNotReceive().SaveChangesAsync();
-		_authenticator.DidNotReceive().GenerateToken(Arg.Any<Domain.Entites.User>());
+		_authenticator.DidNotReceive().GenerateToken(Arg.Any<Domain.Entities.User>());
 	}
 
 	[Fact]
@@ -61,7 +61,7 @@ public class RefreshTokenCommandHandlerTests
 
 		await act.Should().ThrowAsync<UserNotFoundException>();
 		await _unitOfWork.DidNotReceive().SaveChangesAsync();
-		_authenticator.DidNotReceive().GenerateToken(Arg.Any<Domain.Entites.User>());
+		_authenticator.DidNotReceive().GenerateToken(Arg.Any<Domain.Entities.User>());
 	}
 
 	[Fact]
@@ -80,7 +80,7 @@ public class RefreshTokenCommandHandlerTests
 
 		await act.Should().ThrowAsync<UserNotFoundException>();
 		await _unitOfWork.DidNotReceive().SaveChangesAsync();
-		_authenticator.DidNotReceive().GenerateToken(Arg.Any<Domain.Entites.User>());
+		_authenticator.DidNotReceive().GenerateToken(Arg.Any<Domain.Entities.User>());
 	}
 
 	[Fact]
@@ -100,6 +100,6 @@ public class RefreshTokenCommandHandlerTests
 
 		await act.Should().ThrowAsync<RefreshTokenExpiredException>();
 		await _unitOfWork.DidNotReceive().SaveChangesAsync();
-		_authenticator.DidNotReceive().GenerateToken(Arg.Any<Domain.Entites.User>());
+		_authenticator.DidNotReceive().GenerateToken(Arg.Any<Domain.Entities.User>());
 	}
 }

@@ -1,4 +1,4 @@
-﻿using MedicalAssistant.Domain.Entites;
+﻿using MedicalAssistant.Domain.Entities;
 using MedicalAssistant.Domain.Repositories;
 
 namespace MedicalAssistant.Infrastructure.DAL.Repository;

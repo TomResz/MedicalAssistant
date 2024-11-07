@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
-using MedicalAssistant.Domain.Entites;
+using MedicalAssistant.Domain.Entities;
 using MedicalAssistant.Domain.Repositories;
 
 namespace MedicalAssistant.Application.MedicationNotifications.Commands.Add;

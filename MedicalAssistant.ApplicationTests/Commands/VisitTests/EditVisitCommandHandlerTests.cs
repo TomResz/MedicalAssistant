@@ -3,7 +3,7 @@ using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Tests.ObjectFactories;
 using MedicalAssistant.Application.Visits.Commands.EditVisit;
-using MedicalAssistant.Domain.Entites;
+using MedicalAssistant.Domain.Entities;
 using MedicalAssistant.Domain.Exceptions;
 using MedicalAssistant.Domain.Repositories;
 using MedicalAssistant.Domain.ValueObjects;

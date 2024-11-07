@@ -41,7 +41,7 @@ public class ChangePasswordCommandHandlerTests
 
         await _handler.Handle(command, default);
 
-        _userRepository.Received(1).Update(Arg.Any<Domain.Entites.User>());
+        _userRepository.Received(1).Update(Arg.Any<Domain.Entities.User>());
         await _unitOfWork.Received(1).SaveChangesAsync(default);
     }
 
@@ -58,7 +58,7 @@ public class ChangePasswordCommandHandlerTests
 
         await act.Should().ThrowAsync<InvalidNewPasswordException>();
 
-        _userRepository.DidNotReceive().Update(Arg.Any<Domain.Entites.User>()); 
+        _userRepository.DidNotReceive().Update(Arg.Any<Domain.Entities.User>()); 
         await _unitOfWork.DidNotReceive().SaveChangesAsync();
 	}
 
@@ -76,7 +76,7 @@ public class ChangePasswordCommandHandlerTests
 
 		await act.Should().ThrowAsync<UserNotFoundException>();
 
-		_userRepository.DidNotReceive().Update(Arg.Any<Domain.Entites.User>());
+		_userRepository.DidNotReceive().Update(Arg.Any<Domain.Entities.User>());
 		await _unitOfWork.DidNotReceive().SaveChangesAsync();
 	}
 
@@ -90,7 +90,7 @@ public class ChangePasswordCommandHandlerTests
         Func<Task> act = async () => await _handler.Handle(command, default);
 
         await act.Should().ThrowAsync<InvalidConfirmedPasswordException>();
-		_userRepository.DidNotReceive().Update(Arg.Any<Domain.Entites.User>());
+		_userRepository.DidNotReceive().Update(Arg.Any<Domain.Entities.User>());
 		await _unitOfWork.DidNotReceive().SaveChangesAsync();
 	}
 }

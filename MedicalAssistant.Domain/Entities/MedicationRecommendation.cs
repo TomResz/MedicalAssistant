@@ -3,7 +3,7 @@ using MedicalAssistant.Domain.Exceptions;
 using MedicalAssistant.Domain.ValueObjects;
 using MedicalAssistant.Domain.ValueObjects.IDs;
 
-namespace MedicalAssistant.Domain.Entites;
+namespace MedicalAssistant.Domain.Entities;
 public class MedicationRecommendation
 {
     public MedicationRecommendationId Id { get; private set; }

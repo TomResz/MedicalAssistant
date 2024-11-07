@@ -47,7 +47,7 @@ public class SignUpCommandHandlerTests
 
         await _handler.Handle(command, default);
 
-        await _userRepository.Received(1).AddAsync(Arg.Any<Domain.Entites.User>(), default);
+        await _userRepository.Received(1).AddAsync(Arg.Any<Domain.Entities.User>(), default);
         await _unitOfWork.Received(1).SaveChangesAsync();
     }
 
@@ -65,7 +65,7 @@ public class SignUpCommandHandlerTests
 
         await act.Should().ThrowAsync<EmailInUseException>();
 
-        await _userRepository.DidNotReceive().AddAsync(Arg.Any<Domain.Entites.User>());
+        await _userRepository.DidNotReceive().AddAsync(Arg.Any<Domain.Entities.User>());
         await _unitOfWork.DidNotReceive().SaveChangesAsync();
     }
 }
