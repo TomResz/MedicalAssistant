@@ -1,34 +1,66 @@
-﻿@using MedicalAssistant.UI.Models.Medication
+﻿@using System.Text
+@using MedicalAssistant.UI.Models.Medication
 <MudPaper Elevation="4" Class="@(Class ?? "pa-4")" Style="margin-top: 0px;">
-	<MudText Typo="Typo.h6">@Translations.MedicationName: @Medication.Name</MudText>
-	<MudText Typo="Typo.body1">
-		@Translations.Date: <b>@Medication.StartDate.ToString("dd-MM-yyyy")</b> - <b>@Medication.EndDate.ToString("dd-MM-yyyy")</b>
-	</MudText>
-	<MudText>
-
-	</MudText>
-	<MudSpacer />
-	@if (ButtonVisible)
-	{
-		<MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Primary" OnClick="ShowDetails">
-			@Translations.ShowDetails
-		</MudButton>
-	}
+    <div class="d-flex flex-column w-100 h-100">
+        <div class="d-flex flex-row flex-grow-1 w-100 h-100 pa-2">
+            <MudTooltip Text="@Translations.MedicationName">
+                <MudIcon Icon="@Icons.Material.Outlined.Medication" Class="flex-grow-1" Size="Size.Large"></MudIcon>
+            </MudTooltip>
+            <MudText Class="flex-grow-1 align-content-center">@Medication.Name</MudText>
+            <MudTooltip Text="@Translations.TimesOfDay">
+                <MudIcon Icon="@Icons.Material.Outlined.Medication" Class="flex-grow-1" Size="Size.Large"></MudIcon>
+            </MudTooltip>
+            <MudText Class="flex-grow-1 align-content-center">@(ToTimeOfDay(Medication.TimeOfDay))</MudText>
+        </div>
+        <div class="d-flex flex-row w-100">
+            <div class="pa-2">
+                <CalendarIconComponent Date="@Medication.StartDate"/>
+            </div>
+            <div class="align-content-center text-center ps-2">
+                <MudIcon Icon="@Icons.Material.Filled.ArrowForward"></MudIcon>
+            </div>
+            <div class="pa-2">
+                <CalendarIconComponent Date="@Medication.EndDate"/>
+            </div>
+        </div>
+        <MudSpacer/>
+        @if (ButtonVisible)
+        {
+            <div class="flex-grow-1 w-100 mt-4">
+                <MudButton FullWidth="true" Variant="MudBlazor.Variant.Filled" Color="Color.Primary" OnClick="ShowDetails">
+                    @Translations.ShowDetails
+                </MudButton>
+            </div>
+        }
+    </div>
 </MudPaper>
 
 @code {
-    [Parameter]
-    public bool ButtonVisible { get; set; } = true;
+    [Parameter] public bool ButtonVisible { get; set; } = true;
 
-    [Parameter]
-    public string? Class { get; set; } = null;
+    [Parameter] public string? Class { get; set; } = null;
 
-    [Parameter]
-    public MedicationDto Medication { get; set; }
+    [Parameter] public MedicationDto Medication { get; set; }
 
-    [Inject]
-    public NavigationManager Navigation { get; set; }
+    [Inject] public NavigationManager Navigation { get; set; }
 
-    public void ShowDetails() 
-		=> Navigation.NavigateTo($"medication/{Medication.Id}");
+    public void ShowDetails()
+        => Navigation.NavigateTo($"medication/{Medication.Id}");
+
+    public string ToTimeOfDay(string[] timeOfDay)
+    {
+        var sb = new StringBuilder();
+        if (timeOfDay.Contains(MedicationMappers.Morning))
+            sb.Append($" {Translations.Morning},");
+        if (timeOfDay.Contains(MedicationMappers.Afternoon))
+            sb.Append($" {Translations.Afternoon},");
+        if (timeOfDay.Contains(MedicationMappers.Evening))
+            sb.Append($" {Translations.Evening},");
+        if (timeOfDay.Contains(MedicationMappers.Night))
+            sb.Append($" {Translations.Night},");
+
+        var str = sb.ToString();
+        return str.Substring(0, str.Length - 1);
+    }
+
 }

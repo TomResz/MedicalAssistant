@@ -1,0 +1,42 @@
+﻿time.icon {
+    font-size: 1em;
+    display: block;
+    position: relative;
+    width: 7em;
+    height: 7.5em;
+    background-color: var(--mud-palette-surface);
+    border-radius: 0.6em;
+    border: solid 2px var(--mud-palette-appbar-background) ;
+    overflow: hidden;
+}
+
+time.icon * {
+    display: block;
+    width: 100%;
+    font-size: 1em;
+    font-weight: bold;
+    font-style: normal;
+    text-align: center;
+}
+time.icon strong {
+    position: absolute;
+    top: 0;
+    padding: 0.4em 0;
+    color: #fff;
+    background: var(--mud-palette-appbar-background);
+    box-shadow: var(--mud-palette-appbar-background);;
+}
+
+time.icon em {
+    position: absolute;
+    bottom: 0.1em;
+    color: var(--mud-palette-text-primary);
+}
+
+time.icon span {
+    font-size: 1.7em;
+    letter-spacing: -0.05em;
+    padding-top: 2.2em;
+    padding-bottom: 1.8em;
+    color: var(--mud-palette-text-primary);
+}

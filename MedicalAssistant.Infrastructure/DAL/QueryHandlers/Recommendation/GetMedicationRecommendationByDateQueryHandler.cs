@@ -22,18 +22,19 @@ internal sealed class GetMedicationRecommendationByDateQueryHandler
         _userContext = userContext;
     }
 
-    public async Task<IEnumerable<MedicationRecommendationDto>> Handle(GetMedicationRecommendationByDateQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<MedicationRecommendationDto>> Handle(
+        GetMedicationRecommendationByDateQuery request, CancellationToken cancellationToken)
     {
         var userId = _userContext.GetUserId;
         var date = new Date(request.Date.Date);
 
         var response = await _context
             .Recommendations
-            .Include(x=>x.Visit)
+            .Include(x => x.Visit)
             .AsNoTracking()
             .Where(x => x.StartDate <= date &&
-                x.EndDate >= date &&
-                x.UserId == userId)
+                        x.EndDate >= date &&
+                        x.UserId == userId)
             .Select(x => x.ToDto())
             .ToListAsync(cancellationToken);
         return response;

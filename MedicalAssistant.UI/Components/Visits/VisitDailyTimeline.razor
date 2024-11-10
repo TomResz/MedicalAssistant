@@ -1,0 +1,84 @@
+﻿@using MedicalAssistant.UI.Models.Visits
+@using MedicalAssistant.UI.Shared.Services.Abstraction
+@using MudBlazor.Services
+@using NavigationContext = MudBlazor.NavigationContext
+
+@if (_loading)
+{
+    <div class="d-flex flex-grow-1 flex-column w-100 h-100">
+        <LoadingSkeletonComponent Class="flex-grow-1 pa-4"/>
+    </div>
+}
+else
+{
+    @if (_visits.Count == 0)
+    {
+        <div style="display: flex; justify-content: center; align-items: center; height: 100%; color: #888888; padding: 16px; text-align: center;">
+            <MudIcon Icon="@Icons.Material.Outlined.EventBusy" Size="Size.Large" Style="margin-right: 8px; color: #FF5722;"/>
+            <MudText Typo="Typo.h6" Class="fade-in">No visits</MudText>
+        </div>
+    }
+    else
+    {
+        <MudTimeline TimelineOrientation="@timelineOrientation" TimelineAlign="TimelineAlign.Start">
+            @foreach (var visit in _visits)
+            {
+                <MudTimelineItem TimelineAlign="TimelineAlign.Start">
+                    <ItemContent>
+                        <MudText Typo="Typo.h6">@visit.Date.ToString("HH:mm")</MudText>
+                    </ItemContent>
+                    <ItemOpposite>
+                        <MudTooltip Text="@Translations.ShowDetails">
+                            <MudButton Color="Color.Transparent" Style="text-align: left; cursor: pointer;" OnClick="@(() => NavigateToDetails(visit.Id))">
+                                <div>
+                                    <MudText Typo="Typo.h6" Class="font-weight-bold">
+                                        @visit.DoctorName
+                                    </MudText>
+                                    <MudText Typo="Typo.body2" Class="font-weight-medium text-muted mt-1">
+                                        @visit.VisitType
+                                    </MudText>
+                                </div>
+                            </MudButton>
+                        </MudTooltip>
+                    </ItemOpposite>
+                </MudTimelineItem>
+            }
+        </MudTimeline>
+        <MediaQuery Media="(max-width: 576px)" @bind-Matches="isSmallScreen"/>
+    }
+}
+@code{
+    private bool _loading = true;
+
+    [Inject] public ILocalTimeProvider TimeProvider { get; set; }
+    [Inject] public IVisitService VisitService { get; set; }
+    [Inject] public NavigationManager NavigationManager { get; set; }
+    private bool isSmallScreen = false;
+
+    private TimelineOrientation timelineOrientation => isSmallScreen
+        ? TimelineOrientation.Vertical
+        : TimelineOrientation.Horizontal;
+
+    private List<VisitDto> _visits = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var currentDate = (await TimeProvider.CurrentDate()).Date;
+
+        var response = await VisitService.GetByDate(currentDate);
+
+        if (response.IsSuccess)
+        {
+            _visits = response.Value!;
+            _visits = _visits.OrderBy(x => x.Date).ToList();
+        }
+
+        _loading = false;
+    }
+
+    private void NavigateToDetails(Guid id)
+    {
+        NavigationManager.NavigateTo($"visit/{id}");
+    }
+
+}

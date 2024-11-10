@@ -1,0 +1,14 @@
+﻿<time class="icon">
+    <em>@NameOfDay</em>
+    <strong>
+        @Date.Year <br/>
+        @Date.ToString("MMMM")
+    </strong>
+    <span>@Date.Day</span>
+</time>
+
+@code{
+    [Parameter] public DateTime Date { get; set; }
+
+    private string NameOfDay => char.ToUpper(Date.ToString("dddd")[0]) + Date.ToString("dddd")[1..];
+}

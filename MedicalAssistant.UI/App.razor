@@ -1,26 +1,28 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @inject NavigationManager Navigation
-<CascadingAuthenticationState>
-	<Router AppAssembly="@typeof(App).Assembly">
-		<Found Context="routeData">
-			<AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(BaseLayout)">
-				<NotAuthorized>
-					<LayoutView Layout="@typeof(LoginRegisterLayout)">
-						@{
-							Navigation.NavigateTo("/login");
-						}
-					</LayoutView>
-				</NotAuthorized>
-			</AuthorizeRouteView>
-			<FocusOnNavigate RouteData="@routeData" Selector="h1" />
-		</Found>
-		<NotFound>
-			<PageTitle>Not found</PageTitle>
-			<LayoutView Layout="@typeof(BaseLayout)">
-				@{
-					Navigation.NavigateTo("/");
-				}
-			</LayoutView>
-		</NotFound>
-	</Router>
-</CascadingAuthenticationState>
+<MediaQueryList>
+    <CascadingAuthenticationState>
+        <Router AppAssembly="@typeof(App).Assembly">
+            <Found Context="routeData">
+                <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(BaseLayout)">
+                    <NotAuthorized>
+                        <LayoutView Layout="@typeof(LoginRegisterLayout)">
+                            @{
+                                Navigation.NavigateTo("/login");
+                            }
+                        </LayoutView>
+                    </NotAuthorized>
+                </AuthorizeRouteView>
+                <FocusOnNavigate RouteData="@routeData" Selector="h1"/>
+            </Found>
+            <NotFound>
+                <PageTitle>Not found</PageTitle>
+                <LayoutView Layout="@typeof(BaseLayout)">
+                    @{
+                        Navigation.NavigateTo("/");
+                    }
+                </LayoutView>
+            </NotFound>
+        </Router>
+    </CascadingAuthenticationState>
+</MediaQueryList>

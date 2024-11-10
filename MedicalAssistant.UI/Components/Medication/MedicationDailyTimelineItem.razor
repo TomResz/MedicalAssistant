@@ -1,0 +1,16 @@
+﻿@using MedicalAssistant.UI.Models.Medication
+<MudTooltip Text="@Translations.ShowDetails">
+    <MudButton Color="Color.Transparent" Style="text-align: left; cursor: pointer;"
+               OnClick="@GoToDetails">
+        <div>
+            <MudText Color="Color.Dark" Typo="Typo.h6">@Medication.Name</MudText>
+        </div>
+    </MudButton>
+</MudTooltip>
+
+@code{
+    [Parameter] public MedicationDto Medication { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
+
+    private void GoToDetails() => NavigationManager.NavigateTo($"/visit/{Medication.Id}");
+}

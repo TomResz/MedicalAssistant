@@ -9,14 +9,14 @@
 	@if (GroupedVisits[day].Any())
 	{
 		<MudPaper Elevation="4" Class="pa-4 my-2 mx-2">
-			<MudGrid>
+			<MudGrid Justify="Justify.Center">
 				<MudItem xs="12">
 					<MudText Typo="Typo.h6" Align="Align.Center"> @DayOfWeekToString(day)</MudText>
 				</MudItem>
 
 				@foreach (var visit in GroupedVisits[day].OrderBy(x=>x.Date))
 				{
-					<MudItem xs="12" sm="6">
+					<MudItem xs="12" sm="9" md="6">
 						<VisitItem Visit="visit" />
 					</MudItem>
 				}

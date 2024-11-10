@@ -24,6 +24,8 @@ services:
     ports:
      - 5341:5341
      - 5100:80 
+    volumes:
+      - ./.cointainers/medicalassistant-seq:/data
     networks:
       - medical-assistant-network
 

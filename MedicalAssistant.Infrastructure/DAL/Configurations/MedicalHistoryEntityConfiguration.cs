@@ -18,7 +18,7 @@ internal sealed class MedicalHistoryEntityConfiguration
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired(true);
         
-        builder.HasOne<Visit>()
+        builder.HasOne(x=>x.Visit)
             .WithMany(x=>x.MedicalHistories)
             .HasForeignKey(x=>x.VisitId)
             .OnDelete(DeleteBehavior.SetNull)

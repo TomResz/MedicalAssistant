@@ -47,12 +47,6 @@ public partial class EditMedicationRecommendationDialog
 
 	protected override void OnParametersSet()
 	{
-		if (Medication is null)
-		{
-			DialogInstance.Close();
-			return;
-		}
-
 		_visitDto = Medication.Visit;
 		_viewModel = Medication.ToViewModel();
 	}
@@ -105,7 +99,7 @@ public partial class EditMedicationRecommendationDialog
 			(MarkupString)Translations.DialogRemoveMedication,
 			yesText: Translations.DialogYes, cancelText: Translations.DialogNo);
 
-		if (result is null || result == false)
+		if (result is null or false)
 		{
 			return;
 		}
@@ -119,6 +113,11 @@ public partial class EditMedicationRecommendationDialog
 		}
 	}
 
-	private void ShowDetails() => NavigationManager.NavigateTo($"/medication/{Id}");
+	private void ShowDetails()
+	{
+		DialogInstance.Close();
+		NavigationManager.NavigateTo($"/medication/{Id}");
+	}
+		
 
 }

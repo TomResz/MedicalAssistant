@@ -10,14 +10,14 @@
 	@if (GroupedMedications[day].Any())
 	{
 		<MudPaper Elevation="4" Class="pa-4 my-2 mx-2">
-			<MudGrid>
+			<MudGrid Justify="Justify.Center">
 				<MudItem xs="12">
 					<MudText Typo="Typo.h6" Align="Align.Center"> @DayOfWeekToString(day)</MudText>
 				</MudItem>
 
 				@foreach (MedicationDto medication in GroupedMedications[day].OrderBy(x => x.Name))
 				{
-					<MudItem xs="12" sm="6">
+					<MudItem xs="12">
 						<MedicationItem Medication="medication"/>
 					</MudItem>
 				}

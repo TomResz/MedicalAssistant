@@ -18,61 +18,61 @@ public class MedicationRecommendationNotificationEndpoints
 			.WithTags("Medication Recommendation Notifications")
 			.RequireAuthorization(Permissions.Permissions.VerifiedUser);
 
-		group.MapPost("/", async (IMediator _mediator, AddMedicationNotificationCommand command) =>
+		group.MapPost("/", async (IMediator mediator, AddMedicationNotificationCommand command) =>
 		{
-			var id = await _mediator.Send(command);
+			var id = await mediator.Send(command);
 			return Results.Ok(id);
 		});
 
 
-		group.MapGet("week", async (IMediator _mediator,
+		group.MapGet("week", async (IMediator mediator,
 			[FromQuery]int offset, [FromQuery] DateTime date) =>
 		{
 			var query = new GetMedicationNotificationByWeekQuery(offset,date);
-			var response = await _mediator.Send(query);
+			var response = await mediator.Send(query);
 			return Results.Ok(response);
 
 		});
 
-		group.MapGet("/medication", async (IMediator _mediator, [FromQuery]Guid id, [FromQuery]int offset) =>
+		group.MapGet("/medication", async (IMediator mediator, [FromQuery]Guid id, [FromQuery]int offset) =>
 		{
 			var query = new GetMedicationNotificationByMedicationQuery(id, offset);
-			var response = await _mediator.Send(query);
+			var response = await mediator.Send(query);
 			return Results.Ok(response);
 		}).Produces(StatusCodes.Status200OK,typeof(IEnumerable<MedicationNotificationWithDateRangeDto>));
 
-		group.MapGet("/dates/{medicationId:guid}", async (IMediator _mediator, Guid medicationId) =>
+		group.MapGet("/dates/{medicationId:guid}", async (IMediator mediator, Guid medicationId) =>
 		{
 			var query = new GetMedicationDateRangeQuery(medicationId);
-			var response = await _mediator.Send(query);
+			var response = await mediator.Send(query);
 			return response is not null ? Results.Ok(response) : Results.BadRequest();
 		});
 
-		group.MapDelete("{id::guid}", async (IMediator _mediator, Guid id) =>
+		group.MapDelete("{id::guid}", async (IMediator mediator, Guid id) =>
 		{
 			var command = new DeleteMedicationNotificationCommand(id);
-			await _mediator.Send(command);
+			await mediator.Send(command);
 			return Results.NoContent();
 		});
 
-		group.MapPatch("/", async (IMediator _mediator, EditMedicationNotificationCommand command) =>
+		group.MapPatch("/", async (IMediator mediator, EditMedicationNotificationCommand command) =>
 		{
-			await _mediator.Send(command);
+			await mediator.Send(command);
 			return Results.NoContent();
 		});
 
-		group.MapGet("/", async (IMediator _mediator, [FromQuery] int Page,
+		group.MapGet("/", async (IMediator mediator, [FromQuery] int Page,
 			[FromQuery] int PageSize, [FromQuery] int Offset, [FromQuery]DateTime Date) =>
 		{
 			var query = new GetUpcomingMedicationNotificationPageQuery(Page, PageSize,Offset,Date);
-			var response = await _mediator.Send(query);
+			var response = await mediator.Send(query);
 			return Results.Ok(response);
 		});
 
-		group.MapGet("/{date:datetime}", async (IMediator _mediator, DateTime date) =>
+		group.MapGet("/{date:datetime}", async (IMediator mediator, DateTime date) =>
 		{
 			var query = new GetMedicationRecommendationByDateQuery(date);
-			var response = await _mediator.Send(query);
+			var response = await mediator.Send(query);
 			return Results.Ok(response);	
 		});
 	}

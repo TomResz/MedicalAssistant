@@ -14,10 +14,10 @@ public class AttachmentEndpoints : IEndpoints
 			.WithTags("Attachments")
 			.RequireAuthorization(Permissions.Permissions.VerifiedUser);
 
-		groupWithoutVisit.MapGet("{id:guid}", async (IMediator _mediator, Guid id,HttpResponse httpResponse) =>
+		groupWithoutVisit.MapGet("{id:guid}", async (IMediator mediator, Guid id,HttpResponse httpResponse) =>
 		{
 			var query = new DownloadAttachmentByIdQuery(id);
-			var response = await _mediator.Send(query);
+			var response = await mediator.Send(query);
 
 			if (response is null)
 			{
@@ -35,10 +35,10 @@ public class AttachmentEndpoints : IEndpoints
 			return Results.File(response.Content, mimeType, response.Name);
 		});
 
-		groupWithoutVisit.MapDelete("{id:guid}", async (IMediator _mediator, Guid id) =>
+		groupWithoutVisit.MapDelete("{id:guid}", async (IMediator mediator, Guid id) =>
 		{
 			var command = new DeleteAttachmentCommand(id);
-			await _mediator.Send(command);
+			await mediator.Send(command);
 			return Results.NoContent();
 		});
 
@@ -50,17 +50,17 @@ public class AttachmentEndpoints : IEndpoints
 		group.MapPost("/", async (
 			[FromRoute] Guid visitId,
 			[FromForm] IFormFile file,
-			IMediator _mediator) =>
+			IMediator mediator) =>
 		{
 			var command = new AddAttachmentCommand(visitId, file);
-			var response = await _mediator.Send(command);
+			var response = await mediator.Send(command);
 			return Results.Created($"/api/attachment/{response.Id}", response);
 		}).DisableAntiforgery();
 
-		group.MapGet("/", async (IMediator _mediator, [FromRoute] Guid visitId) =>
+		group.MapGet("/", async (IMediator mediator, [FromRoute] Guid visitId) =>
 		{
 			var query = new GetAttachmentViewListQuery(visitId);
-			var response = await _mediator.Send(query);
+			var response = await mediator.Send(query);
 			return Results.Ok(response);
 		});
 	}

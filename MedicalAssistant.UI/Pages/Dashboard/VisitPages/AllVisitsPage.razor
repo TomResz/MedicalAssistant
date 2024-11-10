@@ -8,11 +8,11 @@
 		<div class="d-flex flex-row justify-end flex-grow-1 w-100">
 			<div style="max-width: 300px; margin-top: 14px; margin-right: 16px;">
 				<MudSelect T="string" Value="SelectedSortingDirection" ValueChanged="DirectionChanged">
-					<MudSelectItem Value="@(Translations.Ascending)">
+					<MudSelectItem Value="@Translations.Ascending" >
 						<MudIcon Icon="@Icons.Material.Filled.TrendingUp" />
 						<MudText Inline="true">@Translations.Ascending</MudText>
 					</MudSelectItem>
-					<MudSelectItem Value="@(Translations.Descending)">
+					<MudSelectItem Value="@Translations.Descending">
 						<MudIcon Icon="@Icons.Material.Filled.TrendingDown" />
 						<MudText Inline="true">@Translations.Descending</MudText>
 					</MudSelectItem>
@@ -29,10 +29,10 @@
 			</div>
 		</div>
 	</MudPaper>
-	<MudGrid Class="pa-4">
+	<MudGrid Class="pa-4" Justify="Justify.FlexStart">
 		@foreach (var visit in _visits)
 		{
-			<MudItem xs="6" sm="4" md="2">
+			<MudItem xs="12" sm="8" md="4">
 				<VisitItem Visit="visit" />
 			</MudItem>
 		}

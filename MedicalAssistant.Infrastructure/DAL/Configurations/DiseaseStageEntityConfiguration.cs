@@ -17,7 +17,7 @@ internal sealed class DiseaseStageEntityConfiguration
                 x => new(x))
             .IsRequired();
         
-        builder.HasOne<Visit>()
+        builder.HasOne(x=>x.Visit)
             .WithMany(x=>x.DiseaseStages)
             .HasForeignKey(x=>x.VisitId)
             .OnDelete(DeleteBehavior.SetNull)

@@ -5,12 +5,12 @@
 }
 <MudDialog>
 	<DialogContent>
-		<MudGrid>
+		<MudGrid Justify="Justify.Center">
 			@if (Visits is not null)
 			{
 				foreach (var visit in Visits)
 				{
-					<MudItem xs="12" sm="6" md="@(Visits.Count > 3 ? 4 : 6)">
+					<MudItem xs="12" sm="8" md="6">
 						<VisitItem ButtonVisible="true" Visit="visit" Class="pa-4" />
 					</MudItem>
 				}

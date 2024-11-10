@@ -11,12 +11,13 @@ public class DiseaseStage
     public Note Note { get; private set; }
     public MedicalHistoryId MedicalHistoryId { get; private set; }
     public VisitId? VisitId { get; private set; }
-
+    
+    public Visit? Visit { get; private set; }
     private DiseaseStage()
     {
     }
 
-    internal DiseaseStage(
+    private DiseaseStage(
         DiseaseStageId id,
         DiseaseStageName name,
         Date date,
@@ -31,4 +32,22 @@ public class DiseaseStage
         MedicalHistoryId = medicalHistoryId;
         VisitId = visitId;
     }
+
+
+    public static DiseaseStage Create(
+        VisitId? visitId,
+        DiseaseStageName name,
+        Date date,
+        Note note,
+        MedicalHistoryId medicalHistoryId)
+    {
+        return new(
+            Guid.NewGuid(),
+            name, 
+            date,
+            note,
+            medicalHistoryId,
+            visitId);
+    }
+    
 }

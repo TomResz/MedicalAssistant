@@ -14,6 +14,9 @@ public class MedicalHistory
     public Note Notes { get; private set; }
     public Note SymptomDescription { get; private set; }
     public VisitId? VisitId { get; private set; }
+    
+    // EF
+    public Visit? Visit { get; private set; }
     public User User { get; private set; }
 
     private readonly HashSet<DiseaseStage> _diseaseStages = new();
@@ -69,4 +72,14 @@ public class MedicalHistory
             symptomDescription,
             visitId);
     }
+
+    public void AddStage(DiseaseStage stage)
+    {
+        if (stage.Date.ToDate() < DiseaseStartDate.ToDate())
+        {
+            throw new InvalidStageDateException();
+        }
+        _diseaseStages.Add(stage);
+    }
+    
 }

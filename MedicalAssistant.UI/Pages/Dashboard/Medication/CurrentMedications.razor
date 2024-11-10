@@ -2,8 +2,8 @@
 @using MedicalAssistant.UI.Components.Medication
 @page "/medication/current"
 
-<MudGrid Class="ma-0 visit-grid">
-		<MudItem xs="12" sm="6" Class="pa-0 mx-0 visit-item">
+<MudGrid Class="ma-0 visit-grid" Justify="Justify.Center">
+		<MudItem xs="12" sm="8" md="6" Class="pa-0 mx-0 visit-item">
 			<MudCard Class="visit-card" Elevation="3">
 			@if (_loading)
 			{
@@ -16,7 +16,7 @@
 		</MudCard>
 		</MudItem>
 
-	<MudItem xs="12" sm="6" Class="pa-0 mx-0 visit-item">
+	<MudItem xs="12" sm="8" md="6" Class="pa-0 mx-0 visit-item">
 		<MudCard Class="visit-card" Elevation="3">
 			@if (_secondLoading)
 			{

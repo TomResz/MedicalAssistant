@@ -35,7 +35,7 @@ public partial class MedicationPage
 	[Inject]
 	public NavigationManager NavigationManager { get; set; }
 
-	protected override async Task OnInitializedAsync()
+	protected override async Task OnParametersSetAsync()
 	{
 		var offset = await LocalTimeProvider.TimeZoneOffset();
 

@@ -35,7 +35,7 @@ window.onload = function () {
     const loadingTheme = document.querySelector('.loading-logo-screen');
     if (loadingTheme) {
         const isDarkMode = localStorage.getItem("isDarkMode");
-        loadingTheme.style.backgroundColor = isDarkMode == "true" ? 'rgba(50,51,61,1)' : 'white';
+        loadingTheme.style.backgroundColor = isDarkMode === "true" ? 'rgba(50,51,61,1)' : 'white';
     }
     loadErrorLabels();
 }

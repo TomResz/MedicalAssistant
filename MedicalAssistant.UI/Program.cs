@@ -11,12 +11,14 @@ using MudBlazor;
 using MudBlazor.Services;
 using Radzen;
 using System.Globalization;
+using BlazorPro.BlazorSize;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-
+builder.Services.AddMediaQueryService();
+builder.Services.AddResizeListener();
 
 builder.Services.AddAuthorizationCore( conf =>
 {
