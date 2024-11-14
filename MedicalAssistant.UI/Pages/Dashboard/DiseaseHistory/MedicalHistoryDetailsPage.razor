@@ -1,0 +1,7 @@
+﻿@page "/medical-history/{id:guid}"
+<PageTitle>@Translations.DiseaseHistory</PageTitle>
+
+@code{
+    [Parameter]
+    public Guid Id { get; set; }
+}

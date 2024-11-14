@@ -12,5 +12,5 @@
     [Parameter] public MedicationDto Medication { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }
 
-    private void GoToDetails() => NavigationManager.NavigateTo($"/visit/{Medication.Id}");
+    private void GoToDetails() => NavigationManager.NavigateTo($"/medication/{Medication.Id}");
 }

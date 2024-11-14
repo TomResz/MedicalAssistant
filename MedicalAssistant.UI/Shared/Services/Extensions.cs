@@ -2,6 +2,7 @@
 using MedicalAssistant.UI.Shared.Services.Attachment;
 using MedicalAssistant.UI.Shared.Services.HubToken;
 using MedicalAssistant.UI.Shared.Services.Language;
+using MedicalAssistant.UI.Shared.Services.MedicalHistory;
 using MedicalAssistant.UI.Shared.Services.Medication;
 using MedicalAssistant.UI.Shared.Services.MedicationNotifications;
 using MedicalAssistant.UI.Shared.Services.Notifications;
@@ -33,7 +34,8 @@ public static class Extensions
 		services.AddScoped<ISettingsService, SettingsService>();
 		services.AddScoped<IMedicationService, MedicationService>();
 		services.AddScoped<IMedicationNotificationService,MedicationNotificationService>();
-
+		services.AddScoped<IMedicalHistoryService, MedicalHistoryService>();
+		
 		return services;
 	}
 }

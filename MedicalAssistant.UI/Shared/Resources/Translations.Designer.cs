@@ -483,6 +483,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting an Entry from Medical History.
+        /// </summary>
+        internal static string DialogMedicalHistoryRemoving {
+            get {
+                return ResourceManager.GetString("DialogMedicalHistoryRemoving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         internal static string DialogNo {
@@ -497,6 +506,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string DialogRemoveMedication {
             get {
                 return ResourceManager.GetString("DialogRemoveMedication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove this entry from your medical history ?.
+        /// </summary>
+        internal static string DialogRemoweMedicatalHistory {
+            get {
+                return ResourceManager.GetString("DialogRemoweMedicatalHistory", resourceCulture);
             }
         }
         
@@ -524,6 +542,24 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string DialogYes {
             get {
                 return ResourceManager.GetString("DialogYes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disease History.
+        /// </summary>
+        internal static string DiseaseHistory {
+            get {
+                return ResourceManager.GetString("DiseaseHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disease Name.
+        /// </summary>
+        internal static string DiseaseName {
+            get {
+                return ResourceManager.GetString("DiseaseName", resourceCulture);
             }
         }
         
@@ -1712,6 +1748,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string SomethingWentWrong {
             get {
                 return ResourceManager.GetString("SomethingWentWrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Count Of Disease Stages.
+        /// </summary>
+        internal static string StageCount {
+            get {
+                return ResourceManager.GetString("StageCount", resourceCulture);
             }
         }
         

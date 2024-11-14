@@ -30,7 +30,7 @@ internal sealed class GoogleAuthService : IGoogleAuthService
         _googleAuthHttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenResponse.AccessToken);
 
         var response = await _googleAuthHttpClient.GetAsync("oauth2/v3/userinfo",ct);
-        var responseContent = await response.Content.ReadAsStringAsync();
+        var responseContent = await response.Content.ReadAsStringAsync(ct);
 
         var userInfo = JsonSerializer.Deserialize<GoogleDataResponse?>(responseContent);
 

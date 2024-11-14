@@ -1,4 +1,5 @@
 ﻿using MedicalAssistant.UI.Models.Medication;
+using MedicalAssistant.UI.Shared.Extensions;
 using MedicalAssistant.UI.Shared.Response.Base;
 using MedicalAssistant.UI.Shared.Services.Abstraction;
 using Microsoft.AspNetCore.Components;
@@ -19,11 +20,21 @@ public partial class CurrentMedications
 	private List<MedicationWithDayDto> _currentWeek = [];
 	private List<MedicationWithDayDto> _nextWeek = [];
 
-
+	private DateTime CurrentMonday;
+	private DateTime CurrentSunday;
+	
+	private DateTime NextMonday;
+	private DateTime NextSunday;
 	protected override async Task OnInitializedAsync()
 	{
 		var date = await LocalTimeProvider.CurrentDate();
 
+		CurrentMonday = date.StartOfWeek();
+		CurrentSunday = CurrentMonday.AddDays(6);
+
+		NextMonday = CurrentMonday.AddDays(7);
+		NextSunday = NextMonday.AddDays(6);
+		
 		Response<List<MedicationWithDayDto>> response = await MedicationService.Week(date);
 
 		if(response.IsSuccess)

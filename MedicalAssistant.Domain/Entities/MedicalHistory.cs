@@ -19,7 +19,7 @@ public class MedicalHistory
     public Visit? Visit { get; private set; }
     public User User { get; private set; }
 
-    private readonly HashSet<DiseaseStage> _diseaseStages = new();
+    private readonly HashSet<DiseaseStage> _diseaseStages = [];
     public IEnumerable<DiseaseStage> DiseaseStages => _diseaseStages;
 
     private MedicalHistory()

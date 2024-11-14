@@ -4,6 +4,19 @@
 	<MudItem xs="12">
 		<MudText Typo="Typo.h4" Class="text-center">@ListName.ToUpper()</MudText>
 	</MudItem>
+	<MudItem xs="12">
+		<div class="d-flex flex-row pa-2 justify-content-center">
+			<div>
+				<CalendarIconComponent Date="@DateOfMonday"/>
+			</div>
+			<div class="align-content-center">
+				<MudIcon Icon="@Icons.Material.Outlined.ArrowForward" Size="Size.Large" Class="mx-2 text-center" ></MudIcon>
+			</div>
+			<div>
+				<CalendarIconComponent Date="@DateOfSunday"/>
+			</div>
+		</div>
+	</MudItem>
 </MudGrid>
 @foreach (var day in _days)
 {	

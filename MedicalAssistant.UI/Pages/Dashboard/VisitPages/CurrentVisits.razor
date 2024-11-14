@@ -14,7 +14,7 @@
 			}
 			else
 			{
-				<VisitWeekList Visits="_currentVisits" ListName="@Translations.CurrentWeek"/>
+				<VisitWeekList Visits="_currentVisits" ListName="@Translations.CurrentWeek" DateOfMonday="@CurrentMonday" DateOfSunday="@CurrentSunday"/>
 			}
 			</MudCard>
 		</MudItem>
@@ -27,7 +27,7 @@
 			}
 			else
 			{
-				<VisitWeekList Visits="_nextWeekVisits" ListName="@Translations.NextWeek" />
+				<VisitWeekList Visits="_nextWeekVisits" ListName="@Translations.NextWeek"  DateOfMonday="@NextMonday" DateOfSunday="@NextSunday"/>
 			}
 		</MudCard>
 	</MudItem>

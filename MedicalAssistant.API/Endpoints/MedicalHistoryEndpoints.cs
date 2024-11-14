@@ -39,7 +39,13 @@ public class MedicalHistoryEndpoints : IEndpoints
             var response = await mediator.Send(query);
             return Results.Ok(response);
         });
-        
+
+        group.MapGet("/{searchTerm}", async (IMediator mediator, string searchTerm) =>
+        {
+            var query = new SearchMedicalHistoriesBySearchTermQuery(searchTerm);
+            var response = await mediator.Send(query);
+            return Results.Ok(response);
+        });
         
         group.MapGet("{id:guid}", async (IMediator mediator, Guid id) =>
         {

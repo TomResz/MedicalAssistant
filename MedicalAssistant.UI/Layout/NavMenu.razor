@@ -42,7 +42,11 @@
 		</MudNavLink>
 
 	</MudNavGroup>
-
+	
+	<MudNavLink Href="/medical-history" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.WorkHistory">
+		@Translations.DiseaseHistory
+	</MudNavLink>
+	
 	<MudNavGroup Title="@Translations.Regulations" Icon="@Icons.Material.Filled.TextSnippet" Expanded="false">
 		<MudNavLink Href="/terms" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Policy">
 			@Translations.Terms
@@ -51,5 +55,7 @@
 			@Translations.PrivacyPolicyTitle
 		</MudNavLink>
 	</MudNavGroup>
+
+
 
 </MudNavMenu>

@@ -1,16 +1,21 @@
 ﻿@using System.Text
 @using MedicalAssistant.UI.Models.Medication
-<MudPaper Elevation="4" Class="@(Class ?? "pa-4")" Style="margin-top: 0px;">
-    <div class="d-flex flex-column w-100 h-100">
-        <div class="d-flex flex-row flex-grow-1 w-100 h-100 pa-2">
-            <MudTooltip Text="@Translations.MedicationName">
-                <MudIcon Icon="@Icons.Material.Outlined.Medication" Class="flex-grow-1" Size="Size.Large"></MudIcon>
-            </MudTooltip>
-            <MudText Class="flex-grow-1 align-content-center">@Medication.Name</MudText>
-            <MudTooltip Text="@Translations.TimesOfDay">
-                <MudIcon Icon="@Icons.Material.Outlined.Medication" Class="flex-grow-1" Size="Size.Large"></MudIcon>
-            </MudTooltip>
-            <MudText Class="flex-grow-1 align-content-center">@(ToTimeOfDay(Medication.TimeOfDay))</MudText>
+<MudPaper Elevation="4" Class="@(Class ?? "pa-4")" Style="margin-top: 0px; overflow-x: hidden;">
+    <div class="d-flex  flex-column w-100 h-100">
+        <div class="d-flex flex-column flex-md-row flex-grow-1 w-100 h-100 pa-2 overflow-hidden">
+            <div class="flex-grow-1 flex-row d-flex w-100 h-100 overflow-hidden">
+                <MudTooltip Text="@Translations.MedicationName">
+                    <MudIcon Icon="@Icons.Material.Outlined.Medication" Class="flex-grow-1 mr-2" Size="Size.Large"></MudIcon>
+                </MudTooltip>
+                <MudText Class="flex-grow-1 align-content-center">@Medication.Name</MudText>
+            </div>
+            <div class="flex-grow-1 flex-row d-flex w-100 h-100 overflow-hidden">
+
+                <MudTooltip Text="@Translations.TimesOfDay">
+                    <MudIcon Icon="@Icons.Material.Filled.AccessTime" Class="flex-grow-1 mr-2" Size="Size.Large"></MudIcon>
+                </MudTooltip>
+                <MudText Class="flex-grow-1 align-content-center">@(ToTimeOfDay(Medication.TimeOfDay))</MudText>
+            </div>
         </div>
         <div class="d-flex flex-row w-100">
             <div class="pa-2">
@@ -27,7 +32,8 @@
         @if (ButtonVisible)
         {
             <div class="flex-grow-1 w-100 mt-4">
-                <MudButton FullWidth="true" Variant="MudBlazor.Variant.Filled" Color="Color.Primary" OnClick="ShowDetails">
+                <MudButton FullWidth="true" Variant="MudBlazor.Variant.Filled" Color="Color.Primary" OnClick="ShowDetails"
+                           StartIcon="@Icons.Material.Filled.NavigateNext">
                     @Translations.ShowDetails
                 </MudButton>
             </div>
@@ -60,7 +66,7 @@
             sb.Append($" {Translations.Night},");
 
         var str = sb.ToString();
-        return str.Substring(0, str.Length - 1);
+        return str[..^1];
     }
 
 }

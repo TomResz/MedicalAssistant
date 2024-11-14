@@ -1,8 +1,8 @@
 ﻿@using MedicalAssistant.UI.Models.Visits
 <MudPaper Elevation="4" Class="@(Class ?? "pa-4")" Style="margin-top: 0px;">
     <div class="d-flex flex-column flex-grow-1 w-100">
-        <div class="d-flex flex-row">
-            <div class="pa-2 flex-grow-1 d-flex flex-row align-items-center">
+        <div class="d-flex flex-column flex-md-row">
+            <div class="pa-2 flex-grow-1 d-flex flex-row align-items-center overflow-hidden">
                 <MudTooltip Text="@Translations.DoctorName">
                     <MudIcon Icon="@Icons.Material.Filled.Person4" Size="Size.Large" Class="h-100"></MudIcon>
                 </MudTooltip>
@@ -12,9 +12,9 @@
                 <MudTooltip Text="@Translations.VisitType">
                     <MudIcon Icon="@Icons.Material.Filled.Sort" Size="Size.Large" Class="h-100"/>
                 </MudTooltip>
-                <MudText Class="ms-2">@Visit.VisitType</MudText> <!-- ms-2 to margines po lewej stronie tekstu -->
+                <MudText Class="ms-2">@Visit.VisitType</MudText>
             </div>
-            <div class="pa-2 flex-grow-1 d-flex flex-row justify-content-center">
+            <div class="pa-2 flex-grow-1 d-flex flex-row justify-content-start justify-content-md-center">
                 <MudTooltip Text="@Translations.Date">
                     <CalendarIconComponent Date="@Visit.Date"/>
                 </MudTooltip>
@@ -24,7 +24,7 @@
         {
             <div class="mt-4 flex-grow-1 w-100">
 
-                <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Primary" FullWidth="true" OnClick="ShowDetails">
+                <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Primary" FullWidth="true" StartIcon="@Icons.Material.Filled.NavigateNext" OnClick="ShowDetails">
                     @Translations.ShowDetails
                 </MudButton>
             </div>

@@ -11,7 +11,13 @@ public partial class VisitWeekList
 
 	[Parameter]
 	public IReadOnlyList<VisitDto> Visits { get; set; }
-
+	
+	[Parameter]
+	public DateTime DateOfMonday { get; set; }
+	
+	[Parameter]
+	public DateTime DateOfSunday { get; set; }
+	
 	private Dictionary<DayOfWeek, List<VisitDto>> GroupedVisits { get; set; }
 
 	private readonly IReadOnlyList<DayOfWeek> _days =

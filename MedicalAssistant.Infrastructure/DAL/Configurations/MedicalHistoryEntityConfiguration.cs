@@ -71,5 +71,12 @@ internal sealed class MedicalHistoryEntityConfiguration
             .HasConversion(x=>x.Value,
                 x=> new(x))
             .IsRequired(false);
+        
+        builder.HasIndex(x => new 
+        {
+            x.DiseaseName,
+            x.SymptomDescription
+        }).HasMethod("GIN")
+        .IsTsVectorExpressionIndex("english");
     }
 }

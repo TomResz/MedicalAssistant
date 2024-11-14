@@ -5,36 +5,38 @@
 
 <PageTitle>@Translations.MedicalAssist</PageTitle>
 
+<div style="overflow-x: hidden;">
+    <MudGrid Style="overflow-x: hidden;">
+        <MudItem xs="12" sm="6" md="3">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 300px;">
+                <Clock/>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="9">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 300px;">
+                <VisitDailyTimeline/>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <MudPaper Elevation="2" Class="pa-2" Style="height: 350px;">
+                <MedicationDailyTimeLine/>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <MudPaper Elevation="2" Class="pa-2" Style="height: 350px;">
+                <div class="d-flex flex-row flex-grow-1">
+                    <div class="pa-2">
+                        <CalendarIconComponent Date="@DateTime.Now"/>
+                    </div>
+                    <div class="pa-2 align-content-center text-center">
+                        <MudIcon Icon="@Icons.Material.Filled.ArrowForward"></MudIcon>
+                    </div>
+                    <div class="pa-2">
+                        <CalendarIconComponent Date="@DateTime.Now.AddDays(69)"/>
+                    </div>
+                </div>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
 
-<MudGrid>
-    <MudItem xs="12" sm="6" md="3">
-        <MudPaper Elevation="2" Class="pa-4" Style="height: 300px;">
-            <Clock/>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="9">
-        <MudPaper Elevation="2" Class="pa-4" Style="height: 300px;">
-            <VisitDailyTimeline/>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6">
-        <MudPaper Elevation="2" Class="pa-2" Style="height: 350px;">
-            <MedicationDailyTimeLine/>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6">
-        <MudPaper Elevation="2" Class="pa-2" Style="height: 350px;">
-            <div class="d-flex flex-row flex-grow-1">
-                <div class="pa-2">
-                    <CalendarIconComponent Date="@DateTime.Now"/>
-                </div>
-                <div class="pa-2 align-content-center text-center">
-                    <MudIcon Icon="@Icons.Material.Filled.ArrowForward"></MudIcon>
-                </div>
-                <div class="pa-2">
-                    <CalendarIconComponent Date="@DateTime.Now.AddDays(69)"/>
-                </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-</MudGrid>
+</div>

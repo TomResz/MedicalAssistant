@@ -768,4 +768,19 @@
   <data name="SettingsSaved" xml:space="preserve">
     <value>Ustawienia zostały zapisane.</value>
   </data>
+  <data name="DiseaseHistory" xml:space="preserve">
+    <value>Historia Chorób</value>
+  </data>
+  <data name="DialogRemoweMedicatalHistory" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć ten wpis z historii chorób ?</value>
+  </data>
+  <data name="DialogMedicalHistoryRemoving" xml:space="preserve">
+    <value>Usuwanie Wpisu z Historii Chorób</value>
+  </data>
+  <data name="DiseaseName" xml:space="preserve">
+    <value>Nazwa Choroby</value>
+  </data>
+  <data name="StageCount" xml:space="preserve">
+    <value>Ilość Etapów Choroby</value>
+  </data>
 </root>

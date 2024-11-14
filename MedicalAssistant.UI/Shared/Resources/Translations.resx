@@ -768,4 +768,19 @@
   <data name="SettingsSaved" xml:space="preserve">
     <value>The settings have been saved.</value>
   </data>
+  <data name="DiseaseHistory" xml:space="preserve">
+    <value>Disease History</value>
+  </data>
+  <data name="DialogRemoweMedicatalHistory" xml:space="preserve">
+    <value>Are you sure you want to remove this entry from your medical history ?</value>
+  </data>
+  <data name="DialogMedicalHistoryRemoving" xml:space="preserve">
+    <value>Deleting an Entry from Medical History</value>
+  </data>
+  <data name="DiseaseName" xml:space="preserve">
+    <value>Disease Name</value>
+  </data>
+  <data name="StageCount" xml:space="preserve">
+    <value>Count Of Disease Stages</value>
+  </data>
 </root>
