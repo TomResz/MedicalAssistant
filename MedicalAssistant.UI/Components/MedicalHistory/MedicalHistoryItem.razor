@@ -49,7 +49,7 @@
             (MarkupString)Translations.DialogRemoweMedicatalHistory,
             yesText: Translations.DialogYes, cancelText: Translations.DialogNo);
 
-        if (result is not false and null)
+        if (result is not null && result is true)
         {
             await OnDeleted.InvokeAsync(MedicalHistory.Id);
         }

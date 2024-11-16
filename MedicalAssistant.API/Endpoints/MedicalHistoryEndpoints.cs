@@ -2,6 +2,7 @@
 using MedicalAssistant.API.Models;
 using MedicalAssistant.Application.MedicalHistory.Commands.Add;
 using MedicalAssistant.Application.MedicalHistory.Commands.AddStage;
+using MedicalAssistant.Application.MedicalHistory.Commands.Delete;
 using MedicalAssistant.Application.MedicalHistory.Query;
 
 namespace MedicalAssistant.API.Endpoints;
@@ -22,7 +23,8 @@ public class MedicalHistoryEndpoints : IEndpoints
 
         group.MapPost("/{id:guid}/stage", async (IMediator mediator, Guid id,AddDiseaseStageModel model) =>
         {
-            var command = new AddDiseaseStageCommand(id,
+            var command = new AddDiseaseStageCommand(
+                id,
                 model.VisitId,
                 model.Note,
                 model.Name,
@@ -59,6 +61,13 @@ public class MedicalHistoryEndpoints : IEndpoints
             var query = new GetDiseaseStageQuery(id);
             var response = await mediator.Send(query);
             return Results.Ok(response);
+        });
+
+        group.MapDelete("/{id:guid}", async (IMediator mediator, Guid id) =>
+        {
+            var command = new DeleteMedicalHistoryCommand(id);
+            await mediator.Send(command);
+            return Results.NoContent();
         });
     }
 }

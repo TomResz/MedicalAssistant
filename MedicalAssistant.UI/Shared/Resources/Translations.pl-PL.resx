@@ -783,4 +783,16 @@
   <data name="StageCount" xml:space="preserve">
     <value>Ilość Etapów Choroby</value>
   </data>
+  <data name="EmptyField" xml:space="preserve">
+    <value>Pole nie może być puste.</value>
+  </data>
+  <data name="ExceededMaxSizeOfField" xml:space="preserve">
+    <value>Maksymalna długość wynosi {0}.</value>
+  </data>
+  <data name="SymptomDescription" xml:space="preserve">
+    <value>Opis Objawów</value>
+  </data>
+  <data name="MedicalHistoryAdded" xml:space="preserve">
+    <value>Pomyślnie dodano wpis.</value>
+  </data>
 </root>

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.Text.RegularExpressions;
+using MediatR;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Dto.Mappers;
@@ -23,14 +24,22 @@ internal sealed class SearchMedicalHistoriesBySearchTermQueryHandler
 
     public async Task<IEnumerable<MedicalHistoryDto>> Handle(SearchMedicalHistoriesBySearchTermQuery request, CancellationToken cancellationToken)
     {
+        if (string.IsNullOrEmpty(request.SearchTerm))
+        {
+            return Enumerable.Empty<MedicalHistoryDto>();
+        }
         var userId = _userContext.GetUserId;
+
+        var formattedQuery = request.SearchTerm.ToTsQuery();
         
         var response = await _context
             .MedicalHistories
             .AsNoTracking()
+            .AsNoTracking()
             .Where(h => h.UserId == userId && 
                         EF.Functions.ToTsVector("english", h.DiseaseName + " " + h.SymptomDescription)
-                            .Matches(EF.Functions.PhraseToTsQuery("english", request.SearchTerm)))
+                            .Matches(EF.Functions.ToTsQuery("english", formattedQuery)))
+            .Include(x => x.Visit)
             .Include(x => x.Visit)
             .Include(x => x.DiseaseStages)
             .ThenInclude(x => x.Visit)
@@ -51,8 +60,11 @@ internal sealed class SearchMedicalHistoriesBySearchTermQueryHandler
                     Note = y.Note,
                     Name = y.Name,
                     VisitDto = y.Visit != null ? y.Visit.ToDto() : null
-                }).ToList()
-            }).ToListAsync(cancellationToken);
+                }).OrderByDescending(y=>y.Date)
+                .ToList()
+            })
+            .OrderBy(x=>x.StartDate)
+            .ToListAsync(cancellationToken);
         
         return response;
     }

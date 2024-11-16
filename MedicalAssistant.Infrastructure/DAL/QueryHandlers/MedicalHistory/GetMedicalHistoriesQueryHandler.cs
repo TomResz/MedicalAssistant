@@ -51,7 +51,9 @@ internal sealed class GetMedicalHistoriesQueryHandler
                     Name = y.Name,
                     VisitDto = y.Visit != null ? y.Visit.ToDto() : null
                 }).ToList()
-            }).ToListAsync(cancellationToken);
+            })
+            .OrderBy(x=>x.StartDate)
+            .ToListAsync(cancellationToken);
 
         return response;
     }

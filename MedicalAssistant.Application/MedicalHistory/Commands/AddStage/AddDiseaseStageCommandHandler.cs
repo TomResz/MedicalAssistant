@@ -13,7 +13,6 @@ internal sealed class AddDiseaseStageCommandHandler
     private readonly IMedicalHistoryRepository _medicalHistoryRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IVisitRepository _visitRepository;
-
     public AddDiseaseStageCommandHandler(
         IMedicalHistoryRepository medicalHistoryRepository,
         IUnitOfWork unitOfWork,
@@ -51,7 +50,7 @@ internal sealed class AddDiseaseStageCommandHandler
 
         medicalHistory.AddStage(stage);
 
-        _medicalHistoryRepository.Update(medicalHistory);
+        _medicalHistoryRepository.AddStage(stage);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
         return stage.Id;
     }

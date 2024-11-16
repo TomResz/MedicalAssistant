@@ -23,11 +23,18 @@ internal sealed class GetVisitBySearchTermQueryHandler
     {
         var userId = _userContext.GetUserId;
 
+        if (string.IsNullOrEmpty(request.SearchTerm))
+        {
+            return Enumerable.Empty<VisitDto>();
+        }
+        
+        var formattedQuery = request.SearchTerm;
+        
         var query = _context
             .Visits
             .Where(x => x.UserId == userId &&
                 EF.Functions.ToTsVector("english", x.DoctorName + " " + x.VisitType + " " + x.VisitDescription)
-                .Matches(EF.Functions.PhraseToTsQuery("english", request.SearchTerm)));
+                .Matches(EF.Functions.ToTsQuery("english", formattedQuery)));
 
         if(request.Direction == "asc")
         {

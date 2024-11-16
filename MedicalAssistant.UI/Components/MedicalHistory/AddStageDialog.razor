@@ -1,0 +1,67 @@
+﻿@using MedicalAssistant.UI.Components.Visits
+@using Variant = MudBlazor.Variant
+<MudDialog TitleClass="text-center">
+
+    <DialogContent>
+        <MudForm @ref="_form" ValidationDelay="60" Model="@_viewModel" Validation="@_validator.ValidateValue" Class="mx-0 px-0">
+            <MudGrid Style="overflow-x: hidden;">
+                <MudItem xs="12">
+                    <MudTextField Label="@Translations.DiseaseName"
+                                  @bind-Value="_viewModel.Name"
+                                  For="@(() => _viewModel.Name)"
+                                  AdornmentIcon="@Icons.Material.Filled.MedicalInformation"
+                                  Adornment="Adornment.End"/>
+                </MudItem>
+
+                <MudItem xs="12">
+                    <MudDatePicker PickerVariant="PickerVariant.Dialog"
+                                   Label="@Translations.Date" Editable="true"
+                                   @bind-Date="_viewModel.Date"
+                                   Mask="@(new DateMask("dd/MM/yyyy"))"
+                                   DateFormat="dd/MM/yyyy"
+                                   Placeholder="dd/MM/yyyy"/>
+                </MudItem>
+
+                <MudItem xs="12">
+                    <MudTextField Label="@Translations.Note"
+                                  Variant="Variant.Text"
+                                  @bind-Value="@_viewModel.Notes"
+                                  AutoGrow 
+                                  Lines="3"
+                                  MaxLines="5"
+                                  MaxLength="200"
+                                  AdornmentIcon="@Icons.Material.Filled.TextSnippet" Adornment="Adornment.End"/>
+                </MudItem>
+                @if (_visitDto is not null)
+                {
+                    <MudItem xs="12">
+
+                        <VisitItem Visit="@_visitDto" ButtonVisible="false"/>
+                    </MudItem>
+                }
+            </MudGrid>
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        <div class="d-flex flex-column flex-sm-column flex-md-row  justify-end w-100 ">
+            <MudButton StartIcon="@Icons.Material.Outlined.Add" Color="Color.Primary" Variant="MudBlazor.Variant.Filled"
+                       Class="mx-2 my-1 flex-grow-1 align-items-stretch" OnClick="@Submit">
+                @Translations.Add
+            </MudButton>
+            <PickVisitDialogButton ButtonName="@Translations.SelectVisit" OnVisitPicked="@VisitPick"
+                                   Class="mx-2 my-1 flex-grow-1 align-items-stretch"/>
+            @if (_visitDto is not null)
+            {
+                <MudButton StartIcon="@Icons.Material.Outlined.Delete" Color="Color.Error" Variant="MudBlazor.Variant.Filled"
+                           Class="mx-2 my-1 flex-grow-1 align-items-stretch" OnClick="@Delete">
+                    @Translations.DeleteSelectedVisit
+                </MudButton>
+            }
+            <MudButton StartIcon="@Icons.Material.Outlined.Cancel" Color="Color.Error" Variant="MudBlazor.Variant.Filled"
+                       Class="mx-2 my-1 flex-grow-1 align-items-stretch" OnClick="@Cancel">
+                @Translations.Cancel
+            </MudButton>
+        </div>
+    </DialogActions>
+</MudDialog>

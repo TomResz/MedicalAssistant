@@ -4,35 +4,57 @@
 
 <PageTitle>@Translations.DiseaseHistory</PageTitle>
 
-<MudPaper Class="d-flex flex-column" Style="min-height: calc(100vh - 96px); overflow-x: hidden; height: 100%;">
-    <MudPaper Class="pa-1" Style="overflow-x: hidden; height: 100%;">
-        <div class="d-flex flex-row justify-end flex-grow-1 w-100" style="overflow-x: hidden;">
-            <div style="max-width: 300px;">
-                <MudTextField T="string" @bind-Value="SearchTerm"
-                              Adornment="Adornment.End"
-                              MaxLength="30"
-                              Label="@Translations.SearchTerm"
-                              AdornmentIcon="@Icons.Material.Outlined.Search"
-                              Class="ma-1"
-                              TextChanged="SearchDisease"/>
+<div style="overflow-x: hidden;">
+    <MudPaper Class="d-flex flex-column" Style="min-height: calc(100vh - 96px); overflow-x: hidden; height: 100%;">
+        <MudPaper Class="pa-1" Style="overflow-x: hidden; height: 100%;">
+            <div class="d-flex flex-row justify-end flex-grow-1 w-100" style="overflow-x: hidden;">
+                <div style="max-width: 300px;">
+                    <MudTextField T="string" @bind-Value="SearchTerm"
+                                  Adornment="Adornment.End"
+                                  MaxLength="30"
+                                  Label="@Translations.SearchTerm"
+                                  AdornmentIcon="@Icons.Material.Outlined.Search"
+                                  Class="ma-1"
+                                  TextChanged="SearchDisease"/>
+                </div>
             </div>
-        </div>
+        </MudPaper>
+        @if (_loading)
+        {
+            <div class="d-flex flex-column w-100 h-100 flex-grow-1 pa-1" style="height: 100%;">
+                <LoadingSkeletonComponent Class="pa-4 flex-grow-1"/>
+            </div>
+        }
+        else
+        {
+            <MudGrid Class="flex-grow-1 pa-4" Justify="Justify.FlexStart" Style="overflow-x: hidden;">
+                @foreach (var history in _histories)
+                {
+                    <MudItem xs="12" sm="8" md="6" lg="4" Style="overflow-x: hidden;">
+                        <MedicalHistoryItem MedicalHistory="history" OnEdited="@Edit" OnDeleted="@Delete"/>
+                    </MudItem>
+                }
+            </MudGrid>
+            <div style="position: fixed;bottom: 34px; right: 75px;overflow-x: hidden;">
+                <MudTooltip Text="@Translations.Add" Placement="Placement.Start" Style="overflow-x: hidden;">
+                    <MudFab
+                        Class="fixed-button"
+                        Color="Color.Primary"
+                        Size="Size.Large"
+                        StartIcon="@Icons.Material.Outlined.Add"
+                        OnClick="@Add">
+                    </MudFab>
+                </MudTooltip>
+            </div>
+        }
     </MudPaper>
-    @if (_loading)
-    {
-        <div class="d-flex flex-column w-100 h-100 flex-grow-1 pa-1" style="height: 100%;">
-            <LoadingSkeletonComponent Class="pa-4 flex-grow-1"/>
-        </div>
+</div>
+<style>
+    .fixed-button {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 150;
+        overflow-x: hidden;
     }
-    else
-    {
-        <MudGrid Class="flex-grow-1 pa-4" Justify="Justify.FlexStart" Style="overflow-x: hidden;">
-            @foreach (var history in _histories)
-            {
-                <MudItem xs="12" sm="8" md="6" lg="4">
-                    <MedicalHistoryItem MedicalHistory="history" OnEdited="@Edit" OnDeleted="@Delete"/>
-                </MudItem>
-            }
-        </MudGrid>
-    }
-</MudPaper>
+</style>

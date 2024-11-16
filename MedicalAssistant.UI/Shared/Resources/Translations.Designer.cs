@@ -663,6 +663,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Field cannot be empty..
+        /// </summary>
+        internal static string EmptyField {
+            get {
+                return ResourceManager.GetString("EmptyField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Full name cannot be empty..
         /// </summary>
         internal static string EmptyFullname {
@@ -740,6 +749,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Evening {
             get {
                 return ResourceManager.GetString("Evening", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The maximum length is {0}..
+        /// </summary>
+        internal static string ExceededMaxSizeOfField {
+            get {
+                return ResourceManager.GetString("ExceededMaxSizeOfField", resourceCulture);
             }
         }
         
@@ -947,6 +965,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string MedicalAssist {
             get {
                 return ResourceManager.GetString("MedicalAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully added entry..
+        /// </summary>
+        internal static string MedicalHistoryAdded {
+            get {
+                return ResourceManager.GetString("MedicalHistoryAdded", resourceCulture);
             }
         }
         
@@ -1775,6 +1802,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Sunday {
             get {
                 return ResourceManager.GetString("Sunday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Symptom Description.
+        /// </summary>
+        internal static string SymptomDescription {
+            get {
+                return ResourceManager.GetString("SymptomDescription", resourceCulture);
             }
         }
         

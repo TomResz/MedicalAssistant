@@ -1,7 +1,53 @@
 ﻿@page "/medical-history/{id:guid}"
+@using MedicalAssistant.UI.Components
+@using MedicalAssistant.UI.Components.MedicalHistory
+
 <PageTitle>@Translations.DiseaseHistory</PageTitle>
 
-@code{
-    [Parameter]
-    public Guid Id { get; set; }
-}
+<div style="overflow-x: hidden">
+    <MudGrid Class="ma-0 visit-grid" Justify="Justify.Center">
+        <MudItem xs="12" sm="8" md="6" Class="pa-0 mx-0 visit-item">
+            <MudCard Class="visit-card" Elevation="3">
+                @if (_loading)
+                {
+                    <LoadingSkeletonComponent Class="ma-2"/>
+                }
+                else
+                {
+                }
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" sm="8" md="6" Class="pa-0 mx-0 visit-item">
+            <MudCard Class="visit-card" Elevation="3">
+                @if (_loading)
+                {
+                    <LoadingSkeletonComponent Class="ma-2"/>
+                }
+                else
+                {
+                    <StagesTimeLine Stages="@_history.Stages" MedicalHistoryId="_history.Id"/>
+                }
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</div>
+<style>
+    .visit-grid {
+        overflow-x: hidden;
+        overflow-y: auto;
+        max-height: calc(100vh - 96px);
+    }
+
+    .visit-item {
+        min-height: calc(100vh - 104px);
+        margin-top: 8px;
+        overflow-x: hidden;
+    }
+
+    .visit-card {
+        overflow-x: hidden;
+        height: 100%;
+        margin-right: 24px;
+    }
+</style>

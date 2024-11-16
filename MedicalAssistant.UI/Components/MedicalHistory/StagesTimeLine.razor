@@ -1,0 +1,56 @@
+﻿@if (Stages is not null && Stages.Count > 0)
+{
+    <div>
+        <MudTimeline TimelineAlign="TimelineAlign.Default">
+            @foreach (var (stage,num) in (_tuples))
+            {
+                <MudTimelineItem Color="Color.Dark" Elevation="25" TimelineAlign="@(num % 2 == 0 ? TimelineAlign.Default : TimelineAlign.End)">
+                    <ItemContent>
+                        <MudButton Color="Color.Transparent">
+                            <MudPaper Elevation="0" Class="mt-n1">
+                                <MudText Typo="Typo.h6" Color="Color.Primary" GutterBottom="true">@stage.Name</MudText>
+                                @if (stage.Note is not null)
+                                {
+                                    <MudText Typo="Typo.body2">
+                                        @if (stage.Note.Length < 30)
+                                        {
+                                            @stage.Note
+                                        }
+                                        else
+                                        {
+                                            @(stage.Note[..30] + "...")
+                                        }
+                                    </MudText>
+                                }
+                            </MudPaper>
+                        </MudButton >
+                    </ItemContent >
+                    <ItemOpposite >
+                        <MudText Color="Color.Primary" Typo="Typo.h6"> @stage.Date.ToString("dd.MM.yyyy") </MudText >
+                    </ItemOpposite >
+                </MudTimelineItem>
+            }
+        </MudTimeline>
+    </div>
+}
+<div style="position: fixed;bottom: 34px; right: 75px;overflow-x: hidden;">
+    <MudTooltip Text="@Translations.Add" Placement="Placement.Start" Style="overflow-x: hidden;">
+        <MudFab
+            Class="fixed-button"
+            Color="Color.Primary"
+            Size="Size.Large"
+            StartIcon="@Icons.Material.Outlined.Add"
+            OnClick="@Add">
+        </MudFab>
+    </MudTooltip>
+</div>
+
+<style>
+    .fixed-button {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 150;
+        overflow-x: hidden;
+    }
+</style>

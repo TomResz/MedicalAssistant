@@ -28,7 +28,7 @@ internal sealed class MedicalHistoryEntityConfiguration
             .WithOne()
             .HasForeignKey(x => x.MedicalHistoryId)
             .OnDelete(DeleteBehavior.Cascade)
-            .IsRequired();
+            .IsRequired(true);
         
         builder.Property(x=>x.Id)
             .HasConversion(x=>x.Value,

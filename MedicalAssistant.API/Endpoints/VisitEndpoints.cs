@@ -75,7 +75,7 @@ public sealed class VisitEndpoints : IEndpoints
 		}).Produces(StatusCodes.Status200OK,typeof(IEnumerable<VisitDto>));
 
 
-		group.MapGet("search/{searchTerm}", async (IMediator _mediator, string searchTerm,[FromQuery]string direction = "asc") =>
+		group.MapGet("search", async (IMediator _mediator,[FromQuery] string searchTerm,[FromQuery]string direction = "asc") =>
 		{
 			var query = new GetVisitBySerchTermQuery(searchTerm,direction);
 			var response = await _mediator.Send(query);

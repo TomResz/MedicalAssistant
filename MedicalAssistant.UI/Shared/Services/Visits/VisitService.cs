@@ -76,12 +76,10 @@ public class VisitService : IVisitService
 	public async Task<Response<List<VisitDto>>> GetBySearchTerm(string searchTerm,string? direction = null)
 	{
 		string dir = string.Empty;
-		if(!string.IsNullOrEmpty(direction))
-		{
-			dir = $"?direction={direction}";
-		}
-		var httpCodedText = HttpUtility.UrlEncode($"{searchTerm}{dir}");
-		var response = await _httpClient.GetAsync($"visit/search/{httpCodedText}");
+		string encodeSearchTerm = Uri.EscapeDataString(searchTerm);
+		var directionQuery = direction is null ? string.Empty : $"&direction={direction}";
+		var httpCodedText = Uri.EscapeDataString($"{searchTerm}{dir}");
+		var response = await _httpClient.GetAsync($"visit/search?searchTerm={encodeSearchTerm}{directionQuery}");
 		return await response.DeserializeResponse<List<VisitDto>>();
 	}
 }
