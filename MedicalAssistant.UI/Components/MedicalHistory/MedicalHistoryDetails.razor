@@ -1,0 +1,98 @@
+﻿<MudPaper Elevation="4" Class="pa-4 d-flex flex-column align-stretch " Style="min-height: calc(100vh - 104px);">
+    <MudGrid Class="flex-grow-1" Justify="Justify.Center" Style="overflow-x: hidden;">
+        <MudItem xs="12">
+            <MudPaper Class="pa-4">
+                <MudIcon Icon="@Icons.Material.Filled.MedicalInformation" Size="Size.Large" Color="Color.Primary" Class="mr-1"/>
+                <MudText Typo="Typo.button" HtmlTag="h3" Inline="true">@Translations.DiseaseName:</MudText>
+                <MudText Typo="Typo.body2" Inline="true">@MedicalHistory.DiseaseName</MudText>
+            </MudPaper>
+        </MudItem>
+        @if (MedicalHistory.SymptomDescription is not null)
+        {
+            <MudItem xs="12">
+                <MudPaper Class="pa-4">
+                    <MudIcon Icon="@Icons.Material.Filled.Description" Size="Size.Large" Color="Color.Primary" Class="mr-1"/>
+                    <MudText Typo="Typo.button" HtmlTag="h3" Inline="true">@Translations.SymptomDescription:</MudText>
+                    <MudText Typo="Typo.body1" Inline="true">@MedicalHistory.SymptomDescription</MudText>
+                </MudPaper>
+            </MudItem>
+        }
+        @if (MedicalHistory.Notes is not null)
+        {
+            <MudItem xs="12">
+                <MudPaper Class="pa-4">
+                    <MudIcon Icon="@Icons.Material.Filled.Notes" Size="Size.Large" Color="Color.Primary" Class="mr-1"/>
+                    <MudText Typo="Typo.button" HtmlTag="h3" Inline="true">@Translations.Note:</MudText>
+                    <MudText Typo="Typo.body1" Inline="true">@MedicalHistory.Notes</MudText>
+                </MudPaper>
+            </MudItem>
+        }
+        <MudItem xs="12" md="@(MedicalHistory.EndDate != null ? 6 : 12)">
+            <MudPaper Class="pa-4">
+                <CalendarIconComponent Date="@MedicalHistory.StartDate"/>
+            </MudPaper>
+        </MudItem>
+        @if (MedicalHistory.EndDate is not null)
+        {
+            <MudItem xs="12" md="12">
+                <MudPaper Class="pa-4">
+                    <CalendarIconComponent Date="@((DateTime)MedicalHistory.EndDate!)"/>
+                </MudPaper>
+
+            </MudItem>
+        }
+    </MudGrid>
+
+    @if (MedicalHistory.VisitDto is not null)
+    {
+        <MudPaper Class="flex-grow-1 d-flex flex-column align-stretch pa-4">
+            <MudGrid Class="flex-grow-1">
+                <MudItem xs="12" sm="6">
+                    <MudPaper Class="pa-4">
+                        <MudIcon Icon="@Icons.Material.Filled.Class" Size="Size.Large" Color="Color.Primary" Class="mr-1"/>
+                        <MudText Typo="Typo.button" HtmlTag="h3" Inline="true">@Translations.VisitType:</MudText>
+                        <MudText Typo="Typo.body1" Inline="true">@MedicalHistory.VisitDto.VisitType</MudText>
+                    </MudPaper>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudPaper Class="pa-4">
+                        <MudIcon Icon="@Icons.Material.Filled.Person" Size="Size.Large" Color="Color.Primary" Class="mr-1"/>
+                        <MudText Typo="Typo.button" HtmlTag="h3" Inline="true">@Translations.DoctorName:</MudText>
+                        <MudText Typo="Typo.body1" Inline="true">@MedicalHistory.VisitDto.DoctorName</MudText>
+                    </MudPaper>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudPaper Class="pa-4">
+                        <MudIcon Icon="@Icons.Material.Filled.DateRange" Size="Size.Large" Color="Color.Primary" Class="mr-1"/>
+                        <MudText Typo="Typo.button" HtmlTag="h3" Inline="true">@Translations.Date:</MudText>
+                        <MudText Typo="Typo.body1" Inline="true">@MedicalHistory.VisitDto.Date.ToString("f")</MudText>
+                    </MudPaper>
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+    }
+    <MudGrid Class="align-items-end flex-grow-1 px-2" Style="overflow-x: hidden;">
+
+        <MudItem xs="12" sm="4" Class="d-flex flex-column">
+            <MudButton Variant="@MudBlazor.Variant.Filled" Color="@MudBlazor.Color.Primary"
+                       StartIcon="@Icons.Material.Filled.Edit" OnClick="@Edit">
+                @Translations.Edit
+            </MudButton>
+        </MudItem>
+
+        <MudItem xs="12" sm="4" Class="d-flex flex-column justify-end">
+            <MudButton Variant="@MudBlazor.Variant.Filled" Color="MudBlazor.Color.Error"
+                       StartIcon="@Icons.Material.Filled.Delete" OnClick="@(async () => await Delete())">
+                @Translations.Delete
+            </MudButton>
+        </MudItem>
+
+        <MudItem xs="12" sm="4" Class="d-flex flex-column justify-end">
+            <MudButton Variant="@MudBlazor.Variant.Filled" Color="MudBlazor.Color.Info"
+                       StartIcon="@Icons.Material.Filled.ArrowBack" OnClick="@ReturnToMainView">
+                @Translations.Back
+            </MudButton>
+        </MudItem>
+
+    </MudGrid>
+</MudPaper>

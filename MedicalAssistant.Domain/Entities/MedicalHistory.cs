@@ -75,7 +75,7 @@ public class MedicalHistory
 
     public void AddStage(DiseaseStage stage)
     {
-        if (stage.Date.ToDate() < DiseaseStartDate.ToDate())
+        if (stage.Date.ToDate() <= DiseaseStartDate.ToDate())
         {
             throw new InvalidStageDateException();
         }

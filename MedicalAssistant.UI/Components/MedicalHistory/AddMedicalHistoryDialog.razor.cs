@@ -1,8 +1,4 @@
-﻿using System.Data;
-using System.Runtime.InteropServices.JavaScript;
-using FluentValidation;
-using MedicalAssistant.UI.Models.MedicalHistory;
-using MedicalAssistant.UI.Models.Validator;
+﻿using MedicalAssistant.UI.Models.MedicalHistory;
 using MedicalAssistant.UI.Models.Visits;
 using MedicalAssistant.UI.Shared.Resources;
 using MedicalAssistant.UI.Shared.Response.Base;
@@ -71,6 +67,7 @@ public partial class AddMedicalHistoryDialog : ComponentBase
     {
         _visitDto = visitDto;
         _viewModel.VisitId = visitDto.Id;
+        _viewModel.StartDate = visitDto.Date;
         StateHasChanged();
     }
 
@@ -82,29 +79,4 @@ public partial class AddMedicalHistoryDialog : ComponentBase
     }
 
     private void Cancel() => MudDialog.Cancel();
-}
-
-public class MedicalHistoryViewModel
-{
-    public string Name { get; set; }
-    public DateTime? StartDate { get; set; }
-    public string? Notes { get; set; }
-    public string? SymptomDescription { get; set; }
-    public Guid? VisitId { get; set; }
-}
-
-public class MedicalHistoryViewModelValidator : BaseValidator<MedicalHistoryViewModel>
-{
-    public MedicalHistoryViewModelValidator()
-    {
-        RuleLevelCascadeMode = CascadeMode.Stop;
-
-        RuleFor(x => x.Name)
-            .NotNull()
-            .WithMessage(Translations.EmptyField)
-            .NotEmpty()
-            .WithMessage(Translations.EmptyField)
-            .MaximumLength(30)
-            .WithMessage(Translations.ExceededMaxSizeOfField);
-    }
 }

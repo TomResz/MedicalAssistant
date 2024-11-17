@@ -795,4 +795,19 @@
   <data name="MedicalHistoryAdded" xml:space="preserve">
     <value>Pomyślnie dodano wpis.</value>
   </data>
+  <data name="StageAdded" xml:space="preserve">
+    <value>Pomyślnie dodano etap do historii choroby.</value>
+  </data>
+  <data name="StageName" xml:space="preserve">
+    <value>Nazwa etapu choroby</value>
+  </data>
+  <data name="DateOfDiagnosis" xml:space="preserve">
+    <value>Data Diagnozy</value>
+  </data>
+  <data name="VisitOfDiagnosis" xml:space="preserve">
+    <value>Wizyta lekarska diagnozy</value>
+  </data>
+  <data name="AddingDiseaseStage" xml:space="preserve">
+    <value>Dodawanie Etapu Choroby</value>
+  </data>
 </root>

@@ -39,6 +39,11 @@ internal sealed class AddDiseaseStageCommandHandler
             {
                 throw new UnknownVisitException();
             }
+
+            if (visit.Date.ToDate() > request.Date.Date)
+            {
+                throw new MedicalHistoryVisitDateMismatchException();
+            }
         }
 
         DiseaseStage stage = DiseaseStage.Create(

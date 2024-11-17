@@ -5,26 +5,48 @@
 
 @*Header 64px + container padding 2 * 16px  = 96 px*@
 
-
-<RadzenScheduler @ref="_scheduler"
-				 Style=" height: calc(100vh - 96px);overflow: hidden;"
-				 TItem="VisitDto" Data=@_visits
-				 StartProperty="Date" EndProperty="End"
-				 TextProperty="VisitType"
-				 SelectedIndex="2"
-				 TodayText="@Translations.Today"
-				 NextText="@Translations.Tomorrow"
-				 PrevText="@Translations.Yesterday"
-				 SlotRender=@SelectTodayDate
-				 SlotSelect="@AddVist"
-				 MoreSelect="@ViewMoreDialog"
-				 AppointmentSelect="@EditRemoveVisit" Culture="@GetCulture">
-	<RadzenDayView Text="@Translations.Day" StartTime="TimeSpan.FromHours(6.0)" EndTime="TimeSpan.FromHours(24.0)" TimeFormat="HH:mm" />
-	<RadzenWeekView Text="@Translations.Week" StartTime="TimeSpan.FromHours(6.0)" EndTime="TimeSpan.FromHours(24.0)" TimeFormat="HH:mm" />
-	<RadzenMonthView Text="@Translations.Month" />
-	<RadzenYearView Text="@Translations.Year" />
-</RadzenScheduler>
-
+<div style="overflow-x: hidden;">
+	<RadzenScheduler @ref="_scheduler"
+	                 Style=" height: calc(100vh - 96px);overflow: hidden;"
+	                 TItem="VisitDto" Data=@_visits
+	                 StartProperty="Date" EndProperty="End"
+	                 TextProperty="VisitType"
+	                 SelectedIndex="2"
+	                 TodayText="@Translations.Today"
+	                 NextText="@Translations.Tomorrow"
+	                 PrevText="@Translations.Yesterday"
+	                 SlotRender=@SelectTodayDate
+	                 SlotSelect="@AddVist"
+	                 MoreSelect="@ViewMoreDialog"
+	                 AppointmentSelect="@EditRemoveVisit" Culture="@GetCulture">
+		<RadzenDayView Text="@Translations.Day" StartTime="TimeSpan.FromHours(6.0)" EndTime="TimeSpan.FromHours(24.0)"
+		               TimeFormat="HH:mm"/>
+		<RadzenWeekView Text="@Translations.Week" StartTime="TimeSpan.FromHours(6.0)" EndTime="TimeSpan.FromHours(24.0)"
+		                TimeFormat="HH:mm"/>
+		<RadzenMonthView Text="@Translations.Month"/>
+		<RadzenYearView Text="@Translations.Year"/>
+	</RadzenScheduler>
+	<div style="position: fixed;bottom: 34px; right: 75px;overflow-x: hidden;">
+		<MudTooltip Text="@Translations.Add" Placement="Placement.Start" Style="overflow-x: hidden;">
+			<MudFab
+				Class="fixed-button"
+				Color="Color.Primary"
+				Size="Size.Large"
+				StartIcon="@Icons.Material.Outlined.Add"
+				OnClick="@Add">
+			</MudFab>
+		</MudTooltip>
+	</div>
+</div>
+<style>
+	.fixed-button {
+		position: absolute;
+		bottom: 24px;
+		right: 24px;
+		z-index: 150;
+		overflow-x: hidden;
+	}
+</style>
 <script>
 	window.addEventListener('resize', function () {
 		const culture = localStorage.getItem("Culture");

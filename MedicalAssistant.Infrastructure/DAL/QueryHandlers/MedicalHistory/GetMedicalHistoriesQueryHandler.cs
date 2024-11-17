@@ -42,7 +42,7 @@ internal sealed class GetMedicalHistoriesQueryHandler
                 StartDate = (DateTime)x.DiseaseStartDate,
                 EndDate = x.DiseaseEndDate != null ? (DateTime)x.DiseaseEndDate : null,
                 VisitDto = x.Visit !=null ? x.Visit.ToDto() : null,
-                Stages = x.DiseaseStages.Select(y => new DiseaseStageDto()
+                Stages = x.DiseaseStages.OrderBy(d=>d.Date).Select(y => new DiseaseStageDto()
                 {
                     Id = y.Id,
                     MedicalHistoryId = y.MedicalHistoryId,

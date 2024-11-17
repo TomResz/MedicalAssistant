@@ -105,6 +105,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adding a Stage of Disease.
+        /// </summary>
+        internal static string AddingDiseaseStage {
+            get {
+                return ResourceManager.GetString("AddingDiseaseStage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adding the medication.
         /// </summary>
         internal static string AddingMedication {
@@ -353,6 +362,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Date {
             get {
                 return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date of Diagnosis.
+        /// </summary>
+        internal static string DateOfDiagnosis {
+            get {
+                return ResourceManager.GetString("DateOfDiagnosis", resourceCulture);
             }
         }
         
@@ -1779,11 +1797,29 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A stage was successfully added to the medical history..
+        /// </summary>
+        internal static string StageAdded {
+            get {
+                return ResourceManager.GetString("StageAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Count Of Disease Stages.
         /// </summary>
         internal static string StageCount {
             get {
                 return ResourceManager.GetString("StageCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name of disease stage.
+        /// </summary>
+        internal static string StageName {
+            get {
+                return ResourceManager.GetString("StageName", resourceCulture);
             }
         }
         
@@ -2018,6 +2054,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string VisitNotifications {
             get {
                 return ResourceManager.GetString("VisitNotifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medical visit of the diagnosis.
+        /// </summary>
+        internal static string VisitOfDiagnosis {
+            get {
+                return ResourceManager.GetString("VisitOfDiagnosis", resourceCulture);
             }
         }
         

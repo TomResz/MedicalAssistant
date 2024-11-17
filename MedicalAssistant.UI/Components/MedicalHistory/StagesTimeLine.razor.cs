@@ -11,20 +11,25 @@ public partial class StagesTimeLine
     [Parameter] public List<DiseaseStageDto>? Stages { get; set; }
     [Inject] public IDialogService DialogService { get; set; }
 
-    private List<int> iters = new();
     private List<(DiseaseStageDto Stage, int Index)> _tuples = new();
 
     protected override void OnParametersSet()
     {
-        if (Stages is not null)
-        {
-            _tuples.Clear(); 
+        InitData();
+    }
 
-            for (int i = 0; i < Stages.Count; i++) 
-            {
-                iters.Add(i); 
-                _tuples.Add((Stages[i], i)); 
-            }
+    private void InitData()
+    {
+        if (Stages is null)
+        {
+            return;
+        }
+
+        _tuples.Clear();
+
+        for (int i = 0; i < Stages.Count; i++)
+        {
+            _tuples.Add((Stages[i], i));
         }
     }
 
@@ -39,9 +44,10 @@ public partial class StagesTimeLine
         {
             MaxWidth = MaxWidth.Large,
             FullWidth = true,
+            CloseOnEscapeKey = true
         };
         var dialog = await DialogService.ShowAsync<AddStageDialog>(
-            Translations.Add,
+            Translations.AddingDiseaseStage,
             dialogParameters,
             options);
 
@@ -53,6 +59,7 @@ public partial class StagesTimeLine
 
             Stages.Add(dto);
             Stages = Stages.OrderBy(x => x.Date).ToList();
+            InitData();
             await InvokeAsync(StateHasChanged);
         }
     }
