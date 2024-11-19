@@ -81,5 +81,64 @@ public class MedicalHistory
         }
         _diseaseStages.Add(stage);
     }
-    
+
+    public void Edit(
+        DiseaseName name,
+        Date startDate,
+        Date? endDate,
+        Note symptomDescription,
+        Note notes,
+        VisitId? visitId)
+    {
+        if (_diseaseStages.Count != 0 )
+        {
+            var date = _diseaseStages
+                .Select(x=>x.Date)
+                .Order()
+                .ToList();
+            
+            var beginDate = date.First();
+            var lastDate = date.Last();
+            
+            if (startDate.ToDate() > beginDate.ToDate())
+            {
+                throw new InvalidStartDateException();
+            }
+
+            if (endDate is not null && endDate.ToDate() < lastDate.ToDate())
+            {
+                throw new InvalidEndDateException();
+            }
+        }
+
+        DiseaseName = name;
+        DiseaseStartDate = startDate;
+        DiseaseEndDate = endDate;
+        SymptomDescription = symptomDescription;
+        Notes = notes;
+        VisitId = visitId;
+    }
+
+
+    public void DeleteStage(DiseaseStageId stageId)
+    {
+        var stage = _diseaseStages.FirstOrDefault(x => x.Id == stageId);
+
+        if (stage is null)
+        {
+            throw new UnknownDiseaseStageException(stageId);
+        }
+
+        _diseaseStages.Remove(stage);
+    }
+
+    public void EditStage(DiseaseStage stage, DiseaseStageName requestName, Note requestNote, VisitId? requestVisitId, Date requestDate)
+    {
+        if (DiseaseStartDate.ToDate() > requestDate.ToDate() ||
+            DiseaseEndDate?.ToDate() < requestDate.ToDate())
+        {
+            throw new InvalidStageDateException();
+        }
+        stage.Edit(requestName, requestNote, requestVisitId, requestDate);
+    }
 }

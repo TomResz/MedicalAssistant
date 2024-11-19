@@ -10,4 +10,5 @@ public interface IMedicalHistoryRepository
     void Update(MedicalHistory medicalHistory);
     Task<bool> DeleteAsync(MedicalHistoryId id, CancellationToken cancellationToken);
     void AddStage(DiseaseStage stage);
+    void UpdateStage(DiseaseStage stage);
 }

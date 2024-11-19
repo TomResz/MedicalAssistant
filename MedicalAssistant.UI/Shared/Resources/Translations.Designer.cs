@@ -231,6 +231,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start date.
+        /// </summary>
+        internal static string BeginDate {
+            get {
+                return ResourceManager.GetString("BeginDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Cancel {
@@ -501,6 +510,33 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disease Stage Removal.
+        /// </summary>
+        internal static string DialogDiseaseStageDelete {
+            get {
+                return ResourceManager.GetString("DialogDiseaseStageDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this stage of the disease ?.
+        /// </summary>
+        internal static string DialogEditDiseaseStageRemove {
+            get {
+                return ResourceManager.GetString("DialogEditDiseaseStageRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleting Medical History.
+        /// </summary>
+        internal static string DialogMedicalHistoryDeleteConfirmation {
+            get {
+                return ResourceManager.GetString("DialogMedicalHistoryDeleteConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deleting an Entry from Medical History.
         /// </summary>
         internal static string DialogMedicalHistoryRemoving {
@@ -515,6 +551,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string DialogNo {
             get {
                 return ResourceManager.GetString("DialogNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Whether to remove the entry from the medical history ?.
+        /// </summary>
+        internal static string DialogRemoveMedicalHistory {
+            get {
+                return ResourceManager.GetString("DialogRemoveMedicalHistory", resourceCulture);
             }
         }
         
@@ -605,6 +650,24 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Disease Stage.
+        /// </summary>
+        internal static string EditDiseaseStageDialogTitle {
+            get {
+                return ResourceManager.GetString("EditDiseaseStageDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Medical History.
+        /// </summary>
+        internal static string EditMedicalHistory {
+            get {
+                return ResourceManager.GetString("EditMedicalHistory", resourceCulture);
             }
         }
         
@@ -758,6 +821,24 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string EmptyVisitType {
             get {
                 return ResourceManager.GetString("EmptyVisitType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completion date.
+        /// </summary>
+        internal static string EndDate {
+            get {
+                return ResourceManager.GetString("EndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The end date must be greater than the initial date..
+        /// </summary>
+        internal static string EndDateMustBeGreater {
+            get {
+                return ResourceManager.GetString("EndDateMustBeGreater", resourceCulture);
             }
         }
         
@@ -992,6 +1073,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string MedicalHistoryAdded {
             get {
                 return ResourceManager.GetString("MedicalHistoryAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully removed the item from medical history..
+        /// </summary>
+        internal static string MedicalHistoryDeleted {
+            get {
+                return ResourceManager.GetString("MedicalHistoryDeleted", resourceCulture);
             }
         }
         
@@ -1829,6 +1919,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Street {
             get {
                 return ResourceManager.GetString("Street", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully the entry was edited..
+        /// </summary>
+        internal static string SuccessfullyEdited {
+            get {
+                return ResourceManager.GetString("SuccessfullyEdited", resourceCulture);
             }
         }
         

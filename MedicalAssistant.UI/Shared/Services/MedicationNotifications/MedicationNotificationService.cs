@@ -46,12 +46,7 @@ public class MedicationNotificationService
 		var response = await _httpClient.DeleteAsync($"recommendationNotification/{id}");
 		return await response.DeserializeResponse();
 	}
-
-	public Task<Response.Base.Response> Edit()
-	{
-		throw new NotImplementedException();
-	}
-
+	
 	public async Task<Response.Base.Response> Edit(EditMedicationNotificationModel model)
 	{
 		var response = await _httpClient.PatchAsJsonAsync("recommendationNotification", model, _options);

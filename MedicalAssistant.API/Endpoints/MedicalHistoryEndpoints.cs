@@ -1,9 +1,14 @@
 ﻿using MediatR;
 using MedicalAssistant.API.Models;
+using MedicalAssistant.API.Models.DiseaseStages;
 using MedicalAssistant.Application.MedicalHistory.Commands.Add;
 using MedicalAssistant.Application.MedicalHistory.Commands.AddStage;
 using MedicalAssistant.Application.MedicalHistory.Commands.Delete;
+using MedicalAssistant.Application.MedicalHistory.Commands.DeleteStage;
+using MedicalAssistant.Application.MedicalHistory.Commands.Edit;
+using MedicalAssistant.Application.MedicalHistory.Commands.EditStage;
 using MedicalAssistant.Application.MedicalHistory.Query;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MedicalAssistant.API.Endpoints;
 
@@ -15,13 +20,13 @@ public class MedicalHistoryEndpoints : IEndpoints
             .WithTags("Medical History")
             .RequireAuthorization(Permissions.Permissions.VerifiedUser);
 
-        group.MapPost("/", async (IMediator mediator,AddMedicalHistoryCommand command) =>
+        group.MapPost("/", async (IMediator mediator, AddMedicalHistoryCommand command) =>
         {
             var response = await mediator.Send(command);
             return Results.Created($"api/medicalhistory/{response}", response);
-        }).Produces(StatusCodes.Status201Created,typeof(Guid));
+        }).Produces(StatusCodes.Status201Created, typeof(Guid));
 
-        group.MapPost("/{id:guid}/stage", async (IMediator mediator, Guid id,AddDiseaseStageModel model) =>
+        group.MapPost("/{id:guid}/stage", async (IMediator mediator, Guid id, AddDiseaseStageModel model) =>
         {
             var command = new AddDiseaseStageCommand(
                 id,
@@ -29,9 +34,9 @@ public class MedicalHistoryEndpoints : IEndpoints
                 model.Note,
                 model.Name,
                 model.Date);
-            
+
             var response = await mediator.Send(command);
-            
+
             return Results.Created($"api/medicalhistory/stage/{response}", response);
         });
 
@@ -48,7 +53,7 @@ public class MedicalHistoryEndpoints : IEndpoints
             var response = await mediator.Send(query);
             return Results.Ok(response);
         });
-        
+
         group.MapGet("{id:guid}", async (IMediator mediator, Guid id) =>
         {
             var query = new GetMedicalHistoryByIdQuery(id);
@@ -66,6 +71,36 @@ public class MedicalHistoryEndpoints : IEndpoints
         group.MapDelete("/{id:guid}", async (IMediator mediator, Guid id) =>
         {
             var command = new DeleteMedicalHistoryCommand(id);
+            await mediator.Send(command);
+            return Results.NoContent();
+        });
+
+        group.MapPatch("/", async (IMediator mediator, EditMedicalHistoryCommand command) =>
+        {
+            await mediator.Send(command);
+            return Results.NoContent();
+        });
+
+        group.MapPatch("/{medicalHistoryId:guid}/stage", async (
+            IMediator mediator, [FromRoute] Guid medicalHistoryId,
+            [FromBody] EditDiseaseStageModel model) =>
+        {
+            var command = new EditDiseaseStageCommand(
+                model.Id,
+                medicalHistoryId,
+                model.VisitId,
+                model.Name,
+                model.Note,
+                model.Date);
+
+            await mediator.Send(command);
+            return Results.NoContent();
+        });
+
+        group.MapDelete("/{medicalHistoryId:guid}/stage/{id:guid}",async (
+            IMediator mediator, Guid id, Guid medicalHistoryId) =>
+        {
+            var command = new DeleteDiseaseStageCommand(id, medicalHistoryId);
             await mediator.Send(command);
             return Results.NoContent();
         });

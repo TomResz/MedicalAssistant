@@ -5,13 +5,13 @@ namespace MedicalAssistant.UI.Shared.Response;
 
 public static class Extensions
 {
-	private readonly static JsonSerializerOptions options = new JsonSerializerOptions
+	private static readonly JsonSerializerOptions Options = new JsonSerializerOptions
 	{
 		PropertyNameCaseInsensitive = true,
 		Converters = { new TimeOnlyJsonConverter() }
 	};
 
-	public async static Task<Base.Response> DeserializeResponse(this HttpResponseMessage response)
+	public static async Task<Base.Response> DeserializeResponse(this HttpResponseMessage response)
 	{
 		if (response.IsSuccessStatusCode)
 		{
@@ -25,12 +25,12 @@ public static class Extensions
 		}
 
 
-		var errorDetails = JsonSerializer.Deserialize<BaseErrorDetails>(json, options)!;
+		var errorDetails = JsonSerializer.Deserialize<BaseErrorDetails>(json, Options)!;
 
 		return new(false, errorDetails);
 	}
 
-	public async static Task<Response<T>> DeserializeResponse<T>(this HttpResponseMessage response)
+	public static async Task<Response<T>> DeserializeResponse<T>(this HttpResponseMessage response)
 	{
 		if (response.IsSuccessStatusCode)
 		{
@@ -41,7 +41,7 @@ public static class Extensions
 				return new Response<T>(default, true);
 			}
 
-			var content = JsonSerializer.Deserialize<T?>(json,options)!;
+			var content = JsonSerializer.Deserialize<T?>(json,Options)!;
 			return new Response<T>(content, true);
 		}
 		var errorDetails = JsonSerializer.Deserialize<BaseErrorDetails>(await response.Content.ReadAsStringAsync())!;

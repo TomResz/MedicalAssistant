@@ -2,18 +2,7 @@
 
 namespace MedicalAssistant.Domain.Exceptions;
 
-public class UnknownRecommendationException : BadRequestException
-{
-    public UnknownRecommendationException(Guid recommendationId) : base($"Recommendation with given id='{recommendationId}' was not found.")
-    {
-        
-    }
-}
+public class UnknownRecommendationException(Guid recommendationId) : BadRequestException($"Recommendation with given id='{recommendationId}' was not found.");
 
-public sealed class InvalidEndDateException : BadRequestException
-{
-    public InvalidEndDateException() : base($"Start date is greater than end date.")
-    {
-        
-    }
-}
+public sealed class InvalidStartDateException() : BadRequestException("End date cannot be earlier than start date.");
+public sealed class InvalidEndDateException() : BadRequestException($"Start date is greater than end date.");

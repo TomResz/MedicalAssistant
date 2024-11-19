@@ -810,4 +810,37 @@
   <data name="AddingDiseaseStage" xml:space="preserve">
     <value>Adding a Stage of Disease</value>
   </data>
+  <data name="BeginDate" xml:space="preserve">
+    <value>Start date</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Completion date</value>
+  </data>
+  <data name="EndDateMustBeGreater" xml:space="preserve">
+    <value>The end date must be greater than the initial date.</value>
+  </data>
+  <data name="EditMedicalHistory" xml:space="preserve">
+    <value>Edit Medical History</value>
+  </data>
+  <data name="MedicalHistoryDeleted" xml:space="preserve">
+    <value>Successfully removed the item from medical history.</value>
+  </data>
+  <data name="DialogRemoveMedicalHistory" xml:space="preserve">
+    <value>Whether to remove the entry from the medical history ?</value>
+  </data>
+  <data name="DialogMedicalHistoryDeleteConfirmation" xml:space="preserve">
+    <value>Deleting Medical History</value>
+  </data>
+  <data name="SuccessfullyEdited" xml:space="preserve">
+    <value>Successfully the entry was edited.</value>
+  </data>
+  <data name="DialogDiseaseStageDelete" xml:space="preserve">
+    <value>Disease Stage Removal</value>
+  </data>
+  <data name="DialogEditDiseaseStageRemove" xml:space="preserve">
+    <value>Are you sure you want to delete this stage of the disease ?</value>
+  </data>
+  <data name="EditDiseaseStageDialogTitle" xml:space="preserve">
+    <value>Edit Disease Stage</value>
+  </data>
 </root>

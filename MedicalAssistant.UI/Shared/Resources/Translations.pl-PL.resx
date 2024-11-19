@@ -810,4 +810,37 @@
   <data name="AddingDiseaseStage" xml:space="preserve">
     <value>Dodawanie Etapu Choroby</value>
   </data>
+  <data name="BeginDate" xml:space="preserve">
+    <value>Data początku</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Data zakończenia</value>
+  </data>
+  <data name="EndDateMustBeGreater" xml:space="preserve">
+    <value>Data zakończenia musi być większa niż początkowa.</value>
+  </data>
+  <data name="EditMedicalHistory" xml:space="preserve">
+    <value>Edytuj Historię Medyczną</value>
+  </data>
+  <data name="MedicalHistoryDeleted" xml:space="preserve">
+    <value>Pomyślnie usunięto element z historii medycznej.</value>
+  </data>
+  <data name="DialogRemoveMedicalHistory" xml:space="preserve">
+    <value>Czy usunąć wpis z historii medycznej ?</value>
+  </data>
+  <data name="DialogMedicalHistoryDeleteConfirmation" xml:space="preserve">
+    <value>Usuwanie Historii Medycznej</value>
+  </data>
+  <data name="SuccessfullyEdited" xml:space="preserve">
+    <value>Pomyślnie wpis został edytowany.</value>
+  </data>
+  <data name="DialogDiseaseStageDelete" xml:space="preserve">
+    <value>Usuwanie Etapu Choroby</value>
+  </data>
+  <data name="DialogEditDiseaseStageRemove" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć ten etap choroby ?</value>
+  </data>
+  <data name="EditDiseaseStageDialogTitle" xml:space="preserve">
+    <value>Edytuj Etap Choroby</value>
+  </data>
 </root>

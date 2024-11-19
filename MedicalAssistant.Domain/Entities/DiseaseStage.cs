@@ -49,5 +49,12 @@ public class DiseaseStage
             medicalHistoryId,
             visitId);
     }
-    
+
+    internal void Edit(DiseaseStageName requestName, Note requestNote, VisitId? requestVisitId, Date requestDate)
+    {
+        Name = requestName;
+        Note = requestNote;
+        Date = requestDate;
+        VisitId = requestVisitId;
+    }
 }

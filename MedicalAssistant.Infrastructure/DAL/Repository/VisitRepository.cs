@@ -18,6 +18,14 @@ internal sealed class VisitRepository : IVisitRepository
 	public async Task<bool> Exists(VisitId id, CancellationToken cancellationToken)
 		=> await _context.Visits.AnyAsync(x=>x.Id == id,cancellationToken);
 
+	public async Task<Visit?> GetByIdWithMedicalHistoryAsync(VisitId visitId, CancellationToken cancellationToken)
+	{
+		return await _context
+			.Visits
+			.Include(x=>x.MedicalHistories)
+			.FirstOrDefaultAsync(x=>x.Id == visitId,cancellationToken);	
+	}
+
 	public async Task<Visit?> GetByIdAsync(VisitId visitId, CancellationToken cancellationToken)
 		=> await _context
 		.Visits

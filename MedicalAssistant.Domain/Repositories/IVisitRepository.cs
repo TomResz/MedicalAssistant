@@ -15,4 +15,5 @@ public interface IVisitRepository
 	Task<Visit?> GetByNotificationId(VisitNotificationId visitNotificationId, CancellationToken cancellationToken);
 
 	Task<bool> Exists(VisitId id,CancellationToken cancellationToken);
+	Task<Visit?> GetByIdWithMedicalHistoryAsync(VisitId visitId, CancellationToken cancellationToken);
 }

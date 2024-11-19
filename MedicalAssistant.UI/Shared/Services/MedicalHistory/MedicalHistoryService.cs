@@ -53,4 +53,22 @@ public class MedicalHistoryService : IMedicalHistoryService
         var response = await _httpClient.PostAsJsonAsync($"medicalhistory/{medicalHistoryId}/stage", request);
         return await response.DeserializeResponse<Guid>();
     }
+
+    public async Task<Response.Base.Response> Update(EditMedicalHistoryRequest request)
+    {
+        var response = await _httpClient.PatchAsJsonAsync("medicalhistory/", request);
+        return await response.DeserializeResponse();
+    }
+
+    public async Task<Response.Base.Response> DeleteStage(Guid id, Guid medicalHistoryId)
+    {
+        var response = await _httpClient.DeleteAsync($"medicalhistory/{medicalHistoryId}/stage/{id}");
+        return await response.DeserializeResponse();
+    }
+
+    public async Task<Response.Base.Response> EditStage(EditDiseaseStageRequest request, Guid medicalHistoryId)
+    {
+        var response = await _httpClient.PatchAsJsonAsync($"medicalhistory/{medicalHistoryId}/stage",request);
+        return await response.DeserializeResponse();
+    }
 }

@@ -28,17 +28,26 @@
             </MudItem>
         }
         <MudItem xs="12" md="@(MedicalHistory.EndDate != null ? 6 : 12)">
-            <MudPaper Class="pa-4">
-                <CalendarIconComponent Date="@MedicalHistory.StartDate"/>
+            <MudPaper Class="pa-4 d-flex flex-row">
+                <div class="flex-grow-1 align-items-center">
+                    <MudText Typo="Typo.button" HtmlTag="h3">@Translations.BeginDate</MudText>
+                </div>
+                <div class="flex-grow-1">
+                    <CalendarIconComponent Date="@MedicalHistory.StartDate"/>
+                </div>
             </MudPaper>
         </MudItem>
         @if (MedicalHistory.EndDate is not null)
         {
-            <MudItem xs="12" md="12">
-                <MudPaper Class="pa-4">
-                    <CalendarIconComponent Date="@((DateTime)MedicalHistory.EndDate!)"/>
+            <MudItem xs="12" md="6">
+                <MudPaper Class="pa-4 d-flex flex-row">
+                    <div class="flex-grow-1 align-items-center">
+                        <MudText Typo="Typo.button" HtmlTag="h3">@Translations.EndDate</MudText>
+                    </div>
+                    <div class="flex-grow-1">
+                        <CalendarIconComponent Date="@((DateTime)MedicalHistory.EndDate!)"/>
+                    </div>
                 </MudPaper>
-
             </MudItem>
         }
     </MudGrid>

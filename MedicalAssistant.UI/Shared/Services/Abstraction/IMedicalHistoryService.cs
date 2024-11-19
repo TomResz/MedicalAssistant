@@ -12,4 +12,7 @@ public interface IMedicalHistoryService
     Task<Response<Guid>> Add(MedicalHistoryViewModel viewModel);
     Task<Response<MedicalHistoryDto>> GetById(Guid id);
     Task<Response<Guid>> AddStage(AddDiseaseStageRequest request,Guid medicalHistoryId);
+    Task<Response.Base.Response> Update(EditMedicalHistoryRequest request);
+    Task<Response.Base.Response> DeleteStage(Guid id, Guid medicalHistoryId);
+    Task<Response.Base.Response> EditStage(EditDiseaseStageRequest request, Guid medicalHistoryId);
 }

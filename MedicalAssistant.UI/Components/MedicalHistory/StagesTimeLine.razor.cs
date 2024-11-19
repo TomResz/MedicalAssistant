@@ -9,9 +9,9 @@ public partial class StagesTimeLine
 {
     [Parameter] public Guid MedicalHistoryId { get; set; }
     [Parameter] public List<DiseaseStageDto>? Stages { get; set; }
-    [Inject] public IDialogService DialogService { get; set; }
+    [Inject] private IDialogService DialogService { get; set; }
 
-    private List<(DiseaseStageDto Stage, int Index)> _tuples = new();
+    private List<(DiseaseStageDto Stage, int Index)> _tuples = [];
 
     protected override void OnParametersSet()
     {
@@ -62,5 +62,66 @@ public partial class StagesTimeLine
             InitData();
             await InvokeAsync(StateHasChanged);
         }
+    }
+
+    private async Task Edit(Guid stageId)
+    {
+        var stage = Stages?.FirstOrDefault(x => x.Id == stageId);
+
+        if (stage is null)
+        {
+            return;
+        }
+
+        var parameters = new DialogParameters
+        {
+            { nameof(EditStageDialog.DiseaseStage), stage },
+        };
+
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey = true,
+            FullWidth = true,
+            MaxWidth = MaxWidth.Large
+        };
+        
+        var dialog = await DialogService.ShowAsync<EditStageDialog>(
+            Translations.EditDiseaseStageDialogTitle,
+            parameters,
+            options);
+        
+        var response = await dialog.Result;
+
+        if (response is null || response.Canceled)
+        {
+            return;
+        }
+        
+        var data = response.Data;
+
+        switch (data)
+        {
+            // DELETED
+            case Guid id:
+            {
+                var temp = Stages!.First(x => x.Id == id);
+                Stages!.Remove(temp);
+                break;
+            }
+            // EDITED 
+            case DiseaseStageDto dto:
+            {
+                var index = Stages!.FindIndex(x => x.Id == dto.Id);
+
+                if (index is not -1)
+                {
+                    Stages[index] = dto;
+                }
+
+                break;
+            }
+        }
+        InitData();
+        await InvokeAsync(StateHasChanged);
     }
 }

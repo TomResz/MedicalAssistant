@@ -37,4 +37,7 @@ internal sealed class MedicalHistoryRepository
 
     public void AddStage(DiseaseStage stage)
         => _context.DiseaseStages.Add(stage);
+
+    public void UpdateStage(DiseaseStage stage)
+        => _context.DiseaseStages.Update(stage);
 }
