@@ -284,6 +284,9 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAtUtc")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<DateTime?>("DateOfDeactivationUtc")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
@@ -295,6 +298,11 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     b.Property<bool>("HasExternalLoginProvider")
                         .HasColumnType("boolean");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
 
                     b.Property<bool>("IsVerified")
                         .HasColumnType("boolean");

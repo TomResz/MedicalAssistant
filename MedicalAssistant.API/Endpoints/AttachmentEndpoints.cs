@@ -12,7 +12,7 @@ public class AttachmentEndpoints : IEndpoints
 	{
 		var groupWithoutVisit = app.MapGroup("attachment")
 			.WithTags("Attachments")
-			.RequireAuthorization(Permissions.Permissions.VerifiedUser);
+			.RequireAuthorization(Permissions.Permissions.IsVerifiedAndActive);
 
 		groupWithoutVisit.MapGet("{id:guid}", async (IMediator mediator, Guid id,HttpResponse httpResponse) =>
 		{
@@ -45,7 +45,7 @@ public class AttachmentEndpoints : IEndpoints
 
 		var group = app.MapGroup("{visitId:guid}/attachment")
 			.WithTags("Attachments")
-			.RequireAuthorization(Permissions.Permissions.VerifiedUser);
+			.RequireAuthorization(Permissions.Permissions.IsVerifiedAndActive);
 
 		group.MapPost("/", async (
 			[FromRoute] Guid visitId,

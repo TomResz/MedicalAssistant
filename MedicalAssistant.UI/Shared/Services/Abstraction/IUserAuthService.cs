@@ -12,4 +12,7 @@ public interface IUserAuthService
     Task<Response<SignInResponse>> SignInByGoogle(string code);
 
     Task<Response.Base.Response> SignUp(SignUpRequest request);
+    Task<Response.Base.Response> Reactivate();
+    Task<Response.Base.Response> DeactivateAccount();
+    Task<Response.Base.Response> DeleteAccount();
 }

@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-using MedicalAssistant.UI.Models.MedicalHistory;
-using MedicalAssistant.UI.Models.Validator;
+﻿using MedicalAssistant.UI.Models.MedicalHistory;
 using MedicalAssistant.UI.Models.Visits;
 using MedicalAssistant.UI.Shared.Resources;
 using MedicalAssistant.UI.Shared.Response.Base;
@@ -112,38 +110,4 @@ public partial class EditStageDialog
         Snackbar.Add(Translations.SomethingWentWrong, Severity.Error);
     }
     private void Cancel() => MudDialog.Cancel();
-}
-
-public class EditStageViewModel
-{
-    public Guid MedicalHistoryId { get; set; }
-    public DateTime? Date { get; set; }
-    public string Name { get; set; }
-    public string? Note { get; set; }
-    public Guid? VisitId { get; set; }
-}
-
-public class EditDiseaseStageRequest
-{
-    public Guid Id { get; set; }
-    public DateTime Date { get; set; }
-    public string Name { get; set; }
-    public string? Note { get; set; }
-    public Guid? VisitId { get; set; }
-}
-
-public class EditStageViewModelValidator : BaseValidator<EditStageViewModel>
-{
-    public EditStageViewModelValidator()
-    {
-        RuleLevelCascadeMode = CascadeMode.Stop;
-
-        RuleFor(x => x.Name)
-            .NotNull()
-            .WithMessage(Translations.EmptyField)
-            .NotEmpty()
-            .WithMessage(Translations.EmptyField)
-            .MaximumLength(30)
-            .WithMessage(Translations.ExceededMaxSizeOfField);
-    }
 }

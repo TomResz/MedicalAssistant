@@ -13,7 +13,7 @@ public class VisitNotificationEndpoints : IEndpoints
 	{
 		var group = app.MapGroup("visitNotification")
 			.WithTags("VisitNotifications")
-			.RequireAuthorization(Permissions.Permissions.VerifiedUser);
+			.RequireAuthorization(Permissions.Permissions.IsVerifiedAndActive);
 
 		group.MapPost("/", async (
 			IMediator _mediator,

@@ -41,6 +41,7 @@ internal sealed class Authenticator : IAuthenticator
             new Claim(ClaimTypes.Role,user.Role.Value),
             new Claim(CustomClaim.IsVerified,user.IsVerified.ToString()),
             new Claim(CustomClaim.HasExternalProvider,user.HasExternalLoginProvider.ToString()),
+            new Claim(CustomClaim.IsActive,user.IsActive.ToString())
         };
 
         var expires = now.Add(_expiry);

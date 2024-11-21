@@ -13,7 +13,7 @@ public class UserSettingsEndpoints : IEndpoints
 	{
 		var group = app.MapGroup("settings")
 			.WithTags("User Settings")
-			.RequireAuthorization(Permissions.Permissions.VerifiedUser);
+			.RequireAuthorization(Permissions.Permissions.IsVerifiedAndActive);
 
 		group.MapGet("/", async (IMediator _mediator) =>
 		{

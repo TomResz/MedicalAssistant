@@ -11,7 +11,7 @@ public class NotificationEndpoints : IEndpoints
 	{
 		var group = app.MapGroup("notification")
 			.WithTags("Notifications")
-			.RequireAuthorization(Permissions.Permissions.VerifiedUser);
+			.RequireAuthorization(Permissions.Permissions.IsVerifiedAndActive);
 
 		group.MapGet("unread", async (IMediator _mediator) =>
 		{

@@ -6,6 +6,7 @@ using MedicalAssistant.Infrastructure.DAL.Interceptors;
 using MedicalAssistant.Infrastructure.DAL.Options;
 using MedicalAssistant.Infrastructure.DAL.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -29,9 +30,12 @@ internal static class Extensions
 		{
 			var interceptor = sp.GetRequiredService<DomainEventPublisherInterceptor>();
 			
-			opt
-			.UseNpgsql(connectionString)
-			.AddInterceptors(interceptor);
+			opt.UseNpgsql(connectionString)
+				.AddInterceptors(interceptor)
+				.ConfigureWarnings(builder =>
+				{
+					builder.Ignore(CoreEventId.PossibleIncorrectRequiredNavigationWithQueryFilterInteractionWarning);
+				});
 		});
 		services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
 

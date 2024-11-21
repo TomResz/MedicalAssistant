@@ -77,7 +77,7 @@ public partial class EditMedicalHistoryDialog
 
         var errorType = response.ErrorDetails!.Type switch
         {
-            // TO DO
+            // TODO
             _ => Translations.SomethingWentWrong
         };
         Snackbar.Add(errorType, Severity.Error);

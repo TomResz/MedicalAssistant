@@ -43,7 +43,7 @@ internal sealed class SignInCommandHandler
         _ = new Email(email);
         _ = new Password(password);
 
-        var user = await _userRepository.GetByEmailAsync(request.Email, cancellationToken)
+        var user = await _userRepository.GetByEmailAsync(request.Email, cancellationToken,false)
             ?? throw new InvalidSignInCredentialsException();
 
         ValidateUser(request, user);

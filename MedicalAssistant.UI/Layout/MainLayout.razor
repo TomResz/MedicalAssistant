@@ -1,37 +1,37 @@
-﻿@using MedicalAssistant.UI.Components
-@using MedicalAssistant.UI.Components.AppBar
+﻿@using MedicalAssistant.UI.Components.AppBar
 @using MedicalAssistant.UI.Components.AppBar.Notifications
 @using MedicalAssistant.UI.Components.Settings
-@using MedicalAssistant.UI.Pages.Dashboard
+@using Microsoft.AspNetCore.Authorization
 @inherits LayoutComponentBase
 @layout BaseLayout
+@attribute [Authorize]
+
 
 <MudLayout>
-	<MudAppBar Elevation="0">
-		<MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@(e => DrawerToggle())" />
-		<MudSpacer />
-		<SettingBtn />
-		<Notification/>
-		<AccountMenu />
-		<MudIconButton Icon="@(BaseLayout.IsDarkMode ?  Icons.Material.Filled.Nightlight : Icons.Material.Filled.Brightness4)"
-					   Color="Color.Inherit"
-					   Class="nav-button ml-1"
-					   OnClick="@(async () => await BaseLayout.ThemeToggle())" />
-	</MudAppBar>
-	<MudDrawer @bind-Open="_drawerOpen" Elevation="1">
-		<MudDrawerHeader>
-			<img src="/Logo.svg" class="page-icon">
-			<MudText Typo="Typo.h6">@Translations.MedicalAssist</MudText>
-		</MudDrawerHeader>
-		<NavMenu />
-	</MudDrawer>
-	<MudMainContent>
-		<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="pa-4 ma-0" Style="overflow-x: hidden;">
-			@Body
-		</MudContainer>
-	</MudMainContent>
+    <MudAppBar Elevation="0">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@(e => DrawerToggle())"/>
+        <MudSpacer/>
+        <SettingBtn/>
+        <Notification/>
+        <AccountMenu/>
+        <MudIconButton Icon="@(BaseLayout.IsDarkMode ? Icons.Material.Filled.Nightlight : Icons.Material.Filled.Brightness4)"
+                       Color="Color.Inherit"
+                       Class="nav-button ml-1"
+                       OnClick="@(async () => await BaseLayout.ThemeToggle())"/>
+    </MudAppBar>
+    <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
+        <MudDrawerHeader>
+            <img src="/Logo.svg" class="page-icon">
+            <MudText Typo="Typo.h6">@Translations.MedicalAssist</MudText>
+        </MudDrawerHeader>
+        <NavMenu/>
+    </MudDrawer>
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="pa-4 ma-0" Style="overflow-x: hidden;">
+            @Body
+        </MudContainer>
+    </MudMainContent>
 </MudLayout>
-
 <style>
 	.page-icon {
 		height: 64px;
@@ -39,9 +39,10 @@
 		margin-right: 10px;
 	}
 </style>
+
 @code {
-	bool _drawerOpen = true;
-	[CascadingParameter] BaseLayout BaseLayout { get; set; }
-	void DrawerToggle() => _drawerOpen = !_drawerOpen;
+    bool _drawerOpen = true;
+    [CascadingParameter] BaseLayout BaseLayout { get; set; }
+    void DrawerToggle() => _drawerOpen = !_drawerOpen;
 
 }

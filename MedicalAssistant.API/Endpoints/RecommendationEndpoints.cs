@@ -12,7 +12,7 @@ public sealed class RecommendationEndpoints : IEndpoints
 	public void MapEndpoints(IEndpointRouteBuilder app)
 	{
 		var group = app.MapGroup("recommendation")
-			.RequireAuthorization(Permissions.Permissions.VerifiedUser)
+			.RequireAuthorization(Permissions.Permissions.IsVerifiedAndActive)
 			.WithTags("Medication Recommendations");
 
 		group.MapPost("add", async (IMediator _mediator,

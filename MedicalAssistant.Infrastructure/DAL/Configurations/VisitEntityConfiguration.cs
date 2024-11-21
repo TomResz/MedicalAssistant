@@ -10,7 +10,6 @@ internal sealed class VisitEntityConfiguration : IEntityTypeConfiguration<Visit>
     public void Configure(EntityTypeBuilder<Visit> builder)
     {
         builder.HasKey(x => x.Id);
-
         builder.HasOne<User>()
             .WithMany(x => x.Visits)
             .HasForeignKey(x => x.UserId)

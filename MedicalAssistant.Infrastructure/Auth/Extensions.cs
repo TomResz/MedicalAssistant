@@ -7,19 +7,24 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using MedicalAssistant.Infrastructure.Auth.AuthPolicy.Handlers;
+using MedicalAssistant.Infrastructure.Auth.Exceptions;
 
 
 namespace MedicalAssistant.Infrastructure.Auth;
+
 internal static class Extensions
 {
     private const string OptionsSectionName = "auth";
+
     internal static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
     {
         AuthOptions options = configuration.GetOptions<AuthOptions>(OptionsSectionName);
         services.Configure<AuthOptions>(configuration.GetSection(OptionsSectionName));
-        
+
         services
-            .AddScoped<IAuthorizationHandler, UserVerificationHandler>()
+            .AddScoped<IAuthorizationHandler, ActiveAndVerifiedUserProviderHandler>()
+            .AddScoped<IAuthorizationHandler,NotActiveUserProviderHandler>()
             .AddTransient<IRefreshTokenService, RefreshTokenService>();
 
         services
@@ -45,14 +50,13 @@ internal static class Extensions
                 };
             });
 
-        services.AddAuthorization(options =>
+        services.AddAuthorization(o =>
         {
-            options.AddPolicy(CustomClaim.IsVerified, b => b.AddRequirements(new UserVerification(true)));
-            options.AddPolicy(CustomClaim.IsNotVerified, b => b.AddRequirements(new UserVerification(false)));
-            options.AddPolicy(CustomClaim.HasExternalProvider, b => b.AddRequirements(new UserExternalProvider(true)));
-            options.AddPolicy(CustomClaim.HasInternalProvider, b => b.AddRequirements(new UserExternalProvider(false)));
-
-		});
+            o.AddPolicy(CustomPolicy.IsVerifiedAndActive, 
+                b => b.AddRequirements(new ActiveAndVerifiedUserProvider(true, true)));
+            o.AddPolicy(CustomPolicy.NotActive, 
+                b => b.AddRequirements(new NotActiveUserProvider(false)));
+        });
         return services;
     }
 }

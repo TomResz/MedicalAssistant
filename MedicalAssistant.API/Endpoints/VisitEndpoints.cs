@@ -14,7 +14,7 @@ public sealed class VisitEndpoints : IEndpoints
 	public void MapEndpoints(IEndpointRouteBuilder app)
 	{
 		var group = app.MapGroup("visit")
-			.RequireAuthorization(Permissions.Permissions.VerifiedUser)
+			.RequireAuthorization(Permissions.Permissions.IsVerifiedAndActive)
 			.WithTags("Visits");
 
 		group.MapGet("/", async (IMediator _mediator, [FromQuery]string direction = "asc")

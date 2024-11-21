@@ -4,21 +4,22 @@
 @inject IUserDataService Service
 
 <MudMenu AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
-	<ActivatorContent>
-		<MudIconButton Icon="@Icons.Material.Filled.Person" Color="Color.Inherit"></MudIconButton>
-	</ActivatorContent>
-	<ChildContent>
-		<PasswordChangeButton/>
-		<LogoutButton />
-	</ChildContent>
+    <ActivatorContent>
+        <MudIconButton Icon="@Icons.Material.Filled.Person" Color="Color.Inherit"></MudIconButton>
+    </ActivatorContent>
+    <ChildContent>
+        <DeactivateAccountButton/>
+        <PasswordChangeButton/>
+        <LogoutButton/>
+    </ChildContent>
 </MudMenu>
 
 @code {
 
-	private string? _fullName = "Account";
+    private string? _fullName = "Account";
 
-	protected override async Task OnInitializedAsync()
-	{
-		_fullName = await Service.GetUsername() ?? "Account";
-	}
+    protected override async Task OnInitializedAsync()
+    {
+        _fullName = await Service.GetUsername() ?? "Account";
+    }
 }

@@ -25,6 +25,7 @@ public partial class StagesTimeLine
             return;
         }
 
+        Stages = Stages.OrderBy(x => x.Date).ToList();
         _tuples.Clear();
 
         for (int i = 0; i < Stages.Count; i++)
@@ -84,19 +85,19 @@ public partial class StagesTimeLine
             FullWidth = true,
             MaxWidth = MaxWidth.Large
         };
-        
+
         var dialog = await DialogService.ShowAsync<EditStageDialog>(
             Translations.EditDiseaseStageDialogTitle,
             parameters,
             options);
-        
+
         var response = await dialog.Result;
 
         if (response is null || response.Canceled)
         {
             return;
         }
-        
+
         var data = response.Data;
 
         switch (data)
@@ -121,6 +122,7 @@ public partial class StagesTimeLine
                 break;
             }
         }
+
         InitData();
         await InvokeAsync(StateHasChanged);
     }

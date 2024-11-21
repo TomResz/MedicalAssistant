@@ -39,4 +39,8 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Layout\NotActive\DeactivatedAccountLayout.razor" />
+  </ItemGroup>
+
 </Project>

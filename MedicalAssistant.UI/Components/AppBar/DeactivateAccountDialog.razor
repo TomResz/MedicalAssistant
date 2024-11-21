@@ -1,0 +1,19 @@
+﻿@using Variant = MudBlazor.Variant
+<MudDialog Class="text-center" Style="overflow-x: hidden;">
+    <DialogContent>
+        <div class="d-flex flex-md-row flex-column pa-4">
+            <MudButton Variant="Variant.Filled" Class="align-self-stretch ma-2 flex-1"
+                       StartIcon="@Icons.Material.Filled.Delete" Color="Color.Primary" OnClick="@DeactivateAccount">
+                @Translations.DeactivateAccount
+            </MudButton>
+            <MudButton Variant="Variant.Filled" Class="align-self-stretch ma-2 flex-1" StartIcon="@Icons.Material.Filled.DeleteForever"
+                       Color="Color.Error" OnClick="@DeleteAccount">
+                @Translations.DeleteAccount
+            </MudButton>
+            <MudButton Variant="Variant.Filled" Class="align-self-stretch ma-2 flex-1" StartIcon="@Icons.Material.Filled.Cancel"
+                       Color="Color.Error" OnClick="Cancel">
+                @Translations.Cancel
+            </MudButton>
+        </div>
+    </DialogContent>
+</MudDialog>

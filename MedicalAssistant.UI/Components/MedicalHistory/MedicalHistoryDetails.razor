@@ -1,18 +1,26 @@
 ﻿<MudPaper Elevation="4" Class="pa-4 d-flex flex-column align-stretch " Style="min-height: calc(100vh - 104px);">
     <MudGrid Class="flex-grow-1" Justify="Justify.Center" Style="overflow-x: hidden;">
         <MudItem xs="12">
-            <MudPaper Class="pa-4">
-                <MudIcon Icon="@Icons.Material.Filled.MedicalInformation" Size="Size.Large" Color="Color.Primary" Class="mr-1"/>
-                <MudText Typo="Typo.button" HtmlTag="h3" Inline="true">@Translations.DiseaseName:</MudText>
-                <MudText Typo="Typo.body2" Inline="true">@MedicalHistory.DiseaseName</MudText>
+            <MudPaper Class="pa-4" Style="overflow-x: hidden;">
+                <MudTooltip Text="@Translations.DiseaseName">
+                    <MudIcon Icon="@Icons.Material.Filled.MedicalInformation" Size="Size.Large" Color="Color.Primary" Class="mr-1"/>
+                </MudTooltip>
+                <MudHidden Breakpoint="Breakpoint.Xs">
+                    <MudText Typo="Typo.button" HtmlTag="h3" Inline="true">@Translations.DiseaseName:</MudText>
+                </MudHidden>
+                <MudText Typo="Typo.body1" Inline="true">@MedicalHistory.DiseaseName</MudText>
             </MudPaper>
         </MudItem>
         @if (MedicalHistory.SymptomDescription is not null)
         {
             <MudItem xs="12">
-                <MudPaper Class="pa-4">
-                    <MudIcon Icon="@Icons.Material.Filled.Description" Size="Size.Large" Color="Color.Primary" Class="mr-1"/>
-                    <MudText Typo="Typo.button" HtmlTag="h3" Inline="true">@Translations.SymptomDescription:</MudText>
+                <MudPaper Class="pa-4" Style="overflow-x: hidden;">
+                    <MudTooltip Text="@Translations.SymptomDescription">
+                        <MudIcon Icon="@Icons.Material.Filled.Description" Size="Size.Large" Color="Color.Primary" Class="mr-1"/>
+                    </MudTooltip>
+                    <MudHidden Breakpoint="Breakpoint.Xs">
+                        <MudText Typo="Typo.button" HtmlTag="h3" Inline="true">@Translations.SymptomDescription:</MudText>
+                    </MudHidden>
                     <MudText Typo="Typo.body1" Inline="true">@MedicalHistory.SymptomDescription</MudText>
                 </MudPaper>
             </MudItem>
@@ -20,32 +28,40 @@
         @if (MedicalHistory.Notes is not null)
         {
             <MudItem xs="12">
-                <MudPaper Class="pa-4">
-                    <MudIcon Icon="@Icons.Material.Filled.Notes" Size="Size.Large" Color="Color.Primary" Class="mr-1"/>
-                    <MudText Typo="Typo.button" HtmlTag="h3" Inline="true">@Translations.Note:</MudText>
+                <MudPaper Class="pa-4" Style="overflow-x:hidden;">
+                    <MudTooltip Text="@Translations.Note">
+                        <MudIcon Icon="@Icons.Material.Filled.Notes" Size="Size.Large" Color="Color.Primary" Class="mr-1"/>
+                    </MudTooltip>
+                    <MudHidden Breakpoint="Breakpoint.Xs">
+                        <MudText Typo="Typo.button" HtmlTag="h3" Inline="true">@Translations.Note:</MudText>
+                    </MudHidden>
                     <MudText Typo="Typo.body1" Inline="true">@MedicalHistory.Notes</MudText>
                 </MudPaper>
             </MudItem>
         }
         <MudItem xs="12" md="@(MedicalHistory.EndDate != null ? 6 : 12)">
-            <MudPaper Class="pa-4 d-flex flex-row">
-                <div class="flex-grow-1 align-items-center">
+            <MudPaper Class="pa-4 d-flex flex-column" Style="overflow-x: hidden;">
+                <div class="mb-2">
                     <MudText Typo="Typo.button" HtmlTag="h3">@Translations.BeginDate</MudText>
                 </div>
-                <div class="flex-grow-1">
-                    <CalendarIconComponent Date="@MedicalHistory.StartDate"/>
+                <div>
+                    <MudTooltip Text="@Translations.BeginDate">
+                        <CalendarIconComponent Date="@MedicalHistory.StartDate"/>
+                    </MudTooltip>
                 </div>
             </MudPaper>
         </MudItem>
         @if (MedicalHistory.EndDate is not null)
         {
             <MudItem xs="12" md="6">
-                <MudPaper Class="pa-4 d-flex flex-row">
-                    <div class="flex-grow-1 align-items-center">
+                <MudPaper Class="pa-4 d-flex flex-column" Style="overflow-x: hidden;">
+                    <div class="mb-2">
                         <MudText Typo="Typo.button" HtmlTag="h3">@Translations.EndDate</MudText>
                     </div>
-                    <div class="flex-grow-1">
-                        <CalendarIconComponent Date="@((DateTime)MedicalHistory.EndDate!)"/>
+                    <div>
+                        <MudTooltip Text="@Translations.EndDate">
+                            <CalendarIconComponent Date="@((DateTime)MedicalHistory.EndDate!)"/>
+                        </MudTooltip>
                     </div>
                 </MudPaper>
             </MudItem>

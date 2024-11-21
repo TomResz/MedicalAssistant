@@ -1,4 +1,4 @@
-﻿@page "/"
+﻿@page "/currents"
 @using MedicalAssistant.UI.Components
 @using MedicalAssistant.UI.Components.Medication
 @using MedicalAssistant.UI.Components.Visits
@@ -40,3 +40,7 @@
     </MudGrid>
 
 </div>
+
+@code{
+    [Inject] private NavigationManager NavigationManager { get; set; }
+}

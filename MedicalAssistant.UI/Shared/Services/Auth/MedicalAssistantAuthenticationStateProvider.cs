@@ -40,6 +40,7 @@ public class MedicalAssistantAuthenticationStateProvider : AuthenticationStatePr
 		var role = token.Claims.First(x => x.Type == ClaimTypes.Role)!.Value;
 		var isVerified = token.Claims.First(x => x.Type == "IsVerified")!.Value;
 		var hasExternalProvider = token.Claims.First(x => x.Type == "HasExternalProvider")!.Value;
+		var isActive = token.Claims.First(x => x.Type == "IsActive")!.Value;
 
 		return new ClaimsIdentity(new Claim[]
 			{
@@ -49,6 +50,7 @@ public class MedicalAssistantAuthenticationStateProvider : AuthenticationStatePr
 				new (ClaimTypes.Role, role),
 				new ("IsVerified",isVerified),
 				new("HasExternalProvider",hasExternalProvider),
+				new("IsActive",isActive),
 			}, "Api");
 	}
 	public async Task AuthenticateAsync(SignInResponse response)

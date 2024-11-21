@@ -18,7 +18,7 @@ public class MedicalHistoryEndpoints : IEndpoints
     {
         var group = app.MapGroup("medicalhistory")
             .WithTags("Medical History")
-            .RequireAuthorization(Permissions.Permissions.VerifiedUser);
+            .RequireAuthorization(Permissions.Permissions.IsVerifiedAndActive);
 
         group.MapPost("/", async (IMediator mediator, AddMedicalHistoryCommand command) =>
         {

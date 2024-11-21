@@ -38,4 +38,22 @@ internal sealed class UserAuthService : IUserAuthService
 		var response = await _httpClient.PostAsJsonAsync("user/sign-up", request);
 		return await response.DeserializeResponse();
 	}
+
+	public async Task<Response.Base.Response> Reactivate()
+	{
+		var response = await _httpClient.PostAsync("user/reactivate",null);
+		return await response.DeserializeResponse();
+	}
+
+	public async Task<Response.Base.Response> DeactivateAccount()
+	{
+		var response = await _httpClient.PostAsync("user/deactivate",null);
+		return await response.DeserializeResponse();
+	}
+
+	public async Task<Response.Base.Response> DeleteAccount()
+	{
+		var response = await _httpClient.DeleteAsync("user/");
+		return await response.DeserializeResponse();
+	}
 }

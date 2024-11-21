@@ -1,10 +1,13 @@
 ﻿using MediatR;
 using MedicalAssistant.Application.Security;
+using MedicalAssistant.Application.User.Commands.DeactivateAccount;
+using MedicalAssistant.Application.User.Commands.DeleteAccount;
 using MedicalAssistant.Application.User.Commands.FacebookAuthentication;
 using MedicalAssistant.Application.User.Commands.GoogleAuthentication;
 using MedicalAssistant.Application.User.Commands.PasswordChange;
 using MedicalAssistant.Application.User.Commands.PasswordChangeByCode;
 using MedicalAssistant.Application.User.Commands.PasswordChangeByEmail;
+using MedicalAssistant.Application.User.Commands.ReactivateAccount;
 using MedicalAssistant.Application.User.Commands.RefreshToken;
 using MedicalAssistant.Application.User.Commands.RegenerateVerificationCode;
 using MedicalAssistant.Application.User.Commands.RevokeRefreshToken;
@@ -23,80 +26,98 @@ public sealed class UserEndpoints : IEndpoints
 
 		var group = app.MapGroup("user").WithTags("Users");
 
-		group.MapGet("get", async (IMediator _mediator) =>
-		{
-			return Results.Ok(await _mediator.Send(new GetUserCredentialsQuery()));
-		}).RequireAuthorization();
+		group.MapGet("get", async (IMediator mediator) => Results.Ok(await mediator.Send(new GetUserCredentialsQuery()))).RequireAuthorization();
 
-		group.MapPost("sign-up", async (IMediator _mediator, SignUpCommand command) =>
+		group.MapPost("sign-up", async (IMediator mediator, SignUpCommand command) =>
 		{
-			await _mediator.Send(command);
+			await mediator.Send(command);
 			return Results.NoContent();	
 		});
 
-		group.MapPost("sign-in", async (IMediator _mediator, SignInCommand command) =>
+		group.MapPost("sign-in", async (IMediator mediator, SignInCommand command) =>
 		{
-			var response = await _mediator.Send(command);
+			var response = await mediator.Send(command);
 			return Results.Ok(response);
 		});
 
-		group.MapPut("verify", async (IMediator _mediator, VerifyAccountCommand command) =>
+		group.MapPut("verify", async (IMediator mediator, VerifyAccountCommand command) =>
 		{
-			await _mediator.Send(command);
+			await mediator.Send(command);
 			return Results.NoContent();
 		});
 
-		group.MapPut("regenerate-code", async (IMediator _mediator, RegenerateVerificationCodeCommand command) =>
+		group.MapPut("regenerate-code", async (IMediator mediator, RegenerateVerificationCodeCommand command) =>
 		{
-			await _mediator.Send(command);
+			await mediator.Send(command);
 			return Results.NoContent();
 		});
 
-		group.MapPost("password-change", async (IMediator _mediator, PasswordChangeByEmailCommand command) =>
+		group.MapPost("password-change", async (IMediator mediator, PasswordChangeByEmailCommand command) =>
 		{
-			await _mediator.Send(command);
+			await mediator.Send(command);
 			return Results.NoContent();
 		});
 
-		group.MapPut("password-change-auth", async (IMediator _mediator, ChangePasswordCommand command) =>
+		group.MapPut("password-change-auth", async (IMediator mediator, ChangePasswordCommand command) =>
 		{
-			await _mediator.Send(command);
+			await mediator.Send(command);
 			return Results.NoContent();
 		});
 
 		group.MapPost("check-password-code/{code}", (IEmailCodeManager manager,string code) => 
 			manager.Decode(code,out var email) ? Results.Ok() : Results.BadRequest());
 
-		group.MapPut("password-change-by-code", async (IMediator _mediator, PasswordChangeByCodeCommand command) =>
+		group.MapPut("password-change-by-code", async (IMediator mediator, PasswordChangeByCodeCommand command) =>
 		{
-			await _mediator.Send(command);
+			await mediator.Send(command);
 			return Results.NoContent();
 		});
 
-		group.MapPost("refresh-token", async (IMediator _mediator, RefreshTokenCommand command) =>
+		group.MapPost("refresh-token", async (IMediator mediator, RefreshTokenCommand command) =>
 		{
-			var response = await _mediator.Send(command);
+			var response = await mediator.Send(command);
 			return Results.Ok(response);
 		});
 
-		group.MapPut("revoke", async (IMediator _mediator, RevokeRefreshTokenCommand command) =>
+		group.MapPut("revoke", async (IMediator mediator, RevokeRefreshTokenCommand command) =>
 		{
-			await _mediator.Send(command);
+			await mediator.Send(command);
 			return Results.NoContent();	
-		}).RequireAuthorization(Permissions.Permissions.VerifiedUser);
+		}).RequireAuthorization(Permissions.Permissions.IsVerifiedAndActive);
 
-		group.MapPost("login-google", async (IMediator _mediator, GoogleAuthenticationCommand command) =>
+		group.MapPost("login-google", async (IMediator mediator, GoogleAuthenticationCommand command) =>
 		{
-			var respone = await _mediator.Send(command);	
-			return Results.Ok(respone);
+			var response = await mediator.Send(command);	
+			return Results.Ok(response);
 		}).Produces<SignInResponse>(StatusCodes.Status200OK)
 		.Produces<ErrorDetails>(StatusCodes.Status409Conflict);
 
-		group.MapPost("login-facebook", async (IMediator _mediator, FacebookAuthenticationCommand command) =>
+		group.MapPost("login-facebook", async (IMediator mediator, FacebookAuthenticationCommand command) =>
 		{
-			var respone = await _mediator.Send(command);
-			return Results.Ok(respone);
+			var response = await mediator.Send(command);
+			return Results.Ok(response);
 		}).Produces<SignInResponse>(StatusCodes.Status200OK)
 		.Produces<ErrorDetails>(StatusCodes.Status409Conflict);
+
+		group.MapDelete("/", async (IMediator mediator) =>
+		{
+			var command = new DeleteAccountCommand();
+			await mediator.Send(command);
+			return Results.NoContent();
+		}).RequireAuthorization(Permissions.Permissions.IsVerifiedAndActive);
+
+		group.MapPost("/reactivate", async (IMediator mediator) =>
+		{
+			var command = new ReactivateAccountCommand();
+			await mediator.Send(command);
+			return Results.NoContent();
+		}).RequireAuthorization(Permissions.Permissions.NotActiveUser);
+		
+		group.MapPost("/deactivate", async (IMediator mediator) =>
+		{
+			var command = new DeactivateAccountCommand();
+			await mediator.Send(command);
+			return Results.NoContent();
+		}).RequireAuthorization(Permissions.Permissions.IsVerifiedAndActive);
 	}
 }

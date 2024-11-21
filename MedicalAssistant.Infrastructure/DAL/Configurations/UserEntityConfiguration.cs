@@ -15,8 +15,18 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
             .HasForeignKey(x=>x.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        builder.Property(x => x.IsActive)
+            .IsRequired(true);
 
-
+        builder.HasQueryFilter(x => x.IsActive);
+        
+        builder.Property(x => x.IsActive)
+            .HasDefaultValue(true);
+        
+        builder.Property(x => x.DateOfDeactivationUtc)
+            .HasConversion(x => x.Value, x => new(x))
+            .IsRequired(false);
+        
 		builder.HasMany(x=>x.MedicalHistories)
 			.WithOne(x=>x.User)
 			.HasForeignKey(x => x.UserId)

@@ -1,0 +1,42 @@
+﻿@page "/"
+@using MedicalAssistant.UI.Shared.Services.Auth
+@using Microsoft.AspNetCore.Authorization
+
+@code
+{
+    [Inject] AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+    [Inject] NavigationManager NavigationManager { get; set; }
+    [Inject] IAuthorizationService AuthorizationService { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        bool? isAuthenticated = user.Identity?.IsAuthenticated;
+        var isActive = await AuthorizationService.AuthorizeAsync(user, null, "IsActive");
+        var isNotActive = await AuthorizationService.AuthorizeAsync(user, null, "IsNotActive");
+
+        if (isAuthenticated is not null &&
+            isAuthenticated == true)
+        {
+            if (isActive == AuthorizationResult.Success())
+            {
+                NavigationManager.NavigateTo("/currents");
+            }
+            else if (isNotActive == AuthorizationResult.Success())
+            {
+                NavigationManager.NavigateTo("/reactivate");
+            }
+            else
+            {
+                // UNKNOWN POLICY
+                await (AuthenticationStateProvider as MedicalAssistantAuthenticationStateProvider)!.LogOutAsync();
+            }
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/login");
+        }
+    }
+}

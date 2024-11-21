@@ -28,6 +28,7 @@
                                    Mask="@(new DateMask("dd/MM/yyyy"))"
                                    DateFormat="dd/MM/yyyy"
                                    Placeholder="dd/MM/yyyy"
+                                   MinDate="@MedicalHistory.StartDate"
                                    For="@(() => _viewModel.EndDate)"/>
                 </MudItem>
 

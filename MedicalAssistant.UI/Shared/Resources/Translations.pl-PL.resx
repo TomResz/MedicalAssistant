@@ -843,4 +843,31 @@
   <data name="EditDiseaseStageDialogTitle" xml:space="preserve">
     <value>Edytuj Etap Choroby</value>
   </data>
+  <data name="AccountIsNotActive" xml:space="preserve">
+    <value>Twoje konto nie jest aktywne.</value>
+  </data>
+  <data name="ReactivateAccount" xml:space="preserve">
+    <value>Reaktywuj Ponownie Konto</value>
+  </data>
+  <data name="BackToLoginScreen" xml:space="preserve">
+    <value>Powróć</value>
+  </data>
+  <data name="DeactivateAccount" xml:space="preserve">
+    <value>Zdeaktywuj Konto</value>
+  </data>
+  <data name="DeleteAccount" xml:space="preserve">
+    <value>Usuń Konto</value>
+  </data>
+  <data name="AccountDeactivatedSuccessfully" xml:space="preserve">
+    <value>Konto zostało pomyślnie zdeaktywowane.</value>
+  </data>
+  <data name="AccountDeactivationPrompt" xml:space="preserve">
+    <value>Czy napewno chcesz zdezaktywować konto ?</value>
+  </data>
+  <data name="AccountDeletePrompt" xml:space="preserve">
+    <value>Czy napewno chcesz usunąć konto ?</value>
+  </data>
+  <data name="AccountDeletedSuccessfully" xml:space="preserve">
+    <value>Konto zostało pomyślnie usunięte.</value>
+  </data>
 </root>

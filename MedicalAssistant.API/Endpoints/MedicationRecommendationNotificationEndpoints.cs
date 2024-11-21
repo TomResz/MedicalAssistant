@@ -16,7 +16,7 @@ public class MedicationRecommendationNotificationEndpoints
 	{
 		var group = app.MapGroup("recommendationNotification")
 			.WithTags("Medication Recommendation Notifications")
-			.RequireAuthorization(Permissions.Permissions.VerifiedUser);
+			.RequireAuthorization(Permissions.Permissions.IsVerifiedAndActive);
 
 		group.MapPost("/", async (IMediator mediator, AddMedicationNotificationCommand command) =>
 		{

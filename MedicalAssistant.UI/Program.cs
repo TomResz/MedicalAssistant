@@ -26,6 +26,11 @@ builder.Services.AddAuthorizationCore( conf =>
 		   x => x.RequireClaim("HasExternalProvider", "True"));
 	conf.AddPolicy("HasInternalAuthProvider",
 			x => x.RequireClaim("HasExternalProvider", "False"));
+	
+	conf.AddPolicy("IsActive",
+		x=>x.RequireClaim("IsActive", "True"));
+	conf.AddPolicy("IsNotActive",
+		x=>x.RequireClaim("IsActive", "False"));
 });
 
 builder.Services

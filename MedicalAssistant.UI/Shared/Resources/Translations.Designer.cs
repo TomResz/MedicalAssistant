@@ -60,6 +60,51 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The account has been successfully deactivated..
+        /// </summary>
+        internal static string AccountDeactivatedSuccessfully {
+            get {
+                return ResourceManager.GetString("AccountDeactivatedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to deactivate your account ?.
+        /// </summary>
+        internal static string AccountDeactivationPrompt {
+            get {
+                return ResourceManager.GetString("AccountDeactivationPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The account has been successfully deleted..
+        /// </summary>
+        internal static string AccountDeletedSuccessfully {
+            get {
+                return ResourceManager.GetString("AccountDeletedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete your account ?.
+        /// </summary>
+        internal static string AccountDeletePrompt {
+            get {
+                return ResourceManager.GetString("AccountDeletePrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your account is not active..
+        /// </summary>
+        internal static string AccountIsNotActive {
+            get {
+                return ResourceManager.GetString("AccountIsNotActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The account is already verified..
         /// </summary>
         internal static string AccountIsVerified {
@@ -227,6 +272,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Back {
             get {
                 return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Return.
+        /// </summary>
+        internal static string BackToLoginScreen {
+            get {
+                return ResourceManager.GetString("BackToLoginScreen", resourceCulture);
             }
         }
         
@@ -411,6 +465,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deactivate Account.
+        /// </summary>
+        internal static string DeactivateAccount {
+            get {
+                return ResourceManager.GetString("DeactivateAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 1.1. &lt;strong&gt;Application&lt;/strong&gt; – software available online or for download, known as &apos;Medical Assistant&apos;, designed to help users manage their medical and health data..
         /// </summary>
         internal static string Definition1 {
@@ -461,6 +524,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Account.
+        /// </summary>
+        internal static string DeleteAccount {
+            get {
+                return ResourceManager.GetString("DeleteAccount", resourceCulture);
             }
         }
         
@@ -1622,6 +1694,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Quantity {
             get {
                 return ResourceManager.GetString("Quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reactivate Account Again.
+        /// </summary>
+        internal static string ReactivateAccount {
+            get {
+                return ResourceManager.GetString("ReactivateAccount", resourceCulture);
             }
         }
         
