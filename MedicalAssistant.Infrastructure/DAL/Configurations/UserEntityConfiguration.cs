@@ -14,6 +14,11 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
             .WithOne()
             .HasForeignKey(x=>x.UserId)
             .OnDelete(DeleteBehavior.Cascade);
+        
+        builder.HasMany(x=>x.MedicalNotes)
+            .WithOne(x=>x.User)
+            .HasForeignKey(x=>x.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.Property(x => x.IsActive)
             .IsRequired(true);

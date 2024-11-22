@@ -213,6 +213,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Afternoon recommendations.
+        /// </summary>
+        internal static string AfternoonRecommendations {
+            get {
+                return ResourceManager.GetString("AfternoonRecommendations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Visits.
         /// </summary>
         internal static string AllVisits {
@@ -924,6 +933,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Evening recommendations.
+        /// </summary>
+        internal static string EveningRecommendations {
+            get {
+                return ResourceManager.GetString("EveningRecommendations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The maximum length is {0}..
         /// </summary>
         internal static string ExceededMaxSizeOfField {
@@ -1248,6 +1266,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Morning Recommendations.
+        /// </summary>
+        internal static string MorningRecommendations {
+            get {
+                return ResourceManager.GetString("MorningRecommendations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New notification.
         /// </summary>
         internal static string NewNotifcation {
@@ -1271,6 +1298,24 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Night {
             get {
                 return ResourceManager.GetString("Night", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Night recommendations.
+        /// </summary>
+        internal static string NightRecommendations {
+            get {
+                return ResourceManager.GetString("NightRecommendations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Medical Recommendations.
+        /// </summary>
+        internal static string NoRecommendationToday {
+            get {
+                return ResourceManager.GetString("NoRecommendationToday", resourceCulture);
             }
         }
         
@@ -1343,6 +1388,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string NoVisitsToChoose {
             get {
                 return ResourceManager.GetString("NoVisitsToChoose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Visits .
+        /// </summary>
+        internal static string NoVisitsToday {
+            get {
+                return ResourceManager.GetString("NoVisitsToday", resourceCulture);
             }
         }
         

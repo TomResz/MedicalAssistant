@@ -4,17 +4,20 @@ using System.Collections.Generic;
 using MedicalAssistant.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace MedicalAssistant.Infrastructure.Migrations
+namespace MedicalAssistant.Infrastructure.DAL.Migrations
 {
     [DbContext(typeof(MedicalAssistantDbContext))]
-    partial class MedicalAssistantDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241122124652_medicalnotes")]
+    partial class medicalnotes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,11 +189,6 @@ namespace MedicalAssistant.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Note")
-                        .HasAnnotation("Npgsql:TsVectorConfig", "english");
-
-                    NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("Note"), "GIN");
 
                     b.HasIndex("UserId");
 

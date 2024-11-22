@@ -37,6 +37,9 @@ public class User : AggregateRoot<UserId>
 
     private readonly HashSet<MedicalHistory> _medicalHistory = new();
     public IEnumerable<MedicalHistory> MedicalHistories => _medicalHistory;
+    
+    private readonly HashSet<MedicalNote> _medicalNotes = [];
+    public IEnumerable<MedicalNote> MedicalNotes => _medicalNotes;
 
     protected User()
     {

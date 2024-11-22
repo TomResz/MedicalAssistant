@@ -11,7 +11,10 @@ else
 {
     @if (_medications.Count == 0)
     {
-        <h3>Brak Rekomendacji :-(</h3>
+        <div style="display: flex; justify-content: center; align-items: center; height: 100%; color: #888888; padding: 16px; text-align: center;">
+            <MudIcon Icon="@Icons.Material.Outlined.MedicalServices" Size="Size.Large" Style="margin-right: 8px; color: #FF5722;"/>
+            <MudText Typo="Typo.h6" Class="fade-in">@Translations.NoRecommendationToday</MudText>
+        </div>
     }
     else
     {
@@ -27,7 +30,7 @@ else
                         }
                     </ItemOpposite>
                     <ItemContent>
-                        <MudText>Poranne rekomendacje:</MudText>
+                        <MudText>@Translations.MorningRecommendations</MudText>
                     </ItemContent>
                 </MudTimelineItem>
             }
@@ -44,7 +47,7 @@ else
                         }
                     </ItemOpposite>
                     <ItemContent>
-                        <MudText>Południowe rekomendacje:</MudText>
+                        <MudText>@Translations.AfternoonRecommendations</MudText>
                     </ItemContent>
                 </MudTimelineItem>
             }
@@ -61,7 +64,7 @@ else
                         }
                     </ItemOpposite>
                     <ItemContent>
-                        <MudText>Wieczorne rekomendacje:</MudText>
+                        <MudText>@Translations.Evening</MudText>
                     </ItemContent>
                 </MudTimelineItem>
             }
@@ -78,7 +81,7 @@ else
                         }
                     </ItemOpposite>
                     <ItemContent>
-                        <MudText>Nocne rekomendacje:</MudText>
+                        <MudText>@Translations.NightRecommendations</MudText>
                     </ItemContent>
                 </MudTimelineItem>
             }

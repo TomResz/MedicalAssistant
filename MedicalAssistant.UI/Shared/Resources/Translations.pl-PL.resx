@@ -870,4 +870,22 @@
   <data name="AccountDeletedSuccessfully" xml:space="preserve">
     <value>Konto zostało pomyślnie usunięte.</value>
   </data>
+  <data name="NoVisitsToday" xml:space="preserve">
+    <value>Brak Wizyt </value>
+  </data>
+  <data name="NoRecommendationToday" xml:space="preserve">
+    <value>Brak Rekomendacji Medycznych</value>
+  </data>
+  <data name="MorningRecommendations" xml:space="preserve">
+    <value>Poranne rekomendacje</value>
+  </data>
+  <data name="AfternoonRecommendations" xml:space="preserve">
+    <value>Popołudniowe rekomendacje</value>
+  </data>
+  <data name="EveningRecommendations" xml:space="preserve">
+    <value>Wieczorne rekomendacje</value>
+  </data>
+  <data name="NightRecommendations" xml:space="preserve">
+    <value>Nocne rekomendacje</value>
+  </data>
 </root>

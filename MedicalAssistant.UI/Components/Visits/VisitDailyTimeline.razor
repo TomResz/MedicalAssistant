@@ -1,8 +1,5 @@
 ﻿@using MedicalAssistant.UI.Models.Visits
 @using MedicalAssistant.UI.Shared.Services.Abstraction
-@using MudBlazor.Services
-@using NavigationContext = MudBlazor.NavigationContext
-
 @if (_loading)
 {
     <div class="d-flex flex-grow-1 flex-column w-100 h-100">
@@ -15,7 +12,7 @@ else
     {
         <div style="display: flex; justify-content: center; align-items: center; height: 100%; color: #888888; padding: 16px; text-align: center;">
             <MudIcon Icon="@Icons.Material.Outlined.EventBusy" Size="Size.Large" Style="margin-right: 8px; color: #FF5722;"/>
-            <MudText Typo="Typo.h6" Class="fade-in">No visits</MudText>
+            <MudText Typo="Typo.h6" Class="fade-in">@Translations.NoVisitsToday</MudText>
         </div>
     }
     else

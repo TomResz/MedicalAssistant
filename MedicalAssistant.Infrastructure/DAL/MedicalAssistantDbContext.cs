@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MedicalAssistant.Infrastructure.DAL;
 
-internal sealed class MedicalAssistantDbContext : DbContext
+public sealed class MedicalAssistantDbContext : DbContext
 {
     public DbSet<User> Users { get; set; }
     public DbSet<MedicationRecommendation> Recommendations { get; set; }
@@ -17,7 +17,7 @@ internal sealed class MedicalAssistantDbContext : DbContext
     public DbSet<Attachment> Attachments { get; set; }
     public DbSet<MedicalHistory> MedicalHistories { get; set; }
     public DbSet<MedicationRecommendationNotification> MedicationRecommendationsNotifications { get; set; }
-
+    public DbSet<MedicalNote> MedicalNotes { get; set; }
     public DbSet<DiseaseStage> DiseaseStages { get; set; }
 
     public MedicalAssistantDbContext(DbContextOptions<MedicalAssistantDbContext> options) : base(options)

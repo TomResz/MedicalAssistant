@@ -5,7 +5,8 @@
     <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>98a7e21e-7e61-41ea-b162-71ca421a6799</UserSecretsId>
+	<BlazorWebAssemblyEnableHotReload>true</BlazorWebAssemblyEnableHotReload>
+	<UserSecretsId>98a7e21e-7e61-41ea-b162-71ca421a6799</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

@@ -28,7 +28,7 @@ internal sealed class GetVisitBySearchTermQueryHandler
             return Enumerable.Empty<VisitDto>();
         }
         
-        var formattedQuery = request.SearchTerm;
+        var formattedQuery = request.SearchTerm.ToTsQuery();
         
         var query = _context
             .Visits
