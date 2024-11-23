@@ -906,4 +906,13 @@
   <data name="NoteAdded" xml:space="preserve">
     <value>A note was added by default.</value>
   </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="DialogDeleteNoteTitle" xml:space="preserve">
+    <value>Deleting note</value>
+  </data>
+  <data name="DialogDeleteNote" xml:space="preserve">
+    <value>Are you sure you want to delete this entry ?</value>
+  </data>
 </root>

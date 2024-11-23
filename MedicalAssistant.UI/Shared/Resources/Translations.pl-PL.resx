@@ -906,4 +906,13 @@
   <data name="NoteAdded" xml:space="preserve">
     <value>Domyślnie dodano notatkę.</value>
   </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtruj</value>
+  </data>
+  <data name="DialogDeleteNoteTitle" xml:space="preserve">
+    <value>Usuwanie notatki</value>
+  </data>
+  <data name="DialogDeleteNote" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć ten wpis ?</value>
+  </data>
 </root>

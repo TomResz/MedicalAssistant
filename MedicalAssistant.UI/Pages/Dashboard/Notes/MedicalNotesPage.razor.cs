@@ -11,7 +11,7 @@ public partial class MedicalNotesPage
 {
     [Inject] IMedicalNoteRepository NoteRepository { get; set; }
     [Inject] IDialogService DialogService { get; set; }
-    
+    [Inject] ISnackbar Snackbar { get; set; }
     public string SearchTerm { get; set; }
     private bool _loading = true;
     private List<TagDto> _tags = [];
@@ -55,14 +55,25 @@ public partial class MedicalNotesPage
         }
     }
 
+    private async Task NoteEdited(NoteDto note)
+    {
+        await OnInitializedAsync();
+        await InvokeAsync(StateHasChanged);
+    }
+    
     private async Task NoteDeleted(Guid id)
     {
-        var note = _notes.FirstOrDefault(x => x.Id == id);
-        if (note is not null)
+        var response = await NoteRepository.Delete(id);
+
+        if (response.IsFailure)
         {
-            _notes.Remove(note);
-            await InvokeAsync(StateHasChanged);
+            Snackbar.Add(Translations.SomethingWentWrong, Severity.Error);
+            return;
         }
+
+        await Task.Delay(250);
+        await OnInitializedAsync();
+        await InvokeAsync(StateHasChanged);
     }
 
     private async Task Add()

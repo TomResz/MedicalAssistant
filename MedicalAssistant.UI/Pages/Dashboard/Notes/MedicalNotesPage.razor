@@ -4,24 +4,24 @@
 
 
 <div style="overflow-x: hidden;">
-    <MudPaper Class="d-flex flex-column" Style="min-height: calc(100vh - 96px); overflow-x: hidden; height: 100%;">
+    <MudPaper Class="d-flex flex-column"
+              Style="min-height: calc(100vh - 96px); max-height: 100%; overflow-x: hidden; height: 100%; overflow-y: auto; ">
         <MudPaper Class="pa-1" Style="overflow-x: hidden; height: 100%;">
             <MudGrid Class="w-100" Spacing="2" Justify="Justify.FlexEnd" Style="overflow-x: hidden;">
-                @if (_selectedTags.Count() != 0)
-                {
-                    <MudItem xs="12" sm="12" lg="3" Class="d-flex align-items-end justify-content-end">
-                        <MudButton  StartIcon="@Icons.Material.Filled.FilterAlt" Color="Color.Transparent" OnClick="@Filter">
-                            Filtruj
-                        </MudButton>
-                    </MudItem>
-                }
+
+                <MudItem xs="12" sm="12" lg="3" Class="d-flex align-items-end justify-content-end" Style="overflow-x: hidden;">
+                    <MudButton StartIcon="@Icons.Material.Filled.FilterAlt" Color="Color.Transparent"
+                               OnClick="@Filter">
+                        @Translations.Filter
+                    </MudButton>
+                </MudItem>
                 <MudItem xs="12" sm="12" md="4" lg="3">
                     <MudSelect T="string" MultiSelection="true"
                                Label="@Translations.Tags"
                                @bind-SelectedValues="_selectedTags"
                                Clearable="false"
                                Class="ma-1"
-                               AdornmentIcon="@Icons.Material.Filled.Tag" >
+                               AdornmentIcon="@Icons.Material.Filled.Tag">
                         @foreach (var tag in _tags)
                         {
                             <MudSelectItem T="string" Style="text-wrap: wrap;" Value="@tag.Tag">
@@ -49,11 +49,11 @@
         }
         else
         {
-            <MudGrid Class="flex-grow-1 pa-4" Justify="Justify.FlexStart" Style="overflow-x: hidden;">
+            <MudGrid Class="pa-4" Spacing="6" Justify="Justify.FlexStart" Style="overflow-x: hidden;">
                 @foreach (var note in _notes)
                 {
                     <MudItem xs="12" sm="8" md="6" lg="4" Style="overflow-x: hidden;">
-                        <NoteItem  Note="@note" OnDeleted="@NoteDeleted"/> 
+                        <NoteItem Note="@note" OnDeleted="@NoteDeleted" OnEdited="@NoteEdited"/>
                     </MudItem>
                 }
             </MudGrid>

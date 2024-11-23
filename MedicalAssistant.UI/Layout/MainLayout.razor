@@ -26,9 +26,11 @@
         </MudDrawerHeader>
         <NavMenu/>
     </MudDrawer>
-    <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="pa-4 ma-0" Style="overflow-x: hidden;">
-            @Body
+    <MudMainContent Style="overflow-x: hidden;">
+        <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="pa-4 ma-0">
+            <div style="overflow-x: hidden !important;">
+                @Body
+            </div>
         </MudContainer>
     </MudMainContent>
 </MudLayout>

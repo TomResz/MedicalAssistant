@@ -3,7 +3,7 @@
     <DialogContent>
         <MudForm Model="@_model" @ref="form" ValidationDelay="60" Validation="@_validator.ValidateValue">
             <MudTextField @bind-Value="@_model.Note" Label="@Translations.Note" FullWidth="true"
-                          For="@(() => _model.Note)" 
+                          For="@(() => _model.Note)"
                           MaxLines="3"
                           MaxLength="200"/>
             <MudTextField Class="mt-2" @bind-Value="@_model.CurrentTag"
@@ -22,9 +22,9 @@
     </DialogContent>
     <DialogActions>
         <div class="d-flex flex-column flex-sm-column flex-md-row  justify-end w-100 overflow-x-hidden">
-            <MudButton StartIcon="@Icons.Material.Outlined.Add" Color="Color.Primary" Variant="Variant.Filled"
+            <MudButton StartIcon="@Icons.Material.Outlined.Edit" Color="Color.Primary" Variant="Variant.Filled"
                        Class="mx-2 my-1 flex-grow-1 align-items-stretch" OnClick="@Submit">
-                @Translations.Add
+                @Translations.Edit
             </MudButton>
             <MudButton StartIcon="@Icons.Material.Outlined.Cancel" Color="Color.Error"
                        Variant="Variant.Filled"

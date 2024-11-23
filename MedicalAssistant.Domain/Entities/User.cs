@@ -220,6 +220,7 @@ public class User : AggregateRoot<UserId>
     {
         IsActive = false;
         DateOfDeactivationUtc = currentDate;
+        AddEvent(new AccountDeactivatedEvent(Id));
     }
 
     public void ReactivateAccount()

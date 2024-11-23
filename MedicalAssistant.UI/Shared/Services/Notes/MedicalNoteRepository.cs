@@ -53,4 +53,16 @@ public class MedicalNoteRepository(HttpClient httpClient) : IMedicalNoteReposito
         var response = await _httpClient.PostAsJsonAsync("medicalnote/",request);
         return await response.DeserializeResponse<Guid>();
     }
+
+    public async Task<Response.Base.Response> Edit(EditNoteRequest request)
+    {
+        var response = await _httpClient.PatchAsJsonAsync("medicalnote/",request);
+        return await response.DeserializeResponse();
+    }
+
+    public async Task<Response.Base.Response> Delete(Guid id)
+    {
+        var response = await _httpClient.DeleteAsync($"medicalnote/{id}");
+        return await response.DeserializeResponse();
+    }
 }

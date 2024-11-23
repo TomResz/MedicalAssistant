@@ -1,34 +1,35 @@
-﻿@using MedicalAssistant.UI.Models.MedicalNotes
-@using Variant = MudBlazor.Variant
+﻿@using Variant = MudBlazor.Variant
 <MudPaper Elevation="4" Class="@(Class ?? "pa-4")" Style="margin-top: 0px; overflow-x: hidden;">
     <div class="d-flex  flex-column w-100 h-100" style="overflow-x:hidden;">
         <div class="flex-grow-1 d-flex flex-column flex-md-row w-100 mx-2">
             <div class="flex-grow-1 d-flex flex-column">
                 <div class="flex-grow-1 ma-2 d-flex flex-row align-items-center">
-                    <MudTooltip Text="@Translations.Note">
+                    <MudTooltip Text="@Translations.Note" Style="overflow-x: hidden;" >
                         <MudIcon Icon="@Icons.Material.Filled.Note" Class=" flex-grow-1 mr-2"
                                  Size="Size.Large"></MudIcon>
                     </MudTooltip>
                     <MudText Typo="Typo.body1" Class="flex-grow-1 mt-2">
                         @{
-                            string displayedNote = Note.Note.Length > 15
-                                ? Note.Note.Substring(0, 15) + "..."
+                            string displayedNote = Note.Note.Length > 20
+                                ? Note.Note.Substring(0, 20) + "..."
                                 : Note.Note;
                         }
                         @displayedNote
                     </MudText>
                 </div>
                 <div class="flex-grow-1 ma-2 d-flex flex-row align-items-center">
-                    <MudTooltip Text="@Translations.Tags">
+                    <MudTooltip Text="@Translations.Tags" Style="overflow-x: hidden;">
                         <MudIcon Icon="@Icons.Material.Filled.Tag" Class="flex-grow-1 mr-2" Size="Size.Large"></MudIcon>
                     </MudTooltip>
                     <MudText Typo="Typo.body1" Class="flex-grow-1 mt-1">
-                        @(string.Join(",",Note.Tags))
+                        @(string.Join(",", Note.Tags))
                     </MudText>
                 </div>
             </div>
-            <div class="align-md-self-end ma-2 pr-2">
-                <CalendarIconComponent Date="@Note.CreatedAt"/>
+            <div class="align-md-self-end ma-2 pr-2" style="overflow-x: hidden;">
+                <MudTooltip Text="@Note.CreatedAt.ToString("HH:mm  dd.MM.yyyy")" Style="overflow-x: hidden;">
+                    <CalendarIconComponent Date="@Note.CreatedAt"/>
+                </MudTooltip>
             </div>
         </div>
         <div class="flex-grow-1 d-flex flex-column flex-md-row w-100 mx-2">
@@ -43,20 +44,3 @@
         </div>
     </div>
 </MudPaper>
-
-@code{
-    [Parameter] public string? Class { get; set; }
-    [Parameter] public required NoteDto Note { get; set; }
-    [Parameter] public EventCallback<Guid> OnDeleted { get; set; }
-    [Parameter] public EventCallback<NoteDto> OnEdited { get; set; }
-
-    private async Task Edit()
-    {
-         
-    }
-    
-    private async Task Delete()
-    {
-         
-    }
-}

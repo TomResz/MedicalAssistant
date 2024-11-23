@@ -10,4 +10,6 @@ public interface IMedicalNoteRepository
     Task<Response.Base.Response<List<NoteDto>>> GetNotes();
     Task<Response.Base.Response<List<NoteDto>>> GetBySearchTermAndTags(string? searchTerm,string[]? tags);
     Task<Response.Base.Response<Guid>> Add(AddNoteRequest request);
+    Task<Response.Base.Response> Edit(EditNoteRequest request);
+    Task<Response.Base.Response> Delete(Guid id);
 }

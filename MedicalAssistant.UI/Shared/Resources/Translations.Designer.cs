@@ -609,6 +609,24 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this entry ?.
+        /// </summary>
+        internal static string DialogDeleteNote {
+            get {
+                return ResourceManager.GetString("DialogDeleteNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleting note.
+        /// </summary>
+        internal static string DialogDeleteNoteTitle {
+            get {
+                return ResourceManager.GetString("DialogDeleteNoteTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disease Stage Removal.
         /// </summary>
         internal static string DialogDiseaseStageDelete {
@@ -974,6 +992,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string FileMaximumSize {
             get {
                 return ResourceManager.GetString("FileMaximumSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        internal static string Filter {
+            get {
+                return ResourceManager.GetString("Filter", resourceCulture);
             }
         }
         
