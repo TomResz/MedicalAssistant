@@ -1,0 +1,82 @@
+﻿@page "/notes"
+@using MedicalAssistant.UI.Components
+@using MedicalAssistant.UI.Components.MedicalNote
+
+
+<div style="overflow-x: hidden;">
+    <MudPaper Class="d-flex flex-column" Style="min-height: calc(100vh - 96px); overflow-x: hidden; height: 100%;">
+        <MudPaper Class="pa-1" Style="overflow-x: hidden; height: 100%;">
+            <MudGrid Class="w-100" Spacing="2" Justify="Justify.FlexEnd" Style="overflow-x: hidden;">
+                @if (_selectedTags.Count() != 0)
+                {
+                    <MudItem xs="12" sm="12" lg="3" Class="d-flex align-items-end justify-content-end">
+                        <MudButton  StartIcon="@Icons.Material.Filled.FilterAlt" Color="Color.Transparent" OnClick="@Filter">
+                            Filtruj
+                        </MudButton>
+                    </MudItem>
+                }
+                <MudItem xs="12" sm="12" md="4" lg="3">
+                    <MudSelect T="string" MultiSelection="true"
+                               Label="@Translations.Tags"
+                               @bind-SelectedValues="_selectedTags"
+                               Clearable="false"
+                               Class="ma-1"
+                               AdornmentIcon="@Icons.Material.Filled.Tag" >
+                        @foreach (var tag in _tags)
+                        {
+                            <MudSelectItem T="string" Style="text-wrap: wrap;" Value="@tag.Tag">
+                                @($"({tag.Count}) {tag.Tag}")
+                            </MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="12" sm="12" md="4" lg="3">
+                    <MudTextField T="string" @bind-Value="SearchTerm"
+                                  Adornment="Adornment.End"
+                                  MaxLength="30"
+                                  Class="ma-1"
+                                  Label="@Translations.SearchTerm"
+                                  AdornmentIcon="@Icons.Material.Outlined.Search"
+                                  TextChanged="Filter"/>
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+        @if (_loading)
+        {
+            <div class="d-flex flex-column w-100 h-100 flex-grow-1 pa-1" style="height: 100%;">
+                <LoadingSkeletonComponent Class="pa-4 flex-grow-1"/>
+            </div>
+        }
+        else
+        {
+            <MudGrid Class="flex-grow-1 pa-4" Justify="Justify.FlexStart" Style="overflow-x: hidden;">
+                @foreach (var note in _notes)
+                {
+                    <MudItem xs="12" sm="8" md="6" lg="4" Style="overflow-x: hidden;">
+                        <NoteItem  Note="@note" OnDeleted="@NoteDeleted"/> 
+                    </MudItem>
+                }
+            </MudGrid>
+            <div style="position: fixed;bottom: 34px; right: 75px;overflow-x: hidden;">
+                <MudTooltip Text="@Translations.Add" Placement="Placement.Start" Style="overflow-x: hidden;">
+                    <MudFab
+                        Class="fixed-button"
+                        Color="Color.Primary"
+                        Size="Size.Large"
+                        StartIcon="@Icons.Material.Outlined.Add"
+                        OnClick="@Add">
+                    </MudFab>
+                </MudTooltip>
+            </div>
+        }
+    </MudPaper>
+</div>
+<style>
+    .fixed-button {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 150;
+        overflow-x: hidden;
+    }
+</style>

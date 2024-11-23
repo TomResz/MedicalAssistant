@@ -186,6 +186,24 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Tag.
+        /// </summary>
+        internal static string AddTag {
+            get {
+                return ResourceManager.GetString("AddTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the tag and press +.
+        /// </summary>
+        internal static string AddTagComment {
+            get {
+                return ResourceManager.GetString("AddTagComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Visit.
         /// </summary>
         internal static string AddVisitBtn {
@@ -1176,6 +1194,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Medical Notes.
+        /// </summary>
+        internal static string MedicalNotes {
+            get {
+                return ResourceManager.GetString("MedicalNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Medication.
         /// </summary>
         internal static string Medication {
@@ -1325,6 +1352,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Note {
             get {
                 return ResourceManager.GetString("Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A note was added by default..
+        /// </summary>
+        internal static string NoteAdded {
+            get {
+                return ResourceManager.GetString("NoteAdded", resourceCulture);
             }
         }
         
@@ -2081,6 +2117,24 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string SymptomDescription {
             get {
                 return ResourceManager.GetString("SymptomDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tags.
+        /// </summary>
+        internal static string Tags {
+            get {
+                return ResourceManager.GetString("Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tags cannot be empty..
+        /// </summary>
+        internal static string TagsCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("TagsCannotBeEmpty", resourceCulture);
             }
         }
         

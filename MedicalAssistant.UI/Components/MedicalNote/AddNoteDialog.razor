@@ -1,0 +1,34 @@
+﻿@using Variant = MudBlazor.Variant
+<MudDialog TitleClass="text-center" Style="overflow-x: hidden;">
+    <DialogContent>
+        <MudForm Model="@_model" @ref="form" ValidationDelay="60" Validation="@_validator.ValidateValue">
+            <MudTextField @bind-Value="@_model.Note" Label="@Translations.Note" FullWidth="true"
+                          For="@(() => _model.Note)"/>
+            <MudTextField Class="mt-2" @bind-Value="@_model.CurrentTag"
+                          Label="@Translations.AddTag"
+                          Placeholder="@Translations.AddTagComment"
+                          Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Add"
+                          OnAdornmentClick="AddTag"
+                          For="@(() => _model.CurrentTag)"/>
+            <MudChipSet Class="mt-2" T="string" AllClosable OnClose="DeleteTag">
+                @foreach (var value in _model.Tags)
+                {
+                    <MudChip Text="@value"></MudChip>
+                }
+            </MudChipSet>
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <div class="d-flex flex-column flex-sm-column flex-md-row  justify-end w-100 ">
+            <MudButton StartIcon="@Icons.Material.Outlined.Add" Color="Color.Primary" Variant="Variant.Filled"
+                       Class="mx-2 my-1 flex-grow-1 align-items-stretch" OnClick="@Submit">
+                @Translations.Add
+            </MudButton>
+            <MudButton StartIcon="@Icons.Material.Outlined.Cancel" Color="Color.Error"
+                       Variant="Variant.Filled"
+                       Class="mx-2 my-1 flex-grow-1 align-items-stretch" OnClick="@Cancel">
+                @Translations.Cancel
+            </MudButton>
+        </div>
+    </DialogActions>
+</MudDialog>

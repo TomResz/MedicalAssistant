@@ -888,4 +888,22 @@
   <data name="NightRecommendations" xml:space="preserve">
     <value>Night recommendations</value>
   </data>
+  <data name="MedicalNotes" xml:space="preserve">
+    <value>Medical Notes</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="AddTag" xml:space="preserve">
+    <value>Add Tag</value>
+  </data>
+  <data name="AddTagComment" xml:space="preserve">
+    <value>Enter the tag and press +</value>
+  </data>
+  <data name="TagsCannotBeEmpty" xml:space="preserve">
+    <value>Tags cannot be empty.</value>
+  </data>
+  <data name="NoteAdded" xml:space="preserve">
+    <value>A note was added by default.</value>
+  </data>
 </root>

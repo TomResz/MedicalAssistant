@@ -62,6 +62,6 @@ public class MedicalNote
     public void Update(Note note, string[] tags)
     {
         Note = note;
-        Tags = tags;
+        Tags = NormalizeTags(tags);
     }
 }
