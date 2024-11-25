@@ -9,6 +9,7 @@ using MedicalAssistant.Infrastructure.ExternalProviders;
 using MedicalAssistant.Infrastructure.Language;
 using MedicalAssistant.Infrastructure.Middleware;
 using MedicalAssistant.Infrastructure.Notifications;
+using MedicalAssistant.Infrastructure.PDF;
 using MedicalAssistant.Infrastructure.Security;
 using MedicalAssistant.Infrastructure.Time;
 using Microsoft.Extensions.Configuration;
@@ -33,6 +34,7 @@ public static class Extensions
             .AddEmailServices(configuration)
             .AddGoogleService(configuration)
             .AddLanguageService()
+            .AddPDFServices()
             .AddSingleton<INotificationSender,NotificationSender>();
 
     internal static T GetOptions<T>(this IConfiguration configuration, string sectionName) where T : class, new()
