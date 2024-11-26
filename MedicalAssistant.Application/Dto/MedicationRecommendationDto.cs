@@ -9,5 +9,4 @@ public class MedicationRecommendationDto
     public string[] TimeOfDay { get; set; }
     public int Quantity { get; set; }
     public string? ExtraNote { get; set; }
-
 }

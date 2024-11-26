@@ -21,7 +21,7 @@ internal sealed class VisitReportPdfService : IVisitReportPdfService
         var pdf = new VisitReport(language, visits);
        var pdfByteContent =  pdf.GeneratePdf();
        
-       return new()
+       return new PdfDto
        {
            Content = pdfByteContent,
            Name = language == Languages.Polish

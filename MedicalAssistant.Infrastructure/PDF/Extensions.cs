@@ -1,4 +1,5 @@
 ﻿using MedicalAssistant.Application.Contracts;
+using MedicalAssistant.Infrastructure.PDF.Reports;
 using MedicalAssistant.Infrastructure.PDF.Services;
 using Microsoft.Extensions.DependencyInjection;
 using QuestPDF;
@@ -12,6 +13,7 @@ public static class Extensions
     {
         Settings.License = LicenseType.Community;
         services.AddScoped<IVisitReportPdfService, VisitReportPdfService>();
+        services.AddScoped<IMedicalHistoryReportPdfService, MedicalHistoryReportService>();
         return services;
     }
 }
