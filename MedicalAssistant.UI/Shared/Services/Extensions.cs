@@ -8,6 +8,7 @@ using MedicalAssistant.UI.Shared.Services.MedicationNotifications;
 using MedicalAssistant.UI.Shared.Services.Notes;
 using MedicalAssistant.UI.Shared.Services.Notifications;
 using MedicalAssistant.UI.Shared.Services.RefreshToken;
+using MedicalAssistant.UI.Shared.Services.Report;
 using MedicalAssistant.UI.Shared.Services.Settings;
 using MedicalAssistant.UI.Shared.Services.Time;
 using MedicalAssistant.UI.Shared.Services.User;
@@ -37,6 +38,8 @@ public static class Extensions
 		services.AddScoped<IMedicationNotificationService,MedicationNotificationService>();
 		services.AddScoped<IMedicalHistoryService, MedicalHistoryService>();
 		services.AddScoped<IMedicalNoteRepository, MedicalNoteRepository>();
+		services.AddScoped<IReportService, ReportService>();
+		
 		return services;
 	}
 }

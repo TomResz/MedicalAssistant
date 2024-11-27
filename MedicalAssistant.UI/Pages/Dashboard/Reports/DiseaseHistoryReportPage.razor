@@ -1,0 +1,56 @@
+﻿@page "/report/medical-history"
+@using MedicalAssistant.UI.Components
+
+
+<div class="d-flex flex-column" style="height: calc(100vh - 96px); overflow-x: hidden;">
+    @if (_loading)
+    {
+        <MudPaper Class="ma-0  flex-column flex-grow-1 d-flex pa-2">
+            <LoadingSkeletonComponent Class="flex-grow-1 pa-2 ma-2" />
+        </MudPaper>
+    }
+    else
+    {
+        <MudTable Class="flex-grow-1 " FixedFooter="true" Items="@_history" @bind-SelectedItems="_selectedItems"
+                  MultiSelection="true" Bordered="true" Hover="true" Striped="true" Elevation="3">
+            <HeaderContent>
+                <MudTh>@Translations.DiseaseName</MudTh>
+                <MudTh>@Translations.SymptomDescription</MudTh>
+                <MudTh>@Translations.BeginDate</MudTh>
+                <MudTh>@Translations.VisitDetails</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="@Translations.DiseaseName">@context.DiseaseName</MudTd>
+                <MudTd DataLabel="@Translations.SymptomDescription">@context.SymptomDescription</MudTd>
+                <MudTd DataLabel="@Translations.BeginDate">@context.StartDate.ToString("dd.MM.yyyy") </MudTd>
+                <MudTd DataLabel="@Translations.VisitDetails">
+                    <MudTooltip Text="@Translations.VisitDetails">
+                        <MudFab StartIcon="@Icons.Material.Filled.Visibility" OnClick="@(() => GoToDetails(context.Id))" Color="Color.Primary" />
+                    </MudTooltip>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+        <div style="position: fixed;bottom: 34px; right: 75px;overflow: hidden;">
+            <MudTooltip Text="@Translations.DownloadAttachment" Placement="Placement.Start" Style="overflow-x: hidden;">
+                <MudFab
+                    Class="fixed-button"
+                    Color="Color.Primary"
+                    Size="Size.Large"
+                    StartIcon="@Icons.Material.Outlined.FileDownload"
+                    OnClick="@Download"
+                    Disabled="@(_selectedItems.Count == 0)">
+                </MudFab>
+            </MudTooltip>
+        </div>
+    }
+</div>
+
+<style>
+    .fixed-button {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 150;
+        overflow: hidden;
+    }
+</style>

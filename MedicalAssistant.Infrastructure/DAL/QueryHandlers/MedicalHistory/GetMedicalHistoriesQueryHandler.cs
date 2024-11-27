@@ -26,7 +26,7 @@ internal sealed class GetMedicalHistoriesQueryHandler
     {
         var userId = _userContext.GetUserId;
 
-        var response = await _context
+        var query = _context
             .MedicalHistories
             .AsNoTracking()
             .Where(h => h.UserId == userId)
@@ -41,8 +41,8 @@ internal sealed class GetMedicalHistoriesQueryHandler
                 SymptomDescription = x.SymptomDescription,
                 StartDate = (DateTime)x.DiseaseStartDate,
                 EndDate = x.DiseaseEndDate != null ? (DateTime)x.DiseaseEndDate : null,
-                VisitDto = x.Visit !=null ? x.Visit.ToDto() : null,
-                Stages = x.DiseaseStages.OrderBy(d=>d.Date).Select(y => new DiseaseStageDto()
+                VisitDto = x.Visit != null ? x.Visit.ToDto() : null,
+                Stages = x.DiseaseStages.OrderBy(d => d.Date).Select(y => new DiseaseStageDto()
                 {
                     Id = y.Id,
                     MedicalHistoryId = y.MedicalHistoryId,
@@ -50,9 +50,16 @@ internal sealed class GetMedicalHistoriesQueryHandler
                     Note = y.Note,
                     Name = y.Name,
                     VisitDto = y.Visit != null ? y.Visit.ToDto() : null
-                }).OrderBy(y=>y.Date).ToList()
-            })
-            .OrderBy(x=>x.StartDate)
+                }).OrderBy(y => y.Date).ToList()
+            });
+
+        if (request.Ids is not null)
+        {
+            query = query.Where(h => request.Ids.Contains(h.Id));
+        }
+
+        var response = await query
+            .OrderBy(x => x.StartDate)
             .ToListAsync(cancellationToken);
 
         return response;

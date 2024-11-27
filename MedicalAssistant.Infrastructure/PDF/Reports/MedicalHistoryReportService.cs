@@ -26,8 +26,8 @@ internal sealed class MedicalHistoryReportService : IMedicalHistoryReportPdfServ
         {
             Content = content,
             Name = language == Languages.Polish 
-                ? $"historia_chorob_{DateTime.Now.ToString("HH_mm_dd_MM_yyyy")}" 
-                : $"disease_history_{DateTime.Now.ToString("HH_mm_dd_MM_yyyy")}"
+                ? $"historia_chorob_{DateTime.Now.ToString("HH_mm_dd_MM_yyyy")}.pdf" 
+                : $"disease_history_{DateTime.Now.ToString("HH_mm_dd_MM_yyyy")}.pdf"
         };
     }
 }

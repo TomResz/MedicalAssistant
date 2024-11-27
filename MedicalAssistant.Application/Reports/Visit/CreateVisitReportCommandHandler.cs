@@ -20,7 +20,7 @@ internal sealed class CreateVisitReportCommandHandler : IRequestHandler<CreateVi
 
     public async Task<PdfDto?> Handle(CreateVisitReportCommand request, CancellationToken cancellationToken)
     {
-        var response = await _mediator.Send(new GetVisitsWithRecommendationsQuery(), cancellationToken);
+        var response = await _mediator.Send(new GetVisitsWithRecommendationsQuery(request.Ids), cancellationToken);
 
         var recommendations = response.ToList();
         

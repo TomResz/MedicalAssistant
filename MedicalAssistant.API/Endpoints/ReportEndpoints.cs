@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using MedicalAssistant.Application.Reports.MedicalHistory;
 using MedicalAssistant.Application.Reports.Visit;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MedicalAssistant.API.Endpoints;
 
@@ -12,28 +13,26 @@ public class ReportEndpoints : IEndpoints
             .RequireAuthorization(Permissions.Permissions.IsVerifiedAndActive)
             .WithTags("PDF Report");
 
-        group.MapGet("/visit", async (IMediator mediator) =>
+        group.MapGet("/visit", async ([FromQuery(Name = "id")]Guid[] ids,IMediator mediator,HttpResponse httpResponse) =>
         {
-            var command = new CreateVisitReportCommand();
+            var command = new CreateVisitReportCommand(ids.ToList());
             var response = await mediator.Send(command);
             if (response is null)
             {
                 return Results.NotFound();
             }
-            
             return Results.File(response.Content, "application/pdf",response.Name);
         });
         
-        group.MapGet("/history", async (IMediator mediator) =>
+        group.MapGet("/medical-history", async ([FromQuery(Name = "id")]Guid[] ids,IMediator mediator,HttpResponse httpResponse) =>
         {
-            var command = new CreateMedicalHistoryReportCommand();
+            var command = new CreateMedicalHistoryReportCommand(ids.ToList());
             var response = await mediator.Send(command);
             
             if (response is null)
             {
                 return Results.NotFound();
             }
-            
             return Results.File(response.Content, "application/pdf",response.Name);
         });
     }

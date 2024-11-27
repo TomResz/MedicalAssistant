@@ -915,4 +915,7 @@
   <data name="DialogDeleteNote" xml:space="preserve">
     <value>Are you sure you want to delete this entry ?</value>
   </data>
+  <data name="Reports" xml:space="preserve">
+    <value>PDF Reports</value>
+  </data>
 </root>

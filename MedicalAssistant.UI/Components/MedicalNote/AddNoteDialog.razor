@@ -9,7 +9,7 @@
             <MudTextField Class="mt-2" @bind-Value="@_model.CurrentTag"
                           Label="@Translations.AddTag"
                           Placeholder="@Translations.AddTagComment"
-                          Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Add"
+                          Adornment="Adornment.End" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.Add"
                           OnAdornmentClick="AddTag"
                           For="@(() => _model.CurrentTag)"/>
             <MudChipSet Class="mt-2" T="string" AllClosable OnClose="DeleteTag">

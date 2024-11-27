@@ -25,8 +25,8 @@ internal sealed class VisitReportPdfService : IVisitReportPdfService
        {
            Content = pdfByteContent,
            Name = language == Languages.Polish
-               ? $"raport_medyczny_{DateTime.Now}.pdf" 
-               : $"medical_raport_{DateTime.Now}.pdf"
+               ? $"raport_medyczny_{DateTime.Now:_dd_MM_yyyy}.pdf" 
+               : $"medical_raport_{DateTime.Now:_dd_MM_yyyy}.pdf"
        };
     }
 

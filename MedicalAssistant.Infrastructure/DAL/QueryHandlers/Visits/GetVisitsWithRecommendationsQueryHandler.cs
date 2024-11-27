@@ -27,7 +27,7 @@ internal sealed class GetVisitsWithRecommendationsQueryHandler
 
         var response = await _context.Visits
             .Include(x => x.Recommendations)
-            .Where(x=>x.UserId == userId)
+            .Where(x=>x.UserId == userId && request.Ids.Contains(x.Id))
             .Select(x => new VisitWithRecommendationsDto
             {
                 Date = (DateTime)x.Date,

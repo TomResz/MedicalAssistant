@@ -51,6 +51,17 @@
 		@Translations.DiseaseHistory
 	</MudNavLink>
 	
+	@* PDF Reports *@
+	<MudNavGroup Title="@Translations.Reports" Icon="@Icons.Material.Outlined.PictureAsPdf" Expanded="false">
+		<MudNavLink Href="/report/visit" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.MedicalServices">
+			@Translations.Visits
+		</MudNavLink>
+		<MudNavLink Href="/report/medical-history" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.WorkHistory">
+			@Translations.DiseaseHistory
+		</MudNavLink>
+	</MudNavGroup>
+	
+	@* Terms *@
 	<MudNavGroup Title="@Translations.Regulations" Icon="@Icons.Material.Filled.TextSnippet" Expanded="false">
 		<MudNavLink Href="/terms" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Policy">
 			@Translations.Terms

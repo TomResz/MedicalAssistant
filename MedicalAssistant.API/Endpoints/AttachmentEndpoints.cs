@@ -30,8 +30,7 @@ public class AttachmentEndpoints : IEndpoints
 				".png" => "image/png",
 				_ => "application/pdf",
 			};
-
-			httpResponse.Headers.Append("X-FileName", response.Name);
+			
 			return Results.File(response.Content, mimeType, response.Name);
 		});
 
