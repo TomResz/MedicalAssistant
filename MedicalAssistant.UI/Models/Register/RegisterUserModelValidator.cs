@@ -20,9 +20,13 @@ public sealed class RegisterUserModelValidator : BaseValidator<RegisterUserModel
 			.WithMessage(Translations.FullNameTooShort)
 			.MaximumLength(100)
 			.WithMessage(Translations.FullNameTooLong);
-
+		
 		RuleFor(x => x.ConfirmedPassword)
 			.Equal(x => x.Password)
 			.WithMessage(Translations.PasswordMatch);
+
+		RuleFor(x => x.AcceptTerms)
+			.Must(x => x == true)
+			.WithMessage(Translations.FieldIsRequired);
 	}
 }

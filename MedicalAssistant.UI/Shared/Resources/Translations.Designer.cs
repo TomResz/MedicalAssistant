@@ -60,6 +60,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I have read and agree to the.
+        /// </summary>
+        internal static string AcceptTerms {
+            get {
+                return ResourceManager.GetString("AcceptTerms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The account has been successfully deactivated..
         /// </summary>
         internal static string AccountDeactivatedSuccessfully {
@@ -245,6 +254,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string AllVisits {
             get {
                 return ResourceManager.GetString("AllVisits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to and.
+        /// </summary>
+        internal static string And {
+            get {
+                return ResourceManager.GetString("And", resourceCulture);
             }
         }
         
@@ -987,6 +1005,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The field is required..
+        /// </summary>
+        internal static string FieldIsRequired {
+            get {
+                return ResourceManager.GetString("FieldIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The maximum file size is {0} MB..
         /// </summary>
         internal static string FileMaximumSize {
@@ -1685,6 +1712,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string PrivacyLegalBasisTitle {
             get {
                 return ResourceManager.GetString("PrivacyLegalBasisTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Privacy Policy.
+        /// </summary>
+        internal static string PrivacyPolicyPostfix {
+            get {
+                return ResourceManager.GetString("PrivacyPolicyPostfix", resourceCulture);
             }
         }
         

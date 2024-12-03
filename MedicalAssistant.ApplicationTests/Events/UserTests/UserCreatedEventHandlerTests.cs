@@ -6,6 +6,7 @@ using MedicalAssistant.Application.User.Events;
 using MedicalAssistant.Domain.Enums;
 using MedicalAssistant.Domain.Events;
 using MedicalAssistant.Domain.Repositories;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 
@@ -14,13 +15,14 @@ public class UserCreatedEventHandlerTests
 {
 	private readonly IUserRepository _userRepository = Substitute.For<IUserRepository>();
 	private readonly IEmailService _emailService = Substitute.For<IEmailService>();
-
+	private readonly ILogger<UserCreatedEventHandler> _logger = Substitute.For<ILogger<UserCreatedEventHandler>>();
     private readonly UserCreatedEventHandler _eventHandler;
 	public UserCreatedEventHandlerTests()
     {
         _eventHandler = new(
             _userRepository,
-            _emailService);
+            _emailService,
+            _logger);
     }
 
 

@@ -5,6 +5,7 @@ using MedicalAssistant.Application.Tests.ObjectFactories;
 using MedicalAssistant.Application.User.Events;
 using MedicalAssistant.Domain.Events;
 using MedicalAssistant.Domain.Repositories;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 
@@ -13,13 +14,14 @@ public class VerificationCodeRegeneratedEventHandlerTests
 {
 	private readonly IEmailService _emailService = Substitute.For<IEmailService>();
 	private readonly IUserRepository _userRepository = Substitute.For<IUserRepository>();
-
+	private readonly ILogger<VerificationCodeRegeneratedEventHandler> _logger = Substitute.For<ILogger<VerificationCodeRegeneratedEventHandler>>();
     private readonly VerificationCodeRegeneratedEventHandler _eventHandler;
 	public VerificationCodeRegeneratedEventHandlerTests()
     {
         _eventHandler = new(
             _emailService,
-            _userRepository);
+            _userRepository,
+            _logger);
     }
 
     [Fact]

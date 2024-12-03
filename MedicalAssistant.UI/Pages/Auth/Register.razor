@@ -1,7 +1,7 @@
 ﻿@page "/register"
-@layout LoginRegisterLayout
-@using MedicalAssistant.UI.Components
 @using MedicalAssistant.UI.Components.Auth
+@using Variant = MudBlazor.Variant
+@layout LoginRegisterLayout
 
 <PageTitle>@Translations.RegisterPageTitle</PageTitle>
 
@@ -13,14 +13,14 @@
 			<MudTextField @bind-Value="user.FullName"
 						  Label="@Translations.Fullname"
 						  Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.TagFaces"
-						  Variant="MudBlazor.Variant.Filled"
+						  Variant="Variant.Filled"
 						  Class="mb-2 py-2"
 						  Immediate="true"
 						  For="@(()=> user.FullName)" />
 			<MudTextField @bind-Value="user.Email"
 						  Label="Email"
 						  Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Email"
-						  Variant="MudBlazor.Variant.Filled"
+						  Variant="Variant.Filled"
 						  Class="mb-2 py-2"
 						  Immediate="true"
 						  For="@(()=> user.Email)" />
@@ -28,22 +28,27 @@
 						  Label="@Translations.Password" InputType="@passwordInputType"
 						  Adornment="Adornment.End" AdornmentIcon="@passwordIcon"
 						  OnAdornmentClick="TogglePasswordVisibility"
-						  Variant="MudBlazor.Variant.Filled"
+						  Variant="Variant.Filled"
 						  Class="mb-2 py-2"
 						  Immediate="true"
 						  For="@(()=> user.Password)" />
 			<MudTextField @bind-Value="user.ConfirmedPassword"
-						  Label="@Translations.ConfirmedPassword" InputType="@confirmedPasswordInputType"
-						  Adornment="Adornment.End" AdornmentIcon="@confirmedPasswordIcon"
-						  OnAdornmentClick="ToggleConfirmedPasswordVisibility"
-						  Variant="MudBlazor.Variant.Filled"
-						  Class="mb-2 py-2"
-						  Immediate="true"
-						  For="@(()=> user.ConfirmedPassword)" />
+			              Label="@Translations.ConfirmedPassword" InputType="@confirmedPasswordInputType"
+			              Adornment="Adornment.End" AdornmentIcon="@confirmedPasswordIcon"
+			              OnAdornmentClick="ToggleConfirmedPasswordVisibility"
+			              Variant="Variant.Filled"
+			              Class="mb-2 py-2"
+			              Immediate="true"
+			              For="@(()=> user.ConfirmedPassword)" />
+			<MudCheckBox @bind-Value="user.AcceptTerms"
+			             Class="mb-2"
+			             For="@(() => user.AcceptTerms)">
+				@Translations.AcceptTerms <MudLink Href="/terms-of-use">@Translations.Terms</MudLink> @Translations.And <MudLink Href="/privacy-policy">@Translations.PrivacyPolicyPostfix</MudLink> 
+			</MudCheckBox>
 			<MudCardActions Class="px-0">
 				<MudGrid>
 					<MudItem xs="12">
-						<MudButton Variant="MudBlazor.Variant.Filled"
+						<MudButton Variant="Variant.Filled"
 								   Color="Color.Primary" OnClick="@(async () => await RegisterAsync())"
 								   StartIcon="@Icons.Material.Filled.AppRegistration"
 								   IconSize="Size.Large"

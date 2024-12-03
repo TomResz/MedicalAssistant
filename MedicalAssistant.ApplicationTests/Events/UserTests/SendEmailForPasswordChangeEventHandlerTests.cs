@@ -7,6 +7,7 @@ using MedicalAssistant.Domain.Enums;
 using MedicalAssistant.Domain.Events;
 using MedicalAssistant.Domain.Repositories;
 using MedicalAssistant.Domain.ValueObjects;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using NSubstitute.ReturnsExtensions;
@@ -16,13 +17,14 @@ public class SendEmailForPasswordChangeEventHandlerTests
 {
 	private readonly IUserRepository _userRepository = Substitute.For<IUserRepository>();
 	private readonly IEmailService _emailService = Substitute.For<IEmailService>();
-
+	private readonly ILogger<SendEmailForPasswordChangeEventHandler> _logger = Substitute.For<ILogger<SendEmailForPasswordChangeEventHandler>>();
     private readonly SendEmailForPasswordChangeEventHandler _eventHandler;
 	public SendEmailForPasswordChangeEventHandlerTests()
     {
         _eventHandler = new(
             _userRepository,
-            _emailService);
+            _emailService,
+            _logger);
     }
 
     [Fact]

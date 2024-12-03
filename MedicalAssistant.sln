@@ -36,7 +36,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicalAssistant.UI", "Medi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicalAssistant.Application.Tests", "MedicalAssistant.ApplicationTests\MedicalAssistant.Application.Tests.csproj", "{827BACB4-2063-4AF9-844B-D8EF5D58A07C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicalAssistant.Core.Tests", "MedicalAssistant.Core.Tests\MedicalAssistant.Core.Tests.csproj", "{4C10F977-A25E-4151-84B6-810677783D19}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalAssistant.API.Tests", "MedicalAssistant.API.Tests\MedicalAssistant.API.Tests.csproj", "{B5ACAD82-8828-4E48-BB1D-4F5A198C56EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,10 +76,10 @@ Global
 		{827BACB4-2063-4AF9-844B-D8EF5D58A07C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{827BACB4-2063-4AF9-844B-D8EF5D58A07C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{827BACB4-2063-4AF9-844B-D8EF5D58A07C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C10F977-A25E-4151-84B6-810677783D19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C10F977-A25E-4151-84B6-810677783D19}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C10F977-A25E-4151-84B6-810677783D19}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C10F977-A25E-4151-84B6-810677783D19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5ACAD82-8828-4E48-BB1D-4F5A198C56EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5ACAD82-8828-4E48-BB1D-4F5A198C56EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5ACAD82-8828-4E48-BB1D-4F5A198C56EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5ACAD82-8828-4E48-BB1D-4F5A198C56EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,7 +94,7 @@ Global
 		{1788C989-2943-463A-9BBD-2247CBA3D56D} = {EC16C102-D533-4BFB-92CB-A68C1D3F8D7F}
 		{44C09A95-0B78-4744-A76A-68FE1156336C} = {C5C4EF1F-31C9-412A-AEED-F447E92BAA99}
 		{827BACB4-2063-4AF9-844B-D8EF5D58A07C} = {CEF49FF7-383B-4875-873A-9FC923D6A8F1}
-		{4C10F977-A25E-4151-84B6-810677783D19} = {CEF49FF7-383B-4875-873A-9FC923D6A8F1}
+		{B5ACAD82-8828-4E48-BB1D-4F5A198C56EE} = {CEF49FF7-383B-4875-873A-9FC923D6A8F1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A23A1DDA-FF26-47F1-8AAE-30C73977E112}

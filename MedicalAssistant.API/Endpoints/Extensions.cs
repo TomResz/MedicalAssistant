@@ -13,7 +13,6 @@ public static class Extensions
 				&& type.IsAssignableTo(typeof(IEndpoints)))
 			.Select(type => ServiceDescriptor.Transient(typeof(IEndpoints), type))
 			.ToArray();
-
 		services.TryAddEnumerable(servicesDescriptors);
 		return services;
 	}
@@ -27,7 +26,7 @@ public static class Extensions
 		{
 			endpoint.MapEndpoints(builder);
 		}
-
+		
 		return app;
 	}
 }

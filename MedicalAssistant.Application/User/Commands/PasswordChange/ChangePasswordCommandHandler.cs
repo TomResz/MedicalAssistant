@@ -41,7 +41,7 @@ internal sealed class ChangePasswordCommandHandler
 
         UserId userId = _userSessionService.GetUserId;
 
-        Domain.Entities.User? user = await _userRepository.GetByIdAsync(userId);
+        Domain.Entities.User? user = await _userRepository.GetByIdAsync(userId, cancellationToken);
 
         if (user is null)
         {

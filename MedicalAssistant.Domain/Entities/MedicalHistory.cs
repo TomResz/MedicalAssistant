@@ -75,6 +75,10 @@ public class MedicalHistory
 
     public void AddStage(DiseaseStage stage)
     {
+        if (DiseaseEndDate is not null)
+        {
+            throw new CannotModifyCompletedDiseaseHistoryException();
+        }
         if (stage.Date.ToDate() <= DiseaseStartDate.ToDate())
         {
             throw new InvalidStageDateException();
@@ -90,22 +94,27 @@ public class MedicalHistory
         Note notes,
         VisitId? visitId)
     {
+        if (DiseaseEndDate is not null)
+        {
+            throw new CannotModifyCompletedDiseaseHistoryException();
+        }
+        
         if (_diseaseStages.Count != 0 )
         {
             var date = _diseaseStages
-                .Select(x=>x.Date)
+                .Select(x=>x.Date.Value.Date)
                 .Order()
                 .ToList();
             
-            var beginDate = date.First();
-            var lastDate = date.Last();
+            var beginDate = date.Min();
+            var lastDate = date.Max();
             
-            if (startDate.ToDate() > beginDate.ToDate())
+            if (startDate.ToDate() > beginDate)
             {
                 throw new InvalidStartDateException();
             }
 
-            if (endDate is not null && endDate.ToDate() < lastDate.ToDate())
+            if (endDate is not null && endDate.ToDate() < lastDate)
             {
                 throw new InvalidEndDateException();
             }

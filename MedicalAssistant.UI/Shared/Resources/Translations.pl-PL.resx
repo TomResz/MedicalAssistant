@@ -918,4 +918,16 @@
   <data name="Reports" xml:space="preserve">
     <value>Raporty PDF</value>
   </data>
+  <data name="FieldIsRequired" xml:space="preserve">
+    <value>Pole jest wymagane.</value>
+  </data>
+  <data name="AcceptTerms" xml:space="preserve">
+    <value>Zapoznałem/am się i akceptuję</value>
+  </data>
+  <data name="PrivacyPolicyPostfix" xml:space="preserve">
+    <value>Polityką Prywatności</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>i</value>
+  </data>
 </root>

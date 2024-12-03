@@ -14,10 +14,6 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
-
-
 builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -89,4 +85,6 @@ app.UseRecurringBackgroundJobs();
 app.MapHub<NotificationHub>("notifications");
 
 app.Run();
+
+public partial class Program;
         
