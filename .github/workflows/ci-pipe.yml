@@ -8,17 +8,12 @@ on:
     branches: [ "master" ]
 
 env:
-   DOTNET_VERSION: "8.x"
+   DOTNET_VERSION: "8.0.x"
 
 jobs:
    build:
       runs-on: ubuntu-latest
-      services:
-         docker:
-           image: docker:20.10.24
-           options: --privileged
-           ports:
-            - 5432:5432
+      
       steps:
          - uses: actions/checkout@v3
 
@@ -29,18 +24,11 @@ jobs:
            
          - name: Restore
            run: dotnet restore ./MedicalAssistant.sln
-           
-         - name: Install Docker CLI
-           run: |
-             sudo apt-get update
-             sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-         
-         - name: Start Docker
-           run: sudo service docker start
          
          - name: Build
            run: dotnet build ./MedicalAssistant.sln --configuration Release --no-restore
 
          - name: Test
-           run: dotnet test ./MedicalAssistant.sln --configuration Release --no-restore --no-build
+           run: dotnet test ./MedicalAssistant.sln --configuration Release --no-restore --no-build --logger "console;verbosity=detailed"
+
 
