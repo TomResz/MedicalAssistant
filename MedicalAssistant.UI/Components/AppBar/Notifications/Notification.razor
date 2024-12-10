@@ -8,52 +8,57 @@
 <div class="mt-3">
 	@if (UnReadNotifications > 0)
 	{
-		<MudBadge Content="@UnReadNotifications" Color="Color.Primary" Overlap="true" Class="mr-4 my-1 pr-0 pt-0" Max="9">
+		<MudBadge Content="@UnReadNotifications" Color="Color.Primary" Overlap="true" Class="mr-4 my-1 pr-0 pt-0"
+		          Max="9">
 			<MudIconButton Icon="@Icons.Material.Filled.Notifications"
-						   Color="@Color.Inherit"
-						   Style="padding-right: 0px; padding-top: 0px;"
-						   OnClick="@ToggleCollapse" />
+			               Color="@Color.Inherit"
+			               Style="padding-right: 0px; padding-top: 0px;"
+			               OnClick="@ToggleCollapse"/>
 		</MudBadge>
 	}
 	else
 	{
 		<MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit"
-					   OnClick="@ToggleCollapse" Style="padding-top: 0px;" />
+		               OnClick="@ToggleCollapse" Style="padding-top: 0px;"/>
 	}
-	<MudOverlay @bind-Visible="isPopoverOpen" AutoClose="true" />
-	<MudPopover AnchorOrigin="Origin.BottomRight" TransformOrigin="Origin.TopRight" Class="responsive-popover" Open="@isPopoverOpen" MaxHeight="350">
-			<MudList T="string" Class="pa-2 docs-menu-list">
-				<div class="d-flex justify-space-between align-center px-2">
-					<MudText Typo="Typo.subtitle2">@Translations.Notifications</MudText>
-					<MudButton Class="ml-6 mr-2" Variant="MudBlazor.Variant.Text"
-							   Color="Color.Primary" StartIcon="@Icons.Material.Filled.Done" OnClick="@ClearNotifications">
-						@Translations.MarkAsRead
-					</MudButton>
-				</div>
-				@if (_models.Any())
+	<MudOverlay @bind-Visible="isPopoverOpen" AutoClose="true"/>
+	<MudPopover AnchorOrigin="Origin.BottomRight"
+	            TransformOrigin="@(isSmallScreen ? Origin.TopCenter : Origin.TopRight)"
+	            Class="responsive-popover" Open="@isPopoverOpen" MaxHeight="350"
+	            Style="margin-right: 24px;">
+		<MudList T="string" Class="pa-2 docs-menu-list">
+			<div class="d-flex justify-space-between align-center px-2">
+				<MudText Typo="Typo.subtitle2">@Translations.Notifications</MudText>
+				<MudButton Class="ml-6 mr-2" Variant="MudBlazor.Variant.Text"
+				           Color="Color.Primary" StartIcon="@Icons.Material.Filled.Done" OnClick="@ClearNotifications">
+					@Translations.MarkAsRead
+				</MudButton>
+			</div>
+			@if (_models.Any())
+			{
+				@foreach (var notification in _models)
 				{
-					@foreach (var notification in _models)
-					{
-						<MudListItem OnClick="@(() => GoToNotificationDetails(notification))" Class="@((!notification.WasRead) ? "unread-notification px-2 py-0 rounded " : "px-2 py-0 rounded")">
-						    <MudText Typo="Typo.subtitle2">@NotificationHelper.ToType(notification)</MudText>
-						    <MudText Typo="Typo.body2">@NotificationHelper.ToNotificationDescription(notification)</MudText>
-						</MudListItem>
-						<MudDivider Class="my-2" />
-					}
+					<MudListItem OnClick="@(() => GoToNotificationDetails(notification))"
+					             Class="@((!notification.WasRead) ? "unread-notification px-2 py-0 rounded " : "px-2 py-0 rounded")">
+						<MudText Typo="Typo.subtitle2">@NotificationHelper.ToType(notification)</MudText>
+						<MudText Typo="Typo.body2">@NotificationHelper.ToNotificationDescription(notification)</MudText>
+					</MudListItem>
+					<MudDivider Class="my-2"/>
 				}
-			</MudList>
-		</MudPopover>
+			}
+		</MudList>
+	</MudPopover>
 </div>
-
+<MediaQuery @bind-Matches="@isSmallScreen" Media="(max-width: 576px)"/>
 <style>
 	.responsive-popover {
 		width: auto;
-		max-width: 320px; 
+		max-width: 320px;
 	}
 
 	.unread-notification {
-        background-color: #424242; 
-        color: #ffffff; 
+		background-color: #424242;
+		color: #ffffff;
 		font-weight: bold;
 	}
 </style>

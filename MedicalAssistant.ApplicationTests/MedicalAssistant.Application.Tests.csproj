@@ -24,7 +24,6 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\MedicalAssistant.Application\MedicalAssistant.Application.csproj" />
     <ProjectReference Include="..\MedicalAssistant.Domain\MedicalAssistant.Domain.csproj" />

@@ -4,17 +4,20 @@ using System.Collections.Generic;
 using MedicalAssistant.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace MedicalAssistant.Infrastructure.Migrations
+namespace MedicalAssistant.Infrastructure.DAL.Migrations
 {
     [DbContext(typeof(MedicalAssistantDbContext))]
-    partial class MedicalAssistantDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241204080651_Jsonb column type changed.")]
+    partial class Jsonbcolumntypechanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,48 +47,6 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("TokenHolders");
-                });
-
-            modelBuilder.Entity("MedicalAssistant.Domain.Entities.AddMedicalHistory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("DiseaseEndDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("DiseaseName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<DateTime>("DiseaseStartDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("text");
-
-                    b.Property<string>("SymptomDescription")
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("VisitId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("VisitId");
-
-                    b.HasIndex("DiseaseName", "SymptomDescription")
-                        .HasAnnotation("Npgsql:TsVectorConfig", "english");
-
-                    NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("DiseaseName", "SymptomDescription"), "GIN");
-
-                    b.ToTable("MedicalHistories");
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.Entities.Attachment", b =>
@@ -164,6 +125,48 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("ExternalUserLogin");
+                });
+
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.MedicalHistory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("DiseaseEndDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("DiseaseName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<DateTime>("DiseaseStartDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SymptomDescription")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("VisitId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("VisitId");
+
+                    b.HasIndex("DiseaseName", "SymptomDescription")
+                        .HasAnnotation("Npgsql:TsVectorConfig", "english");
+
+                    NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("DiseaseName", "SymptomDescription"), "GIN");
+
+                    b.ToTable("MedicalHistories");
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.Entities.MedicalNote", b =>
@@ -339,7 +342,8 @@ namespace MedicalAssistant.Infrastructure.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Password")
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Role")
                         .IsRequired()
@@ -486,24 +490,6 @@ namespace MedicalAssistant.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entities.AddMedicalHistory", b =>
-                {
-                    b.HasOne("MedicalAssistant.Domain.Entities.User", "User")
-                        .WithMany("MedicalHistories")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MedicalAssistant.Domain.Entities.Visit", "Visit")
-                        .WithMany("MedicalHistories")
-                        .HasForeignKey("VisitId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("User");
-
-                    b.Navigation("Visit");
-                });
-
             modelBuilder.Entity("MedicalAssistant.Domain.Entities.Attachment", b =>
                 {
                     b.HasOne("MedicalAssistant.Domain.Entities.Visit", null)
@@ -515,7 +501,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
             modelBuilder.Entity("MedicalAssistant.Domain.Entities.DiseaseStage", b =>
                 {
-                    b.HasOne("MedicalAssistant.Domain.Entities.AddMedicalHistory", null)
+                    b.HasOne("MedicalAssistant.Domain.Entities.MedicalHistory", null)
                         .WithMany("DiseaseStages")
                         .HasForeignKey("MedicalHistoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -536,6 +522,24 @@ namespace MedicalAssistant.Infrastructure.Migrations
                         .HasForeignKey("MedicalAssistant.Domain.Entities.ExternalUserLogin", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.MedicalHistory", b =>
+                {
+                    b.HasOne("MedicalAssistant.Domain.Entities.User", "User")
+                        .WithMany("MedicalHistories")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedicalAssistant.Domain.Entities.Visit", "Visit")
+                        .WithMany("MedicalHistories")
+                        .HasForeignKey("VisitId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("User");
+
+                    b.Navigation("Visit");
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.Entities.MedicalNote", b =>
@@ -625,7 +629,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MedicalAssistant.Domain.Entities.AddMedicalHistory", b =>
+            modelBuilder.Entity("MedicalAssistant.Domain.Entities.MedicalHistory", b =>
                 {
                     b.Navigation("DiseaseStages");
                 });

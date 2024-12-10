@@ -27,9 +27,6 @@ public partial class VisitReportPage : ComponentBase
     {
         var ids = _selectedItems.Select(x => x.Id).ToList();
         await ReportService.DownloadVisitReport(ids);
-        
-        //TODO 
-        // SNACKBAR WITH MESSAGE IF API RESPONSE FAILED ( >= 400 CODE STATUS)
     }
     private void GoToDetails(Guid id) => NavigationManager.NavigateTo($"visit/{id}");
 }

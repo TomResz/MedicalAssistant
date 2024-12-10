@@ -63,6 +63,11 @@ internal sealed class EditDiseaseStageCommandHandler
         CancellationToken cancellationToken)
     {
         var requestDate = request.Date.Date;
+
+        if (medicalHistory.DiseaseEndDate is not null)
+        {
+            throw new MedicalHistoryIsCompletedException();
+        }
         
         if (stage.VisitId is not null &&
             request.VisitId is not null &&

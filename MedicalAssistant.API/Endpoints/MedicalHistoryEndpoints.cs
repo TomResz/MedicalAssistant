@@ -81,8 +81,6 @@ public class MedicalHistoryEndpoints : IEndpoints
             return Results.NoContent();
         });
         
-        // TODO
-        // Cannot add or edit stage if end date is not null
         group.MapPatch("/{medicalHistoryId:guid}/stage", async (
             IMediator mediator, [FromRoute] Guid medicalHistoryId,
             [FromBody] EditDiseaseStageModel model) =>

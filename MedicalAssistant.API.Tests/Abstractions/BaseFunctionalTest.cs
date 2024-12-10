@@ -6,9 +6,13 @@ using MedicalAssistant.Application.User.Commands.SignIn;
 using MedicalAssistant.Application.User.Commands.SignUp;
 using MedicalAssistant.Application.User.Commands.VerifyAccount;
 using MedicalAssistant.Infrastructure.DAL;
+using MedicalAssistant.Infrastructure.Middleware;
+using MedicalAssistant.UI.Shared.Response;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Xunit.Abstractions;
 using JsonSerializer = System.Text.Json.JsonSerializer;
+using SignInResponse = MedicalAssistant.Application.User.Commands.SignIn.SignInResponse;
 
 namespace MedicalAssistant.API.Tests.Abstractions;
 
@@ -55,7 +59,7 @@ public class BaseFunctionalTest : IClassFixture<TestWebAppFactory>
         TokenHolder = tokens!;
 
         HttpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokens!.AccessToken);
-
         response.StatusCode.Should().Be(HttpStatusCode.OK);
+        
     }
 }

@@ -55,7 +55,12 @@ public partial class EditStageDialog
 
         if (response.IsFailure)
         {
-            Snackbar.Add(Translations.SomethingWentWrong, Severity.Error);
+            string errorMessage = response.ErrorDetails!.Type switch
+            {
+                "MedicalHistoryIsCompleted" => Translations.MedicalHistoryAlreadyCompletedMessage,
+                _ => Translations.SomethingWentWrong
+            };
+            Snackbar.Add(errorMessage, Severity.Error);
             return;
         }
 

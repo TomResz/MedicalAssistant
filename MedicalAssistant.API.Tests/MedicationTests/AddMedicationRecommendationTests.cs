@@ -4,13 +4,16 @@ using FluentAssertions;
 using MedicalAssistant.API.Tests.Abstractions;
 using MedicalAssistant.Application.MedicationRecommendations.Commands.AddRecommendation;
 using MedicalAssistant.Application.Visits.Commands.AddVisit;
+using MedicalAssistant.Infrastructure.Middleware;
 using MedicalAssistant.UI.Models.Visits;
+using Xunit.Abstractions;
 
 namespace MedicalAssistant.API.Tests.MedicationTests;
 
-public class AddMedicationRecommendationTests(TestWebAppFactory applicationFactory)
+public class AddMedicationRecommendationTests(TestWebAppFactory applicationFactory, ITestOutputHelper testOutputHelper)
     : BaseFunctionalTest(applicationFactory)
 {
+    private readonly ITestOutputHelper _testOutputHelper = testOutputHelper;
     [Fact]
     public async Task Should_ReturnCratedStatus_When_MedicationRecommendationIsAdded()
     {
@@ -89,7 +92,6 @@ public class AddMedicationRecommendationTests(TestWebAppFactory applicationFacto
         
         // ACT
         var response = await HttpClient.PostAsJsonAsync("api/recommendation/add", request);
-        
         // ASSERT
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }

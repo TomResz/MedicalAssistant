@@ -14,6 +14,16 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var isTestEnvironment = Environment.GetEnvironmentVariable("APITest") != null;
+
+if (isTestEnvironment)
+{
+    builder
+        .Configuration
+        .AddJsonFile("appsettings.Tests.json", optional: false, reloadOnChange: true);
+}
+
+
 builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

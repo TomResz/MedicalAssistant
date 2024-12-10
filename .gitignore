@@ -6,7 +6,7 @@
 # custom
 .idea/
 .env
-.cointainers
+.containers
 # User-specific files
 *.rsuser
 *.suo

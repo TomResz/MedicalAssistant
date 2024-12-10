@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace MedicalAssistant.UI.Pages.Dashboard.Reports;
 
-public partial class DiseaseHistoryReportPage : ComponentBase
+public partial class DiseaseHistoryReportPage 
 {
     [Inject] NavigationManager NavigationManager { get; set; }
     [Inject] IMedicalHistoryService VisitService { get; set; }
@@ -27,9 +27,6 @@ public partial class DiseaseHistoryReportPage : ComponentBase
     {
         var ids = _selectedItems.Select(x => x.Id).ToList();
         await ReportService.DownloadMedicalHistoryReport(ids);
-        
-        //TODO 
-        // SNACKBAR WITH MESSAGE IF API RESPONSE FAILED ( >= 400 CODE STATUS)
     }
     private void GoToDetails(Guid id) => NavigationManager.NavigateTo($"medical-history/{id}");
 }

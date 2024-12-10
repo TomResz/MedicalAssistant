@@ -1113,6 +1113,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The end date cannot be less than the beginning date..
+        /// </summary>
+        internal static string InvalidEndDateOfMedicalHistory {
+            get {
+                return ResourceManager.GetString("InvalidEndDateOfMedicalHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The attachment can only be submitted in .png, .jpg, or .pdf format..
         /// </summary>
         internal static string InvalidFileExtension {
@@ -1235,6 +1244,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string MedicalHistoryAdded {
             get {
                 return ResourceManager.GetString("MedicalHistoryAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The medical history is already marked as completed..
+        /// </summary>
+        internal static string MedicalHistoryAlreadyCompletedMessage {
+            get {
+                return ResourceManager.GetString("MedicalHistoryAlreadyCompletedMessage", resourceCulture);
             }
         }
         

@@ -74,10 +74,10 @@ public partial class EditMedicalHistoryDialog
             Snackbar.Add(Translations.SuccessfullyEdited, Severity.Success);
             return;
         }
-
+        
         var errorType = response.ErrorDetails!.Type switch
         {
-            // TODO
+            "InvalidMedicalHistoryStartDate"  => Translations.InvalidEndDateOfMedicalHistory,
             _ => Translations.SomethingWentWrong
         };
         Snackbar.Add(errorType, Severity.Error);

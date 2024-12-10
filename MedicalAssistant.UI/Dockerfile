@@ -21,7 +21,7 @@ RUN apk add --no-cache openssl
 RUN mkdir -p /Certificates
 
 RUN openssl genpkey -algorithm RSA -out /Certificates/key.pem -pkeyopt rsa_keygen_bits:2048 && \
-    openssl req -new -key /Certificates/key.pem -out /Certificates/csr.pem -subj "/C=US/ST=State/L=City/O=Organization/CN=localhost" && \
+    openssl req -new -key /Certificates/key.pem -out /Certificates/csr.pem -subj "/C=PL/ST=Silesian/L=Gliwice/O=MedicalAssistant/CN=localhost" && \
     openssl x509 -req -in /Certificates/csr.pem -signkey /Certificates/key.pem -out /Certificates/cert.pem -days 365 && \
     rm /Certificates/csr.pem
 

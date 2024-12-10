@@ -27,11 +27,35 @@ internal sealed class AddDiseaseStageCommandHandler
     {
         var medicalHistory = await _medicalHistoryRepository.GetByIdAsync(request.MedicalHistoryId, cancellationToken);
 
+        await Validate(request, cancellationToken, medicalHistory);
+
+        DiseaseStage stage = DiseaseStage.Create(
+            request.VisitId,
+            request.Name,
+            request.Date,
+            request.Note,
+            request.MedicalHistoryId);
+
+        medicalHistory!.AddStage(stage);
+
+        _medicalHistoryRepository.AddStage(stage);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        return stage.Id;
+    }
+
+    private async Task Validate(
+        AddDiseaseStageCommand request, CancellationToken cancellationToken, Domain.Entities.MedicalHistory? medicalHistory)
+    {
         if (medicalHistory is null)
         {
             throw new UnknownMedicalHistoryException(request.MedicalHistoryId);
         }
 
+        if (medicalHistory.DiseaseEndDate is not null)
+        {
+            throw new MedicalHistoryIsCompletedException();
+        }
+        
         if (request.VisitId is not null)
         {
             var visit = await _visitRepository.GetByIdAsync(request.VisitId, cancellationToken);
@@ -45,18 +69,5 @@ internal sealed class AddDiseaseStageCommandHandler
                 throw new MedicalHistoryVisitDateMismatchException();
             }
         }
-
-        DiseaseStage stage = DiseaseStage.Create(
-            request.VisitId,
-            request.Name,
-            request.Date,
-            request.Note,
-            request.MedicalHistoryId);
-
-        medicalHistory.AddStage(stage);
-
-        _medicalHistoryRepository.AddStage(stage);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
-        return stage.Id;
     }
 }

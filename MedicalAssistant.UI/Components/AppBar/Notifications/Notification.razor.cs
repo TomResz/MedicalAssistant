@@ -32,6 +32,7 @@ public partial class Notification : IAsyncDisposable
 	private HubConnection? _hubConnection;
 	private bool isExpanded = false;
 	private bool isPopoverOpen = false;
+	private bool isSmallScreen = false;
 	public int UnReadNotifications => _models.Where(x => x.WasRead == false).Count();
 
 

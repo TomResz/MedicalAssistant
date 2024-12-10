@@ -31,6 +31,7 @@ internal sealed class NotificationHistoryEntityConfiguration
 		builder.Property(x => x.ContentJson)
 			.HasConversion(x => x.Value,
 				x => new(x))
+			.HasColumnType("jsonb")
 			.IsRequired();
 
 		builder.Property(x => x.Type)

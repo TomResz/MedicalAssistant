@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MedicalAssistant.Infrastructure.DAL.Configurations;
+
 internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
@@ -12,47 +13,47 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
 
         builder.HasMany<Visit>()
             .WithOne()
-            .HasForeignKey(x=>x.UserId)
+            .HasForeignKey(x => x.UserId)
             .OnDelete(DeleteBehavior.Cascade);
-        
-        builder.HasMany(x=>x.MedicalNotes)
-            .WithOne(x=>x.User)
-            .HasForeignKey(x=>x.UserId)
+
+        builder.HasMany(x => x.MedicalNotes)
+            .WithOne(x => x.User)
+            .HasForeignKey(x => x.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.Property(x => x.IsActive)
             .IsRequired(true);
 
         builder.HasQueryFilter(x => x.IsActive);
-        
+
         builder.Property(x => x.IsActive)
             .HasDefaultValue(true);
-        
+
         builder.Property(x => x.DateOfDeactivationUtc)
             .HasConversion(x => x.Value, x => new(x))
             .IsRequired(false);
-        
-		builder.HasMany(x=>x.MedicalHistories)
-			.WithOne(x=>x.User)
-			.HasForeignKey(x => x.UserId)
-			.OnDelete(DeleteBehavior.Cascade)
+
+        builder.HasMany(x => x.MedicalHistories)
+            .WithOne(x => x.User)
+            .HasForeignKey(x => x.UserId)
+            .OnDelete(DeleteBehavior.Cascade)
             .IsRequired(true);
 
 
-		builder.HasMany(x=> x.MedicationRecommendations)
-            .WithOne(x=>x.User)
-            .HasForeignKey(x=>x.UserId)
+        builder.HasMany(x => x.MedicationRecommendations)
+            .WithOne(x => x.User)
+            .HasForeignKey(x => x.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(x => x.NotificationHistories)
-            .WithOne(x=>x.User)
+            .WithOne(x => x.User)
             .HasForeignKey(x => x.UserId)
             .IsRequired()
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasMany(x=>x.RefreshTokens)
+        builder.HasMany(x => x.RefreshTokens)
             .WithOne()
-            .HasForeignKey(x=>x.UserId)
+            .HasForeignKey(x => x.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.Property(x => x.Id)
@@ -68,24 +69,23 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
         builder.Navigation(x => x.ExternalUserProvider)
             .IsRequired(false);
 
-		builder.HasOne(x => x.UserSettings)
-	        .WithOne(x => x.User)
-	        .HasForeignKey<UserSettings>(x => x.UserId);
+        builder.HasOne(x => x.UserSettings)
+            .WithOne(x => x.User)
+            .HasForeignKey<UserSettings>(x => x.UserId);
 
-		builder.HasIndex(x => x.Email)
+        builder.HasIndex(x => x.Email)
             .IsUnique();
 
-        builder.Property(x=> x.Email)
-            .HasConversion(x=> x.Value,x=> new Domain.ValueObjects.Email(x))
+        builder.Property(x => x.Email)
+            .HasConversion(x => x.Value, x => new Domain.ValueObjects.Email(x))
             .IsRequired();
 
         builder.Property(x => x.Password)
-            .HasConversion(x => x.Value, x => new Password(x))
-            .HasMaxLength(200)
+            .HasConversion(x => x != null ? x.Value : null, x => new Password(x))
             .IsRequired(false);
 
-        builder.Property(x=> x.FullName)
-            .HasConversion(x=> x.Value,x=> new FullName(x))
+        builder.Property(x => x.FullName)
+            .HasConversion(x => x.Value, x => new FullName(x))
             .HasMaxLength(100)
             .IsRequired();
 
@@ -94,8 +94,7 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
             .IsRequired();
 
         builder.Property(x => x.CreatedAtUtc)
-            .HasConversion(x=> x.Value, x=> new Date(x))    
+            .HasConversion(x => x.Value, x => new Date(x))
             .IsRequired();
-
     }
 }

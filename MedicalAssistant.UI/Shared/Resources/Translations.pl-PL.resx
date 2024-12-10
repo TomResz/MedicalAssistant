@@ -930,4 +930,10 @@
   <data name="And" xml:space="preserve">
     <value>i</value>
   </data>
+  <data name="InvalidEndDateOfMedicalHistory" xml:space="preserve">
+    <value>Data końcowa nie może być mniejsza niż początkowa.</value>
+  </data>
+  <data name="MedicalHistoryAlreadyCompletedMessage" xml:space="preserve">
+    <value>Historia medyczna została już oznaczona jako zakończona.</value>
+  </data>
 </root>
