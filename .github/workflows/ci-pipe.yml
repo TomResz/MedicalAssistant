@@ -21,9 +21,6 @@ jobs:
            uses: actions/setup-dotnet@v3
            with:
               dotnet-version: ${{ env.DOTNET_VERSION }}
-         
-         - name: Install Docker
-           run: sudo apt-get update && sudo apt-get install -y docker.io
            
          - name: Restore
            run: dotnet restore ./MedicalAssistant.sln
@@ -32,5 +29,5 @@ jobs:
            run: dotnet build ./MedicalAssistant.sln --configuration Release --no-restore
 
          - name: Test
-           run: dotnet test ./MedicalAssistant.sln --configuration Release --no-restore --no-build
+           run: dotnet test ./MedicalAssistant.sln --no-build
 
