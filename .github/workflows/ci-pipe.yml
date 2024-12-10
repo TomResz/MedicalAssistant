@@ -34,7 +34,10 @@ jobs:
            run: |
              sudo apt-get update
              sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-             
+         
+         - name: Start Docker
+           run: sudo service docker start
+         
          - name: Build
            run: dotnet build ./MedicalAssistant.sln --configuration Release --no-restore
 
