@@ -1,5 +1,7 @@
-﻿using MedicalAssistant.Application.Contracts;
+﻿using DotNet.Testcontainers.Builders;
+using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Infrastructure.DAL;
+using MedicalAssistant.Infrastructure.DAL.Options;
 using MedicalAssistant.Infrastructure.Email;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -8,8 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 using Testcontainers.PostgreSql;
-using Xunit.Abstractions;
 
 namespace MedicalAssistant.API.Tests.Abstractions;
 
@@ -17,12 +19,14 @@ public class TestWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
     private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder()
         .WithImage("postgres:latest")
-        .WithDatabase("medicalassistantdb")
-        .WithUsername("postgres")
-        .WithPassword("postgres")
-        .Build();
+	    .WithDatabase("medicalassistant")
+	    .WithUsername("postgres")
+	    .WithPassword("postgres")
+	    .WithWaitStrategy(Wait.ForUnixContainer()
+	    	.UntilPortIsAvailable(5432))
+	    .Build();
 
-    private IConfiguration _configuration;
+	private IConfiguration _configuration;
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {        
@@ -42,7 +46,15 @@ public class TestWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
 
             services.AddSingleton<IEmailSender, TestEmailSender>();
             services.AddSingleton<IEmailService, TestEmailService>();
-        });
+
+			services.RemoveAll(typeof(IOptions<DatabaseOptions>));
+
+			services.Configure<DatabaseOptions>(options =>
+			{
+				options.ConnectionString = _dbContainer.GetConnectionString();
+				options.DockerConnectionString = _dbContainer.GetConnectionString();
+			});
+		});
     }
 
     public Task InitializeAsync()
@@ -50,8 +62,5 @@ public class TestWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
         return _dbContainer.StartAsync();
     }
 
-    public Task DisposeAsync()
-    {
-        return _dbContainer.StopAsync();
-    }
+	public Task DisposeAsync() => _dbContainer.StopAsync();
 }
