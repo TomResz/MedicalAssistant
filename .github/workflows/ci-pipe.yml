@@ -13,7 +13,12 @@ env:
 jobs:
    build:
       runs-on: ubuntu-latest
-
+      services:
+         docker:
+           image: docker:20.10.24
+           options: --privileged
+           ports:
+            - 5432:5432
       steps:
          - uses: actions/checkout@v3
 
@@ -24,10 +29,15 @@ jobs:
            
          - name: Restore
            run: dotnet restore ./MedicalAssistant.sln
-         
+           
+         - name: Install Docker CLI
+           run: |
+             sudo apt-get update
+             sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+             
          - name: Build
            run: dotnet build ./MedicalAssistant.sln --configuration Release --no-restore
 
          - name: Test
-           run: dotnet test ./MedicalAssistant.sln --no-build
+           run: dotnet test ./MedicalAssistant.sln --configuration Release --no-restore --no-build
 
