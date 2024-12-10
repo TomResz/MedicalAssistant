@@ -4,7 +4,6 @@ namespace MedicalAssistant.Application.Tests.Commands.RecommendationsTests;
 public class DeleteRecommendationCommandHandlerTests
 {
 
-
 	private readonly DeleteRecommendationCommandHandler _handler;
 	public DeleteRecommendationCommandHandlerTests()
 	{

@@ -47,7 +47,7 @@ public class SignInCommandHandlerTests
         var user = UserFactory.CreateUser(command.Email, command.Password);
 
         _passwordManager.IsValid(command.Password, user.Password!).Returns(true);
-        _userRepository.GetByEmailAsync(user.Email).Returns(user);
+        _userRepository.GetByEmailAsync(user.Email,default,false).Returns(user);
         _authenticator.GenerateToken(user).Returns(new Dto.JwtDto { AccessToken = accessToken });
         _refreshTokenService.Generate(Arg.Any<DateTime>(),user.Id)
             .Returns( TokenHolder.Create(refreshToken, expirationTime,user.Id));
@@ -99,7 +99,7 @@ public class SignInCommandHandlerTests
 
         var user = UserFactory.CreateNotVerifiedUser(command.Email, command.Password);
 
-        _userRepository.GetByEmailAsync(user.Email).Returns(user);
+        _userRepository.GetByEmailAsync(user.Email, default, false).Returns(user);
         _passwordManager.IsValid(command.Password, user.Password!).Returns(true);
 
         Func<Task> act = async () => await _handler.Handle(command, default);
@@ -115,7 +115,7 @@ public class SignInCommandHandlerTests
 
         var user = UserFactory.CreateWithExternalAuthProvider(command.Email);
 
-        _userRepository.GetByEmailAsync(user.Email).Returns(user);
+        _userRepository.GetByEmailAsync(user.Email,default,false).Returns(user);
 
         Func<Task> act = async () => await _handler.Handle(command, default);
 

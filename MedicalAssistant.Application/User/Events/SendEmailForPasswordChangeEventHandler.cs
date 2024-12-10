@@ -6,7 +6,7 @@ using MedicalAssistant.Domain.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace MedicalAssistant.Application.User.Events;
-internal sealed class SendEmailForPasswordChangeEventHandler : INotificationHandler<SendEmailForPasswordChangeEvent>
+public sealed class SendEmailForPasswordChangeEventHandler : INotificationHandler<SendEmailForPasswordChangeEvent>
 {
     private readonly IUserRepository _userRepository;
     private readonly IEmailService _emailService;
