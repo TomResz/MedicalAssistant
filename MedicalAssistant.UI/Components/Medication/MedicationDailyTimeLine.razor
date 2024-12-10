@@ -18,6 +18,9 @@ else
     }
     else
     {
+        <MudText Class="mx-3" GutterBottom="true" Color="Color.Primary" Typo="Typo.h5" Align="Align.Center">
+            @Translations.Recommendations
+        </MudText>
         <MudTimeline TimelineOrientation="TimelineOrientation.Vertical" TimelineAlign="TimelineAlign.Start">
             @*Morning*@
             @if (_morningMedications.Count > 0)
@@ -30,7 +33,9 @@ else
                         }
                     </ItemOpposite>
                     <ItemContent>
-                        <MudText>@Translations.MorningRecommendations</MudText>
+                        <MudText Typo="Typo.h6" Align="Align.Center" GutterBottom="true">
+                            @Translations.MorningRecommendations
+                        </MudText>
                     </ItemContent>
                 </MudTimelineItem>
             }
@@ -47,7 +52,9 @@ else
                         }
                     </ItemOpposite>
                     <ItemContent>
-                        <MudText>@Translations.AfternoonRecommendations</MudText>
+                        <MudText Typo="Typo.h6" Align="Align.Center" GutterBottom="true">
+                            @Translations.AfternoonRecommendations
+                        </MudText>
                     </ItemContent>
                 </MudTimelineItem>
             }
@@ -64,7 +71,9 @@ else
                         }
                     </ItemOpposite>
                     <ItemContent>
-                        <MudText>@Translations.Evening</MudText>
+                        <MudText Typo="Typo.h6" Align="Align.Center" GutterBottom="true">
+                            @Translations.EveningRecommendations
+                        </MudText>
                     </ItemContent>
                 </MudTimelineItem>
             }
@@ -81,7 +90,9 @@ else
                         }
                     </ItemOpposite>
                     <ItemContent>
-                        <MudText>@Translations.NightRecommendations</MudText>
+                        <MudText Typo="Typo.h6" Align="Align.Center" GutterBottom="true">
+                            @Translations.NightRecommendations
+                        </MudText>
                     </ItemContent>
                 </MudTimelineItem>
             }

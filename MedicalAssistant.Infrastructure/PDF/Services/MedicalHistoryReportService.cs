@@ -1,10 +1,10 @@
 ﻿using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Domain.Enums;
-using MedicalAssistant.Infrastructure.PDF.Services;
+using MedicalAssistant.Infrastructure.PDF.Reports;
 using QuestPDF.Fluent;
 
-namespace MedicalAssistant.Infrastructure.PDF.Reports;
+namespace MedicalAssistant.Infrastructure.PDF.Services;
 
 internal sealed class MedicalHistoryReportService : IMedicalHistoryReportPdfService
 {

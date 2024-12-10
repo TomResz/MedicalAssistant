@@ -2,29 +2,42 @@
 @using MedicalAssistant.UI.Components
 @using MedicalAssistant.UI.Components.Medication
 @using MedicalAssistant.UI.Components.Visits
+@using MedicalAssistant.UI.Components.MedicalNote
 
 <PageTitle>@Translations.MedicalAssist</PageTitle>
 
-<div style="overflow-x: hidden;">
-    <MudGrid Style="overflow-x: hidden;">
-        <MudItem xs="12" sm="6" md="3">
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 300px;">
+<div style="overflow-x: hidden; width: 100%; margin: 0; padding: 0;">
+    <MudGrid Spacing="2" Style="overflow-x: hidden; width: 100%; margin: 0; padding: 0;">
+        <MudItem xs="12" sm="6" md="3" Class="item">
+            <MudPaper Elevation="2" Class="pa-2" Style="height: 300px;">
                 <Clock/>
             </MudPaper>
         </MudItem>
-        <MudItem xs="12" sm="6" md="9">
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 300px;">
+        <MudItem xs="12" sm="6" md="9" Class="item">
+            <MudPaper Elevation="2" Class="pa-2" Style="height: 300px;">
                 <VisitDailyTimeline/>
             </MudPaper>
         </MudItem>
-        <MudItem xs="12" sm="6">
-            <MudPaper Elevation="2" Class="pa-2" Style="height: 350px;">
+        <MudItem xs="12" sm="6" Class="item">
+            <MudPaper Elevation="2" Class="px-2" Style="min-height: calc(100vh - 396px - 24px);">
                 <MedicationDailyTimeLine/>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" Class="item">
+            <MudPaper Elevation="2" Class="px-2" Style="min-height: calc(100vh - 396px - 24px); height: auto;">
+                <DailyNotesComponent />
             </MudPaper>
         </MudItem>
     </MudGrid>
 
 </div>
+
+<style>
+    .item ::deep {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+</style>
 
 @code{
     [Inject] private NavigationManager NavigationManager { get; set; }

@@ -1410,6 +1410,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No notes from today.
+        /// </summary>
+        internal static string NoNotes {
+            get {
+                return ResourceManager.GetString("NoNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No Medical Recommendations.
         /// </summary>
         internal static string NoRecommendationToday {
@@ -1433,6 +1442,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string NoteAdded {
             get {
                 return ResourceManager.GetString("NoteAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notes.
+        /// </summary>
+        internal static string Notes {
+            get {
+                return ResourceManager.GetString("Notes", resourceCulture);
             }
         }
         
@@ -1883,6 +1901,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string RecommendationAdded {
             get {
                 return ResourceManager.GetString("RecommendationAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recommendations.
+        /// </summary>
+        internal static string Recommendations {
+            get {
+                return ResourceManager.GetString("Recommendations", resourceCulture);
             }
         }
         

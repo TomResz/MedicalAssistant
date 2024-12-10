@@ -17,12 +17,15 @@ else
     }
     else
     {
+        <MudText Class="mx-3" GutterBottom="true" Color="Color.Primary" Typo="Typo.h5" Align="Align.Center">@Translations.Visits</MudText>
         <MudTimeline TimelineOrientation="@timelineOrientation" TimelineAlign="TimelineAlign.Start">
             @foreach (var visit in _visits)
             {
                 <MudTimelineItem TimelineAlign="TimelineAlign.Start">
                     <ItemContent>
-                        <MudText Typo="Typo.h6">@visit.Date.ToString("HH:mm")</MudText>
+                        <MudText Typo="Typo.h6" Align="@(isSmallScreen ? Align.Right : Align.Left )" GutterBottom="true">
+                            @visit.Date.ToString("HH:mm")
+                        </MudText>
                     </ItemContent>
                     <ItemOpposite>
                         <MudTooltip Text="@Translations.ShowDetails">

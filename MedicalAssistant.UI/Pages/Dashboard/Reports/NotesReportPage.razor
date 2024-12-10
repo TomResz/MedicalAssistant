@@ -1,0 +1,49 @@
+﻿@using MedicalAssistant.UI.Components
+@page "/report/notes"
+
+<div class="d-flex flex-column" style="height: calc(100vh - 96px); overflow-x: hidden;">
+    @if (_loading)
+    {
+        <MudPaper Class="ma-0  flex-column flex-grow-1 d-flex pa-2">
+            <LoadingSkeletonComponent Class="flex-grow-1 pa-2 ma-2" />
+        </MudPaper>
+    }
+    else
+    {
+        <MudTable Class="flex-grow-1 " FixedFooter="true" Items="@_notes" @bind-SelectedItems="_selectedNotes"
+                  MultiSelection="true" Bordered="true" Hover="true" Striped="true" Elevation="3">
+            <HeaderContent>
+                <MudTh>@Translations.Note</MudTh>
+                <MudTh>@Translations.Tags</MudTh>
+                <MudTh>@Translations.Date</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="@Translations.Note">@context.Note</MudTd>
+                <MudTd DataLabel="@Translations.Tags">@string.Join(", ", context.Tags)</MudTd>
+                <MudTd DataLabel="@Translations.Date">@context.CreatedAt.ToString("HH:mm  dd.MM.yyyy") </MudTd>
+            </RowTemplate>
+        </MudTable>
+        <div style="position: fixed;bottom: 34px; right: 75px;overflow: hidden;">
+            <MudTooltip Text="@Translations.DownloadAttachment" Placement="Placement.Start" Style="overflow-x: hidden;">
+                <MudFab
+                    Class="fixed-button"
+                    Color="Color.Primary"
+                    Size="Size.Large"
+                    StartIcon="@Icons.Material.Outlined.FileDownload"
+                    OnClick="@Download"
+                    Disabled="@(_selectedNotes.Count == 0)">
+                </MudFab>
+            </MudTooltip>
+        </div>
+    }
+</div>
+
+<style>
+    .fixed-button {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 150;
+        overflow: hidden;
+    }
+</style>

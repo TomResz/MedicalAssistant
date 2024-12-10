@@ -27,7 +27,14 @@ public class MedicalNoteEndpoints : IEndpoints
             var result = await mediator.Send(query);
             return Results.Ok(result);
         });
-
+        
+        group.MapGet("/{date:datetime}", async (IMediator mediator,DateTime date ) =>
+        {
+            var query = new GetMedicalNotesByDateQuery(date);
+            var results = await mediator.Send(query);
+            return Results.Ok(results);
+        });
+        
         group.MapGet("/tags", async (IMediator mediator) =>
         {
             var query = new GetTagsOfNotesQuery();

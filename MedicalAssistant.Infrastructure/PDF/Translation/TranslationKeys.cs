@@ -25,5 +25,7 @@ public enum TranslationKeys
     SymptomDescription,
     DiseaseDetails,
     StageName,
-    DiseaseStagesTitle
+    DiseaseStagesTitle,
+    Tags,
+    Notes
 }

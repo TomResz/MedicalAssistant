@@ -2,7 +2,7 @@
 
 <MudDialog TitleClass="text-center">
 	<DialogContent>
-		<MudGrid>
+		<MudGrid Style="overflow-x: hidden;">
 
 			<MudItem xs="12">
 				<MudPaper Class="pa-4" Elevation="3">
@@ -17,12 +17,6 @@
 					<MudText Inline="true" Class="pt-2" Typo="Typo.subtitle1">@Translations.NotificationLanguage</MudText>
 				</MudPaper>
 			</MudItem>
-			<MudItem xs="12">
-				<MudPaper Class="pa-4" Elevation="3">
-
-				</MudPaper>
-			</MudItem>
-
 			<MudItem xs="12">
 				<MudPaper Class="pa-4 mb-2" Elevation="3">
 					<MudSwitch @bind-Value="@_viewModel.NotificationsEnabled" Label="@Translations.Notifications" />

@@ -10,6 +10,8 @@ internal class Translations(Languages language)
         {
             Languages.Polish, new Dictionary<TranslationKeys, string>
             {
+                { TranslationKeys.Notes,"Notatki" },
+                { TranslationKeys.Tags,"Tagi" },
                 { TranslationKeys.VisitReportTitle, "Raport Z Wizyt" },
                 { TranslationKeys.VisitDetails, "Szczegóły Wizyty" },
                 { TranslationKeys.Doctor, "Lekarz" },
@@ -39,6 +41,8 @@ internal class Translations(Languages language)
         {
             Languages.English, new Dictionary<TranslationKeys, string>
             {
+                { TranslationKeys.Notes,"Notes" },
+                { TranslationKeys.Tags,"Tags" },
                 { TranslationKeys.VisitReportTitle, "Visit Report" },
                 { TranslationKeys.VisitDetails, "Visit Details" },
                 { TranslationKeys.Doctor, "Doctor" },

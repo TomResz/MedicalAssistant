@@ -14,6 +14,7 @@ public static class Extensions
         Settings.License = LicenseType.Community;
         services.AddScoped<IVisitReportPdfService, VisitReportPdfService>();
         services.AddScoped<IMedicalHistoryReportPdfService, MedicalHistoryReportService>();
+        services.AddScoped<IMedicalNoteReportPdfService, MedicalNoteReportPdfService>();
         return services;
     }
 }

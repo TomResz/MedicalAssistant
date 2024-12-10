@@ -5,7 +5,7 @@ using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 
-namespace MedicalAssistant.Infrastructure.PDF.Services;
+namespace MedicalAssistant.Infrastructure.PDF.Reports;
 
 internal sealed class MedicalHistoryReport(
     Languages languages, 

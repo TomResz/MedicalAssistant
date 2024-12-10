@@ -936,4 +936,13 @@
   <data name="MedicalHistoryAlreadyCompletedMessage" xml:space="preserve">
     <value>The medical history is already marked as completed.</value>
   </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="Recommendations" xml:space="preserve">
+    <value>Recommendations</value>
+  </data>
+  <data name="NoNotes" xml:space="preserve">
+    <value>No notes from today</value>
+  </data>
 </root>

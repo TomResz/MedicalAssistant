@@ -65,4 +65,10 @@ public class MedicalNoteRepository(HttpClient httpClient) : IMedicalNoteReposito
         var response = await _httpClient.DeleteAsync($"medicalnote/{id}");
         return await response.DeserializeResponse();
     }
+
+    public async Task<Response<List<NoteDto>>> GetCurrents(DateTime currentDate)
+    {
+        var response = await _httpClient.GetAsync($"medicalnote/{currentDate:yyyy-MM-dd}");
+        return await response.DeserializeResponse<List<NoteDto>>();
+    }
 }

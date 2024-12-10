@@ -12,4 +12,5 @@ public interface IMedicalNoteRepository
     Task<Response.Base.Response<Guid>> Add(AddNoteRequest request);
     Task<Response.Base.Response> Edit(EditNoteRequest request);
     Task<Response.Base.Response> Delete(Guid id);
+    Task<Response.Base.Response<List<NoteDto>>> GetCurrents(DateTime currentDate);
 }
