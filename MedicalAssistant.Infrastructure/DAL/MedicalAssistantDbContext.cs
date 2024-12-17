@@ -20,6 +20,8 @@ public sealed class MedicalAssistantDbContext : DbContext
     public DbSet<MedicalNote> MedicalNotes { get; set; }
     public DbSet<DiseaseStage> DiseaseStages { get; set; }
 
+    public DbSet<RecommendationUsage> RecommendationUsages { get; set; }
+
     public MedicalAssistantDbContext(DbContextOptions<MedicalAssistantDbContext> options) : base(options)
     {
     }

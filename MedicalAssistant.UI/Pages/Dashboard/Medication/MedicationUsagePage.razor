@@ -1,0 +1,168 @@
+﻿@page "/medication/usage"
+@using MedicalAssistant.UI.Components
+@using MedicalAssistant.UI.Models.MedicationUsage
+@using MedicalAssistant.UI.Shared.Services.Abstraction
+@using Variant = MudBlazor.Variant
+
+<div class="d-flex flex-column" style="min-height: calc(100vh - 96px); overflow-x: hidden;">
+	@if (_loading)
+	{
+		<MudPaper Class="ma-0 flex-column flex-grow-1 d-flex pa-2">
+			<LoadingSkeletonComponent Class="flex-grow-1 pa-2 ma-2"/>
+		</MudPaper>
+	}
+	else
+	{
+		<MudPaper Class="pa-4">
+			<div class="d-flex flex-row ms-auto" style="max-width: 300px;">
+				<MudTextField T="DateTime?" @bind-Value="@Date" Class="mx-2" Format="yyyy-MM-dd"
+				              Label="@Translations.Date"
+				              InputType="InputType.Date"/>
+				<MudButton OnClick="@ChangeDate" Color="Color.Primary" EndIcon="@Icons.Material.Filled.FilterAlt"
+				           Variant="Variant.Filled" Disabled="_loading">
+					@Translations.Filter
+				</MudButton>
+			</div>
+		</MudPaper>
+		<MudPaper Class="flex-grow-1 h-100 w-100 mt-2">
+			@*Content*@
+			<MudTable Class="w-100 h-100 " Items="@medications" Bordered="true" Hover="true" Striped="true"
+			          Elevation="3">
+				<HeaderContent>
+					<MudTh>@Translations.Medication</MudTh>
+					<MudTh>@Translations.Date</MudTh>
+					<MudTh>@Translations.TimesOfDay</MudTh>
+					<MudTh>@Translations.WasApplied</MudTh>
+					<MudTh>@Translations.ShowDetails</MudTh>
+					<MudTh>@Translations.MarkAsApplied</MudTh>
+				</HeaderContent>
+				<RowTemplate>
+					<MudTd DataLabel="@Translations.Note">@context.Name</MudTd>
+					<MudTd DataLabel="@Translations.Tags">@context.Date.ToString("dd.MM.yyyy")</MudTd>
+					<MudTd DataLabel="@Translations.TimesOfDay">@ToTimeOfDay(context.TimeOfDay)</MudTd>
+					<MudTd DataLabel="@Translations.WasApplied" Class="text-center">
+						@if (context.Status)
+						{
+							<MudTooltip Text="@Translations.Yes" Style="overflow-x: hidden;">
+								<MudIcon Color="Color.Success" Size="Size.Large"
+								         Icon="@Icons.Material.Filled.CheckCircle"/>
+							</MudTooltip>
+						}
+						else
+						{
+							<MudTooltip Text="@Translations.No" Style="overflow-x: hidden;">
+								<MudIcon Color="Color.Error" Size="Size.Large" Icon="@Icons.Material.Filled.Cancel"/>
+							</MudTooltip>
+						}
+					</MudTd>
+					<MudTd DataLabel="@Translations.ShowDetails" Class="text-center">
+						<MudTooltip Text="@Translations.ShowDetails" Style="overflow-x: hidden;">
+							<MudFab Color="@Color.Primary" OnClick="@(() => ShowDetails(context.RecommendationId))"
+							        Size="Size.Small"
+							        StartIcon="@Icons.Material.Filled.Details"/>
+						</MudTooltip>
+					</MudTd>
+					<MudTd DataLabel="@Translations.MarkAsApplied" Class="text-center">
+						<MudTooltip Text="@Translations.MarkAsApplied" Style="overflow-x: hidden;">
+							<MudFab Color="@Color.Surface"
+							        OnClick="@(async () => await MarkAsApplied(context.RecommendationId, context.TimeOfDay, context.Date))"
+							        Size="Size.Small"
+							        StartIcon="@Icons.Material.Filled.Details"
+							        Disabled="@(context.Status || _requestSent)"/>
+						</MudTooltip>
+					</MudTd>
+				</RowTemplate>
+			</MudTable>
+		</MudPaper>
+	}
+</div>
+
+
+
+@code {
+	DateTime? Date { get; set; }
+	private bool _requestSent = false;
+	private bool _loading = true;
+	private List<MedicationUsageDto> medications = [];
+	[Inject] IMedicationUsageService MedicationUsageService { get; set; }
+	[Inject] NavigationManager NavigationManager { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		_loading = true;
+		Date = DateTime.Now;
+		await LoadData((DateTime)Date);
+		_loading = false;
+	}
+
+	private string ToTimeOfDay(string timeOfDay)
+	{
+		return timeOfDay switch
+		{
+			"morning" => Translations.Morning,
+			"evening" => Translations.Evening,
+			"afternoon" => Translations.Afternoon,
+			"night" => Translations.Night,
+			_ => Translations.Morning
+		};
+	}
+
+	private void ShowDetails(Guid recommendationId)
+	{
+		NavigationManager.NavigateTo($"/medication/{recommendationId}");
+	}
+
+	private async Task ChangeDate()
+	{
+		if (Date is not null)
+		{
+			await LoadData((DateTime)Date);
+			StateHasChanged();
+		}
+	}
+
+	private async Task MarkAsApplied(Guid recommendationId, string timeOfDay, DateTime date)
+	{
+		if (date.Date > DateTime.Now.Date)
+		{
+			return;
+		}
+
+		_requestSent = true;
+
+		var request = new CreateMedicationUsage()
+		{
+			TimeOfDay = timeOfDay,
+			Date = date,
+			RecommendationId = recommendationId
+		};
+
+		var response = await MedicationUsageService.Add(request);
+
+		if (response.IsSuccess)
+		{
+			await LoadData(date);
+		}
+
+		await InvokeAsync(StateHasChanged);
+		_requestSent = false;
+	}
+
+	private async Task LoadData(DateTime date)
+	{
+		List<string> customOrder = ["morning", "afternoon", "evening", "night"];
+
+		var response = await MedicationUsageService.GetByDate(date);
+		if (response.IsSuccess)
+		{
+			medications = response.Value!;
+		}
+
+		medications = medications
+			.OrderBy(x => customOrder.IndexOf(x.TimeOfDay))
+			.ToList();
+
+		_loading = false;
+	}
+
+}

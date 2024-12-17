@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using MedicalAssistant.Application.MedicationRecommendations.Commands.AddRecommendation;
+using MedicalAssistant.Application.MedicationRecommendations.Commands.AddUsage;
 using MedicalAssistant.Application.MedicationRecommendations.Commands.DeleteRecommendation;
 using MedicalAssistant.Application.MedicationRecommendations.Commands.UpdateRecommendation;
 using MedicalAssistant.Application.MedicationRecommendations.Queries;
@@ -61,6 +62,19 @@ public sealed class RecommendationEndpoints : IEndpoints
 			var query = new GetMedicationRecommendationByWeekQuery(date.Date);
 			var response = await _mediator.Send(query);	
 			return Results.Ok(response);	
+		});
+
+		group.MapGet("/usage/{date:datetime}", async (IMediator mediator, DateTime date) =>
+		{
+			var query = new GetRecommendationUsageQuery(date);
+			var result = await mediator.Send(query);
+			return Results.Ok(result);
+		});
+
+		group.MapPost("/usage", async (IMediator mediator, AddRecommendationUsageCommand command) =>
+		{
+			await mediator.Send(command);
+			return Results.NoContent();
 		});
 	}
 }

@@ -23,6 +23,10 @@ internal sealed class MedicationRecommendationEntityConfiguration : IEntityTypeC
         	.HasForeignKey(x => x.MedicationRecommendationId)
         	.OnDelete(DeleteBehavior.Cascade);
 
+		builder.HasMany(x => x.RecommendationUsages)
+	        .WithOne(x=>x.MedicationRecommendation)
+	        .HasForeignKey(x => x.MedicationRecommendationId)
+	        .OnDelete(DeleteBehavior.Cascade);
 
 		builder.HasOne(x=>x.Visit)
             .WithMany(x=>x.Recommendations)

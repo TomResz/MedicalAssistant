@@ -75,5 +75,6 @@ public class MedicationRecommendationNotificationEndpoints
 			var response = await mediator.Send(query);
 			return Results.Ok(response);	
 		});
+
 	}
 }

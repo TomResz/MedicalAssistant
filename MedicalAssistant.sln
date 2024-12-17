@@ -36,7 +36,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicalAssistant.UI", "Medi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicalAssistant.Application.Tests", "MedicalAssistant.ApplicationTests\MedicalAssistant.Application.Tests.csproj", "{827BACB4-2063-4AF9-844B-D8EF5D58A07C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalAssistant.API.Tests", "MedicalAssistant.API.Tests\MedicalAssistant.API.Tests.csproj", "{B5ACAD82-8828-4E48-BB1D-4F5A198C56EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicalAssistant.API.Tests", "MedicalAssistant.API.Tests\MedicalAssistant.API.Tests.csproj", "{B5ACAD82-8828-4E48-BB1D-4F5A198C56EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

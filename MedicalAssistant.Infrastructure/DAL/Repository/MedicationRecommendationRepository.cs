@@ -1,5 +1,6 @@
 ﻿using MedicalAssistant.Domain.Entities;
 using MedicalAssistant.Domain.Repositories;
+using MedicalAssistant.Domain.ValueObjects;
 using MedicalAssistant.Domain.ValueObjects.IDs;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,4 +35,26 @@ internal sealed class MedicationRecommendationRepository : IMedicationRecommenda
 		.Include(x=>x.Visit)
 		.Include(x=>x.Notifications)
 		.FirstOrDefaultAsync(x=>x.Id == recommendationId,cancellationToken);
+
+
+	public async Task<bool> ExistsUsageAsync(MedicationRecommendationId recommendationId, Date date,string TimeOfDay,CancellationToken cancellationToken)
+	{
+		var onlyDate = new Date(date.ToDate());
+		var response = await _context
+			.RecommendationUsages
+			.AnyAsync(x => x.TimeOfDay == TimeOfDay &&
+				x.Date == onlyDate &&
+				x.MedicationRecommendationId == recommendationId, 
+				cancellationToken: cancellationToken);
+
+		return response;
+	}
+
+
+	public async Task<MedicationRecommendation?> GetWithUsagesAsync(MedicationRecommendationId recommendationId, CancellationToken cancellationToken)
+		=> await _context
+		.Recommendations
+		.Include(x => x.Visit)
+		.Include(x => x.RecommendationUsages)
+		.FirstOrDefaultAsync(x => x.Id == recommendationId, cancellationToken);
 }

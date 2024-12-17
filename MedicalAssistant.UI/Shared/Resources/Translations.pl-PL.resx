@@ -945,4 +945,19 @@
   <data name="NoNotes" xml:space="preserve">
     <value>Brak notatek z dnia dzisiejszego</value>
   </data>
+  <data name="MonitoringRecommendations" xml:space="preserve">
+    <value>Monitorowanie Zaleceń</value>
+  </data>
+  <data name="WasApplied" xml:space="preserve">
+    <value>Czy zastosowano ?</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Tak</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nie</value>
+  </data>
+  <data name="MarkAsApplied" xml:space="preserve">
+    <value>Zaznacz jako zastosowane</value>
+  </data>
 </root>

@@ -1221,6 +1221,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mark as applied.
+        /// </summary>
+        internal static string MarkAsApplied {
+            get {
+                return ResourceManager.GetString("MarkAsApplied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mark as read.
         /// </summary>
         internal static string MarkAsRead {
@@ -1347,6 +1356,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Monitoring Recommendations.
+        /// </summary>
+        internal static string MonitoringRecommendations {
+            get {
+                return ResourceManager.GetString("MonitoringRecommendations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Month.
         /// </summary>
         internal static string Month {
@@ -1406,6 +1424,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string NightRecommendations {
             get {
                 return ResourceManager.GetString("NightRecommendations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
             }
         }
         
@@ -2499,6 +2526,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Was it applied ?.
+        /// </summary>
+        internal static string WasApplied {
+            get {
+                return ResourceManager.GetString("WasApplied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Was read ?.
         /// </summary>
         internal static string WasRead {
@@ -2531,6 +2567,15 @@ namespace MedicalAssistant.UI.Shared.Resources {
         internal static string Year {
             get {
                 return ResourceManager.GetString("Year", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
         

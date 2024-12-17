@@ -20,7 +20,12 @@ public class MedicationRecommendation
     private readonly HashSet<MedicationRecommendationNotification> _notifications = [];
     public IEnumerable<MedicationRecommendationNotification> Notifications => _notifications;
 
-    private MedicationRecommendation() { }
+	private readonly HashSet<RecommendationUsage> _recommendationUsages = [];
+
+    public IEnumerable<RecommendationUsage> RecommendationUsages => _recommendationUsages;
+
+
+	private MedicationRecommendation() { }
     private MedicationRecommendation(
 		MedicationRecommendationId id,
         UserId userId,
@@ -95,4 +100,11 @@ public class MedicationRecommendation
     {
         _notifications.Add(notification);
     }
+
+    public RecommendationUsage AddUsage(string timeOfDay,Date createdAt)
+    {
+        var usuage = RecommendationUsage.Create(timeOfDay, createdAt,Id);
+        _recommendationUsages.Add(usuage);
+        return usuage;
+	}
 }

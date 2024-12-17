@@ -4,17 +4,20 @@ using System.Collections.Generic;
 using MedicalAssistant.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace MedicalAssistant.Infrastructure.Migrations
+namespace MedicalAssistant.Infrastructure.DAL.Migrations
 {
     [DbContext(typeof(MedicalAssistantDbContext))]
-    partial class MedicalAssistantDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241217104621_recommendationusuages")]
+    partial class recommendationusuages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -312,7 +315,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("MedicationRecommendationId")
@@ -327,7 +330,7 @@ namespace MedicalAssistant.Infrastructure.Migrations
 
                     b.HasIndex("MedicationRecommendationId");
 
-                    b.ToTable("RecommendationUsages");
+                    b.ToTable("RecommendationUsage");
                 });
 
             modelBuilder.Entity("MedicalAssistant.Domain.Entities.User", b =>
