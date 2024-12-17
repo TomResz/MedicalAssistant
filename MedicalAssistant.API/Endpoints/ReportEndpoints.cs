@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using MedicalAssistant.Application.Reports.MedicalHistory;
+using MedicalAssistant.Application.Reports.Medications;
 using MedicalAssistant.Application.Reports.Notes;
 using MedicalAssistant.Application.Reports.Visit;
 using Microsoft.AspNetCore.Mvc;
@@ -48,6 +49,19 @@ public class ReportEndpoints : IEndpoints
             }
             
             return Results.File(response.Content, "application/pdf",response.Name);
+        });
+
+        group.MapGet("/medications", async ([FromQuery(Name = "id")] Guid[] ids, IMediator mediator) =>
+        {
+            var command = new CreateMedicationReportCommand(ids.ToList());
+            var response = await mediator.Send(command);
+
+            if (response is null)
+            {
+                return Results.NotFound();
+            }
+
+            return Results.File(response.Content, "application/pdf", response.Name);
         });
     }
     

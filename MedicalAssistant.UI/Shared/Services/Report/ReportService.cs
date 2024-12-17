@@ -61,6 +61,22 @@ public class ReportService : IReportService
         return true;
     }
 
+    public async Task<bool> DownloadMedicationReport(List<Guid> ids)
+    {
+        var queryParameters = string.Join("&", ids.Select(id => $"id={id}"));
+        var route = $"report/medications?{queryParameters}";
+        var response = await _httpClient.GetAsync(route);
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            return false;
+        }
+
+        await DeserializeFile(response);
+        return true;
+    }
+    
+
     private async Task DeserializeFile(HttpResponseMessage response)
     {
         var fileBytes = await response.Content.ReadAsByteArrayAsync();

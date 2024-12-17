@@ -15,6 +15,7 @@ public static class Extensions
         services.AddScoped<IVisitReportPdfService, VisitReportPdfService>();
         services.AddScoped<IMedicalHistoryReportPdfService, MedicalHistoryReportService>();
         services.AddScoped<IMedicalNoteReportPdfService, MedicalNoteReportPdfService>();
+        services.AddScoped<IMedicationReportService, MedicationReportService>();
         return services;
     }
 }
