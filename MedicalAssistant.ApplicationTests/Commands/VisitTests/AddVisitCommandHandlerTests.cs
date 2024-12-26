@@ -59,21 +59,26 @@ public class AddVisitCommandHandlerTests
 	[Fact]
 	public async Task Handle_InvalidPredictedDate_ThrowsInvalidPredictedDateException()
 	{
+		// Arrange
 		var user = UserFactory.CreateUser();
 		_userContext.GetUserId.Returns(user.Id);
 		var command = _command with
 		{
-			Date = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
+			City = "Gliwice",
+			DoctorName = "Dr John Smith",
+			PostalCode = "44-100",
+			Street = "Konarskiego 22",	
+			Date = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),			
 			PredictedEndDate = DateTime.Now.AddMinutes(-30).ToString("yyyy-MM-dd HH:mm")
 		};
-
+		
+		// Act
 		Func<Task> act = async () => await _handler.Handle(command, default);
 
+		// Assert
 		await act.Should().ThrowAsync<InvalidPredictedDateException>();
-
 		_visitRepository.DidNotReceive().Add(Arg.Any<Visit>());
 		await _unitOfWork.DidNotReceive().SaveChangesAsync();
-		
 	}
 
 }

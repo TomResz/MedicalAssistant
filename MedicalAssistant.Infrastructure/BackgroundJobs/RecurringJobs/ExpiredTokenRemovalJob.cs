@@ -11,7 +11,6 @@ internal sealed class ExpiredTokenRemovalJob : IExpiredTokenRemovalJob
 	private readonly IClock _clock;
 	private readonly ILogger<ExpiredTokenRemovalJob> _logger;
 
-
 	public ExpiredTokenRemovalJob(
 		MedicalAssistantDbContext context,
 		IClock clock,
@@ -24,7 +23,7 @@ internal sealed class ExpiredTokenRemovalJob : IExpiredTokenRemovalJob
 
 	public async Task ProcessAsync(CancellationToken cancellationToken)
 	{
-		using var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
+		await using var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
 		try
 		{
 			var now = _clock.GetCurrentUtc();

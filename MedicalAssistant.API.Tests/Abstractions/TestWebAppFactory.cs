@@ -51,8 +51,7 @@ public class TestWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
 
 			services.Configure<DatabaseOptions>(options =>
 			{
-				options.ConnectionString = _dbContainer.GetConnectionString();
-				options.DockerConnectionString = _dbContainer.GetConnectionString();
+                options.ConnectionString = _dbContainer.GetConnectionString();
 			});
 		});
     }

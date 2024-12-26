@@ -6,7 +6,7 @@ using MedicalAssistant.API.SwaggerDocs.Security;
 using MedicalAssistant.Application;
 using MedicalAssistant.Domain;
 using MedicalAssistant.Infrastructure;
-using MedicalAssistant.Infrastructure.BackgrounJobs;
+using MedicalAssistant.Infrastructure.BackgroundJobs;
 using MedicalAssistant.Infrastructure.DAL;
 using MedicalAssistant.Infrastructure.Middleware;
 using MedicalAssistant.Infrastructure.Notifications;

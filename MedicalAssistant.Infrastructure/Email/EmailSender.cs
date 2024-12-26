@@ -17,9 +17,8 @@ internal sealed class EmailSender : IEmailSender
 
 	public async Task SendEmailAsync(string receiver, string subject, string bodyHtml)
 	{
-		var mailMessage = new MailMessage
+		var mailMessage = new MailMessage(_settings.Email,receiver)
 		{
-			From = new MailAddress(_settings.Email),
 			Subject = subject,
 			Body = bodyHtml,
 			IsBodyHtml = true,
@@ -32,7 +31,7 @@ internal sealed class EmailSender : IEmailSender
 	}
 	private static AlternateView AddBackgroundView(string imagePath, string body)
 	{
-		LinkedResource imageResource = new LinkedResource(imagePath);
+		LinkedResource imageResource = new(imagePath);
 		imageResource.ContentId = Guid.NewGuid().ToString();
 
 		string html = $@"

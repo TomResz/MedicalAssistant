@@ -29,24 +29,21 @@ public class RegisterUserTests : BaseFunctionalTest
     }
 
     [Theory]
-    [InlineData("", "test@test.com", "password12345678", HttpStatusCode.BadRequest)] // empty fullname
-    [InlineData("Johny Fullname", "", "password12345678", HttpStatusCode.BadRequest)] // empty email
-    [InlineData("Johny Fullname", "test@test.com", "", HttpStatusCode.BadRequest)] // empty password
-    [InlineData("Johny Fullname", "not-an-email", "password12345678", HttpStatusCode.BadRequest)] // invalid email
-    [InlineData("", "", "", HttpStatusCode.BadRequest)] // empty
-    public async Task Should_ReturnBadRequest_When_Input_Is_Invalid(
-        string fullname, string email, string password, HttpStatusCode expectedStatusCode)
+    [InlineData("", "test@test.com", "password12345678")] 
+    [InlineData("Johny Fullname", "", "password12345678")] 
+    [InlineData("Johny Fullname", "test@test.com", "")] 
+    [InlineData("Johny Fullname", "not-an-email", "password12345678")]
+    [InlineData("", "", "")]
+    public async Task Should_ReturnBadRequest_When_Input_Is_Invalid(string fullName, string email, string password)
     {
         // Arrange
-        var request = new SignUpCommand(fullname, email, password);
+        var request = new SignUpCommand(fullName, email, password);
 
         // Act
         var response = await HttpClient.PostAsJsonAsync("api/user/sign-up", request);
-        var message = await response.Content.ReadAsStringAsync();
 
         // Assert
-        _output.WriteLine($"Response message: {message}");
-        response.StatusCode.Should().Be(expectedStatusCode);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 
     [Fact]

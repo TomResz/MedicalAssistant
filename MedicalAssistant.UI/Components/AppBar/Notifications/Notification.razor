@@ -21,10 +21,10 @@
 		<MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit"
 		               OnClick="@ToggleCollapse" Style="padding-top: 0px;"/>
 	}
-	<MudOverlay @bind-Visible="isPopoverOpen" AutoClose="true"/>
+	<MudOverlay @bind-Visible="_isPopoverOpen" AutoClose="true"/>
 	<MudPopover AnchorOrigin="Origin.BottomRight"
-	            TransformOrigin="@(isSmallScreen ? Origin.TopCenter : Origin.TopRight)"
-	            Class="responsive-popover" Open="@isPopoverOpen" MaxHeight="350"
+	            TransformOrigin="@(_isSmallScreen ? Origin.TopCenter : Origin.TopRight)"
+	            Class="responsive-popover" Open="@_isPopoverOpen" MaxHeight="350"
 	            Style="margin-right: 24px;">
 		<MudList T="string" Class="pa-2 docs-menu-list">
 			<div class="d-flex justify-space-between align-center px-2">
@@ -49,7 +49,7 @@
 		</MudList>
 	</MudPopover>
 </div>
-<MediaQuery @bind-Matches="@isSmallScreen" Media="(max-width: 576px)"/>
+<MediaQuery @bind-Matches="@_isSmallScreen" Media="(max-width: 576px)"/>
 <style>
 	.responsive-popover {
 		width: auto;

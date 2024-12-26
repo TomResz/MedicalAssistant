@@ -1,0 +1,14 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Baza Danych",
+      "Group": "Servers",
+      "Host": "medicalassistant.database",
+      "Port": 5432,
+      "MaintenanceDB": "MedicalAssistantDb",
+      "Username": "postgres",
+      "Password": "postgres",
+      "SSLMode": "prefer"
+    }
+  }
+}

@@ -2,7 +2,6 @@
 using Hangfire.PostgreSql;
 using HangfireBasicAuthenticationFilter;
 using MedicalAssistant.Application.Contracts;
-using MedicalAssistant.Infrastructure.BackgroundJobs;
 using MedicalAssistant.Infrastructure.BackgroundJobs.RecurringJobs;
 using MedicalAssistant.Infrastructure.DAL.Options;
 using Microsoft.AspNetCore.Builder;
@@ -10,11 +9,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace MedicalAssistant.Infrastructure.BackgrounJobs;
+namespace MedicalAssistant.Infrastructure.BackgroundJobs;
 public static class Extensions
 {
-    private const string hangfireUserSection = "Hangfire:User";
-    private const string hangfirePasswordSection = "Hangfire:Password";
+    private const string HangfireUserSection = "Hangfire:User";
+    private const string HangfirePasswordSection = "Hangfire:Password";
 	internal static IServiceCollection AddBackgroundJobs(this IServiceCollection services, IConfiguration configuration)
     {
 
@@ -23,7 +22,7 @@ public static class Extensions
             var options = sp.GetRequiredService<IOptions<DatabaseOptions>>().Value;
 
 			var isRunningInDocker = Environment.GetEnvironmentVariable("RUNNING_IN_DOCKER") == "true";
-			var connectionString = isRunningInDocker ? options.DockerConnectionString : options.ConnectionString;
+			var connectionString = options.ConnectionString;
 
 			cfg.UsePostgreSqlStorage(opt =>
                 opt.UseNpgsqlConnection(connectionString ?? throw new ArgumentNullException()));
@@ -39,7 +38,7 @@ public static class Extensions
         services.AddSingleton<IVisitNotificationScheduler, VisitNotificationScheduler>();
         services.AddSingleton<IMedicationRecommendationNotificationScheduler,MedicationNotificationScheduler>();
         services.AddScoped<IExpiredTokenRemovalJob,ExpiredTokenRemovalJob>();
-
+        services.AddScoped<IUnverifiedAccountRemovalJob,UnverifiedAccountRemovalJob>();
         return services;
     }
 
@@ -49,8 +48,15 @@ public static class Extensions
             .GetRequiredService<IRecurringJobManager>()
             .AddOrUpdate<IExpiredTokenRemovalJob>(
                 "expired-token-deletion-job",
-                    job => job.ProcessAsync(default),
-                    "*/2 * * * *");
+                    job => job.ProcessAsync(CancellationToken.None),
+                    "*/5 * * * *");
+        
+        app.Services
+            .GetRequiredService<IRecurringJobManager>()
+            .AddOrUpdate<IUnverifiedAccountRemovalJob>(
+                "unverified-accounts-deletion-job",
+                job => job.ProcessAsync(CancellationToken.None),
+                "*/10 * * * *");
         return app;
 	}
 
@@ -59,14 +65,14 @@ public static class Extensions
     {
         app.UseHangfireDashboard("/hangfire", options: new DashboardOptions
         {
-            Authorization = new[]
-            {
+            Authorization =
+            [
                 new HangfireCustomBasicAuthenticationFilter
                 {
-                    User = configuration[hangfireUserSection] ?? throw new ArgumentNullException(hangfireUserSection),
-                    Pass = configuration[hangfirePasswordSection] ?? throw new ArgumentNullException(hangfirePasswordSection)
+                    User = configuration[HangfireUserSection] ?? throw new ArgumentNullException(HangfireUserSection),
+                    Pass = configuration[HangfirePasswordSection] ?? throw new ArgumentNullException(HangfirePasswordSection)
                 }
-            }
+            ]
         });
         return app;
     }

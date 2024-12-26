@@ -15,7 +15,7 @@
                 <MudText Class="ms-2">@Visit.VisitType</MudText>
             </div>
             <div class="pa-2 flex-grow-1 d-flex flex-row justify-content-start justify-content-md-center">
-                <MudTooltip Text="@Translations.Date">
+                <MudTooltip Text="@($"{Translations.Date}: {Visit.Date:HH:mm dd.MM.yyyy}")" Style="overflow-x: hidden;">
                     <CalendarIconComponent Date="@Visit.Date"/>
                 </MudTooltip>
             </div>

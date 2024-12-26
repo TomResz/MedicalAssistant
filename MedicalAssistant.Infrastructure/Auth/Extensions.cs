@@ -48,15 +48,26 @@ internal static class Extensions
                     ClockSkew = TimeSpan.Zero,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.SignInKey))
                 };
+                o.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+                        
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) &&
+                            (path.StartsWithSegments("/notifications")))
+                        {
+                            context.Token = accessToken;
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
             });
 
-        services.AddAuthorization(o =>
-        {
-            o.AddPolicy(CustomPolicy.IsVerifiedAndActive, 
-                b => b.AddRequirements(new ActiveAndVerifiedUserProvider(true, true)));
-            o.AddPolicy(CustomPolicy.NotActive, 
-                b => b.AddRequirements(new NotActiveUserProvider(false)));
-        });
+        services.AddAuthorizationBuilder()
+            .AddPolicy(CustomPolicy.IsVerifiedAndActive, b => b.AddRequirements(new ActiveAndVerifiedUserProvider(true, true)))
+            .AddPolicy(CustomPolicy.NotActive, b => b.AddRequirements(new NotActiveUserProvider(false)));
         return services;
     }
 }

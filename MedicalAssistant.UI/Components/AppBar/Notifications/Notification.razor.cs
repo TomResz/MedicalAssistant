@@ -12,109 +12,152 @@ namespace MedicalAssistant.UI.Components.AppBar.Notifications;
 
 public partial class Notification : IAsyncDisposable
 {
-	[Inject]
-	public INotificationService NotificationService { get; set; }
-	[Inject]
-	public NavigationManager NavigationManager { get; set; }
+    [Inject] public INotificationService NotificationService { get; set; }
+    [Inject] public NavigationManager NavigationManager { get; set; }
 
-	[Inject]
-	public IHubTokenService HubTokenService { get; set; }
-	[Inject]
-	public IOptions<APIOptions> APIOptions { get; set; }
+    [Inject] public IHubTokenService HubTokenService { get; set; }
+    [Inject] public IOptions<APIOptions> APIOptions { get; set; }
 
-	[Inject]
-	public ISnackbar Snackbar { get; set; }
+    [Inject] public ISnackbar Snackbar { get; set; }
 
-	[Inject]
-	public IJSRuntime JSRuntime { get; set; }
+    [Inject] public IJSRuntime JSRuntime { get; set; }
 
-	private readonly List<NotificationModel> _models = [];
-	private HubConnection? _hubConnection;
-	private bool isExpanded = false;
-	private bool isPopoverOpen = false;
-	private bool isSmallScreen = false;
-	public int UnReadNotifications => _models.Where(x => x.WasRead == false).Count();
+    private readonly List<NotificationModel> _models = [];
+    private HubConnection? _hubConnection;
+    private bool _isExpanded = false;
+    private bool _isPopoverOpen = false;
+    private bool _isSmallScreen = false;
+    private int UnReadNotifications => _models.Count(x => x.WasRead == false);
 
+    private bool _isInitialized = false;
 
-	protected override async Task OnInitializedAsync()
-	{
-		var uri = APIOptions.Value.NotificationHubUrl;
-		_hubConnection = new HubConnectionBuilder()
-				.WithUrl(uri,
-					options => options.AccessTokenProvider = async () =>
-					await HubTokenService.GetJwt())
-				.WithAutomaticReconnect()
-				.Build();
+    protected override async Task OnInitializedAsync()
+    {
+        // var uri = APIOptions.Value.NotificationHubUrl;
+        // _hubConnection = new HubConnectionBuilder()
+        // 		.WithUrl(uri,
+        // 			options => options.AccessTokenProvider = async () =>
+        // 			await HubTokenService.GetJwt())
+        // 		.WithAutomaticReconnect()
+        // 		.Build();
+        //
+        // var currentNotificationsResponse = await NotificationService.Get();
+        //
+        // if (currentNotificationsResponse.IsSuccess)
+        // {
+        // 	var results = currentNotificationsResponse.Value!;
+        // 	_models.AddRange(results);
+        // 	if (UnReadNotifications > 0)
+        // 	{
+        // 		await JSRuntime.InvokeVoidAsync("addNotificationTitlePrefix", UnReadNotifications);
+        // 	}
+        // 	await InvokeAsync(StateHasChanged);
+        // }
+        //
+        // _hubConnection.On<NotificationModel>("ReceiveNotification", async notification =>
+        // {
+        // 	_models.Add(notification);
+        // 	Snackbar.Add(Translations.NewNotifcation, MudBlazor.Severity.Normal);
+        // 	if (UnReadNotifications > 0)
+        // 	{
+        // 		await JSRuntime.InvokeVoidAsync("addNotificationTitlePrefix", UnReadNotifications);
+        // 	}
+        // 	await InvokeAsync(StateHasChanged);
+        // });
+        //
+        // await _hubConnection.StartAsync();
+    }
 
-		var currentNotificationsResponse = await NotificationService.Get();
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!_isInitialized)
+        {
+            _isInitialized = true;
 
-		if (currentNotificationsResponse.IsSuccess)
-		{
-			var results = currentNotificationsResponse.Value!;
-			_models.AddRange(results);
-			if (UnReadNotifications > 0)
-			{
-				await JSRuntime.InvokeVoidAsync("addNotificationTitlePrefix", UnReadNotifications);
-			}
-			await InvokeAsync(StateHasChanged);
-		}
+            var uri = APIOptions.Value.NotificationHubUrl;
+            _hubConnection = new HubConnectionBuilder()
+                .WithUrl(uri,
+                    options =>
+                    {
+                        options.AccessTokenProvider = async () =>
+                            await HubTokenService.GetJwt();
+                    })
+                .WithAutomaticReconnect()
+                .Build();
 
-		_hubConnection.On<NotificationModel>("ReceiveNotification", async notification =>
-		{
-			_models.Add(notification);
-			Snackbar.Add(Translations.NewNotifcation, MudBlazor.Severity.Normal);
-			if (UnReadNotifications > 0)
-			{
-				await JSRuntime.InvokeVoidAsync("addNotificationTitlePrefix", UnReadNotifications);
-			}
-			await InvokeAsync(StateHasChanged);
-		});
+            var currentNotificationsResponse = await NotificationService.Get();
 
-		await _hubConnection.StartAsync();
-	}
+            if (currentNotificationsResponse.IsSuccess)
+            {
+                var results = currentNotificationsResponse.Value!;
+                _models.AddRange(results);
+                if (UnReadNotifications > 0)
+                {
+                    await JSRuntime.InvokeVoidAsync("addNotificationTitlePrefix", UnReadNotifications);
+                }
 
-	private void GoToNotificationDetails(NotificationModel notification)
-		=> NotificationHelper.GoToNotificationDetails(notification, NavigationManager);
+                await InvokeAsync(StateHasChanged);
+            }
 
-	public async ValueTask DisposeAsync()
-	{
-		if (_hubConnection is not null)
-		{
-			await _hubConnection.DisposeAsync();
-		}
-	}
+            _hubConnection.On<NotificationModel>("ReceiveNotification", async notification =>
+            {
+                _models.Add(notification);
+                Snackbar.Add(Translations.NewNotifcation, MudBlazor.Severity.Normal);
+                if (UnReadNotifications > 0)
+                {
+                    await JSRuntime.InvokeVoidAsync("addNotificationTitlePrefix", UnReadNotifications);
+                }
 
-	private void ToggleCollapse()
-	{
-		isExpanded = !isExpanded;
-		isPopoverOpen = !isPopoverOpen;
-	}
+                await InvokeAsync(StateHasChanged);
+            });
 
-	#region Clear
-	private async void ClearNotifications()
-	{
-		var ids = _models
-			.Where(x => x.WasRead == false)
-			.Select(x => x.Id).ToList();
+            await _hubConnection.StartAsync();
+        }
+    }
 
-		if (ids.Count == 0)
-		{
-			return;
-		}
+    private void GoToNotificationDetails(NotificationModel notification)
+        => NotificationHelper.GoToNotificationDetails(notification, NavigationManager);
 
-		var response = await NotificationService.MarkAsRead(ids);
+    public async ValueTask DisposeAsync()
+    {
+        if (_hubConnection is not null)
+        {
+            await _hubConnection.DisposeAsync();
+        }
+    }
 
-		if (response.IsSuccess)
-		{
-			var selectedNotifications = _models
-				.Where(x => ids.Contains(x.Id))
-				.ToList();
+    private void ToggleCollapse()
+    {
+        _isExpanded = !_isExpanded;
+        _isPopoverOpen = !_isPopoverOpen;
+    }
 
-			selectedNotifications.ForEach(x => x.WasRead = true);
-			await JSRuntime.InvokeVoidAsync("removePrefix");
-			await InvokeAsync(StateHasChanged);
-		}
+    #region Clear
 
-	}
-	#endregion
+    private async void ClearNotifications()
+    {
+        var ids = _models
+            .Where(x => x.WasRead == false)
+            .Select(x => x.Id).ToList();
+
+        if (ids.Count == 0)
+        {
+            return;
+        }
+
+        var response = await NotificationService.MarkAsRead(ids);
+
+        if (response.IsSuccess)
+        {
+            var selectedNotifications = _models
+                .Where(x => ids.Contains(x.Id))
+                .ToList();
+
+            selectedNotifications.ForEach(x => x.WasRead = true);
+            await JSRuntime.InvokeVoidAsync("removePrefix");
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+    #endregion
 }

@@ -23,9 +23,7 @@ internal sealed class DatabaseCreator : IDatabaseCreator
 
 	public async Task CreateDatabaseIfNotExists()
 	{
-		var currentConnectionString = _dockerChecker.IsRunningInContainer
-			? _options.DockerConnectionString
-			: _options.ConnectionString;
+		var currentConnectionString =  _options.ConnectionString;
 
 		var connectionString = TrimHostFromConnectionString(currentConnectionString);
 		var dbName = GetDatabaseNameFromConnectionString(currentConnectionString);
@@ -33,7 +31,7 @@ internal sealed class DatabaseCreator : IDatabaseCreator
 
 		if (_dockerChecker.IsRunningInContainer)
         {
-			const int maxRetries = 5;
+			const int maxRetries = 15;
 			int retryCount = 0;	
 			_logger.LogInformation("Waiting for database...");
 			bool isConnected = false;

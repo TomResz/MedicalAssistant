@@ -1,7 +1,7 @@
 ﻿using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Domain.Abstraction;
 using MedicalAssistant.Infrastructure.Auth;
-using MedicalAssistant.Infrastructure.BackgrounJobs;
+using MedicalAssistant.Infrastructure.BackgroundJobs;
 using MedicalAssistant.Infrastructure.DAL;
 using MedicalAssistant.Infrastructure.Docker;
 using MedicalAssistant.Infrastructure.Email;

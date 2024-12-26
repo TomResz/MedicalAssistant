@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace MedicalAssistant.Infrastructure.DAL;
 internal static class Extensions
@@ -16,20 +17,16 @@ internal static class Extensions
 	private const string OptionsSectionName = "postgres";
 	internal static IServiceCollection AddPersistance(this IServiceCollection services, IConfiguration configuration)
 	{
-		var postgresOptions = configuration.GetOptions<DatabaseOptions>(OptionsSectionName);
-		services.Configure<DatabaseOptions>(configuration.GetSection(OptionsSectionName));
+        services.ConfigureOptions<DatabaseOptionsConfiguration>();
 
-		var isRunningInDocker = Environment.GetEnvironmentVariable("RUNNING_IN_DOCKER") == "true";
-
-		var connectionString = isRunningInDocker ? postgresOptions.DockerConnectionString : postgresOptions.ConnectionString;
-		
-		services.AddSingleton<IDatabaseCreator,DatabaseCreator>();
+        services.AddSingleton<IDatabaseCreator,DatabaseCreator>();
 		services.AddSingleton<DomainEventPublisherInterceptor>();
 
 		services.AddDbContext<MedicalAssistantDbContext>((sp,opt )=>
 		{
 			var interceptor = sp.GetRequiredService<DomainEventPublisherInterceptor>();
-			
+			var connectionString = sp.GetRequiredService<IOptions<DatabaseOptions>>().Value.ConnectionString;
+
 			opt.UseNpgsql(connectionString)
 				.AddInterceptors(interceptor)
 				.ConfigureWarnings(builder =>

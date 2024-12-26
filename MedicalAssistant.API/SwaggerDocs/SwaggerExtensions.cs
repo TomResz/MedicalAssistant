@@ -19,7 +19,7 @@ public static class SwaggerExtensions
 				Example = new OpenApiString(DateTime.UtcNow.ToString("HH:mm"))
 			});
 
-			c.SwaggerDoc("v1", new OpenApiInfo { Title = "Medical Assist API", Version = "v1" });
+			c.SwaggerDoc("v1", new OpenApiInfo { Title = "Medical Assistant API", Version = "v1" });
             var securityScheme = new OpenApiSecurityScheme
             {
                 Name = "JWT",
@@ -37,7 +37,7 @@ public static class SwaggerExtensions
             c.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, securityScheme);
             c.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
-                { securityScheme, new string[] { } }
+                { securityScheme, [] }
             });
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);

@@ -14,7 +14,7 @@ internal static class Extensions
 		var emailClientSettings = configuration.GetOptions<EmailClientSettings>(emailSettingOptions);
 		var routes = configuration.GetOptions<EmailRoutes>(routeOptions);
 
-		var smtpClient = new SmtpClient(emailClientSettings.Host)
+		var smtpClient = new SmtpClient(emailClientSettings.Host, emailClientSettings.Port)
 		{
 			Port = emailClientSettings.Port,
 			Credentials = new NetworkCredential(emailClientSettings.Email, emailClientSettings.Password),

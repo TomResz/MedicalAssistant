@@ -25,7 +25,7 @@ internal sealed class GetVisitBySearchTermQueryHandler
 
         if (string.IsNullOrEmpty(request.SearchTerm))
         {
-            return Enumerable.Empty<VisitDto>();
+            return [];
         }
         
         var formattedQuery = request.SearchTerm.ToTsQuery();
