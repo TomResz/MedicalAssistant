@@ -1,7 +1,6 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
-using MedicalAssistant.Domain.Abstraction;
 using MedicalAssistant.Domain.Entities;
 using MedicalAssistant.Domain.Exceptions;
 using MedicalAssistant.Domain.Repositories;
@@ -10,7 +9,7 @@ using MedicalAssistant.Domain.ValueObjects.IDs;
 
 namespace MedicalAssistant.Application.VisitNotifications.Commands.ChangeDate;
 internal sealed class ChangeVisitNotificationDateCommandHandler
-	: IRequestHandler<ChangeVisitNotificationDateCommand>
+	: ICommandHandler<ChangeVisitNotificationDateCommand>
 {
 	private readonly IVisitRepository _visitRepository;
 	private readonly IVisitNotificationRepository _notificationRepository;

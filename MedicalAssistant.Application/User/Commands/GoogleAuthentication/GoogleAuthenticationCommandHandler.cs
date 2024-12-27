@@ -1,11 +1,12 @@
 ﻿using MediatR;
+using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.User.Commands.ExternalAuthentication;
 using MedicalAssistant.Application.User.Commands.SignIn;
 
 namespace MedicalAssistant.Application.User.Commands.GoogleAuthentication;
 internal sealed class GoogleAuthenticationCommandHandler
-	: IRequestHandler<GoogleAuthenticationCommand, SignInResponse>
+	: ICommandHandler<GoogleAuthenticationCommand, SignInResponse>
 {
 	private readonly IMediator _mediator;
 	private readonly IGoogleAuthService _googleAuthService;

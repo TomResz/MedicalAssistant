@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.MedicalHistory.Query;
@@ -6,7 +7,7 @@ using MedicalAssistant.Application.MedicalHistory.Query;
 namespace MedicalAssistant.Application.Reports.MedicalHistory;
 
 internal sealed class CreateMedicalHistoryReportCommandHandler
-    : IRequestHandler<CreateMedicalHistoryReportCommand, PdfDto?>
+    : ICommandHandler<CreateMedicalHistoryReportCommand, PdfDto?>
 {
     private readonly IMediator _mediator;
     private readonly IMedicalHistoryReportPdfService _medicalHistoryReportPdfService;

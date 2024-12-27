@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Domain.Exceptions;
 using MedicalAssistant.Domain.Repositories;
@@ -6,7 +6,7 @@ using MedicalAssistant.Domain.Repositories;
 namespace MedicalAssistant.Application.MedicalHistory.Commands.Add;
 
 internal sealed class AddMedicalHistoryCommandHandler
-    : IRequestHandler<AddMedicalHistoryCommand, Guid>
+    : ICommandHandler<AddMedicalHistoryCommand, Guid>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IVisitRepository _visitRepository;

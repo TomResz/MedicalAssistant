@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Domain.Entities;
@@ -10,7 +10,7 @@ using UnknownDiseaseStageException = MedicalAssistant.Application.Exceptions.Unk
 namespace MedicalAssistant.Application.MedicalHistory.Commands.EditStage;
 
 internal sealed class EditDiseaseStageCommandHandler
-    : IRequestHandler<EditDiseaseStageCommand>
+    : ICommandHandler<EditDiseaseStageCommand>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMedicalHistoryRepository _medicalHistoryRepository;

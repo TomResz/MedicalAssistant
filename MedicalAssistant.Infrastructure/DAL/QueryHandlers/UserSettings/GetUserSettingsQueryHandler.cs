@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Exceptions;
@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.UserSettings;
 internal sealed class GetUserSettingsQueryHandler
-	: IRequestHandler<GetUserSettingsQuery, SettingsDto>
+	: IQueryHandler<GetUserSettingsQuery, SettingsDto>
 {
 	private readonly MedicalAssistantDbContext _context;
 	private readonly IUserContext _userContext;

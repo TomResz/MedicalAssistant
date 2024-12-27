@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Dto.Mappers;
@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Recommendation;
 
 internal sealed class GetByIdsMedicationRecommendationsQueryHandler
-    : IRequestHandler<GetByIdsMedicationRecommendationsQuery,IEnumerable<MedicationRecommendationDto>>
+    : IQueryHandler<GetByIdsMedicationRecommendationsQuery,IEnumerable<MedicationRecommendationDto>>
 {
     private readonly IUserContext _userContext;
     private readonly MedicalAssistantDbContext _dbContext;

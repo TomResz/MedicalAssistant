@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Notifications.Queries;
@@ -7,7 +7,7 @@ using MedicalAssistant.Application.Pagination;
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Notifications;
 
 internal sealed class GetPageOfNotificationsQueryHandler
-	: IRequestHandler<GetPageOfNotificationsQuery, PagedList<NotificationDto>>
+	: IQueryHandler<GetPageOfNotificationsQuery, PagedList<NotificationDto>>
 {
 	private readonly MedicalAssistantDbContext _context;
 	private readonly IUserContext _userContext;

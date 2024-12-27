@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 
 namespace MedicalAssistant.Application.MedicalHistory.Commands.AddStage;
 
@@ -7,5 +7,5 @@ public sealed record AddDiseaseStageCommand(
     Guid? VisitId,
     string? Note,
     string Name,
-    DateTime Date) : IRequest<Guid>;
+    DateTime Date) : ICommand<Guid>;
     

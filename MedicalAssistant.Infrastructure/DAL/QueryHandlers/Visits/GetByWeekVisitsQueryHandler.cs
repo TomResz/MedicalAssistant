@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using MediatR;
+using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Visits.Queries;
@@ -7,7 +7,7 @@ using MedicalAssistant.Infrastructure.DAL.Dapper;
 
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Visits;
 internal sealed class GetByWeekVisitsQueryHandler
-	: IRequestHandler<GetByWeekVisitQuery, IEnumerable<VisitDto>>
+	: IQueryHandler<GetByWeekVisitQuery, IEnumerable<VisitDto>>
 {
 
 	private readonly ISqlConnectionFactory _sqlConnectionFactory;

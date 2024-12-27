@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Domain.Entities;
@@ -8,7 +8,7 @@ using MedicalAssistant.Domain.Repositories;
 namespace MedicalAssistant.Application.MedicalHistory.Commands.AddStage;
 
 internal sealed class AddDiseaseStageCommandHandler
-    : IRequestHandler<AddDiseaseStageCommand, Guid>
+    : ICommandHandler<AddDiseaseStageCommand, Guid>
 {
     private readonly IMedicalHistoryRepository _medicalHistoryRepository;
     private readonly IUnitOfWork _unitOfWork;

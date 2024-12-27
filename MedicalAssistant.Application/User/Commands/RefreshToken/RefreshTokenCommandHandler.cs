@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Application.Exceptions.RefreshToken;
@@ -10,7 +10,7 @@ using MedicalAssistant.Domain.ValueObjects;
 
 namespace MedicalAssistant.Application.User.Commands.RefreshToken;
 internal sealed class RefreshTokenCommandHandler
-    : IRequestHandler<RefreshTokenCommand, RefreshTokenResponse>
+    : ICommandHandler<RefreshTokenCommand, RefreshTokenResponse>
 {
     private readonly IClock _clock;
     private readonly IUnitOfWork _unitOfWork;

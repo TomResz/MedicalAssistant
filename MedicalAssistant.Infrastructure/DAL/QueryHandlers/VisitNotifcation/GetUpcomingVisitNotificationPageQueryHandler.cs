@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Pagination;
@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.VisitNotifcation;
 internal sealed class GetUpcomingVisitNotificationPageQueryHandler
-	: IRequestHandler<GetUpcomingVisitNotificationPageQuery, PagedList<UpcomingVisitNotificationDto>>
+	: IQueryHandler<GetUpcomingVisitNotificationPageQuery, PagedList<UpcomingVisitNotificationDto>>
 {
 	private readonly IUserContext _userContext;
 	private readonly IClock _clock;

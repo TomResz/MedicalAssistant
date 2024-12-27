@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using MediatR;
+using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.MedicationNotifications.Queries;
@@ -7,7 +7,7 @@ using MedicalAssistant.Infrastructure.DAL.Dapper;
 
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.MedicationNotifications;
 internal sealed class GetMedicationNotificationByWeekQueryHandler
-	: IRequestHandler<GetMedicationNotificationByWeekQuery, IEnumerable<MedicationNotificationDto>>
+	: IQueryHandler<GetMedicationNotificationByWeekQuery, IEnumerable<MedicationNotificationDto>>
 {
 	private readonly IUserContext _userContext;
 	private readonly ISqlConnectionFactory _connectionFactory;

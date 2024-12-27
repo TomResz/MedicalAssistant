@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Domain.Abstraction;
@@ -6,9 +6,9 @@ using MedicalAssistant.Domain.Repositories;
 
 namespace MedicalAssistant.Application.User.Commands.ReactivateAccount;
 
-public sealed record ReactivateAccountCommand() : IRequest;
+public sealed record ReactivateAccountCommand() : ICommand;
 
-internal sealed class DeactivateAccountCommandHandler : IRequestHandler<ReactivateAccountCommand>
+internal sealed class DeactivateAccountCommandHandler : ICommandHandler<ReactivateAccountCommand>
 {
     private readonly IUserContext _userContext;
     private readonly IUserRepository _userRepository;

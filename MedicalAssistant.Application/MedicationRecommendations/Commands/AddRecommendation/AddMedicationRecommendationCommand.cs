@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 
 namespace MedicalAssistant.Application.MedicationRecommendations.Commands.AddRecommendation;
 public sealed record AddMedicationRecommendationCommand(
@@ -8,4 +8,4 @@ public sealed record AddMedicationRecommendationCommand(
     int Quantity,
     string[] TimeOfDay,
     DateTime StartDate,
-    DateTime EndDate) : IRequest<AddMedicationRecommendationResponse>;
+    DateTime EndDate) : ICommand<AddMedicationRecommendationResponse>;

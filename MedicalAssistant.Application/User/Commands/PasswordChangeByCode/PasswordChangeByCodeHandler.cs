@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Application.Security;
@@ -6,7 +6,7 @@ using MedicalAssistant.Domain.Repositories;
 using MedicalAssistant.Domain.ValueObjects;
 
 namespace MedicalAssistant.Application.User.Commands.PasswordChangeByCode;
-internal sealed class PasswordChangeByCodeHandler : IRequestHandler<PasswordChangeByCodeCommand>
+internal sealed class PasswordChangeByCodeHandler : ICommandHandler<PasswordChangeByCodeCommand>
 {
     private readonly IUserRepository _userRepository;
     private readonly IEmailCodeManager _emailCodeManager;

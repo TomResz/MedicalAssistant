@@ -1,10 +1,10 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Domain.Exceptions;
 using MedicalAssistant.Domain.Repositories;
 
 namespace MedicalAssistant.Application.MedicationRecommendations.Commands.AddUsage;
-internal sealed class AddRecommendationUsageCommandHandler : IRequestHandler<AddRecommendationUsageCommand>
+internal sealed class AddRecommendationUsageCommandHandler : ICommandHandler<AddRecommendationUsageCommand>
 {
 	private readonly IMedicationRecommendationRepository _repository;
 	private readonly IUnitOfWork _unitOfWork;

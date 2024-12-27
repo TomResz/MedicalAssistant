@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Dto.Mappers;
@@ -10,7 +10,7 @@ using MedicalAssistant.Domain.ValueObjects.IDs;
 
 namespace MedicalAssistant.Application.MedicationRecommendations.Commands.UpdateRecommendation;
 internal sealed class UpdateMedicationRecommendationCommandHandler
-	: IRequestHandler<UpdateMedicationRecommendationCommand, VisitDto?>
+	: ICommandHandler<UpdateMedicationRecommendationCommand, VisitDto?>
 {
 	private readonly IMedicationRecommendationRepository _medicationRepository;
 	private readonly IVisitRepository _visitRepository;

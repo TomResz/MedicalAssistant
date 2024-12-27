@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Application.Security;
@@ -9,7 +9,7 @@ using MedicalAssistant.Domain.ValueObjects;
 
 namespace MedicalAssistant.Application.User.Commands.ExternalAuthentication;
 internal sealed class ExternalAuthenticationCommandHandler
-	:IRequestHandler<ExternalAuthenticationCommand,SignInResponse>
+	: ICommandHandler<ExternalAuthenticationCommand,SignInResponse>
 {
 	private readonly IUserRepository _userRepository;
 	private readonly IClock _clock;

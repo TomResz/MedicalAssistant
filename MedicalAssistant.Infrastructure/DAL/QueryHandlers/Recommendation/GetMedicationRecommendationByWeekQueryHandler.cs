@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using MediatR;
+using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.MedicationRecommendations.Queries;
@@ -7,7 +7,7 @@ using MedicalAssistant.Infrastructure.DAL.Dapper;
 
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Recommendation;
 internal class GetMedicationRecommendationByWeekQueryHandler
-	: IRequestHandler<GetMedicationRecommendationByWeekQuery, IEnumerable<MedicationRecommendationWithDayDto>>
+	: IQueryHandler<GetMedicationRecommendationByWeekQuery, IEnumerable<MedicationRecommendationWithDayDto>>
 {
 	private readonly IUserContext _userContext;
 	private readonly ISqlConnectionFactory _connectionFactory;

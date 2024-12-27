@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Dto.Mappers;
@@ -11,7 +11,7 @@ using MedicalAssistant.Domain.Repositories;
 
 namespace MedicalAssistant.Application.MedicationRecommendations.Commands.AddRecommendation;
 internal sealed class AddMedicationRecommendationCommandHandler 
-	: IRequestHandler<AddMedicationRecommendationCommand, AddMedicationRecommendationResponse>
+	: ICommandHandler<AddMedicationRecommendationCommand, AddMedicationRecommendationResponse>
 {
     private readonly IVisitRepository _visitRepository;
     private readonly IVisitService _visitService;

@@ -1,10 +1,10 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Domain.Abstraction;
 using MedicalAssistant.Domain.Repositories;
 
 namespace MedicalAssistant.Application.Notifications.Commands.MarkAsRead;
-internal sealed class MarkAsReadNotificationCommandHandler : IRequestHandler<MarkAsReadNotificationCommand>
+internal sealed class MarkAsReadNotificationCommandHandler : ICommandHandler<MarkAsReadNotificationCommand>
 {
 	private readonly INotificationHistoryRepository _historyRepository;
 	private readonly IUnitOfWork _unitOfWork;

@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Domain.Entities;
@@ -6,7 +6,7 @@ using MedicalAssistant.Domain.Repositories;
 
 namespace MedicalAssistant.Application.MedicalNotes.Commands.Edit;
 
-internal sealed class EditMedicalNoteCommandHandler : IRequestHandler<EditMedicalNoteCommand>
+internal sealed class EditMedicalNoteCommandHandler : ICommandHandler<EditMedicalNoteCommand>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMedicalNoteRepository _repository;

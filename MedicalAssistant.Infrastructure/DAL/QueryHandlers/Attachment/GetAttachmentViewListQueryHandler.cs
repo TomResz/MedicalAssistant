@@ -1,12 +1,12 @@
 ﻿using Dapper;
-using MediatR;
+using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Attachment.Queries;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Infrastructure.DAL.Dapper;
 
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Attachment;
 internal sealed class GetAttachmentViewListQueryHandler
-	: IRequestHandler<GetAttachmentViewListQuery, IEnumerable<AttachmentViewDto>>
+	: IQueryHandler<GetAttachmentViewListQuery, IEnumerable<AttachmentViewDto>>
 {
 	private readonly ISqlConnectionFactory _connectionFactory;
 	public GetAttachmentViewListQueryHandler(

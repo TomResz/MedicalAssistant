@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using MediatR;
+using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.MedicalNotes.Queries;
@@ -8,7 +8,7 @@ using MedicalAssistant.Infrastructure.DAL.Dapper;
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.MedicalNotes;
 
 internal sealed class GetTagsOfNotesQueryHandler 
-    : IRequestHandler<GetTagsOfNotesQuery,IEnumerable<NoteTagDto>>
+    : IQueryHandler<GetTagsOfNotesQuery,IEnumerable<NoteTagDto>>
 {
     private readonly ISqlConnectionFactory _sqlConnectionFactory;
     private readonly IUserContext _userContext;

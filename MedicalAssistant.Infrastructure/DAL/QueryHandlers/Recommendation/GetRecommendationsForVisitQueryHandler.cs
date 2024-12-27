@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.MedicationRecommendations.Queries;
 using MedicalAssistant.Domain.ValueObjects;
@@ -7,7 +7,7 @@ using MedicalAssistant.Infrastructure.DAL.QueryHandlers.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Recommendation;
-internal sealed class GetRecommendationsForVisitQueryHandler : IRequestHandler<GetRecommendationsForVisitQuery, IEnumerable<RecommendationDto>>
+internal sealed class GetRecommendationsForVisitQueryHandler : IQueryHandler<GetRecommendationsForVisitQuery, IEnumerable<RecommendationDto>>
 {
     private readonly MedicalAssistantDbContext _context;
     public GetRecommendationsForVisitQueryHandler(MedicalAssistantDbContext context)

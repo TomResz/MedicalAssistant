@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Dto.Mappers;
@@ -10,7 +10,7 @@ using MedicalAssistant.Domain.ValueObjects.IDs;
 
 namespace MedicalAssistant.Application.Visits.Commands.AddVisit;
 internal sealed class AddVisitCommandHandler
-    : IRequestHandler<AddVisitCommand,VisitDto>
+    : ICommandHandler<AddVisitCommand,VisitDto>
 {
     private readonly IUserContext _userContext;
     private readonly IUserRepository _userRepository;

@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.MedicationNotifications.Queries;
@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.MedicationNotifications;
 
 internal sealed class GetUpcomingMedicationNotificationPageQueryHandler
-	: IRequestHandler<GetUpcomingMedicationNotificationPageQuery, PagedList<MedicationNotificationPageContentDto>>
+	: IQueryHandler<GetUpcomingMedicationNotificationPageQuery, PagedList<MedicationNotificationPageContentDto>>
 {
 	private readonly IUserContext _userContext;
 	private readonly MedicalAssistantDbContext _context;

@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Dto.Mappers;
@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 namespace MedicalAssistant.Application.Attachment.Commands.Add;
 
 internal sealed class AddAttachmentCommandHandler
-	: IRequestHandler<AddAttachmentCommand, AttachmentViewDto>
+	: ICommandHandler<AddAttachmentCommand, AttachmentViewDto>
 {
 	private readonly IVisitRepository _visitRepository;
 	private readonly IUnitOfWork _unitOfWork;

@@ -1,11 +1,11 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Domain.Entities;
 using MedicalAssistant.Domain.Repositories;
 
 namespace MedicalAssistant.Application.MedicalNotes.Commands.Add;
 
-internal sealed class AddMedicalNoteCommandHandler : IRequestHandler<AddMedicalNoteCommand,Guid>
+internal sealed class AddMedicalNoteCommandHandler : ICommandHandler<AddMedicalNoteCommand,Guid>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IUserContext _userContext;

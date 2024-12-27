@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 
 namespace MedicalAssistant.Application.MedicalHistory.Commands.EditStage;
 
@@ -8,4 +8,4 @@ public record EditDiseaseStageCommand(
     Guid? VisitId,
     string Name,
     string? Note,
-    DateTime Date) : IRequest;
+    DateTime Date) : ICommand;

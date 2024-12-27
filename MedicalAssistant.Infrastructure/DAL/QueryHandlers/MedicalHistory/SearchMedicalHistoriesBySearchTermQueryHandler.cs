@@ -1,5 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Dto.Mappers;
@@ -9,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.MedicalHistory;
 
 internal sealed class SearchMedicalHistoriesBySearchTermQueryHandler
-    : IRequestHandler<SearchMedicalHistoriesBySearchTermQuery, IEnumerable<MedicalHistoryDto>>
+    : IQueryHandler<SearchMedicalHistoriesBySearchTermQuery, IEnumerable<MedicalHistoryDto>>
 {
     private readonly IUserContext _userContext;
     private readonly MedicalAssistantDbContext _context;

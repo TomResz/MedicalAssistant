@@ -1,11 +1,12 @@
 ﻿using MediatR;
+using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.MedicalNotes.Queries;
 
 namespace MedicalAssistant.Application.Reports.Notes;
 
-internal sealed class CreateNoteReportCommandHandler : IRequestHandler<CreateNoteReportCommand, PdfDto?>
+internal sealed class CreateNoteReportCommandHandler : ICommandHandler<CreateNoteReportCommand, PdfDto?>
 {
     private readonly IMediator _mediator;
     private readonly IMedicalNoteReportPdfService _noteReportPdfService;

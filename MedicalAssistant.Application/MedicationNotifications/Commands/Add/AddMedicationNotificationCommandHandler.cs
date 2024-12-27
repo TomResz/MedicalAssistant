@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Domain.Entities;
@@ -6,7 +6,7 @@ using MedicalAssistant.Domain.Repositories;
 
 namespace MedicalAssistant.Application.MedicationNotifications.Commands.Add;
 internal sealed class AddMedicationNotificationCommandHandler
-	: IRequestHandler<AddMedicationNotificationCommand,Guid>
+	: ICommandHandler<AddMedicationNotificationCommand,Guid>
 {
 	private readonly IMedicationRecommendationRepository _repository;
 	private readonly IUnitOfWork _unitOfWork;

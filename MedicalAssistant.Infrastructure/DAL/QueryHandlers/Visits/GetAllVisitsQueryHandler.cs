@@ -1,14 +1,14 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
+using MedicalAssistant.Application.Dto.Mappers;
 using MedicalAssistant.Application.Visits.Queries;
+using MedicalAssistant.Domain.Entities;
 using MedicalAssistant.Infrastructure.DAL.QueryHandlers.Extensions;
 using Microsoft.EntityFrameworkCore;
-using MedicalAssistant.Application.Dto.Mappers;
-using MedicalAssistant.Domain.Entities;
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Visits;
 internal sealed class GetAllVisitsQueryHandler
-	: IRequestHandler<GetAllVisitsQuery, IEnumerable<VisitDto>>
+	: IQueryHandler<GetAllVisitsQuery, IEnumerable<VisitDto>>
 {
 	private readonly MedicalAssistantDbContext _context;
 	private readonly IUserContext _userContext;

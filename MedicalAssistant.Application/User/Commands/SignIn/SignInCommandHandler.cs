@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Application.Security;
@@ -9,7 +9,7 @@ using MedicalAssistant.Domain.ValueObjects;
 namespace MedicalAssistant.Application.User.Commands.SignIn;
 
 internal sealed class SignInCommandHandler
-	: IRequestHandler<SignInCommand, SignInResponse>
+	: ICommandHandler<SignInCommand, SignInResponse>
 {
 	private readonly IPasswordManager _passwordManager;
 	private readonly IUserRepository _userRepository;

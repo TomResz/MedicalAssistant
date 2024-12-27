@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Application.Security;
@@ -7,7 +7,7 @@ using MedicalAssistant.Domain.Repositories;
 
 namespace MedicalAssistant.Application.User.Commands.RegenerateVerificationCode;
 internal sealed class RegenerateVerificationCodeCommandHandler
-	: IRequestHandler<RegenerateVerificationCodeCommand>
+	: ICommandHandler<RegenerateVerificationCodeCommand>
 {
 	private readonly IUserRepository _userRepository;
 	private readonly ICodeVerification _codeVerification;

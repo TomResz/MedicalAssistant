@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.MedicalNotes.Queries;
@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.MedicalNotes;
 
 internal sealed class GetMedicalNotesQueryHandler
-    : IRequestHandler<GetMedicalNotesQuery,IEnumerable<MedicalNoteDto>>
+    : IQueryHandler<GetMedicalNotesQuery,IEnumerable<MedicalNoteDto>>
 {
     private readonly MedicalAssistantDbContext _context;
     private readonly IUserContext _userContext;

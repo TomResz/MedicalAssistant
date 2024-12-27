@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Dto.Mappers;
 using MedicalAssistant.Application.VisitNotifications.Queries;
@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.VisitNotifcation;
 internal sealed class GetNotificationByVisitQueryHandler
-	: IRequestHandler<GetNotificationByVisitQuery, IEnumerable<VisitNotificationDto>>
+	: IQueryHandler<GetNotificationByVisitQuery, IEnumerable<VisitNotificationDto>>
 {
 	private readonly MedicalAssistantDbContext _context;
 

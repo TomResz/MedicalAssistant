@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Domain.ValueObjects.IDs;
 using MedicalAssistant.Infrastructure.DAL;
@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MedicalAssistant.Application.MedicationNotifications.Queries;
 internal sealed class GetMedicationNotificationByMedicationQueryHandler
-	: IRequestHandler<GetMedicationNotificationByMedicationQuery, IEnumerable<MedicationNotificationWithDateRangeDto>>
+	: IQueryHandler<GetMedicationNotificationByMedicationQuery, IEnumerable<MedicationNotificationWithDateRangeDto>>
 {
 	private readonly MedicalAssistantDbContext _context;
 	public GetMedicationNotificationByMedicationQueryHandler(

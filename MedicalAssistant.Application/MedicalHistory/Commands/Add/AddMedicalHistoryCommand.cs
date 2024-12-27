@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 
 namespace MedicalAssistant.Application.MedicalHistory.Commands.Add;
 
@@ -7,4 +7,4 @@ public sealed record AddMedicalHistoryCommand(
     DateTime StartDate,
     string Name,
     string? Notes,
-    string? SymptomDescription) : IRequest<Guid>;
+    string? SymptomDescription) : ICommand<Guid>;

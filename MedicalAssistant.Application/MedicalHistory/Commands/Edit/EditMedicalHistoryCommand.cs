@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 
 namespace MedicalAssistant.Application.MedicalHistory.Commands.Edit;
 
@@ -9,4 +9,4 @@ public sealed record EditMedicalHistoryCommand(
     DateTime? EndDate,
     string Name,
     string? Notes,
-    string? SymptomDescription) : IRequest;
+    string? SymptomDescription) : ICommand;

@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Domain.Repositories;
@@ -6,7 +6,7 @@ using MedicalAssistant.Domain.ValueObjects;
 
 namespace MedicalAssistant.Application.UserSettings.Commands.Update;
 internal sealed class UpdateUserSettingsCommandHandler
-	: IRequestHandler<UpdateUserSettingsCommand>
+	: ICommandHandler<UpdateUserSettingsCommand>
 {
 	private readonly IUserRepository _userRepository;
 	private readonly IUserContext _userContext;

@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Domain.Repositories;
@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace MedicalAssistant.Application.Attachment.Commands.Delete;
 internal sealed class DeleteAttachmentCommandHandler
-	: IRequestHandler<DeleteAttachmentCommand>
+	: ICommandHandler<DeleteAttachmentCommand>
 {
 	private readonly IAttachmentRepository _attachmentRepository;
 	private readonly IUnitOfWork _unitOfWork;

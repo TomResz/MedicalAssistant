@@ -1,11 +1,12 @@
 ﻿using MediatR;
+using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Visits.Queries;
 
 namespace MedicalAssistant.Application.Reports.Visit;
 
-internal sealed class CreateVisitReportCommandHandler : IRequestHandler<CreateVisitReportCommand, PdfDto?>
+internal sealed class CreateVisitReportCommandHandler : ICommandHandler<CreateVisitReportCommand, PdfDto?>
 {
     private readonly IVisitReportPdfService _visitReportPdfService;
     private readonly IMediator _mediator;

@@ -1,11 +1,12 @@
 ﻿using MediatR;
+using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.User.Commands.ExternalAuthentication;
 using MedicalAssistant.Application.User.Commands.SignIn;
 
 namespace MedicalAssistant.Application.User.Commands.FacebookAuthentication;
 internal sealed class FacebookAuthenticationCommandHandler
-	: IRequestHandler<FacebookAuthenticationCommand, SignInResponse>
+	: ICommandHandler<FacebookAuthenticationCommand, SignInResponse>
 {
 	private readonly IMediator _mediator;
 	private readonly IFacebookAuthService _facebookAuthService;

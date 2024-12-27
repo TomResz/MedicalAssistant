@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Domain.Repositories;
@@ -6,7 +6,7 @@ using MedicalAssistant.Domain.Repositories;
 namespace MedicalAssistant.Application.MedicalHistory.Commands.DeleteStage;
 
 internal sealed class DeleteDiseaseStageCommandHandler
-    : IRequestHandler<DeleteDiseaseStageCommand>
+    : ICommandHandler<DeleteDiseaseStageCommand>
 {
     private readonly IMedicalHistoryRepository _repository;
     private readonly IUnitOfWork _unitOfWork;

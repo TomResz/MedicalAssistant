@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Notifications.Queries;
@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Notifications;
 internal sealed class GetNotificationsQueryHandler
-	: IRequestHandler<GetNotificationsQuery, IEnumerable<NotificationDto>>
+	: IQueryHandler<GetNotificationsQuery, IEnumerable<NotificationDto>>
 {
 	private MedicalAssistantDbContext _context;
 	private readonly IUserContext _userContext;

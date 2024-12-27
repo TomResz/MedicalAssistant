@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.MedicationRecommendations.Queries;
 using MedicalAssistant.Domain.ValueObjects;
@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Recommendation;
 internal sealed class GetRecommendationsForGivenTimePeriodQueryHandler
-    : IRequestHandler<GetRecommendationsForGivenTimePeriodQuery, IEnumerable<RecommendationDto>>
+    : IQueryHandler<GetRecommendationsForGivenTimePeriodQuery, IEnumerable<RecommendationDto>>
 {
     private readonly MedicalAssistantDbContext _context;
     public GetRecommendationsForGivenTimePeriodQueryHandler(MedicalAssistantDbContext context)

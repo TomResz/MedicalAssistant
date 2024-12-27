@@ -1,17 +1,15 @@
 ﻿using Dapper;
-using MediatR;
+using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
-using MedicalAssistant.Application.Dto.Mappers;
 using MedicalAssistant.Application.Visits.Queries;
 using MedicalAssistant.Domain.ValueObjects;
 using MedicalAssistant.Infrastructure.DAL.Dapper;
-using Microsoft.EntityFrameworkCore;
 
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Visits;
 
 internal sealed class GetVisitsByDateQueryHandler
-	: IRequestHandler<GetVisitsByDateQuery, IEnumerable<VisitDto>>
+	: IQueryHandler<GetVisitsByDateQuery, IEnumerable<VisitDto>>
 {
 	private readonly IUserContext _userContext;
 	private readonly ISqlConnectionFactory _connectionFactory;

@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.MedicationRecommendations.Queries;
 using MedicalAssistant.Domain.ValueObjects.IDs;
@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Recommendation;
 
 internal sealed class GetMedicationDateRangeQueryHandler
-	: IRequestHandler<GetMedicationDateRangeQuery, DateRangeDto?>
+	: IQueryHandler<GetMedicationDateRangeQuery, DateRangeDto?>
 {
 	private readonly MedicalAssistantDbContext _context;
 

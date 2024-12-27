@@ -1,5 +1,4 @@
-﻿using System.Net;
-using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Domain.Events;
@@ -8,7 +7,7 @@ using MedicalAssistant.Domain.Repositories;
 namespace MedicalAssistant.Application.User.Commands.DeleteAccount;
 
 internal sealed class DeleteAccountCommandHandler
-    : IRequestHandler<DeleteAccountCommand>
+    : ICommandHandler<DeleteAccountCommand>
 {
     private readonly IUserContext _userContext;
     private readonly IUserRepository _userRepository;

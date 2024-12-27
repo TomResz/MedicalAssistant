@@ -1,11 +1,11 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Domain.Exceptions;
 using MedicalAssistant.Domain.Repositories;
 
 namespace MedicalAssistant.Application.Visits.Commands.DeleteVisit;
 internal sealed class DeleteVisitCommandHandler
-	: IRequestHandler<DeleteVisitCommand>
+	: ICommandHandler<DeleteVisitCommand>
 {
 	private readonly IVisitRepository _visitRepository;
 	private readonly IUnitOfWork _unitOfWork;

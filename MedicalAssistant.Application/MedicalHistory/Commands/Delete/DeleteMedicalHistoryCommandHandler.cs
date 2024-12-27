@@ -1,11 +1,11 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Domain.Repositories;
 
 namespace MedicalAssistant.Application.MedicalHistory.Commands.Delete;
 
-internal sealed class DeleteMedicalHistoryCommandHandler : IRequestHandler<DeleteMedicalHistoryCommand>
+internal sealed class DeleteMedicalHistoryCommandHandler : ICommandHandler<DeleteMedicalHistoryCommand>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMedicalHistoryRepository _repository;

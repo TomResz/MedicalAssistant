@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Pagination;
 
@@ -8,4 +8,4 @@ public sealed record GetUpcomingMedicationNotificationPageQuery(
 	int Page,
 	int PageSize,
 	int Offset,
-	DateTime Date) : IRequest<PagedList<MedicationNotificationPageContentDto>>;
+	DateTime Date) : IQuery<PagedList<MedicationNotificationPageContentDto>>;

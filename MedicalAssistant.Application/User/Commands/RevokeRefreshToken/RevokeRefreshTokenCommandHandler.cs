@@ -1,11 +1,12 @@
 ﻿using MediatR;
+using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Domain.Repositories;
 
 namespace MedicalAssistant.Application.User.Commands.RevokeRefreshToken;
 
-internal sealed class RevokeRefreshTokenCommandHandler : IRequestHandler<RevokeRefreshTokenCommand>
+internal sealed class RevokeRefreshTokenCommandHandler : ICommandHandler<RevokeRefreshTokenCommand>
 {
     private readonly IUserContext _context;
     private readonly IUserRepository _userRepository;

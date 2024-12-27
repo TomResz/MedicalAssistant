@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Attachment.Queries;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Dto.Mappers;
@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Attachment;
 internal sealed class DownloadAttachmentByIdQueryHandler
-	: IRequestHandler<DownloadAttachmentByIdQuery, AttachmentDto?>
+	: IQueryHandler<DownloadAttachmentByIdQuery, AttachmentDto?>
 {
 	private readonly MedicalAssistantDbContext _context;
 

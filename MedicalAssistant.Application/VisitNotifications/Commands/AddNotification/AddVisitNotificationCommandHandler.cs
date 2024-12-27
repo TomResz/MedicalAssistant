@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Dto.Mappers;
@@ -12,7 +12,7 @@ using MedicalAssistant.Domain.ValueObjects.IDs;
 namespace MedicalAssistant.Application.VisitNotifications.Commands.AddNotifications;
 
 internal sealed class AddVisitNotificationCommandHandler
-	: IRequestHandler<AddVisitNotificationCommand, VisitNotificationDto>
+	: ICommandHandler<AddVisitNotificationCommand, VisitNotificationDto>
 {
 	private readonly IVisitRepository _visitRepository;
 	private readonly IVisitNotificationRepository _notificationRepository;

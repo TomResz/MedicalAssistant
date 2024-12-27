@@ -1,11 +1,11 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Domain.Repositories;
 
 namespace MedicalAssistant.Application.MedicationNotifications.Commands.Delete;
 internal sealed class DeleteMedicationNotificationCommandHandler
-	: IRequestHandler<DeleteMedicationNotificationCommand>
+	: ICommandHandler<DeleteMedicationNotificationCommand>
 {
 	private readonly IMedicationRecommendationNotificationRepository _repository;
 	private readonly IUnitOfWork _unitOfWork;

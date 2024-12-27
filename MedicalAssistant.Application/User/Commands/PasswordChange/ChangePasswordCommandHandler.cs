@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Application.Security;
@@ -9,7 +9,7 @@ using MedicalAssistant.Domain.ValueObjects.IDs;
 namespace MedicalAssistant.Application.User.Commands.PasswordChange;
 
 internal sealed class ChangePasswordCommandHandler
-    : IRequestHandler<ChangePasswordCommand>
+    : ICommandHandler<ChangePasswordCommand>
 {
     private readonly IPasswordManager _passwordManager;
     private readonly IUserRepository _userRepository;

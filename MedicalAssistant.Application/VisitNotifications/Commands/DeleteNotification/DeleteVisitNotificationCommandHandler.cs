@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Exceptions;
 using MedicalAssistant.Domain.Abstraction;
@@ -10,7 +10,7 @@ using MedicalAssistant.Domain.ValueObjects.IDs;
 
 namespace MedicalAssistant.Application.VisitNotifications.Commands.DeleteNotification;
 internal sealed class DeleteVisitNotificationCommandHandler
-	: IRequestHandler<DeleteVisitNotificationCommand>
+	: ICommandHandler<DeleteVisitNotificationCommand>
 {
 	private readonly IVisitNotificationScheduler _notificationScheduler;
 	private readonly IVisitRepository _visitRepository;

@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Dto;
 
 namespace MedicalAssistant.Application.Visits.Commands.EditVisit;
@@ -11,4 +11,4 @@ public sealed record EditVisitCommand(
 	string DoctorName,
 	string VisitType,
 	string VisitDescription,
-	string PredictedEndDate) : IRequest<VisitDto>;
+	string PredictedEndDate) : ICommand<VisitDto>;

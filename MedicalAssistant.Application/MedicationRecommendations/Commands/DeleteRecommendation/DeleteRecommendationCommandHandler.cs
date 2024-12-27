@@ -1,10 +1,10 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Domain.Exceptions;
 using MedicalAssistant.Domain.Repositories;
 
 namespace MedicalAssistant.Application.MedicationRecommendations.Commands.DeleteRecommendation;
-internal sealed class DeleteRecommendationCommandHandler : IRequestHandler<DeleteRecommendationCommand>
+internal sealed class DeleteRecommendationCommandHandler : ICommandHandler<DeleteRecommendationCommand>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IUserContext _userContext;

@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Contracts;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Dto.Mappers;
@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.Visits;
 
 internal sealed class GetCompletedVisitsQueryHandler
-	: IRequestHandler<GetCompletedVisitsQuery, IEnumerable<VisitDto>>
+	: IQueryHandler<GetCompletedVisitsQuery, IEnumerable<VisitDto>>
 {
 	private readonly IUserContext _userContext;
 	private readonly MedicalAssistantDbContext _context;

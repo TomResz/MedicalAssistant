@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Dto;
 
 namespace MedicalAssistant.Application.MedicationRecommendations.Commands.UpdateRecommendation;
@@ -10,4 +10,4 @@ public sealed record UpdateMedicationRecommendationCommand(
 	int Quantity,
 	string[] TimeOfDay,
 	DateTime StartDate,
-	DateTime EndDate) : IRequest<VisitDto?>;
+	DateTime EndDate) : ICommand<VisitDto?>;

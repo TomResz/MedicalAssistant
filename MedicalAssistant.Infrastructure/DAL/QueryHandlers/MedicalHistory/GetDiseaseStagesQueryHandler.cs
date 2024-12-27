@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 using MedicalAssistant.Application.Dto;
 using MedicalAssistant.Application.Dto.Mappers;
 using MedicalAssistant.Application.MedicalHistory.Query;
@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MedicalAssistant.Infrastructure.DAL.QueryHandlers.MedicalHistory;
 
 internal sealed class GetDiseaseStagesQueryHandler
-    : IRequestHandler<GetDiseaseStagesQuery, IEnumerable<DiseaseStageDto>>
+    : IQueryHandler<GetDiseaseStagesQuery, IEnumerable<DiseaseStageDto>>
 {
     private readonly MedicalAssistantDbContext _context;
 

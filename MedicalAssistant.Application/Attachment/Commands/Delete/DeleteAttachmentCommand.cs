@@ -1,5 +1,5 @@
-﻿using MediatR;
+﻿using MedicalAssistant.Application.Abstraction;
 
 namespace MedicalAssistant.Application.Attachment.Commands.Delete;
 public sealed record DeleteAttachmentCommand(
-	Guid Id) : IRequest;
+	Guid Id) : ICommand;
