@@ -44,7 +44,7 @@ internal sealed class DiseaseStageEntityConfiguration
         builder.Property(x => x.Note)
             .HasConversion(x => x.Value,
                 x => new(x))
-            .IsRequired();
+            .IsRequired(false);
         
         builder.Property(x => x.Date)
             .HasConversion(x => x.Value,

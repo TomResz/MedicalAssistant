@@ -124,7 +124,7 @@ public class AddAttachmentTests(TestWebAppFactory applicationFactory) : BaseFunc
     }
 
 
-    private MemoryStream GenerateFileStream(int sizeInBytes)
+    private static MemoryStream GenerateFileStream(int sizeInBytes)
     {
         var randomData = new byte[sizeInBytes];
         new Random().NextBytes(randomData);

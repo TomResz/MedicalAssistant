@@ -18,8 +18,8 @@ var builder = WebApplication.CreateBuilder(args);
 var isTestEnvironment = Environment.GetEnvironmentVariable("APITest") != null;
 
 builder
-	.Configuration
-	.AddJsonFile(isTestEnvironment ? "appsettings.Tests.json" : "appsettings.Secrets.json", optional: false, reloadOnChange: true);
+    .Configuration
+    .AddJsonFile(isTestEnvironment ? "appsettings.Tests.json" : "appsettings.Secrets.json", optional: false, reloadOnChange: true);
 
 builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
 builder.Services.AddEndpointsApiExplorer();
@@ -31,44 +31,54 @@ builder.Services.AddAntiforgery();
 
 builder.Services.ConfigureHttpJsonOptions(opt =>
 {
-	opt.SerializerOptions.Converters.Add(new TimeOnlyJsonConverter());
+    opt.SerializerOptions.Converters.Add(new TimeOnlyJsonConverter());
 });
 
 builder.Services
-	.AddApplication()
-	.AddInfrastructure(builder.Configuration)
-	.AddDomain();
+    .AddApplication()
+    .AddInfrastructure(builder.Configuration)
+    .AddDomain();
 
 builder.Host.UseSerilog((context, configuration) =>
-		configuration
-			.ReadFrom
-				.Configuration(context.Configuration)
-	);
+        configuration
+            .ReadFrom
+                .Configuration(context.Configuration)
+    );
 
+string[]? allowedOrigins = builder.Configuration.GetSection("CORS:Origins").Get<string[]>();
 builder.Services.AddCors(options =>
 {
-	options.AddPolicy("Frontend", builder =>
-	{
-		builder
-			.AllowAnyMethod()
-			.AllowAnyHeader()
-			.AllowAnyOrigin()
-			.WithExposedHeaders("*");
-	});
+    options.AddPolicy("Frontend", builder =>
+    {
+        builder
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .WithExposedHeaders("*");
+
+        if (allowedOrigins is not null)
+        {
+            builder.WithOrigins(allowedOrigins);
+        }
+        else
+        {
+            builder.AllowAnyOrigin();
+        }
+
+    });
 });
 
 AnsiConsole.Write(new FigletText("MedicalAssistant API")
-	.LeftJustified()
-	.Color(Color.Blue));
+    .LeftJustified()
+    .Color(Color.Blue));
 
 var app = builder.Build();
 
 
 using (var scope = app.Services.CreateScope())
 {
-	var creator = scope.ServiceProvider.GetRequiredService<IDatabaseCreator>();
-	await creator.CreateDatabaseIfNotExists();
-	app.ApplyMigrations();
+    var creator = scope.ServiceProvider.GetRequiredService<IDatabaseCreator>();
+    await creator.CreateDatabaseIfNotExists();
+    app.ApplyMigrations();
 }
 
 var endpointGroup = app.MapGroup("api");
@@ -77,10 +87,10 @@ app.MapEndpoints(endpointGroup);
 
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwaggerAuthMiddleware();
-	app.UseSwagger();
-	app.UseSwaggerUI();
-	app.UseHangfireDashboard(app.Configuration);
+    app.UseSwaggerAuthMiddleware();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.UseHangfireDashboard(app.Configuration);
 }
 
 app.UseCors("Frontend");

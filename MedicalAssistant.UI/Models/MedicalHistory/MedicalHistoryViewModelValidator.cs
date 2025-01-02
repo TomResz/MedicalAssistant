@@ -15,7 +15,7 @@ public class MedicalHistoryViewModelValidator : BaseValidator<MedicalHistoryView
             .WithMessage(Translations.EmptyField)
             .NotEmpty()
             .WithMessage(Translations.EmptyField)
-            .MaximumLength(30)
-            .WithMessage(Translations.ExceededMaxSizeOfField);
+            .MaximumLength(100)
+            .WithMessage(string.Format(Translations.ExceededMaxSizeOfField, 100));
     }
 }

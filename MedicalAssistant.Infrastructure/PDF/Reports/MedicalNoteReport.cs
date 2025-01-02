@@ -41,7 +41,7 @@ internal sealed class MedicalNoteReport(Languages language, List<MedicalNoteDto>
             {
                 row.RelativeItem(2).AlignLeft().Column(column => { });
                 row.RelativeItem(2).AlignCenter().AlignMiddle()
-                    .Text(Translate(TranslationKeys.VisitReportTitle))
+                    .Text(Translate(TranslationKeys.NoteReportTitle))
                     .FontColor(Colors.Blue.Accent4).Bold()
                     .FontSize(20);
                 row.RelativeItem(2).AlignRight().AlignTop().Column(column =>

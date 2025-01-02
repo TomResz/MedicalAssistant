@@ -36,6 +36,7 @@ internal class Translations(Languages language)
                 {TranslationKeys.DiseaseDetails,"Szczegóły Choroby"},
                 {TranslationKeys.StageName,"Nazwa Etapu"},
                 {TranslationKeys.DiseaseStagesTitle,"Etapy Choroby"},
+                {TranslationKeys.NoteReportTitle, "Raport z notatek"}
             }
         },
         {
@@ -67,7 +68,7 @@ internal class Translations(Languages language)
                 {TranslationKeys.DiseaseDetails,"Disease Details"},
                 {TranslationKeys.StageName,"Stage Name"},
                 {TranslationKeys.DiseaseStagesTitle,"Disease Stages"},
-
+                {TranslationKeys.NoteReportTitle, "Notes Report"}
             }
         }
     };

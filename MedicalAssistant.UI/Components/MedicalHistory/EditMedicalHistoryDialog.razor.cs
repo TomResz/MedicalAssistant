@@ -45,7 +45,7 @@ public partial class EditMedicalHistoryDialog
         
         var request = new EditMedicalHistoryRequest()
         {
-            StartDate = MedicalHistory.StartDate,
+            StartDate = _viewModel.StartDate,
             SymptomDescription = _viewModel.SymptomDescription,
             Id = MedicalHistory.Id,
             Name = _viewModel.Name,

@@ -93,12 +93,7 @@ public class MedicalHistory
         Note symptomDescription,
         Note notes,
         VisitId? visitId)
-    {
-        if (DiseaseEndDate is not null)
-        {
-            throw new CannotModifyCompletedDiseaseHistoryException();
-        }
-        
+    {   
         if (_diseaseStages.Count != 0 )
         {
             var date = _diseaseStages
