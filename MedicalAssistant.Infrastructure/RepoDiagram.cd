@@ -1,100 +1,100 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Alphabetical" MembersFormat="FullSignature">
   <Class Name="MedicalAssistant.Infrastructure.DAL.Repository.AttachmentRepository" BaseTypeListCollapsed="true">
-    <Position X="5.25" Y="0.5" Width="1.5" />
+    <Position X="1" Y="2" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
       <FileName>DAL\Repository\AttachmentRepository.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="MedicalAssistant.Infrastructure.DAL.Repository.MedicalHistoryRepository" BaseTypeListCollapsed="true">
-    <Position X="7" Y="0.5" Width="1.5" />
+    <Position X="13.75" Y="5.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AQYAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAIIIA=</HashCode>
       <FileName>DAL\Repository\MedicalHistoryRepository.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="MedicalAssistant.Infrastructure.DAL.Repository.MedicalNoteRepository" BaseTypeListCollapsed="true">
-    <Position X="8.75" Y="0.5" Width="1.5" />
+    <Position X="9.75" Y="2" Width="2" />
     <TypeIdentifier>
       <HashCode>AAYAAAAAAAAABAAAAAAAAAAAAAEAAAAAAAAAAAAAAIA=</HashCode>
       <FileName>DAL\Repository\MedicalNoteRepository.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="MedicalAssistant.Infrastructure.DAL.Repository.MedicationRecommendationNotificationRepository" BaseTypeListCollapsed="true">
-    <Position X="10.5" Y="0.5" Width="1.5" />
+    <Position X="12" Y="2" Width="4" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
       <FileName>DAL\Repository\MedicationRecommendationNotificationRepository.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="MedicalAssistant.Infrastructure.DAL.Repository.MedicationRecommendationRepository" BaseTypeListCollapsed="true">
-    <Position X="0.5" Y="0.75" Width="2" />
+    <Position X="3.5" Y="2" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAEAAAAAAIABIAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAABAAAAIAAAAAAAAEAAAAAAIABIEAAAAA=</HashCode>
       <FileName>DAL\Repository\MedicationRecommendationRepository.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.211" />
   </Class>
   <Class Name="MedicalAssistant.Infrastructure.DAL.Repository.NotificationHistoryRepository" BaseTypeListCollapsed="true">
-    <Position X="7" Y="1.5" Width="1.5" />
+    <Position X="7" Y="2" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAABAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DAL\Repository\NotificationHistoryRepository.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="MedicalAssistant.Infrastructure.DAL.Repository.RefreshTokenRepository" BaseTypeListCollapsed="true">
-    <Position X="8.75" Y="1.5" Width="1.5" />
+    <Position X="9.25" Y="5.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
       <FileName>DAL\Repository\RefreshTokenRepository.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="MedicalAssistant.Infrastructure.DAL.Repository.TokenRepository" BaseTypeListCollapsed="true">
-    <Position X="10.5" Y="1.5" Width="1.5" />
+    <Position X="11.75" Y="5.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DAL\Repository\TokenRepository.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="MedicalAssistant.Infrastructure.DAL.Repository.UserRepository" BaseTypeListCollapsed="true">
-    <Position X="2.75" Y="0.75" Width="1.75" />
+    <Position X="1" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQACAAAAAAAhCAACAAAAAEIABEAAAAAQAAAAAACoAA=</HashCode>
       <FileName>DAL\Repository\UserRepository.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="MedicalAssistant.Infrastructure.DAL.Repository.UserSettingsRepository" BaseTypeListCollapsed="true">
-    <Position X="7" Y="2.5" Width="1.5" />
+    <Position X="2.75" Y="5.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DAL\Repository\UserSettingsRepository.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="MedicalAssistant.Infrastructure.DAL.Repository.VisitNotificationRepository" BaseTypeListCollapsed="true">
-    <Position X="8.75" Y="2.5" Width="1.5" />
+    <Position X="5" Y="5.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAYAAAAAAAAABAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DAL\Repository\VisitNotificationRepository.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="MedicalAssistant.Infrastructure.DAL.Repository.VisitRepository" BaseTypeListCollapsed="true">
-    <Position X="10.5" Y="2.5" Width="1.5" />
+    <Position X="7.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAYAAAAgAAAABAAAAAAABAAAABIAAAAAAAAAAgEAIBA=</HashCode>
       <FileName>DAL\Repository\VisitRepository.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.18" />
   </Class>
   <Font Name="Segoe UI" Size="10" />
 </ClassDiagram>

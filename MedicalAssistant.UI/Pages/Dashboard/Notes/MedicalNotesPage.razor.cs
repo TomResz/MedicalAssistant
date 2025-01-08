@@ -9,7 +9,7 @@ namespace MedicalAssistant.UI.Pages.Dashboard.Notes;
 
 public partial class MedicalNotesPage
 {
-    [Inject] IMedicalNoteRepository NoteRepository { get; set; }
+    [Inject] IMedicalNoteService NoteService { get; set; }
     [Inject] IDialogService DialogService { get; set; }
     [Inject] ISnackbar Snackbar { get; set; }
     public string SearchTerm { get; set; }
@@ -20,14 +20,14 @@ public partial class MedicalNotesPage
 
     protected override async Task OnInitializedAsync()
     {
-        var response = await NoteRepository.GetTags();
+        var response = await NoteService.GetTags();
         
         if (response.IsSuccess)
         {
             _tags = response.Value!.ToList();
         }
 
-        var notesResponse = await NoteRepository.GetNotes();
+        var notesResponse = await NoteService.GetNotes();
 
         if (response.IsSuccess)
         {
@@ -46,7 +46,7 @@ public partial class MedicalNotesPage
         var searchTerm = SearchTerm;
         var tags = _selectedTags.ToArray();
 
-        var response = await NoteRepository.GetBySearchTermAndTags(searchTerm, tags);
+        var response = await NoteService.GetBySearchTermAndTags(searchTerm, tags);
         
         if (response.IsSuccess)
         {
@@ -63,7 +63,7 @@ public partial class MedicalNotesPage
     
     private async Task NoteDeleted(Guid id)
     {
-        var response = await NoteRepository.Delete(id);
+        var response = await NoteService.Delete(id);
 
         if (response.IsFailure)
         {

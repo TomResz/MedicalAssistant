@@ -29,6 +29,5 @@ internal sealed class MedicalNoteReportPdfService : IMedicalNoteReportPdfService
                 ? $"notatki_{DateTime.Now.ToString("HH_mm_dd_MM_yyyy")}.pdf" 
                 : $"notes_{DateTime.Now.ToString("HH_mm_dd_MM_yyyy")}.pdf"
         };
-
     }
 }

@@ -41,24 +41,16 @@ public class MedicalNote
     {
         var normalizedTags = NormalizeTags(tags);
         
-        return new MedicalNote(
-            Guid.NewGuid(),
-            userId,
-            note,
-            createdAt,
-            normalizedTags);
+        return new MedicalNote(Guid.NewGuid(),userId,note,createdAt,normalizedTags);
     }
-
-    public static string[] NormalizeTags(string[] tags)
-    {
-        var normalizedTags = tags
+    public static string[] NormalizeTags(string[] tags) 
+        => tags
             .Where(tag => !string.IsNullOrWhiteSpace(tag))
             .Select(tag => tag.Trim().ToUpperInvariant()) 
             .Distinct() 
             .ToArray();
-        
-        return normalizedTags;
-    }
+
+
     public void Update(Note note, string[] tags)
     {
         Note = note;

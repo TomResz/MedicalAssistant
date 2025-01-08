@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MedicalAssistant.Application.Dto.AttachmentDto">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgAAAAAAAAAAAAQAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Dto\AttachmentDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.AttachmentViewDto">
+    <Position X="2.75" Y="8.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Dto\AttachmentViewDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.DateRangeDto">
+    <Position X="5.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\DateRangeDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.DiseaseStageDto">
+    <Position X="8.75" Y="10.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAgAAAAQAAAQAAAABAAAAAAEAAAA=</HashCode>
+      <FileName>Dto\DiseaseStageDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.Location">
+    <Position X="14" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIIAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Dto\Location.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.MedicalHistoryDto">
+    <Position X="0.5" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAiAQAAAAAAAEAAAgAAAAAgAAAAAAAAAAgAAEAAAAA=</HashCode>
+      <FileName>Dto\MedicalHistoryDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.MedicalNoteDto">
+    <Position X="6.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAACAAAAAAAAAAAEAAAAAAAAEAAAA=</HashCode>
+      <FileName>Dto\MedicalNoteDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.MedicationNotificationDto">
+    <Position X="8.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAIAAAAEAAIEAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Dto\MedicationNotificationDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.MedicationNotificationPageContentDto">
+    <Position X="7.75" Y="6" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAEAAIAAAAAAgAAAAAAAAAAAAAEAAAQA=</HashCode>
+      <FileName>Dto\MedicationNotificationPageContentDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.MedicationNotificationWithDateRangeDto">
+    <Position X="0.5" Y="10.75" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAEAAAAAAAAAgAAAAAAAAAAAAAEAAAQA=</HashCode>
+      <FileName>Dto\MedicationNotificationWithDateRangeDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.MedicationRecommendationDto">
+    <Position X="0.75" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAQAAAAAAEQgAAAAAAAIAAAAgEAAAAA=</HashCode>
+      <FileName>Dto\MedicationRecommendationDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.MedicationRecommendationWithDayDto">
+    <Position X="0.5" Y="3.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\MedicationRecommendationWithDayDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.NoteTagDto">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\NoteTagDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.NotificationDto">
+    <Position X="5.75" Y="3.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAQAAAAAAAAAAAAAIAQAAAAAAgAA=</HashCode>
+      <FileName>Dto\NotificationDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.PdfDto">
+    <Position X="8.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\PdfDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.RecommendationDto">
+    <Position X="5.5" Y="10.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAACIAAAAAAAAAIAICAAAAAgEAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\RecommendationDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.RecommendationUsageDto">
+    <Position X="11.5" Y="6" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEAAAAAAAAAAAAAEQAAAAAAAABABAAAAAAAAA=</HashCode>
+      <FileName>Dto\RecommendationUsageDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.SettingsDto">
+    <Position X="2.75" Y="5.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAJAAAAAA=</HashCode>
+      <FileName>Dto\SettingsDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.UpcomingVisitNotificationDto">
+    <Position X="14.5" Y="6.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACABAAQAAAAAAAAAAAAAAAIAAAQAABAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\UpcomingVisitNotificationDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.UserCredentialsDto">
+    <Position X="7" Y="8.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAIAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\UserCredentialsDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.VisitDateAvailableCountDto">
+    <Position X="14" Y="3.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\VisitDateAvailableCountDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.VisitDto">
+    <Position X="10.5" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAQAAAAAAAAAAgIAAAQAADAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\VisitDto.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Address" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.VisitNotificationDto">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACABAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\VisitNotificationDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAssistant.Application.Dto.VisitWithRecommendationsDto">
+    <Position X="11.25" Y="9" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAIAAAQAABAAAAAAAAAQA=</HashCode>
+      <FileName>Dto\VisitWithRecommendationsDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="10" />
+</ClassDiagram>

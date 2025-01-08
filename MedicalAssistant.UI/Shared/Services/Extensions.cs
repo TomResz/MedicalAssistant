@@ -37,7 +37,7 @@ public static class Extensions
 		services.AddScoped<IMedicationService, MedicationService>();
 		services.AddScoped<IMedicationNotificationService,MedicationNotificationService>();
 		services.AddScoped<IMedicalHistoryService, MedicalHistoryService>();
-		services.AddScoped<IMedicalNoteRepository, MedicalNoteRepository>();
+		services.AddScoped<IMedicalNoteService, MedicalNoteService>();
 		services.AddScoped<IReportService, ReportService>();
 		services.AddScoped<IMedicationUsageService, MedicationUsageService>();
 		return services;

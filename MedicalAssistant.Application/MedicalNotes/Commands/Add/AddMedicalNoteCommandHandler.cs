@@ -5,7 +5,8 @@ using MedicalAssistant.Domain.Repositories;
 
 namespace MedicalAssistant.Application.MedicalNotes.Commands.Add;
 
-internal sealed class AddMedicalNoteCommandHandler : ICommandHandler<AddMedicalNoteCommand,Guid>
+internal sealed class AddMedicalNoteCommandHandler 
+    : ICommandHandler<AddMedicalNoteCommand,Guid>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IUserContext _userContext;

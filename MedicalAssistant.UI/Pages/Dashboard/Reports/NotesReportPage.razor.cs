@@ -9,7 +9,7 @@ namespace MedicalAssistant.UI.Pages.Dashboard.Reports;
 public partial class NotesReportPage
 {
     [Inject]
-    private IMedicalNoteRepository NoteRepository { get; set; }
+    private IMedicalNoteService NoteService { get; set; }
     
     [Inject]
     private IReportService ReportService { get; set; }
@@ -24,7 +24,7 @@ public partial class NotesReportPage
     
     protected override async Task OnInitializedAsync()
     {
-        var response = await NoteRepository.GetNotes();
+        var response = await NoteService.GetNotes();
 
         if (response.IsSuccess)
         {

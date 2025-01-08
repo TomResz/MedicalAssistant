@@ -50,7 +50,7 @@ else
 @code {
     private bool _loading = true;
     [Inject]
-    private IMedicalNoteRepository Repository { get; set; }
+    private IMedicalNoteService Service { get; set; }
     
     [Inject]
     private ILocalTimeProvider LocalTimeProvider { get; set; }
@@ -61,7 +61,7 @@ else
     
     protected override async Task OnInitializedAsync()
     {
-        var response = await Repository.GetCurrents(await LocalTimeProvider.CurrentDate());
+        var response = await Service.GetCurrents(await LocalTimeProvider.CurrentDate());
 
         if (response.IsSuccess)
         {

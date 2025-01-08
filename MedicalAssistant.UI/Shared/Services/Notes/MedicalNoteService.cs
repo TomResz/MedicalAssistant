@@ -1,13 +1,12 @@
-﻿using System.Net.Http.Json;
-using MedicalAssistant.UI.Components.MedicalNote;
-using MedicalAssistant.UI.Models.MedicalNotes;
+﻿using MedicalAssistant.UI.Models.MedicalNotes;
 using MedicalAssistant.UI.Shared.Response;
 using MedicalAssistant.UI.Shared.Response.Base;
 using MedicalAssistant.UI.Shared.Services.Abstraction;
+using System.Net.Http.Json;
 
 namespace MedicalAssistant.UI.Shared.Services.Notes;
 
-public class MedicalNoteRepository(HttpClient httpClient) : IMedicalNoteRepository
+public class MedicalNoteService(HttpClient httpClient) : IMedicalNoteService
 {
     private readonly HttpClient _httpClient = httpClient;
 

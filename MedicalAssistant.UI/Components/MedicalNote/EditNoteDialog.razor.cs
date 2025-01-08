@@ -11,7 +11,7 @@ public partial class EditNoteDialog
     [Parameter] public NoteDto Note { get; set; }
     [CascadingParameter] public MudDialogInstance DialogInstance { get; set; }
     [Inject] ILocalTimeProvider TimeProvider { get; set; }
-    [Inject] IMedicalNoteRepository NoteRepository { get; set; }
+    [Inject] IMedicalNoteService NoteService { get; set; }
     [Inject] ISnackbar Snackbar { get; set; }
 
     private MudForm form;
@@ -52,7 +52,7 @@ public partial class EditNoteDialog
             Tags = _model.Tags.ToArray()
         };
 
-        var response = await NoteRepository.Edit(request);
+        var response = await NoteService.Edit(request);
 
         if (response.IsSuccess)
         {

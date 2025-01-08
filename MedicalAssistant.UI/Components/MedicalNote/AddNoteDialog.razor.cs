@@ -11,7 +11,7 @@ public partial class AddNoteDialog
 {
     [CascadingParameter] public MudDialogInstance DialogInstance { get; set; }
     [Inject] ILocalTimeProvider TimeProvider { get; set; }
-    [Inject] IMedicalNoteRepository NoteRepository { get; set; }
+    [Inject] IMedicalNoteService NoteService { get; set; }
     [Inject] ISnackbar Snackbar { get; set; }
     
     private MudForm form;
@@ -45,7 +45,7 @@ public partial class AddNoteDialog
             Tags = _model.Tags.ToArray()
         };
 
-        var response = await NoteRepository.Add(request);
+        var response = await NoteService.Add(request);
 
         if (response.IsSuccess)
         {
